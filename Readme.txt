@@ -9,3 +9,5 @@ git add README.md
 git commit -m "first commit"
 git remote add origin git@github.com:Cawarnold/MyProject.git
 git push -u origin master
+
+Try and remember it's add, commit then push. 
