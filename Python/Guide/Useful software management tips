@@ -1,0 +1,60 @@
+Useful software management tips for Python
+
+DO NOT INSTALL PACKAGES UNDER YOUR OPERATING SYSTEM PYTHON LIBRARY
+	Create an isolated, disposable, Python Environment either with virtualenv tool or download anaconda.
+	This way, when you upgrade your packages or need to get rid of them you can always reset the state of all of your Python packages by simply deleting the environment and creating new one.
+	Python packages installed via pip or easy_install commands are easy to install, but impossible to uninstall...
+	But when the damage has already happened you nede to manually try to clean up /Library/Python/2.7/site-packages/ by deleting files by and trying not to destroy your system Python in the process.
+
+
+To start using Python Once Installed:
+		Open terminal. Go to directory of virtual python. eg.  Anaconda.  Type "python".
+	
+	Check for Packages installed:
+		import pip
+		print pip.get_installed_distributions()
+	OR
+		In Python interpreter "help('modules')""
+	OR
+		In ipython you can type "importTab".
+
+Updating Packages:
+	
+	To upgrade all package; you could use pip-tools:
+	
+	From Prompt (not in python interpreter)
+	$ pip install pip-tools
+	$ pip-review --interactive
+	
+	OR
+	
+	http://www.continuum.io/blog/conda
+
+###################################
+
+ANACONDA
+
+###################################
+
+http://conda.pydata.org/docs/examples/update.html
+
+Update Anaconda to latest version:
+
+$ conda update conda
+
+Now you are ready to update Anaconda
+
+$ conda update anaconda
+
+Use conda update to update conda 
+
+$ conda update --all
+
+To install a package with conda
+
+$ conda install scikit-learn
+## You'll get an option to install/update the dependent packages.
+
+#########
+
+https://www.kaggle.com/wiki/GettingStartedWithPythonForDataScience

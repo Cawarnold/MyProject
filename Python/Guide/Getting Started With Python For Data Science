@@ -1,0 +1,10 @@
+Getting Started With Python For Data Science
+
+Kaggle
+
+Get three Packages in the order shown:
+	numpy - (pronounced num-pie) Powerful numerical arrays. A foundational package for the two packages below.
+	scipy - (sigh-pie) Scientific, mathematical, and engineering package
+	scikit-learn - Easy to use machine learning library
+
+
