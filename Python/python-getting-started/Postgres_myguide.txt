@@ -1,0 +1,15 @@
+The Postgres DB for my Python app.
+
+location on my lenovo laptop:
+C:\Users\Christian\Documents\GitHub\MyProject\Python\python-getting-started
+
+PostgresDB
+
+Host		ec2-54-83-33-14.compute-1.amazonaws.com
+Database	d7epogr50e6a7f
+User		jwidgdqosecuiz
+Port		5432
+Password	eKDt0grLWX8OQanA7sojh1UGil
+Psql		heroku pg:psql --app vast-ravine-5931 HEROKU_POSTGRESQL_PINK
+URL			postgres://jwidgdqosecuiz:eKDt0grLWX8OQanA7sojh1UGil@ec2-54-83-33-14.compute-1.amazonaws.com:5432/d7epogr50e6a7f
+
