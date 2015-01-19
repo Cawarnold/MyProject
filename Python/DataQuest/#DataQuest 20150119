@@ -1,0 +1,53 @@
+#DataQuest 20150119
+
+You can also use ctrl+alt+r to run code. Click on the instructions panel, then type ? to see all the hotkeys.
+
+#####################################
+
+
+Beggining with the Basics
+
+# A number without decimals is an integer type.
+# An integer can hold negative and positive values
+# We can do do math with integers.
+a = 5
+b = -1
+print(a * b)
+
+# Anything enclosed in single or double quotes is a string.
+# Strings hold text.
+# We can't do math with strings like we can with integers.
+# But there are some operations we can do (that we will learn later on).
+c = "I am a string.  I do string-like things."
+d = 'Also a string!'
+
+# Floats are numbers with decimal points.
+e = 5.1
+f = 10.2
+g = e * f
+
+# There are other types that we will learn about later on.
+
+h = 1
+i = "hello"
+j = 1.2
+
+########
+
+# The type function has only one input value.
+a = type(5)
+
+# The above code invokes the type function on the input 5, and as the output, we get the type of 5.
+# The type is assigned to a.
+
+
+# We can also invoke functions on variables.
+b = "DataQuest is the best thing ever"
+# Note how when the type for b is printed, it is abbreviated to str.
+print(type(b))
+
+c = type(1)
+d = type("racecar")
+e = type(10.6)
+
+
