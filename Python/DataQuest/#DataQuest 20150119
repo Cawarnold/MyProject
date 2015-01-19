@@ -50,4 +50,40 @@ c = type(1)
 d = type("racecar")
 e = type(10.6)
 
+#### ####
+
+# We can assign new values to existing variables.
+# It doesn't matter if the new values are different types -- they will still overwrite the variable.
+
+#### ####
+
+# We can print out values and variables.
+print(5)
+a = 5
+print(a)
+
+# Notice how two lines appeared in the results area?
+# We can also print some values that will take up multiple lines.
+# The \n character means 'make a new line'
+print("Hello.\nGoodbye.")
+print("Good evening")
+
+#### ####
+
+# Comments aren't executed, so debug mode skips them.
+# But other lines can be stepped through.
+print(10)
+a = 10
+print(a)
+
+c = range(0,10)
+for item in c:
+    print(item)
+
+
+
+
+
+
+
 
