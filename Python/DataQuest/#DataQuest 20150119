@@ -6,6 +6,10 @@ url = ("https://dataquest.io/mission/1")
 
 #####################################
 
+# Basics: Find the US city with the lowest crime rate
+
+#####################################
+
 Overview of Useful code:
 
 Title. (searchable)
@@ -14,11 +18,85 @@ Open csv files. (Open_csv_files)
 String splits. (String_split)
 For Loops, lists. (For_Loops)
 List of Lists. (List_of_lists)
-
+For Loops, adding to lists. (For_loop_adding_to_lists)
+Parse a csv into a _list of lists. (parse_csv_file)
 
 
 #####################################
 
+#### SUMMARY OF USEFUL CODE ####
+
+#### The_basics #### 
+
+a = type(1)
+>>> #integer
+b = type("racecar")
+>>> #string
+c = type(10.6)
+>>> #float
+d = type([1, "I'm a string in a list!", 5.1])
+>>> #list 
+
+#### Open_csv_files ####
+
+f = open("test.txt", "r")
+a = f.read()
+
+#### String_split ####
+
+a_string = "This\nis\na\nstring\n"
+split_string = a_string.split('\n')
+print(split_string)
+>>> #['This', 'is', 'a', 'string', '']
+
+#### For_Loops ####
+
+a = [5, 10, 15]
+for i in a:
+    print(i)
+
+#### List_of_lists ####
+
+# Create a list of lists
+lolists = [[1,2,3], [10,15,14], [10.1,8.7,2.3]]
+print(lolists[0][0])
+>>> #1
+# Pulls out the third element in the second list.
+print(lolists[1][2])
+>>> #14
+
+#### For_loop_adding_to_lists ####
+
+# We can setup an old list with items, and an empty new list.
+old_list = [1,2,5,10]
+new_list = []
+
+# At the end of this loop, new_list will be equal to old_list.
+# The loop will have gone through each item in old_list, starting from index 0, and appended it to the end of new_list.
+for item in old_list:
+    new_list.append(item)
+print(new_list)
+>>> [1,2,5,10]
+
+#### parse_csv_file ####
+
+f = open('crime_rates.csv', 'r')  #open file
+data = f.read()                   #read file
+rows = data.split('\n')           #split data into rows, a list of strings. ['Albuquerque, 749', 'Anaheim, 371', ...]
+
+full_data = []                    #create empty list
+
+for item in rows:
+	full_data.append(item.split(","))  #split rows into full_data, a list of lists of strings. [['Albuquerque', '749'], ['Anaheim, 371'], ...]
+
+print(full_data[15][0])           #print the first element(index 0) of the 15th list.
+>>> Corpus Christi
+
+##VV for new summaries
+
+#####################################
+
+#### FULL SET OF INSTRUCTIONS ####
 
 #### The_basics ####
 
@@ -137,14 +215,14 @@ a = f.read()
 # a is just a string -- it has the entire contents of the file test.txt.
 print(a)
 
-#####################
+################################################################################
+
+#### Lists_the_basics ####
 
 example_list = [index_0, index_1, index_2]
 
 example_list[0]
 >>> index_0
-
-#### ####
 
 # We can make an empty list with square brackets
 a = []
@@ -255,6 +333,108 @@ value_2_2 = lolists[2][2]
 
 
 
+# Create a list of lists
+lolists = [[1,2,3], [10,15,14], [10.1,8.7,2.3]]
+
+# Pulls out the first element in the first list.
+a = lolists[0][0]
+
+# Pulls out the third element in the second list.
+b = lolists[1][2]
+
+# We can also directly do math with expressions.
+c = lolists[0][2] + 10
+
+# Any expression in python can be manipulated without first assigning it to a variable.
+d = 10
+
+# Set e equal to d times the first element in the third inner list of lolists.
+
+e = d * lolists[2][0]
+
+#### For_loop_list_of_lists ####
+
+lolists = [[1,2,3], [10,15,14], [10.1,8.7,2.3]]
+
+for inner_list in lolists:
+    # This will loop through and print each inner list, starting from the one at index 0.
+    print(inner_list)
+    
+#Use a for loop to print the first element of each inner list.
+for inner_list in lolists:
+    print(inner_list[0])
+
+#### For_loop_adding_to_lists ####
+
+# The append method adds items to the end of lists.
+# list 'a' will go from having no items in it to having 10 at index 0.
+a = []
+print(a)
+a.append(10)
+print(a)
+
+# b will go from having one item to having two items.
+b = [30]
+print(b)
+b.append(50)
+print(b)
+
+# We can setup an old list with items, and an empty new list.
+old_list = [1,2,5,10]
+new_list = []
+
+# At the end of this loop, new_list will be equal to old_list.
+# The loop will have gone through each item in old_list, starting from index 0, and appended it to the end of new_list.
+for item in old_list:
+    new_list.append(item)
+print(new_list)
+
+c = [20,30]
+
+#append 60 to c. Then append 70 to c. c should end up with 4 items.
+
+c.append(60)
+c.append(70)
+print(c)
+
+################################################################################
+
+#### parse_csv_file ####
+
+#Splitting the csv file into columns
+#When we left off with parsing our csv file, we had split it into rows, but still had to split up the strings we were left with into columns.
+#We can use the .split method, along with our newfound knowledge of for loops and lists of lists, to split up the file.
+
+# We can use the .split method, with a comma as an input, to split a string on a comma.
+# a_list is a list with 1,10,15, and 20 as elements.
+a_string = "1,10,15,20"
+a_list = a_string.split(",")
+print(a_list)
+>>> ['1','10','15','20']
+print(type(a_list))
+>>> <class 'list'>
+print(a_list[0])
+>>> 1
+
+# We split our csv file data into rows earlier.
+f = open('crime_rates.csv', 'r')
+data = f.read()
+rows = data.split('\n')
+
+full_data = []
+
+#Instructions
+#split each string in the list rows and append the result to full_data.
+#At the end, full_data will be a list of lists containing the rows and columns in the csv file.
+#You'll need to use for loops.
+
+for item in rows:
+	full_data.append(item.split(","))
+
+# I now have a list of lists
+
+print(full_data[15][0])
+>>> Corpus Christi
 
 
 
