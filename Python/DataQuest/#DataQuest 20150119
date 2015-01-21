@@ -27,7 +27,9 @@ Using _for _and _if statements together. (Using_if_statements_to_find_smallest_v
 (Converting_data_types)
 (Convert_csv_to_integers)
 (Finding_lowest_crime_rate)
-
+(Searching_a_list)
+(Searching_a_list_of_lists)
+(Find_city_with_lowest_crime_rate)
 
 #####################################
 
@@ -862,6 +864,91 @@ for item in full_data:
         lowest_crime_rate = item[1]
     print(lowest_crime_rate)
 print("the real lowest crime rate is " + str(lowest_crime_rate))
+
+#### Searching_a_list ####
+
+# We can search a list for a given value
+the_list = [5, 6, 7, 10, 50]
+
+# Loop through the_list
+for item in the_list:
+    # If the list item equals 5, print out "Found"
+    if item == 5:
+        print("Found")
+
+# The above code will print "Found" once.
+
+a = [500,10,200,5,78,-1,-10,-100,567,890,400,34,-101,895]
+
+for item in a:
+    if item == 78:
+        print("Yes")
+
+#### Searching_a_list_of_lists ####
+
+lolist = [[1,5,7],[10,8,9],[7,10,11]]
+
+# Let's say we want to get the first element of the inner list whose third element is 9.
+value = 0
+for item in lolist:
+    last_value = item[2]
+    first_value = item[0]
+    if last_value == 9:
+        value = first_value
+print(value)
+
+# The above code will print 10, which is the first value in the inner list where 9 is the last value.
+# What we are doing can also be described in terms of rows and columns.
+# We are finding the first column in the rows where the third column equals 9.
+
+# Can you write code to find the second element in the inner list whose first element is 7? (search through lolist)
+# Set the value variable equal to the answer.
+value = 0
+
+# Find the second element in the inner list whose first element is 7.
+# You'll need to search through lolist to do it.
+# Assign the answer to the value variable.
+
+for item in lolist:
+    if item[0] == 7:
+        value = item[1]
+    print(value)
+
+
+#### Find_city_with_lowest_crime_rate ####
+
+# We know that the lowest crime rate is 130.
+# This is the second column of the data.
+# We need to find the corresponding value in the first column -- the city with the lowest crime rate.
+
+# Let's load the csv file
+f = open('crime_rates.csv', 'r')
+data = f.read()
+rows = data.split('\n')
+full_data = []
+for row in rows:
+    split_row = row.split(",")
+    split_row[1] = int(split_row[1])
+    full_data.append(split_row)
+
+city = ""
+
+# Assign the city with the lowest crime rate to city
+
+lowest_crime_rate = 100000
+cities = []
+
+for item in full_data:
+    if item[1] < lowest_crime_rate:
+        lowest_crime_rate = item[1]
+print("the real lowest crime rate is " + str(lowest_crime_rate))
+
+for item in full_data:       
+    if item[1] == lowest_crime_rate:
+        city = item[0]
+        cities.append(city)
+print(cities)
+
 
 
 
