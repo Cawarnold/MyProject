@@ -14,7 +14,7 @@ Overview of Useful code:
 
 Open, Read then parse the _file. (Parsing_the_file)
 Getting a single column _from the data. (Getting_Second_column)
-
+Dictonaries. (Dictonaries_basics)
 
 
 
@@ -43,6 +43,29 @@ for item in weather_data:
 print(weather_column)
 
 #### Slicing_lists ####
+
+## Removing the header
+# The weather data is still loaded into the weather variable.
+
+count = 0
+for item in weather:
+    count = count + 1 
+print(count)
+
+new_weather = weather[1:367]
+print(new_weather)
+
+#### Dictonaries_basics ####
+
+# We can make a dictionary with curly braces.
+dictionary_one = {}
+
+# The we can add keys and values.
+dictionary_one["key_one"] = 2
+print(dictionary_one)
+
+
+
 
 
 
@@ -157,5 +180,57 @@ print(slice2)
 #index 3 and 4
 slice3 = slice_me[3:5]
 print(slice3)
+
+## Remove the header
+
+# The weather data is still loaded into the weather variable.
+
+count = 0
+for item in weather:
+    count = count + 1 
+print(count)
+
+new_weather = weather[1:367]
+print(new_weather)
+
+########################################################################################################################
+
+#### Dictonaries_basics ####
+
+dictionary_has_curly_braces = {key,value}
+
+# To store data in a dict,
+# Use curly braces to define a dictionary
+# Then you add the keys
+a = {}
+a["Tom"] = 10
+a["Bob"] = 2
+a["Julie"] = 8
+
+print(a["Tom"])
+>>> 10
+
+# We can make a dictionary with curly braces.
+dictionary_one = {}
+
+# The we can add keys and values.
+dictionary_one["key_one"] = 2
+print(dictionary_one)
+
+# Keys and values can be anything.
+# And dictionaries can have multiple keys
+dictionary_one[10] = 5
+dictionary_one[5.2] = "hello"
+print(dictionary_one)
+
+dictionary_two = {}
+
+dictionary_two["test"] = 5
+dictionary_two[10] = "hello"
+
+print(dictionary_two)
+
+#### Indexing_a_dictionary ####
+
 
 
