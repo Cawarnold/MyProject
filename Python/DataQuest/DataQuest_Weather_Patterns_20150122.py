@@ -232,5 +232,68 @@ print(dictionary_two)
 
 #### Indexing_a_dictionary ####
 
+# We can index dictionaries with square brackets.
+# a = dictionary[10] will get the value stored in the dictionary for the key 10 and assign it to a.
+
+dictionary_one = {}
+dictionary_one["test"] = 10
+dictionary_one["key"] = "fly"
+
+# We can retrieve values from dictionaries with square brackets.
+print(dictionary_one["test"])
+print(dictionary_one["key"])
+
+dictionary_two = {}
+dictionary_two["key1"] = "high"
+dictionary_two["key2"] = 10
+dictionary_two["key3"] = 5.6
+
+# Assign the value in "key1" in dictionary_two to a.
+
+a = dictionary_two["key1"]
+b = dictionary_two["key2"]
+c = dictionary_two["key3"]
+
+print(a,b,c)
+
+#### Defining_a_dictionary ####
+
+# We can define dictionaries that already contain values.
+# All we do is add in keys and values separated by colons.
+# We have to separate pairs of keys and values with commas.
+a = {"key1": 10, "key2": "indubitably", "key3": "dataquest", 3: 5.6}
+
+# a is initialized with those keys and values, so we can access them.
+print(a["key1"])
+
+# Another example
+b = {4: "robin", 5: "bluebird", 6: "sparrow"}
+print(b[4])
+
+# Make a dictionary c with the keys 7, 8, and 9 corresponding to the values "raven", "goose", and "duck".
+# Make a dictionary d with the keys "morning", "afternoon", "evening", and "night" corresponding to the values 9, 14, 19, and 23.
+
+c = {7:"raven",8:"goose",9:"duck"}
+d = {"morning":9,"afternoon":14,"evening":19,"night":23}
+
+print(c[7])
+print(d["morning"])
+
+#### The_in_statement ####
+
+# "In" is a way for us to check whether a item is in a list, returning a boolean.
+
+b = ["test","s2","and"]
+
+
+
+
+
+
+
+
+
+
+
 
 
