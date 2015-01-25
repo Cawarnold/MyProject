@@ -33,7 +33,7 @@ Complete code _for finding the city _with the lowest crime rate. (Find_city_with
 
 #### SUMMARY OF USEFUL CODE ####
 
-#### The_basics #### 
+#### The_basics ####
 
 a = type(1)
 >>> #integer
@@ -42,7 +42,7 @@ b = type("racecar")
 c = type(10.6)
 >>> #float
 d = type([1, "I'm a string in a list!", 5.1])
->>> #list 
+>>> #list
 
 #### Open_csv_files ####
 
@@ -122,7 +122,7 @@ d = 8
 
 equality = a == b - a #True
 bigger_than = a > b - c  #True
-smaller_than = a < b + d  #True 
+smaller_than = a < b + d  #True
 
 #### Using_if_statements_to_find_smallest_value_in_list ####
 
@@ -138,7 +138,7 @@ for item in a:
     if item < smallest_item:
         print(item)
         smallest_item = item
-        
+
 print(smallest_item)
 
 #### Converting_data_types ####
@@ -149,7 +149,7 @@ new_a = []
 for item in a:
     print(type(item))
     new_a.append(int(item))
-    
+
 for item in new_a:
     print(type(item))
 
@@ -227,7 +227,7 @@ for item in full_data:
         lowest_crime_rate = item[1]
 print("the real lowest crime rate is " + str(lowest_crime_rate))
 
-for item in full_data:       
+for item in full_data:
     if item[1] == lowest_crime_rate:
         city = item[0]
         cities.append(city)
@@ -373,7 +373,7 @@ a = []
 b = [1, "I'm a string in a list!", 5.1]
 c = [1,2,3]
 
-# Make a list d that contains all integer values. 
+# Make a list d that contains all integer values.
 # Make another list e containing all string values.
 # Make a final list f containing all float values.
 
@@ -501,7 +501,7 @@ lolists = [[1,2,3], [10,15,14], [10.1,8.7,2.3]]
 for inner_list in lolists:
     # This will loop through and print each inner list, starting from the one at index 0.
     print(inner_list)
-    
+
 #Use a for loop to print the first element of each inner list.
 for inner_list in lolists:
     print(inner_list[0])
@@ -588,7 +588,7 @@ the_list = [5,6,10,13,17]
 count = 0
 for item in the_list:
     count = count + 1
-print(count)    
+print(count)
 
 print("Now count rows in crime rates csv file")
 count = 0
@@ -734,11 +734,11 @@ d = 8
 
 equality = a == b - a #True
 bigger_than = a > b - c  #True
-smaller_than = a < b + d  #True 
+smaller_than = a < b + d  #True
 
 ################################################################################
 
-# The if statement. 
+# The if statement.
 #when the if statement is True > do stuff, when if is False > do not do stuff.
 
 a = [70,80,90,100]
@@ -747,7 +747,7 @@ for i in a:
     if i > 99:
         print("Alert")
 
-# Lets us conditionally run code.   
+# Lets us conditionally run code.
 a = 10
 b = 10
 if a == b:
@@ -758,7 +758,7 @@ if a == 12:
 
 >>> equal
 
-#### Boolean_in_if_statements #### 
+#### Boolean_in_if_statements ####
 
 # If statements are followed by a boolean, which evaluates to True or False.
 # If the boolean is True, the code is run.
@@ -770,7 +770,7 @@ if 4 == 4:
 # Nothing will be printed here, because 10 doesn't equal 8.
 if 10 == 8:
     print("No success!")
-    
+
 #Write an if statement whose boolean statement evaluates to True and prints out "Hello world!"
 
 if "happy" == "happy":
@@ -789,7 +789,7 @@ if b > 10:
 
 c = 15
 if c > 1:
-    print("Much success!")    
+    print("Much success!")
 
 
 #### Using_if_statements_to_find_smallest_value_in_list ####
@@ -853,7 +853,7 @@ for item in a:
     if item < smallest_item:
         print(item)
         smallest_item = item
-        
+
 print(smallest_item)
 
 
@@ -906,7 +906,7 @@ new_a = []
 for item in a:
     print(type(item))
     new_a.append(int(item))
-    
+
 for item in new_a:
     print(type(item))
 
@@ -1035,12 +1035,35 @@ for item in full_data:
         lowest_crime_rate = item[1]
 print("the real lowest crime rate is " + str(lowest_crime_rate))
 
-for item in full_data:       
+for item in full_data:
     if item[1] == lowest_crime_rate:
         city = item[0]
         cities.append(city)
 print(cities)
 
+#### Testing_if_items_are_in_list ####
+
+# We can check if values are in lists using the in statement.
+the_list = [10,60,-5,8]
+
+# This is True because 10 is in the_list
+print(10 in the_list)
+
+# This is True because -5 is in the_list
+print(-5 in the_list)
+
+# This is False because 9 isn't in the_list
+print(9 in the_list)
+
+# We can assign the results of an in statement to a variable.
+# Just like any other boolean.
+a = 7 in the_list
+
+list2 = [8, 5.6, 70, 800]
+
+c = 9 in list2
+d = 8 in list2
+e = -1 in list2
 
 
 
