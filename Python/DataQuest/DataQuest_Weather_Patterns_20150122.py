@@ -14,7 +14,7 @@ Overview of Useful code:
 
 Open, Read then parse the _file. (Parsing_the_file)
 Getting a single column _from the data. (Getting_Second_column)
-
+Dictonaries. (Dictonaries_basics)
 
 
 
@@ -43,6 +43,29 @@ for item in weather_data:
 print(weather_column)
 
 #### Slicing_lists ####
+
+## Removing the header
+# The weather data is still loaded into the weather variable.
+
+count = 0
+for item in weather:
+    count = count + 1 
+print(count)
+
+new_weather = weather[1:367]
+print(new_weather)
+
+#### Dictonaries_basics ####
+
+# We can make a dictionary with curly braces.
+dictionary_one = {}
+
+# The we can add keys and values.
+dictionary_one["key_one"] = 2
+print(dictionary_one)
+
+
+
 
 
 
@@ -157,5 +180,120 @@ print(slice2)
 #index 3 and 4
 slice3 = slice_me[3:5]
 print(slice3)
+
+## Remove the header
+
+# The weather data is still loaded into the weather variable.
+
+count = 0
+for item in weather:
+    count = count + 1 
+print(count)
+
+new_weather = weather[1:367]
+print(new_weather)
+
+########################################################################################################################
+
+#### Dictonaries_basics ####
+
+dictionary_has_curly_braces = {key,value}
+
+# To store data in a dict,
+# Use curly braces to define a dictionary
+# Then you add the keys
+a = {}
+a["Tom"] = 10
+a["Bob"] = 2
+a["Julie"] = 8
+
+print(a["Tom"])
+>>> 10
+
+# We can make a dictionary with curly braces.
+dictionary_one = {}
+
+# The we can add keys and values.
+dictionary_one["key_one"] = 2
+print(dictionary_one)
+
+# Keys and values can be anything.
+# And dictionaries can have multiple keys
+dictionary_one[10] = 5
+dictionary_one[5.2] = "hello"
+print(dictionary_one)
+
+dictionary_two = {}
+
+dictionary_two["test"] = 5
+dictionary_two[10] = "hello"
+
+print(dictionary_two)
+
+#### Indexing_a_dictionary ####
+
+# We can index dictionaries with square brackets.
+# a = dictionary[10] will get the value stored in the dictionary for the key 10 and assign it to a.
+
+dictionary_one = {}
+dictionary_one["test"] = 10
+dictionary_one["key"] = "fly"
+
+# We can retrieve values from dictionaries with square brackets.
+print(dictionary_one["test"])
+print(dictionary_one["key"])
+
+dictionary_two = {}
+dictionary_two["key1"] = "high"
+dictionary_two["key2"] = 10
+dictionary_two["key3"] = 5.6
+
+# Assign the value in "key1" in dictionary_two to a.
+
+a = dictionary_two["key1"]
+b = dictionary_two["key2"]
+c = dictionary_two["key3"]
+
+print(a,b,c)
+
+#### Defining_a_dictionary ####
+
+# We can define dictionaries that already contain values.
+# All we do is add in keys and values separated by colons.
+# We have to separate pairs of keys and values with commas.
+a = {"key1": 10, "key2": "indubitably", "key3": "dataquest", 3: 5.6}
+
+# a is initialized with those keys and values, so we can access them.
+print(a["key1"])
+
+# Another example
+b = {4: "robin", 5: "bluebird", 6: "sparrow"}
+print(b[4])
+
+# Make a dictionary c with the keys 7, 8, and 9 corresponding to the values "raven", "goose", and "duck".
+# Make a dictionary d with the keys "morning", "afternoon", "evening", and "night" corresponding to the values 9, 14, 19, and 23.
+
+c = {7:"raven",8:"goose",9:"duck"}
+d = {"morning":9,"afternoon":14,"evening":19,"night":23}
+
+print(c[7])
+print(d["morning"])
+
+#### The_in_statement ####
+
+# "In" is a way for us to check whether a item is in a list, returning a boolean.
+
+b = ["test","s2","and"]
+
+
+
+
+
+
+
+
+
+
+
 
 
