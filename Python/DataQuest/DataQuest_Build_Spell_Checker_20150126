@@ -1,0 +1,51 @@
+## DataQuest_Build_Spell_Checker_20150122
+
+url = ("https://dataquest.io")
+
+# You can also use ctrl+alt+r to run code. Click on the instructions panel, then type ? to see all the hotkeys.
+
+#####################################
+
+# Basics: Build a Spell Checker --- Final task?
+
+#####################################
+
+Overview of Useful code:
+
+
+
+
+
+#####################################
+
+#### SUMMARY OF USEFUL CODE ####
+
+
+
+
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+
+#### FULL SET OF INSTRUCTIONS ####
+
+# The stroy is in a text file. 
+# So we will be reading in the file and parsing out the file.
+
+#### Reading_the_file_in ####
+
+# The story is stored in the file "story.txt".
+
+# The story is stored in the "story.txt" file.
+# Open the file and read the contents into the story variable.
+
+f = open("story.txt","r")
+story = f.read()
+
+f.close
+
+#### Tokenizing_the_file ####
+
+
+
+
