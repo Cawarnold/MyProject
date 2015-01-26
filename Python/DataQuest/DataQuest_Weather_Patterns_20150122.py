@@ -6,7 +6,7 @@ url = ("https://dataquest.io")
 
 #####################################
 
-# Basics: Find the US city with the lowest crime rate
+# Basics: Count up how many times each type of weather occurs.
 
 #####################################
 
@@ -15,12 +15,18 @@ Overview of Useful code:
 Open, Read then parse the _file. (Parsing_the_file)
 Getting a single column _from the data. (Getting_Second_column)
 Dictonaries. (Dictonaries_basics)
-
-
+###VVVVVVVVVVVVVVVVVVVV
+Entering Keys _and Values into a dictionary. (Indexing_a_dictionary)
+Creating a dictionary _with keys _and values. (Defining_a_dictionary)
+The _in statement (List). (Testing_if_items_are_in_list)
+The _in statement (Dictionary). (Testing_if_key_is_in_dictionary)
+The _else statement. (The_else_statement)
+Count up how many times each _type of weather occurs. (Counting_the_weather)
 
 #####################################
 
 #### SUMMARY OF USEFUL CODE ####
+
 
 #### Parsing_the_file ####
 
@@ -33,6 +39,7 @@ for row in rows:
     weather_data.append(split_rows)
 print(weather_data)
 
+
 #### Getting_Second_column ####
 
 weather_column = []
@@ -41,6 +48,7 @@ for item in weather_data:
     value = item[1]
     weather_column.append(value)
 print(weather_column)
+
 
 #### Slicing_lists ####
 
@@ -55,6 +63,7 @@ print(count)
 new_weather = weather[1:367]
 print(new_weather)
 
+
 #### Dictonaries_basics ####
 
 # We can make a dictionary with curly braces.
@@ -65,8 +74,91 @@ dictionary_one["key_one"] = 2
 print(dictionary_one)
 
 
+#### Indexing_a_dictionary ####
+
+# We can index dictionaries with square brackets.
+# a = dictionary[10] will get the value stored in the dictionary for the key 10 and assign it to a.
+
+dictionary_one = {}
+dictionary_one["test"] = 10
+dictionary_one["key"] = "fly"
 
 
+#### Defining_a_dictionary ####
+
+# We can define dictionaries that already contain values.
+# All we do is add in keys and values separated by colons.
+# We have to separate pairs of keys and values with commas.
+a = {"key1": 10, "key2": "indubitably", "key3": "dataquest", 3: 5.6}
+
+
+#### Testing_if_items_are_in_list ####
+
+# We can check if values are in lists using the in statement.
+the_list = [10,60,-5,8]
+
+# This is True because 10 is in the_list
+print(10 in the_list)
+
+
+#### Testing_if_key_is_in_dictionary ####
+
+# We can check if a key is in a dictionary with the in statement.
+the_dict = {"robin": "red", "cardinal": "red", "oriole": "orange", "lark": "blue"}
+
+# This is True
+print("robin" in the_dict)
+
+#### The_else_statement ####
+
+# The code in an else statement will be executed if the if statement boolean is False.
+
+a = 8
+b = 10
+if a == 7:
+    print(a)
+else:
+    print(b)
+
+
+#### Count_how_many_times_items_appear_in_a_list_using_dictionaries ####
+
+# We can count how many times items appear in a list using dictionaries.
+pantry = ["apple", "orange", "grape", "apple", "orange", "apple", "tomato", "potato", "grape"]
+
+# Create an empty dictionary
+pantry_counts = {}
+# Loop through the whole list
+for item in pantry:
+    # If the list item is already a key in the dictionary, then add 1 to the value of that key.
+    # This is because we've seen the item again, so our count goes up.
+    if item in pantry_counts:
+        pantry_counts[item] = pantry_counts[item] + 1
+    else:
+        # If the item isn't already a key in the count dictionary, then add the key, and set the value to 1.
+        # We set the value to 1 because we are seeing the item, so it's occured once already in the list.
+        pantry_counts[item] = 1
+print(pantry_counts)
+
+
+#### Counting_the_weather ####
+
+# Our weather column, minus the header, is assigned to the weather variable.
+weather_counts = {}
+
+# The weather column, minus the header, has been loaded into the weather variable.
+# Count up how many times each type of weather occurs.
+# Store the counts in weather_counts.
+
+print(weather)
+for item in weather:
+    if item in weather_counts:
+        weather_counts[item] = weather_counts[item] + 1
+    else:
+        weather_counts[item] = 1
+print(weather_counts)
+
+# Rem: dictionary[key] = value
 
 
 ########################################################################################################################
@@ -311,12 +403,115 @@ d = 8 in list2
 e = -1 in list2
 
 
+#### Testing_if_key_is_in_dictionary ####
 
+# We can check if a key is in a dictionary with the in statement.
+the_dict = {"robin": "red", "cardinal": "red", "oriole": "orange", "lark": "blue"}
 
+# This is True
+print("robin" in the_dict)
 
+# This is False
+print("crow" in the_dict)
 
+# We can also assign the boolean to a variable
+a = "cardinal" in the_dict
+print(a)
 
+dict2 = {"mercury": 1, "venus": 2, "earth": 3, "mars": 4}
 
+#Check whether "jupiter" is in dict2 and assign the result to b.
+#Check whether "earth" is in dict2 and assign the result to c.
+
+b = "jupiter" in dict2
+c = "earth" in dict2
+
+print(b)
+print(c)
+
+#### The_else_statement ####
+
+a = 8
+b = 10
+if a == 7:
+    print(a)
+else:
+    print(b)
+
+# The code in an else statement will be executed if the if statement boolean is False.
+# This will print "Not 7!"
+a = 6
+# a doesn't equal 7, so this is False.
+if a == 7:
+    print(a)
+else:
+    print("Not 7!")
+
+# This will print "Nintendo is the best!"
+video_game = "Mario"
+# video_game is "Mario", so this is True
+if video_game == "Mario":
+    print("Nintendo is the best!")
+else:
+    print("Sony is the best!")
+
+season = "Spring"
+
+if season == "Summer":
+    print("It's hot!")
+else:
+    print("It might be hot!")
+
+###############################################################################################################
+
+#### Count_how_many_times_items_appear_in_a_list_using_dictionaries ####
+
+# We can count how many times items appear in a list using dictionaries.
+pantry = ["apple", "orange", "grape", "apple", "orange", "apple", "tomato", "potato", "grape"]
+
+# Create an empty dictionary
+pantry_counts = {}
+# Loop through the whole list
+for item in pantry:
+    # If the list item is already a key in the dictionary, then add 1 to the value of that key.
+    # This is because we've seen the item again, so our count goes up.
+    if item in pantry_counts:
+        pantry_counts[item] = pantry_counts[item] + 1
+    else:
+        # If the item isn't already a key in the count dictionary, then add the key, and set the value to 1.
+        # We set the value to 1 because we are seeing the item, so it's occured once already in the list.
+        pantry_counts[item] = 1
+print(pantry_counts)
+
+us_presidents = ["Adams", "Bush", "Clinton", "Obama", "Harrison", "Taft", "Bush", "Adams", "Wilson", "Roosevelt", "Roosevelt"]
+
+us_president_counts = {}
+
+for item in us_presidents:
+    if item in us_president_counts:
+        us_president_counts[item] = us_president_counts[item] + 1
+    else:
+        us_president_counts[item] = 1
+print(us_president_counts)
+
+#### Counting_the_weather ####
+
+# Our weather column, minus the header, is assigned to the weather variable.
+weather_counts = {}
+
+# The weather column, minus the header, has been loaded into the weather variable.
+# Count up how many times each type of weather occurs.
+# Store the counts in weather_counts.
+
+print(weather)
+for item in weather:
+    if item in weather_counts:
+        weather_counts[item] = weather_counts[item] + 1
+    else:
+        weather_counts[item] = 1
+print(weather_counts)
+
+# Rem: dictionary[key] = value
 
 
 
