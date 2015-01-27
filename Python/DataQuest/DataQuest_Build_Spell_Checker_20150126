@@ -116,5 +116,90 @@ print(lowercase_tokens)
 
 #### Functions ####
 
+a = 50
+b = 10
+c = 80
+
+# All in faenheight, now we want to convert to celcius.
+
+list_celcius = [a,b,c]
+
+for items in list_celcus:
+	# do maths.
+
+# "def" means define a new function.
+# def function_name(arguements)
+# return means the function will output this. (return always goes inside a function)
+
+def convert_f_to_c(degrees):
+	return (degrees - 32)/1.8
+
+a = 50
+a = convert_f_to_c(a)
+
+# convert_f_to_c(a) calls the function and applies it the the valiable a.
+
+# def convert(arg0,arg1,arg2)
+
+# a = convert(arg0,arg1,arg2)
+
+# these args correspond by index, ie by position. "Positional Argument"
+
+#### Making_a_basic_function ####
+
+# A simple function that takes in a number of miles, and turns it into kilometers
+# The input at position 0 will be put into the miles variable.
+def miles_to_km(miles):
+    # return is a special keyword that indicates that the function will output whatever comes after it.
+    return miles/0.62137
+
+# Returns the number of kilometers equivalent to one mile
+print(miles_to_km(1))
+
+# Convert a from 10 miles to kilometers
+a = 10
+a = miles_to_km(a)
+
+# We can convert and assign to a different variable
+b = 50
+c = miles_to_km(b)
+
+fahrenheit = 80
+celsius = (fahrenheit - 32)/1.8
+
+# Define a function that takes degrees in fahrenheit as an input, and return degrees celsius
+
+def convert(degrees_f):
+    return (degrees_f - 32)/1.8
+    
+celsius_100 = convert(100)
+celsius_150 = convert(150)
+
+print(celsius_100)
+
+#### Function Introduction ####
+
+def split_string(text):
+    return text.split(" ")
+
+sally = "Sally sells seashells by the seashore."
+# This splits the string into a list.
+print(split_string(sally))
+
+# We can assign the output of a function to a variable.
+sally_tokens = split_string(sally)
+
+lowercase_me = "I wish I was in ALL lowercase"
+
+# Make a function that takes a string as input and outputs a lowercase version.
+# Then use it to turn the string lowercase_me to lowercase.
+# Assign the result to lowercased_string.
+
+def lowc(any_string):
+    return any_string.lower()
+
+lowercased_string = lowc(lowercase_me)
+print(lowercased_string)
 
 
+#### Types of errors ####
