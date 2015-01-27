@@ -15,7 +15,6 @@ Overview of Useful code:
 Open, Read then parse the _file. (Parsing_the_file)
 Getting a single column _from the data. (Getting_Second_column)
 Dictonaries. (Dictonaries_basics)
-###VVVVVVVVVVVVVVVVVVVV
 Entering Keys _and Values into a dictionary. (Indexing_a_dictionary)
 Creating a dictionary _with keys _and values. (Defining_a_dictionary)
 The _in statement (List). (Testing_if_items_are_in_list)

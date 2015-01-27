@@ -44,8 +44,77 @@ story = f.read()
 
 f.close
 
+
 #### Tokenizing_the_file ####
 
+# We can split strings into lists with the .split() method.
+# If we use a space as the input to .split(), it will split based on the space.
+text = "Bears are probably better than sharks, but I can't get close enough to one to be sure."
+tokenized_text = text.split(" ")
+
+# The story is loaded into the story variable.
+# Tokenize the story, and store the tokens into the tokenized_story variable.
+
+print(story)
+tokenized_story = story.split(" ")
+print(tokenized_story)
+
+
+#### Replace_punctuation ####
+
+# We can use the .replace function to replace punctuation in a string.
+text = "Who really shot John F. Kennedy?"
+text = text.replace("?", "?!")
+
+# The question mark has been replaced with ?!.
+print(text)
+
+# We can replace strings with blank spaces, meaning that they are just removed.
+text = text.replace("?", "")
+
+# The question mark is gone now.
+print(text)
+
+no_punctuation_tokens = []
+
+# Replace all of the punctuation in each of the tokens.
+# You'll need to loop through tokenized_story to do so.
+# You'll need to use multiple replace statements, one for each punctuation character to replace.
+# Append the token to no_punctuation_tokens once you are done replacing characters.
+
+for tokens in tokenized_story:
+    tokens = tokens.replace(".", "")
+    tokens = tokens.replace(",", "")
+    tokens = tokens.replace("'", "")
+    tokens = tokens.replace(";", "")
+    tokens = tokens.replace(":", "")
+    tokens = tokens.replace("\n\n", "")
+    no_punctuation_tokens.append(tokens)
+
+# Do not need to loop through each character in each token (item) in list.
+
+print(no_punctuation_tokens)
+
+#### Lowercasing the words ####
+
+# We can make strings all lowercase using the .lower() method.
+text = "MY CAPS LOCK IS STUCK"
+text = text.lower()
+
+# The text is much nicer to read now.
+print(text)
+
+lowercase_tokens = []
+
+# Loop through the tokens and lowercase each one.
+# Append each token to lowercase_tokens when you're done lowercasing.
+
+for token in no_punctuation_tokens:
+    token = token.lower()
+    lowercase_tokens.append(token)
+print(lowercase_tokens)
+
+#### Functions ####
 
 
 
