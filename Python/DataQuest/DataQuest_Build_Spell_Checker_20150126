@@ -12,6 +12,13 @@ url = ("https://dataquest.io")
 
 Overview of Useful code:
 
+String split some text. (Tokenizing_the_file)
+Replace punctuation _from strings. (Replace_punctuation)
+Making _all the text lowercase. (Lowercasing_the_words)
+Creating a Function. (Making_a_basic_function)
+Types of errors. Syntax Error. (Types_of_errors_SyntaxError)
+Types of errors. Index Error. (Types_of_errors_IndexError)
+
 
 
 
@@ -19,6 +26,61 @@ Overview of Useful code:
 #####################################
 
 #### SUMMARY OF USEFUL CODE ####
+
+#### Tokenizing_the_file ####
+
+# We can split strings into lists with the .split() method.
+f = open("story.txt","r")
+story = f.read()
+tokenized_story = story.split(" ")
+
+
+#### Replace_punctuation ####
+
+# We can use the .replace function to replace punctuation in a string.
+
+no_punctuation_tokens = []
+
+for tokens in tokenized_story:
+    tokens = tokens.replace(".", "")
+    no_punctuation_tokens.append(tokens)
+# Do not need to loop through each character in each token (item) in list.
+print(no_punctuation_tokens)
+
+
+#### Lowercasing_the_words ####
+
+# We can use the .lower function to make all characters lower case
+lowercase_tokens = []
+
+for token in no_punctuation_tokens:
+    token = token.lower()
+    lowercase_tokens.append(token)
+print(lowercase_tokens)
+
+
+#### Making_a_basic_function ####
+
+# "def" means define a new function.
+# def function_name(arguements)
+# return means the function will output this. (return always goes inside a function)
+
+# Define a function that takes degrees in fahrenheit as an input, and return degrees celsius
+
+def convert(degrees_f):
+    return (degrees_f - 32)/1.8
+ 
+celsius_100 = convert(100)
+celsius_150 = convert(150)
+print(celsius_100)
+
+#### Types_of_errors_SyntaxError ####
+
+# Syntax errors occur when something is typed incorrectly (statements misspelled, quotes missing, and so on)
+
+#### Types_of_errors_IndexError ####
+
+# Index errors occur when a list index that doesn't exist is referenced.
 
 
 
@@ -95,7 +157,7 @@ for tokens in tokenized_story:
 
 print(no_punctuation_tokens)
 
-#### Lowercasing the words ####
+#### Lowercasing_the_words ####
 
 # We can make strings all lowercase using the .lower() method.
 text = "MY CAPS LOCK IS STUCK"
@@ -202,4 +264,108 @@ lowercased_string = lowc(lowercase_me)
 print(lowercased_string)
 
 
-#### Types of errors ####
+#### Types_of_errors_SyntaxError ####
+
+# Sometimes, you will have problems with your code that cause python to throw an exception.
+# Don't worry, it happens to all of us many times a day.
+# An exception means that the program can't run, so you'll get an error in the results view instead of the normal output.
+# There are a few different types of exceptions.
+# The first we'll look at is a SyntaxError.
+# This means that something is typed incorrectly (statements misspelled, quotes missing, and so on)
+
+a = ["Errors are no fun!", "But they can be fixed", "Just fix the syntax and everything will be fine"]
+b = 5
+
+for item in a:
+    if b == 5:
+        print(item)
+
+# Syntax errors occur when something is typed incorrectly (statements misspelled, quotes missing, and so on)
+
+#Ran Debug mode to see what line the errors were occuring
+
+## Original Code >> 
+
+5 = a
+
+if a == 6 
+    print("6 is obviously the best number")
+print("What's going on, guys?")
+else:
+    print("I never liked that 6")
+
+## Fixed Code >>
+
+a = 5
+
+if a == 6:
+    print("6 is obviously the best number")
+    print("What's going on, guys?")
+else:
+    print("I never liked that 6")
+
+#### Types_of_errors_IndexError ####
+
+# Index errors occur when a list index that doesn't exist is referenced.
+
+# An index error is when a nonexistent index in a list is accessed.
+
+## Original Code >> 
+
+the_list = ["Harrison Ford", "Mark Hammil"]
+print(the_list[3])
+another_list = ["Jabba"]
+print(another_list[1])
+
+## Fixed Code >>
+
+the_list = ["Harrison Ford", "Mark Hammil"]
+print(the_list[1])
+another_list = ["Jabba"]
+print(another_list[0])
+
+
+#### Multi_line_functions ####
+
+# Make a function that counts up all the values in a list
+# If you define "tally = 0" outside the function, you wouldn't be able to access it inside the function.
+# Any variable that you want to use in the function, assume single use.
+
+def total(values):
+    tally = 0
+    for v in values:
+        tally = tally + v
+    return tally
+
+# Any time we call the total function we get the tally (sum) of the values.
+
+print("tally = ",total([2,5,8]))
+>> tally = 15
+
+####
+
+# Functions can have multiple lines in the function body.
+def do_math(number):
+    # Multiply the number by 10
+    number = number * 10
+    # Add 20 to the number
+    number = number + 20
+    return number
+
+print(do_math(20))
+a = do_math(10)
+
+def remove_punctuation(list_of_words):
+    no_punctuation_tokens = []
+    for token in list_of_words:
+        token = token.replace(".","")
+        token = token.replace(",","")
+        token = token.replace("'","")
+        token = token.replace(";","")
+        token = token.replace(":","")
+        token = token.replace("/n","")
+        token = token.replace("\n","")
+        no_punctuation_tokens.append(token)
+    return no_punctuation_tokens
+
+print(remove_punctuation(tokenized_story))
