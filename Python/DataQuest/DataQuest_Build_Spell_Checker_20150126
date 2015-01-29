@@ -355,8 +355,14 @@ def do_math(number):
 print(do_math(20))
 a = do_math(10)
 
-def remove_punctuation(list_of_words):
-    no_punctuation_tokens = []
+# no_punctuation_tokens = []
+
+# All the tokens from Julius's story are in the tokenized_story variable.
+# Write a function that removes all punctuation from an input string.
+# Then loop over tokenized_story and call the function to remove the punctuation from each token.
+# Append the tokens to no_punctuation_tokens.
+
+def remove_punctuation_from_list_of_strings(list_of_words):
     for token in list_of_words:
         token = token.replace(".","")
         token = token.replace(",","")
@@ -368,4 +374,131 @@ def remove_punctuation(list_of_words):
         no_punctuation_tokens.append(token)
     return no_punctuation_tokens
 
-print(remove_punctuation(tokenized_story))
+no_punctuation_tokens = []
+print(remove_punctuation_from_list_of_strings(tokenized_story))
+
+#### Making_a_function_to_lowercase_input ####
+
+# This is our function to remove punctuation.
+def remove_punctuation(token):
+    token = token.replace(".","")
+    token = token.replace(",","")
+    token = token.replace("'", "")
+    token = token.replace(";", "")
+    token = token.replace("\n", "")
+    token = token.lower()
+    return token
+
+# We've read the tokens from Julius's story into the tokenized_story variable.
+# Can you add to the remove_punctuation function so it also lowercases the tokens?
+# Then loop over the tokens in tokenized_story, normalize them with the function, and append them to normalized_tokens.
+normalized_tokens = []
+
+# The remove_punctuation function is to the right.
+# Can you add to it so that it also makes the output lowercase?
+# Then loop over the tokens in tokenized_story and normalize them with the function.
+# Append the tokens to normalized_tokens when you're done.
+
+for item in tokenized_story:
+    item = remove_punctuation(item)
+    normalized_tokens.append(item)
+
+print(normalized_tokens)
+
+#### Multiple Arguments ####
+
+def search(item1,item2,values):
+    found = False
+    if item1 in values:
+        found = True
+    return found
+
+# how does python know which argument to assign to which variable.
+
+search(1,2,[3,4,5])
+> True
+
+# item1 will be assign 1 because they are both at position 0, item2 will be assigned item2 (position/index=1)
+# values will be assign this list, because they are in index = 2.
+
+# when we call this search function we will get True, because 1 is in the values list.
+
+#### Practice_multiple_argument_functions ####
+
+# This function takes two arguments, at positions 0 and 1
+def divide(x,y):
+    return x/y
+
+# 5 is assigned to x, and 1 is assigned to y based on positions
+print(divide(5,1))
+
+# 1 is assigned to x, and 5 is assigned to y based on positions.
+print(divide(1,5))
+
+# Create a multiply function that takes in x, y, and z argument.
+# The function should return x * y * z
+# Assign the values of multiply(10,3,5) to a
+# Assign the values of multiply(20,-1,3) to b
+
+def multiply(x,y,z):
+    return (x*y*z)
+
+a = multiply(10,3,5)
+b = multiply(20,-1,3)
+print(a)
+print(b)
+
+#### Reading_in_and_normalizing_the_dictionary ####
+
+def normalize(token):
+    token = token.replace(".","")
+    token = token.replace(",","")
+    token = token.replace("'", "")
+    token = token.replace(";", "")
+    token = token.replace("\n", "")
+    token = token.lower()
+    return token
+
+normalized_dictionary_tokens = []
+
+# Read in the dictionary from the "dictionary.txt" file.
+# Split it into tokens based on the space character.
+# Normalize each token using the normalize function.
+# Append the normalized tokens to normalized_dictionary_tokens
+
+file_dict = open("dictionary.txt","r")
+dictionary = file_dict.read()
+token_dict = dictionary.split(" ")
+
+for token in token_dict:
+    token = normalize(token)
+    normalized_dictionary_tokens.append(token)
+
+print(normalized_dictionary_tokens)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
