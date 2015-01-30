@@ -104,6 +104,68 @@ c = math.floor(math.pi)
 
 #### Easy_way_to_read_csv_files ####
 
+import csv
 
+f = open("la_weather.csv", 'r')
 
+# We call the reader function, which is inside the csv module.
+# It returns a value that we assign to csvreader.
+csvreader = csv.reader(f)
 
+# We'll get more into what the value stored in the csvreader variable is later on.
+# For now, we can turn it into a list by using the list function.
+# Just like int() turns a value into an integer, list() turns a value into a list.
+data = list(csvreader)
+
+# Wasn't that easy?  We read in all of the weather data from the mission before, but we did it with a lot less work.
+print(data)
+
+# Read in all of the data from "nfl.csv" into the nfl variable using the csv module.
+
+nfl_file = open("nfl.csv",'r')
+
+nfl = list(csv.reader(nfl_file))
+
+print(nfl)
+
+#### Counting_how_many_times_a_team_won ####
+
+# The nfl data is loaded into the nfl variable.
+
+# Loop through the nfl data.
+# Count up how many games the "New England Patriots" won from 2009-2013.
+# Assign the count to patriots_wins. The count should be an integer.
+
+patriots_wins = 0
+for row in nfl:
+    if row[2] == "New England Patriots":
+        patriots_wins = patriots_wins + 1
+    else:
+        print("Never Won")
+        
+print(patriots_wins)
+
+#### Making_function_to_count_wins ####
+
+# The nfl data is loaded into the nfl variable.
+
+# Make a function that will take a team name, in the form of a string, as input.
+# The function should output the number of wins the team had from 2009-2013, as an integer.
+# Use the function to assign the number of wins by the "Dallas Cowboys" to cowboys_wins.
+# Use the function to assign the number of wins by the "Atlanta Falcons" to falcons_wins.
+
+def count_wins(team):
+    count = int(0)
+    for row in nfl:
+        if row[2] == str(team):
+            count = count + 1
+    return count
+
+cowboys_wins = count_wins("Dallas Cowboys")
+falcons_wins = count_wins("Atlanta Falcons")
+
+print("How many times did these teams win?")
+print("Dallas Cowboys won: ",cowboys_wins)
+print("Atlanta Falcons won: ",falcons_wins)
+
+#### 

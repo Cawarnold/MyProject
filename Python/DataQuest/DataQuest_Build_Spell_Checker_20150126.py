@@ -166,6 +166,15 @@ print("CORRECTLY SPELLED:", correctly_spelled)
 
 #### Finding_spelling_mistakes ####
 
+def normalize(token):
+    token = token.replace(".","")
+    token = token.replace(",","")
+    token = token.replace("'", "")
+    token = token.replace(";", "")
+    token = token.replace("\n", "")
+    token = token.lower()
+    return token
+
 f = open("story.txt","r")
 story = f.read()
 tokenized_story = story.split(" ")
