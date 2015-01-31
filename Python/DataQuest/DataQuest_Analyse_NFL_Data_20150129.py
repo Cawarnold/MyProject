@@ -90,11 +90,11 @@ print(math.pi * 2)
 # Some modules have variables defined inside them.
 # Just like with functions, we can access them with the dot notation.
 # Imagine a module as a street, with houses on that street being functions and variables.
-# If you wanted to tell someone how to get to a house, 
+# If you wanted to tell someone how to get to a house,
 # you would first tell them how to get to the street.
 # Then you would tell them to turn onto the street and stop at the house.
 # Python is the same way -- it has to know how to get to a function or variable before it can find it.
-# If the function or variable is inside a module, 
+# If the function or variable is inside a module,
 # Python needs directions to be told about the module first.
 
 #Tasks
@@ -142,7 +142,7 @@ for row in nfl:
         patriots_wins = patriots_wins + 1
     else:
         print("Never Won")
-        
+
 print(patriots_wins)
 
 #### Making_function_to_count_wins ####
@@ -168,6 +168,47 @@ print("How many times did these teams win?")
 print("Dallas Cowboys won: ",cowboys_wins)
 print("Atlanta Falcons won: ",falcons_wins)
 
-#### Using_boolean_statements_with_the_"and"_keyword ####
+#### Using_boolean_statements_with_the_AND_keyword ####
+
+its_raining = "Yes"
+its_snowing = "No"
+
+# Each statement is evaluated separately.
+# If either of them is False on its own, then the whole statement is False.
+print(its_raining == "Yes" and its_snowing == "Yes")
+
+# If both evaluate to True, then the whole statement is True.
+print(its_raining == "Yes" and its_snowing == "No")
+
+drugs = 1.5
+money = 100
+
+# Assign a boolean that uses the and keyword and evaluates to True to a.
+# Assign a boolean that uses the and keyword and evaluates to False to b.
+
+a = (drugs == 1.5 and money == 100)
+b = (drugs == 1.6 and money == 100)
+
+#### Using_boolean_statements_with_the_OR_keyword ####
+
+current_president = "Barack Obama"
+
+# Each statement is evaluated separately.
+# If either of them is True on its own, then the statement is True.
+print(current_president == "Barack Obama" or current_president == "George Bush")
+
+# If all of the statements evaluate to False, then the statement is False.
+print(current_president == "Eminem" or current_president == "Kanye West")
+
+# Assign a boolean that uses the or keyword and evaluates to True to a.
+# Assign a boolean that uses the or keyword and evaluates to False to b.
+
+go_brixton = "yes"
+
+a = (go_brixton == "yes" or go_brixton == "no")
+b = (go_brixton == "no" or go_brixton == "def no")
+
+
+
 
 
