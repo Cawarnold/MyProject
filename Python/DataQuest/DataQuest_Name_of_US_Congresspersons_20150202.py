@@ -296,6 +296,19 @@ for row in legislators:
 
 #### Try/Except statements ####
 
+# we found errors in this statement
+for row in legislators:
+    row[7] = int(row[7])
+
+# so we can use a try/except statement
+for row in legislators:
+	try:
+		row[7] = int(row[7])
+	except:
+		row[7] = 0
+
+# if what is in row[7] can be converted into an int, then it will be. if not then it'll get a 0.
+
 
 
 
