@@ -6,13 +6,22 @@ url = ("https://dataquest.io")
 
 #####################################
 
-# Basics: Analyse NFL Data
+# Basics: Analyse NFL Data -- (Wins_by_year_method)
 
 #####################################
 
 Overview of Useful code:
 Importing Module. (Importing_and_using_modules)
-
+Using csv module to read files. (Easy_way_to_read_csv_files)
+How many times did Patriots win? (Counting_how_many_times_a_team_won)
+Making a function to count wins. (Making_function_to_count_wins)
+Using Booleans statements _with AND. (Using_boolean_statements_with_the_AND_keyword)
+Using Booleans statements _with OR. (Using_boolean_statements_with_the_OR_keyword)
+Counting number of wins _for team _and year.(Counting_wins_in_a_given_year)
+Intro to classes, the blueprint of variables _and functions. (Intro_to_classes)
+Methods are just functions that are contained within a _class. (Instance_methods)
+Open _and read the _file _from within the _class. (Adding_to_the_init_funciton)
+Create a _class which has instance methods, total wins _and wins by year. (Wins_by_year_method)
 
 #####################################
 
@@ -26,6 +35,176 @@ import math
 a = math.sqrt(16) # Square root
 b = math.ceil(111.3) # Round up
 c = math.floor(89.9) # Round down
+
+#### Easy_way_to_read_csv_files ####
+
+# Read in all of the data from "nfl.csv" into the nfl variable using the csv module.
+import csv
+nfl_file = open("nfl.csv",'r')
+nfl = list(csv.reader(nfl_file))
+
+
+#### Counting_how_many_times_a_team_won ####
+
+patriots_wins = 0
+for row in nfl:
+    if row[2] == "New England Patriots":
+        patriots_wins = patriots_wins + 1
+    else:
+        print("Never Won")
+
+print(patriots_wins)
+
+#### Making_function_to_count_wins ####
+
+def count_wins(team):
+    count = int(0)
+    for row in nfl:
+        if row[2] == str(team):
+            count = count + 1
+    return count
+
+cowboys_wins = count_wins("Dallas Cowboys")
+
+#### Using_boolean_statements_with_the_AND_keyword ####
+
+drugs = 1.5
+money = 100
+
+a = (drugs == 1.5 and money == 100) #True
+b = (drugs == 1.6 and money == 100) #False
+
+#### Using_boolean_statements_with_the_OR_keyword ####
+
+go_brixton = "yes"
+
+a = (go_brixton == "yes" or go_brixton == "no")  #True
+b = (go_brixton == "no" or go_brixton == "def no") #False
+
+#### Counting_wins_in_a_given_year ####
+
+def nfl_wins(team,year):
+    count = 0
+    for row in nfl:
+        # We need to ensure that we only increment the count when the row pertains to the year we want.
+        if row[2] == team and row[0] == year:
+            count = count + 1
+    return count
+
+browns_2010_wins = nfl_wins("Cleveland Browns","2010")
+print(browns_2010_wins)
+
+
+#### Counting_wins_by_year ####
+
+def nfl_wins_by_year(team):
+    win_dict = {}
+    # Fill in code here to compute the wins for each year and store them in win_dict
+    win_dict = {"2009":0, "2010":0, "2011":0, "2012":0, "2013":0}
+    for row in nfl:
+        if row[2] == team:
+            win_dict[row[0]] = win_dict[row[0]] + 1
+    return win_dict
+
+dolphins_wins_by_year = nfl_wins_by_year("Miami Dolphins")
+print(dolphins_wins_by_year)
+
+#### Intro_to_classes ####
+
+# What is a class? Think of a class as a blueprint. 
+# It isn't something in itself, it simply describes how to make something. 
+#You can create lots of objects from that blueprint - known technically as an instance.
+
+class Team(object1):
+    name = "Bears"
+    def __init__(self,name):
+        self.name = name
+
+# So if we did this: 
+
+b = Team("Cardinals")
+
+# "Cardinals" is at position 0, which is actually at the same position as name in def __init__(self,name):
+# which is now the same thing as:
+
+b.name = "Cardinals"
+
+#### Instance_methods ####
+
+# Methods are just functions that are contained within a class
+class Team():
+    def __init__(self, name):
+        self.name = name
+    
+    def count_total_wins(self):
+        count = 0
+        for row in nfl:
+            if row[2] == self.name:   #refers to the __init__ self.name = name
+                count = count + 1
+        return count
+
+# Use the instance method to assign the number of wins by the "Denver Broncos" to broncos_wins.
+broncos = Team("Denver Broncos")  # insantiates the class "Denver Broncos"
+broncos_wins = broncos.count_total_wins()  # calls the function and applies to the class.(i think)
+print(broncos_wins)
+
+
+#### Adding_to_the_init_funciton ####
+
+import csv
+
+# Add in code to read the csv nfl data to the __init__ method.
+# Store the nfl data in the self.nfl instance property.
+# Then convert the count_total_wins function to use the self.nfl property.
+# Use the instance method to assign the number of wins by the "Jacksonville Jaguars" to jaguars_wins.
+
+class Team():
+    def __init__(self, name):
+        self.name = name
+        nfl_file = open("nfl.csv",'r')
+        self.nfl = list(csv.reader(nfl_file))
+
+    def count_total_wins(self):
+        count = 0
+        for row in self.nfl:
+            if row[2] == self.name:
+                count = count + 1
+        return count
+
+jaguars = Team("Jacksonville Jaguars")
+jaguars_wins = jaguars.count_total_wins()
+print(jaguars_wins)
+
+
+#### Wins_by_year_method ####
+
+import csv
+#Let's add the wins by year function that we created earlier to our class as a method.
+class Team():
+    def __init__(self, name):
+        self.name = name
+        f = open("nfl.csv", 'r')
+        csvreader = csv.reader(f)
+        self.nfl = list(csvreader)
+
+    def count_total_wins(self):
+        count = 0
+        for row in self.nfl:
+            if row[2] == self.name:
+                count = count + 1
+        return count
+        
+    def wins_by_year(self):
+        win_dict = {"2009":0, "2010":0, "2011":0, "2012":0, "2013":0}
+        for row in self.nfl:
+            if row[2] == self.name:
+                win_dict[row[0]] = win_dict[row[0]] + 1
+        return win_dict
+
+jaguars = Team("Jacksonville Jaguars")
+niners = Team("San Francisco 49ers")   #tried assigning this variable to 49ers but got errors.
+niners_wins_by_year = niners.wins_by_year()
+print(niners_wins_by_year)
 
 
 
@@ -387,9 +566,11 @@ print(bucs.name)
 
 #### Instance_methods ####
 
-# Classes can have methods. Once example is the .lower() method that turns a string into a lowercase version.
-# Methods are just functions that are contained within a class.
-# Here's an example of a method:
+# Classes can have methods. Once example is the .lower() method that turns a string into a lowercase version.
+
+# Methods are just functions that are contained within a class.
+
+# Here's an example of a method:
 class Car():
 	def __init__(self, miles_per_gallon):
 		self.mpg = miles_per_gallon

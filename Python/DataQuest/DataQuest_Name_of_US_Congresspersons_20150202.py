@@ -27,3 +27,17 @@ Overview of Useful code:
 ########################################################################################################################
 
 #### FULL SET OF INSTRUCTIONS ####
+
+# Data:
+# last, first, birthday, gender, type, state, party
+# contains data from the very beginning of the US senate.
+
+# eg. Bassett, Richard, 1745-04-02, M, Sen(or Rep), DE, Anti-Admin
+# data is not complete. some do not have gender/ party / birthday 
+# all have last, first names, type and state.
+
+#### Find_the_different_genders ####
+
+
+
+
