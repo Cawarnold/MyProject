@@ -310,6 +310,250 @@ for row in legislators:
 # if what is in row[7] can be converted into an int, then it will be. if not then it'll get a 0.
 
 
+#### Practice_with_try_except ####
+
+# Cannot be parsed into an int with the int() function.
+invalid_int = ""
+
+# Can be parsed into an int.
+valid_int = "10"
+
+# Parse the valid int
+try:
+    valid_int = int(valid_int)
+except Exception:
+    # This code is never run, because there is no error parsing valid_int into an integer.
+    valid_int = 0
+
+# Try to parse the invalid int
+try:
+    invalid_int = int(invalid_int)
+except Exception:
+    # The parsing fails, so we end up here.
+    # The code here will be run, and will assign 0 to invalid_int.
+    invalid_int = 0
+
+print(valid_int)
+print(invalid_int)
+
+another_invalid_int = "Oregon"
+another_valid_int = "1000"
+
+try:
+    another_invalid_int = int(another_invalid_int)
+except Exception:
+    another_invalid_int = 0
+    
+try:
+    another_valid_int = int(another_valid_int)
+except Exception:
+    another_valid_int = 0
+
+
+#### The_pass_keyword ####
+
+# The pass keyword enables us to skip adding code into the body of a statement when we don't want to.
+
+valid_int="5"
+try:
+    valid_int=int(valid_int)
+except Exception:
+
+# The code above will fail, because whenever we have a colon in Python, 
+# we are saying that we will have a line or lines below it, indented 4 spaces.
+
+# We can't have zero lines inside the body of any statement ending with a colon 
+# (for loop, function definition, if statement, and so on). 
+# Comments don't count as lines for this purpose.
+
+# But sometimes, such as with the except statement above, we really don't want to do anything in the body.
+
+# This is where the pass keyword comes in handy.
+
+valid_int="5"
+try:
+    valid_int=int(valid_int)
+except Exception:
+    pass
+
+# The code above will work, because the pass keyword is a line in the body of the except statement.
+
+# However, pass is a special keyword that tells Python to do nothing and keep going.
+
+invalid_int = ""
+try:
+    # This parsing will fail
+    invalid_int = int(invalid_int)
+except Exception:
+    # Nothing will happen in the body of the except statement, because we are passing.
+    pass
+
+# invalid_int still has the same value.
+print(invalid_int)
+
+# We can also use the pass statement with for loops.
+# (although it's less useful in this example)
+a = [1,4,5]
+for i in a:
+    pass
+
+# And if statements.
+if 10 > 5:
+    pass
+
+# We can use the pass keyword inside the body of any statement that ends with a colon.
+valid_int = "10"
+
+# Use a try/except block to parse valid_int into an integer.
+# Use the pass keyword inside the except block.
+
+try:
+    valid_int = int(valid_int)
+except Exception:
+    pass
+
+#### Convert_birth_years_to_integers ####
+
+# The legislators variable has been loaded.
+
+# Now that we know about the try/except statements, we can convert the birth year column (column 8) to integers.
+# Loop over the rows in legislators, and convert the values in the birth year column to integers.
+# In cases where parsing fails, assign 0 as the value.
+
+for row in legislators:
+    try:
+        row[7] = int(row[7])
+    except:
+        row[7] = 0
+    print(row[7])
+
+#### Fill_in_years_without_a_value ####
+
+# Great, we're very close to being able to find the most common name!
+# The final hurdle is dealing with the cases where the birth years are 0
+# We'll need to fill these in to make our results more accurate.
+# The rows in legislators are listed in rough chronological order, 
+# so we can fill in birth years that are 0 with the birth year of the previous row.
+# This isn't perfect, but we don't have a much better way of going about this.
+
+data = [[1,1],[0,5],[10,7]]
+last_value = 0
+
+# There are some holes in this code -- it won't work properly if the first birth year is 0, for example, but its fine for now.
+# It keeps track of the last value in the column in the last_value variable.
+# If it finds an item that equals 0, it replaces the value with the last value.
+for row in data:
+    # Check if the item is 0.
+    if row[0] == 0:
+        # If it is, replace it with the last value.
+        row[0] = last_value
+    # Set last value equal to the item -- we need to do this in order to keep track of what the previous value was, so we can use it for replacement.
+    last_value = row[0]
+
+# The 0 value in the second row, first column has been replaced with a 1.
+print(data)
+
+# Loop through legislators, and replace any values in the birth_year column that are 0 with the previous value.
+
+for row in legislators:
+    if row[7] == 0:
+        row[7] = last_value
+    last_value = row[7]
+
+#### Counting_up_the_female_names ####
+
+# We now know enough to count up the most popular names!
+# We'll start with female names, and then do male names next.
+# Only names from congresspeople born after 1940 will be counted.
+# We'll be counting using a dictionary -- we've done this before, but a quick refresher is to the right.
+
+names = ["Jim", "Bob", "Bob", "JimBob", "Joe", "Jim"]
+name_counts = {}
+for name in names:
+    if name in name_counts:
+        name_counts[name] = name_counts[name] + 1
+    else:
+        name_counts[name] = 1
+
+female_name_counts = {}
+
+# Count up how many times each female name occurs in legislators. 
+# First name is the second column.
+# You'll need to make sure that gender (fourth column) equals "F", 
+# and that birth year (eighth column) is greater than 1940.
+# Store the first name key and the counts in the female_name_counts dictionary.
+# You'll need to use nested if statements to first check if gender and birth year are valid, 
+# and then to check if the first name is in female_name_counts.
+
+female_name_counts = {}
+male_name_counts = {}
+for row in legislators:
+    if row[3] == "F" and row[7] > 1940:
+        if row[1] in female_name_counts:
+            female_name_counts[row[1]] = female_name_counts[row[1]] + 1
+        else:
+            female_name_counts[row[1]] = 1
+    if row[3] == "M" and row[7] > 1940:
+        if row[1] in male_name_counts:
+            male_name_counts[row[1]] = male_name_counts[row[1]] + 1
+        else:
+            male_name_counts[row[1]] = 1
+
+print(female_name_counts)
+print(male_name_counts)
+
+
+#### The_None_type ####
+
+# Trying to find the max item in a list.
+l = [50,80,100]
+max_value = 0
+for i in l:
+    if i > max_value:
+        max_value = i
+
+# what if
+l = [-50,-80,-100]
+max_value = 0
+for i in l:
+    if i > max_value:
+        max_value = i
+#the it doesn't work.
+
+# just like string, integer types of values. NONE is a type of value.
+
+# here, we want it to mean no "value". it's kind of like True of False. it has a special meaning.
+
+# If we want to check if 
+a = 7
+# we would do 
+a is None
+# rather than 
+a == None
+
+# is catches more cases. 
+
+data = [-50,-80,-100] 
+max_val = None
+for i in data:
+    if max_val is None or i > max_val:
+        max_val = i
+# the first time through the loop will set the max_val = -50.
+# first time through -- if max val is none, which it is, so jumps to set max_val = i
+# second time throught the loop max_val is None False, then is max_val > -50? False so do nothing.
+# so at the end we get max_val = -50 which is correct.
+
+# None, be careful to use is
+# careful to use checks for None first.
+# if true then the other clause is skipped.
+# if we didnt use the check for none first then the i > Max_val would give an error.
+
+
+
+
+
+
+
 
 
 
