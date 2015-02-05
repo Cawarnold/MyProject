@@ -548,15 +548,294 @@ for i in data:
 # if true then the other clause is skipped.
 # if we didnt use the check for none first then the i > Max_val would give an error.
 
+#### Practicing_with_the_None_type ####
+
+# Set a variable equal to the None type
+a = None
+# A normal variable
+b = 1
+
+# This is True
+print(a is None)
+# And this is False
+print(b is None)
+
+# a is of the None type
+print(type(a))
+
+# Assigns whether a equals None to a_none
+a_none = a is None
+# Evaluates to True
+print(a_none)
+
+c = None
+d = "Bamboo"
+
+# Check whether c equals None, and assign the result to c_none.
+# Check whether d equals None, and assign the result to d_none.
+
+c_none = c is None
+d_none = d is None
+
+#### Finding_maximums_with_the_none_type ####
+
+# We know how to find the maximum value in a list or dictionary.
+
+max_val = 0
+data = [50,80,100,0,40]
+for i in data:
+    if i > max_val
+    max_val = i
+print(max_val)
+
+# The code above will find the maximum value in the data.
+# But we have to initialize max_val first to a number.
+
+max_val = 0
+data = [-10, -20, -50, -100]
+for i in data:
+    if i > max_val
+    max_val = i
+print(max_val)
+
+# In the above example, we would get an incorrect final value for max_val, 
+# because we didn't set the initial value well (0 is greater than any value in data, so it's never changed.)
+
+# Luckily, the None type to help us out.
+
+max_val = None
+data = [-10, -20, -50, -100]
+for i in data:
+    # If max_val equals None, or i is greater than max_val, then set max_val equal to i.
+    # This ensures that no matter how small the values in data are, max_val will always get changed to a value in the list.
+    # If you are checking if a value equals None and you are using it with AND or OR, then the None check always needs to come first.
+    if max_val is None or i > max_val:
+        max_val = i
+
+min_val = None
+income = [100,700,100,50,100,40,56,31,765,1200,1400,32,6412,987]
+
+# Use a for loop to set min_val equal to the smallest value in income.
+
+for item in income:
+    if min_val is None or item < min_val:
+        min_val = item
+        
+print(min_val)
+
+#### Finding_how_many_times_the_top_female_names_occur ####
+
+# We now have a dictionary where the keys are first names, 
+# and the values are counts of how many times female congresspeople born after 1940 had that name.
+# We need to go from here to a name or names that are the most popular.
+# First, let's find out the highest value (how many times the most-occuring name occurred).
+# This will let us extract the name or names that occurred the most.
+
+# female_name_counts has been loaded in.
+max_value = None
+
+# Loop through the keys in female_name_counts, and get the value associated with the key.
+# Assign the value to max_value if it is larger, or if max_value is None.
+# At the end of the loop, max_value will be the largest value in the dictionary.
 
 
+print(female_name_counts)            # prints out dictionary
+
+for item in female_name_counts:
+    print(item)                      # prints out the key
+    print(female_name_counts[item])  # prints out the value
+
+for item in female_name_counts:
+    if max_value is None or female_name_counts[item] > max_value:
+        max_value = female_name_counts[item]
+print(max_value)
+
+#### Finding_the_female_names_that_occur_the_most ####
+
+# So we now know that the names that occur the most occur 2 times.
+
+# All we have to do now is loop through the dictionary again and extract all the names that occur twice.
+
+# female_name_counts has been loaded in.
+top_female_names = []
+
+# Loop through the keys in female_name_counts.
+# If any value equals 2, append the key to top_female_names.
+# At the end, top_female_names will be a list of the most occurring female congressperson names.
+
+for item in female_name_counts:
+    if female_name_counts[item] == 2:
+        top_female_names.append(item)
+print(top_female_names)   
+
+#### The items method on dictionary ####
+
+letters = {"a":"letter",5: "not","b":"letter"}
+
+for k in letters:
+    print(k)            #keys
+    print(letters[k])   #values
+
+# the .items method lets us do this.
+
+for k,v in letter.items():
+    print(k)            #keys
+    print(v)            #values
+
+#### Practice_with_the_items_method ####
+
+animal_types = {"robin": "bird", "pug": "dog", "osprey": "bird"}
+
+# The .items method lets us access a dictionary key and value in a loop.
+for key,value in animal_types.items():
+    print(key)
+    print(value)
+    # This is equal to the value
+    print(animal_types[key])
+
+plant_types = {"orchid": "flower", "cedar": "tree", "maple": "tree"}
+
+# Use the .items() method along with a for loop to loop through plant_types.
+# Inside the loop, print the key, and then the value.
+
+for key,value in plant_types.items():
+    print(key)               #key
+    print(value)             #value
+    print(plant_types[key])  #value
 
 
+#### Finding_the_male_names_that_occur_the_most ####
+
+# Let's follow the same process we did with the 
+# female names to find a list of the most common male names.
+
+# The .items() method may make the task quicker.
+
+###
+
+# legislators has been loaded in.
+
+# Loop through legislators, and count up occurances for each name 
+# where the gender column equals "M" and the birth year is after 1940 occurs. 
+# Store the results in a dictionary.
+
+# Then find the highest value in that dictionary.
+
+# Finally, loop through the dictionary and 
+# append any keys where the value equals the highest value to top_male_names.
+
+#Cleaning: append (integer) date to the end of each list.
+for row in legislators:
+    row.append(int((row[2]).split('-')[0]))
+
+#Check how to build dictionary
+bob_name_counts = {}
+bob_name_counts["bob"] = 1
+print(bob_name_counts)
+
+###
+
+## Trial on max_val
+
+def find_max(dict_of_names):
+    max_val = None
+    print(max_val)
+    for key,value in dict_of_names.items():
+        if max_val is None or value > max_val:
+            max_val = value
+
+find_max(male_name_counts)
+print(max_val)
+
+#but this works...
+
+max_val = None
+for key,value in male_name_counts.items():
+    if max_val is None or value > max_val:
+        max_val = value
+        print(key)
+        print(value)
 
 
+#### And the answer is...
 
 
+top_male_names = []
+
+# print(legislators)
+
+male_name_counts = {}
+def count_occurances(list_of_legislators):
+    for row in list_of_legislators:
+        if row[3] == "M" and row[7] > 1940:
+            if row[1] in male_name_counts:
+                male_name_counts[row[1]] = male_name_counts[row[1]] + 1
+            else:
+                male_name_counts[row[1]] = 1
+
+# define function - count_occurances.
+# for each item(row) in the list of (list_of_legislators).
+# if gender is male and date is bigger than 1940
+# if the first name is in dictionary (male_name_counts)
+# then add 1 to count of that name
+# else create dictionary key with item(row) first name and value = 1
+
+count_occurances(legislators)
+#print(male_name_counts)
+
+max_val = None
+for key,value in male_name_counts.items():
+    if max_val is None or value > max_val:
+        max_val = value
+        print(key)
+        print(value)
+print(max_val)
+
+for key,value in male_name_counts.items():
+    if value == 35:
+        top_male_names.append(key)
+print(top_male_names)
 
 
+#### Def_find_names_with_max_count ####
 
 
+top_male_names = []
+
+# print(legislators)
+
+male_name_counts = {}
+def count_occurances(list_of_legislators):
+    for row in list_of_legislators:
+        if row[3] == "M" and row[7] > 1940:
+            if row[1] in male_name_counts:
+                male_name_counts[row[1]] = male_name_counts[row[1]] + 1
+            else:
+                male_name_counts[row[1]] = 1
+    return male_name_counts
+
+# define function - count_occurances.
+# for each item(row) in the list of (list_of_legislators).
+# if gender is male and date is bigger than 1940
+# if the first name is in dictionary (male_name_counts)
+# then add 1 to count of that name
+# else create dictionary key with item(row) first name and value = 1
+
+count_occurances(legislators)
+#print(male_name_counts)
+
+
+def find_max(dict_of_names_counts):
+    max_val = None
+    for key,value in dict_of_names_counts.items():
+        if max_val is None or value > max_val:
+            max_val = value
+    print(max_val)
+
+find_max(male_name_counts)
+
+
+for key,value in male_name_counts.items():
+    if value == 35:
+        top_male_names.append(key)
+print(top_male_names)
