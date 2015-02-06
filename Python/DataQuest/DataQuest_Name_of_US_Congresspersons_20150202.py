@@ -8,7 +8,7 @@ url = ("https://dataquest.io")
 
 # Chapter 6
 
-# Basics: What should you name your kid if you want them to be a US Congressperson?
+# Basics: What should you name your kid if you want them to be a US Congressperson?  (Finding_the_male_names_that_occur_the_most)
 
 # Learn about the enumerate function, list comprehensions, try/except blocks, and the None type while finding the most common names for US Congressman/Congresswomen.
 
