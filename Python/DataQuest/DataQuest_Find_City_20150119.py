@@ -6,7 +6,11 @@ url = ("https://dataquest.io")
 
 #####################################
 
+# Chapter 2
+
 # Basics: Find the US city with the lowest crime rate --(Find_city_with_lowest_crime_rate)
+
+# Learn about reading in files, parsing the csv format, if statements, and for loops while finding the US city with the least violent crime.  
 
 #####################################
 

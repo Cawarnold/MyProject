@@ -6,7 +6,11 @@ url = ("https://dataquest.io")
 
 #####################################
 
+# Chapter 4
+
 # Basics: Build a Spell Checker --- (Finding_spelling_mistakes)
+
+# Learn about functions, more about strings, and debugging while building a basic spell checker.
 
 #####################################
 

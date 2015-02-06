@@ -6,7 +6,11 @@ url = ("https://dataquest.io")
 
 #####################################
 
+# Chapter 3
+
 # Basics: Count up how many times each type of weather occurs.
+
+# Learn about dictionaries, the in statement, list slicing, and else statements while finding out how the weather in Los Angeles is.  
 
 #####################################
 

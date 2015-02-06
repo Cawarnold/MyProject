@@ -6,6 +6,8 @@ url = ("https://dataquest.io")
 
 #####################################
 
+# Chapter 6
+
 # Basics: What should you name your kid if you want them to be a US Congressperson?
 
 # Learn about the enumerate function, list comprehensions, try/except blocks, and the None type while finding the most common names for US Congressman/Congresswomen.
@@ -13,13 +15,208 @@ url = ("https://dataquest.io")
 #####################################
 
 Overview of Useful code:
-
+Get _all unique values _in a column. (Find_the_different_genders)
+Replacing values _in a column. (Replacing_genders)
+String split on '-'. (Parsing_birth_years)
+Enumerate _is a _for loop counter. (Create_a_birthyear_column_with_Enumerate)
+Use Try Except when a function may _not work.(Practice_with_try_except)
+The _pass keyword enables us to end a function _or skip code. (The_pass_keyword)
+Using _try _except to convert strings to integers. (Convert_birth_years_to_integers)
+Using _for loops, _if _and statements, _if _in statements. (Counting_up_the_female_names)
+The _None _type _and how to use it. (Practicing_with_the_None_type)
+Using the _None _type to find _max value. (Finding_how_many_times_the_top_female_names_occur)
+Using .items method to get keys _and values _from a dictionary. (Practice_with_the_items_method)
+Use _all above to find male names that occur the most. (Finding_the_male_names_that_occur_the_most)
 
 #####################################
 
 #### SUMMARY OF USEFUL CODE ####
 
+#### Find_the_different_genders ####
 
+# A set is a data type, just like a list, but it only contains each value once.
+genders_list = []
+unique_genders = set()
+unique_genders_list = []
+
+for row in legislators:
+    genders_list.append(row[3])
+    
+unique_genders = set(genders_list)
+unique_genders_list = list(unique_genders)
+print(unique_genders_list)
+
+# unique_genders_list is now a list of unique genders.
+
+#### Replacing_genders ####
+
+# Loop through the rows in legislators and replace any gender values of "" with "M".
+for row in legislators:
+    if row[3] == "":
+        row[3] = "M"
+
+#### Parsing_birth_years ####
+
+birth_years = []
+
+for row in legislators:
+    birth_years.append((row[2]).split('-')[0]) 
+ 
+#Takes second element of each list in legislators, splits this string by '-'. 
+#There are three of these elements. We want the one at index 0.
+#Which we then append to our birthyears list.
+    
+print(birth_years)
+
+#### Create_a_birthyear_column_with_Enumerate ####
+
+# The enumerate() function adds a counter to an iterable. enumerate() starts counting at 0.
+for i, row in enumerate(legislators):
+    row.append(birth_years[i])
+print(legislators)
+
+## Same as -- which I did all by myself :)
+for row in legislators:
+    row.append((row[2]).split('-')[0])
+    
+print(legislators)
+
+#### Practice_with_list_compehensions ####
+
+# Define a list of lists
+data = [["tiger", 2], ["duck", 10], ["cardinal", 4]]
+
+# Extract the first column from the list
+first_column = [row[0] for row in data]
+# Double the number of animals.
+double_numbers = [row[1]*2 for row in data]
+
+
+#### Practice_with_try_except ####
+
+invalid_int = ""         # Cannot be parsed into an int with the int() function.
+valid_int = "10"         # Can be parsed into an int.
+
+# Parse the valid int
+try:
+    valid_int = int(valid_int)
+except Exception:        # This code is never run, because there is no error parsing valid_int into an integer.
+    valid_int = 0
+
+# Try to parse the invalid int
+try:
+    invalid_int = int(invalid_int)
+except Exception:        # The parsing fails, so we end up here.
+    invalid_int = 0      # The code here will be run, and will assign 0 to invalid_int.
+
+
+#### The_pass_keyword ####
+
+# We can use the pass keyword inside the body of any statement that ends with a colon.
+valid_int = "10"
+try:                                    # Use a try/except block to parse valid_int into an integer.
+    valid_int = int(valid_int)
+except Exception:
+    pass                                # Use the pass keyword inside the except block.
+
+#### Convert_birth_years_to_integers ####
+
+# Loop over the rows in legislators, and convert the values in the birth year column to integers.
+# In cases where parsing fails, assign 0 as the value.
+
+for row in legislators:
+    try:
+        row[7] = int(row[7])
+    except:
+        row[7] = 0
+    print(row[7])
+
+#### Counting_up_the_female_names ####
+
+# Count up how many times each female name occurs in legislators. 
+# First name is the second column.
+# You'll need to make sure that gender (fourth column) equals "F", 
+# and that birth year (eighth column) is greater than 1940.
+# Store the first name key and the counts in the female_name_counts dictionary.
+# You'll need to use nested if statements to first check if gender and birth year are valid, 
+# and then to check if the first name is in female_name_counts.
+
+female_name_counts = {}
+male_name_counts = {}
+for row in legislators:
+    if row[3] == "F" and row[7] > 1940:
+        if row[1] in female_name_counts:
+            female_name_counts[row[1]] = female_name_counts[row[1]] + 1
+        else:
+            female_name_counts[row[1]] = 1
+    if row[3] == "M" and row[7] > 1940:
+        if row[1] in male_name_counts:
+            male_name_counts[row[1]] = male_name_counts[row[1]] + 1
+        else:
+            male_name_counts[row[1]] = 1
+
+print(female_name_counts)
+print(male_name_counts)
+
+#### Practicing_with_the_None_type ####
+
+c = None
+d = "Bamboo"
+c_none = c is None    #True
+d_none = d is None    #False
+
+#### Finding_how_many_times_the_top_female_names_occur ####
+
+max_value = None
+
+for item in female_name_counts:
+    if max_value is None or female_name_counts[item] > max_value:
+        max_value = female_name_counts[item]
+print(max_value)
+
+#### Practice_with_the_items_method ####
+
+# The .items method lets us access a dictionary key and value in a loop.
+for key,value in plant_types.items():
+    print(key)               #key
+    print(value)             #value
+    print(plant_types[key])  #value
+
+#### Finding_the_male_names_that_occur_the_most ####
+
+top_male_names = []
+
+male_name_counts = {}
+def count_occurances(list_of_legislators):
+    for row in list_of_legislators:
+        if row[3] == "M" and row[7] > 1940:
+            if row[1] in male_name_counts:
+                male_name_counts[row[1]] = male_name_counts[row[1]] + 1
+            else:
+                male_name_counts[row[1]] = 1
+
+# define function - count_occurances.
+# for each item(row) in the list of (list_of_legislators).
+# if gender is male and date is bigger than 1940
+# if the first name is in dictionary (male_name_counts)
+# then add 1 to count of that name
+# else create dictionary key with item(row) first name and value = 1
+
+count_occurances(legislators)
+#print(male_name_counts)
+
+max_val = None
+for key,value in male_name_counts.items():
+    if max_val is None or value > max_val:
+        max_val = value
+        print(key)
+        print(value)
+#print(max_val)
+
+for key,value in male_name_counts.items():
+    if value == 35:
+        top_male_names.append(key)
+#print(top_male_names)
 
 
 ########################################################################################################################
@@ -197,7 +394,7 @@ for i, ship in enumerate(ships):
     print(ships[i])
     print(cars[i])
 
-#### Create_a_birthyear_column ####
+#### Create_a_birthyear_column_with_Enumerate ####
 
 # Now, let's add the birth years column into our data as column 8.
 # We can do this by looping through the data and adding to the row.
@@ -229,6 +426,7 @@ for row in legislators:
     row.append((row[2]).split('-')[0])
     
 print(legislators)
+
 
 #### List comprehension ####
 
@@ -274,7 +472,7 @@ apple_price_doubled = [i*2 for i in apple_price]
 
 apple_price_lowered = [i-100 for i in apple_price]
 
-#### Convert_birth_years_to_integers ####
+#### Convert_failed_birth_years_to_integers ####
 
 # We want to find the most common Senator names after a certain date -- let's say 1940.
 # Remember that the birth years are now the last column in the legislators data.

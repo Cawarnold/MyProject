@@ -6,7 +6,11 @@ url = ("https://dataquest.io")
 
 #####################################
 
+# Chapter 5
+
 # Basics: Analyse NFL Data -- (Wins_by_year_method)
+
+# Learn about modules and classes while analyzing data from (American) football from 2009-2013.
 
 #####################################
 
