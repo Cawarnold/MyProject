@@ -244,8 +244,62 @@ print(delayed_percentage)
 
 # The total amount of time (in minutes) that planes for a given carrier were delayed at a given airport is in "arr_delay" column.
 
+def column_number_from_name(column_name):
+    column_number = None
+    for i, column in enumerate(column_names):
+        if column == column_name:
+            column_number = i
+    return column_number
+
+# Find the sum of the "arr_delay" column.
+# Then, divide it by the sum of the "arr_del15" column to get 
+# the average number of minutes a plane was delayed.
+# Assign the result to average_delay_time
+
+average_delay_time = None
+arr_delays = []
+arr_del15 = []
+for i,row in enumerate(flight_delays):
+    arr_delays.append(int(row[column_number_from_name("arr_delay")]))
+    arr_del15.append(int(row[column_number_from_name("arr_del15")]))
+total_arr_delays = sum(arr_delays)
+total_arr_del15 = sum(arr_del15)
+print(total_arr_delays)
+print(total_arr_del15)
+
+average_delay_time = total_arr_delays / total_arr_del15
+print(average_delay_time)
+
+#### Making_a_function_to_calculate_the_delay ####
+
+# There are a few more columns that we'll need to calculate the sum of, 
+# and its getting a bit tedious to keep typing the same few commands.
+# Let's make a function to save ourselves time.
 
 
+def column_number_from_name(column_name):
+    column_number = None
+    for i, column in enumerate(column_names):
+        if column == column_name:
+            column_number = i
+    return column_number
+
+# Make a function that takes a column name as input, and returns the column sum.
+# Then use the function to take the sum of the "weather_delay" column, 
+# and divide it by the sum of the "arr_del15" column.
+# Assign the result to average_weather_delay_time.
+
+def calc_sum_of(column_name):
+    list_of_values = []
+    for i,row in enumerate(flight_delays):
+        list_of_values.append(int(row[column_number_from_name(column_name)]))
+    total = sum(list_of_values)
+    return total
+print(calc_sum_of("arr_del15"))
+print(calc_sum_of("weather_delay"))
+
+average_weather_delay_time = calc_sum_of("weather_delay") / calc_sum_of("arr_del15")
+print(average_weather_delay_time)
 
 
 
