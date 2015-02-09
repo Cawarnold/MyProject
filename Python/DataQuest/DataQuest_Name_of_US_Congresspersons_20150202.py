@@ -15,7 +15,7 @@ url = ("https://dataquest.io")
 #####################################
 
 Overview of Useful code:
-Get _all unique values _in a column. (Find_the_different_genders)
+Get _all UNIQUE values _in a column. (Find_the_different_genders)
 Replacing values _in a column. (Replacing_genders)
 String split on '-'. (Parsing_birth_years)
 Enumerate _is a _for loop counter. (Create_a_birthyear_column_with_Enumerate)

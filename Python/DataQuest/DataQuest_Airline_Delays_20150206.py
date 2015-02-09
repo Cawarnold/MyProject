@@ -302,20 +302,204 @@ average_weather_delay_time = calc_sum_of("weather_delay") / calc_sum_of("arr_del
 print(average_weather_delay_time)
 
 
+#### Named and optional arguements to functions ####
+
+#so far we've done
+
+def add(x,y):
+    return x+y
+add(10,5)
+#since 10 is assigned first it goes to the x
+#since 5 is assigned second it goes to the y
+> 15
+
+# we can refer to these arguments by name, not just by position
+add(y = 10, x = 5)
+# the benefits: gies you extra flexibility. and let you make arguments optional.
+# when you start naming arguments youmust name all arguments for python to read it.
+
+# Optional Args: division funtion
+def div(x,y=1):
+    return x/y
+
+div(1)
+> 1/1 = 1
+
+div(0.5,0.5)
+> 1   # as 0.5 overrides the y = 1.
+
+#### Named_arguments_to_functions ####
+
+# We can use named keyword arguments to pass input to a function.
+
+def divide(x, y):
+    return x/y
+
+# Use positional arguments, which will implicitly pass 10 to x and 5 to y.
+print(divide(10,5))
+
+# Use named arguments, which will pass the values to the named variable.
+print(divide(y=10, x=5))
+
+# If we use named arguments, the order doesn't matter
+print(divide(x=5, y=10))
+
+# But we can't have any positional arguments after we use a named argument
+print(divide(y=20, x=5))
+print(divide(x=100, y=30))
+
+# Fix the statements above so the code runs properly.
+# The first statement should divide 5 by 20, and the second should divide 100 by 30.
+
+#### Optional_arguments_to_a_function ####
+
+# We can also specify default values in a function definition that make the arguments optional.
+# You can't have an optional argument before a non-optional argument, just like named keywords.
+
+def multiply(a, b=2, c=1):
+    return a * b * c
+
+# This will multiply 5 * 2 * 1
+print(multiply(5))
+
+# This will multiply 6 * 4 * 1
+print(multiply(5, 4))
+
+# This will multiply 5 * 2 * 1
+print(multiply(a=5))
+
+# This will multiply 6 * 2 * 4
+print(multiply(a=6, c=4))
+
+# Invalid, because we didn't fill the a variable, which doesn't have a default.
+print(multiply(a=4,b=3))
+
+# Invalid, because we didn't fill the a variable.
+print(multiply(a=3,c=3))
+
+# Fix the last two statements so that they work properly.
+# The first statement should multiply 4 * 3 * 1
+# The second statement should multiply 3 * 2 * 3
+
+#### Finding_delay_by_carrier ####
+
+# Now that we know about optional and keyword arguments, 
+# let's make a function that can find the average delay for a given airport.
+
+# Fill in the rest of the find_average_delay function.
+# You can calculate average delay time by dividing the "arr_delay" column by the "arr_del15" column.
+# The "carrier" column can be used to subset by carrier.
+# Then use the function to assign the average delay time to average_delay_time.
+# Use the function again to assign the average delay time on carrier
+# AA" to american_airlines_average_delay_time
 
 
+def column_number_from_name(column_name):
+    column_number = None
+    for i, column in enumerate(column_names):
+        if column == column_name:
+            column_number = i
+    return column_number
+
+print(column_names)
+print(flight_delays[1])
+
+def calc_sum_of(column_name):
+    list_of_values = []
+    for i,row in enumerate(flight_delays):
+        list_of_values.append(int(row[column_number_from_name(column_name)]))
+    total = sum(list_of_values)
+    return total
+
+print(calc_sum_of("arr_delay")/calc_sum_of("arr_del15"))
+
+def find_average_delay(carrier_name=None):
+    if carrier_name is None:
+        arr_delay = calc_sum_of("arr_delay") 
+        arr_del15 = calc_sum_of("arr_del15")
+        average_delay_time = arr_delay / arr_del15
+    else:
+        arr_delay_list = []
+        arr_del15_list = []
+        for i, row in enumerate(flight_delays):
+            if row[column_number_from_name("carrier")] == carrier_name:
+                arr_delay_list.append(int(row[column_number_from_name("arr_delay")]))
+                arr_del15_list.append(int(row[column_number_from_name("arr_del15")]))
+                arr_delay = sum(arr_delay_list)
+                arr_del15 = sum(arr_del15_list)
+                #arr_delay = calc_sum_of("arr_delay")   #for some reason this doesn't work?
+                #arr_del15 = calc_sum_of("arr_del15")   #same
+                average_delay_time = arr_delay / arr_del15
+    return average_delay_time
+    # Remove the pass keyword and fill in the rest of this function.
+    # If no carrier is provided, it should find the average delay for all carriers.
+    # Otherwise, it should find the average delay for that carrier.
+    # pass
+
+average_delay_time = (find_average_delay())
+print(average_delay_time)
+american_airlines_average_delay_time = (find_average_delay(carrier_name = "AA"))
+print(american_airlines_average_delay_time)
 
 
+## Answer
+
+def find_average_delay(carrier_name=None):
+    total_delayed_flights = 0
+    total_delay_time = 0
+    delay_time_column = column_number_from_name("arr_delay")
+    delay_number_column = column_number_from_name("arr_del15")
+    carrier_column = column_number_from_name("carrier")
+    for row in flight_delays:
+        if carrier_name is None or row[carrier_column] == carrier_name:
+            total_delayed_flights += float(row[delay_number_column])
+            total_delay_time += float(row[delay_time_column])
+    return total_delay_time / total_delayed_flights
+
+average_delay_time = find_average_delay()
+american_airlines_average_delay_time = find_average_delay("AA")
 
 
+#### Finding_average_delay_for_each_carrier ####
 
+# Now that we have a function to find the delay for a given carrier, we can find the delays for each carrier.
 
+def column_number_from_name(column_name):
+    column_number = None
+    for i, column in enumerate(column_names):
+        if column == column_name:
+            column_number = i
+    return column_number
 
+def find_average_delay(carrier_name=None):
+    total_delayed_flights = 0
+    total_delay_time = 0
+    delay_time_column = column_number_from_name("arr_delay")
+    delay_number_column = column_number_from_name("arr_del15")
+    carrier_column = column_number_from_name("carrier")
+    for row in flight_delays:
+        if carrier_name is None or row[carrier_column] == carrier_name:
+            total_delayed_flights += float(row[delay_number_column])
+            total_delay_time += float(row[delay_time_column])
+    return total_delay_time / total_delayed_flights
 
+# Create a list of the unique carrier names.
+# Then call the find_average_delay function for each carrier.
+# Set the carriers as keys in the delays_by_carrier dictionary, 
+# with the values being the average delay times.
 
+carrier_names_list = []
+unique_carrier_names = set()
+unique_carrier_names_list = []
+for row in flight_delays:
+    carrier_names_list.append(row[column_number_from_name("carrier")])
+unique_carrier_names = set(carrier_names_list)
+unique_carrier_names_list = list(unique_carrier_names)
+print(unique_carrier_names_list)
 
+delays_by_carrier = {}
+for item in unique_carrier_names_list:
+    delays_by_carrier[item] = find_average_delay(item)
 
-
-
-
+print(delays_by_carrier)
 
