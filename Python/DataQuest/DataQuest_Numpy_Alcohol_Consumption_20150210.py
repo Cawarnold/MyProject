@@ -1,4 +1,4 @@
-## DataQuest_Alcohol_Consumption_20150210
+## DataQuest_Numpy_Alcohol_Consumption_20150210
 
 url = ("https://dataquest.io")
 
@@ -416,7 +416,131 @@ total_alcohol = 0
 # Use the sum method to store the sum of the alcohol consumption column into the total_alcohol column
 total_alcohol = sum(alcohol_consumption)
 print((total_alcohol))
+> 3908.96
 
-Broken?? 
+total = 0.00
+for i in alcohol_consumption:
+    total = total + i
+print(total)
+> 3908.96
+
+## Broken??     ---   Worked!
+
+total_alcohol = 0
+total_alcohol = alcohol_consumption.sum()
+print(total_alcohol)
+
 
 #### Finding_how_much_alcohol_a_person_in_a_country_drank_in_a_year ####
+
+# We can subset a vector with another vector, as we learned earlier.
+# This means that we can find the total alcohol consumed by any given country in any given year now.
+
+# Create a boolean vector that contains True where year is 1985 and the country is Algeria.
+algeria_1985 = (world_alcohol[:,2] == "Algeria") & (world_alcohol[:,0] == '1985')
+
+# Subset the alcohol consumption vector with our boolean, and get the sum.
+# The sum is the total amount of alcohol and average Algerian drank in 1985.
+algeria_1985_alcohol = alcohol_consumption[algeria_1985].sum()
+
+# Assign the total amount of alcohol an average person 
+# in "Canada" drank in "1986" to canada_1986_alcohol.
+# Assign the total amount of alcohol an average person 
+# in "Trinidad and Tobago" drank in "1987" to trinidad_1987_alcohol.
+
+canada_1986 = alcohol_consumption[((world_alcohol[:,2] == "Canada") & (world_alcohol[:,0] == "1986"))]
+canada_1986_alcohol = canada_1986.sum()
+print(canada_1986_alcohol)
+
+trinidad_1987 = alcohol_consumption[((world_alcohol[:,2] == "Trinidad and Tobago") & (world_alcohol[:,0] == "1987"))]
+trinidad_1987_alcohol = trinidad_1987.sum()
+print(trinidad_1987_alcohol)
+
+
+#### A_function_to_sum_alcohol_consumption_byycountry_and_year ####
+
+# Now that we know how to find the total alcohol consumption of the average person in a country in a given year, we can make a function out of it.
+# A function will make it easier for us to calculate the alcohol consumption for all countries.
+
+def calculate_consumption(country, year):
+    country_year = alcohol_consumption[((world_alcohol[:,2] == country) & (world_alcohol[:,0] == year))]
+    country_year_alcohol = country_year.sum()
+    # Fill in the rest of the function here.
+    # Assume that country and year are strings.
+    # You'll also need to delete the "pass" keyword.
+    # The alcohol consumption column and the world_alcohol matrix are both loaded.
+    #pass
+    return country_year_alcohol
+    
+
+# Fill in the rest of the calculate_consumption function.
+# Then use the function to calculate how much alcohol people
+# in "India" drank in "1989" on average, and store the result in india_1989_alcohol.
+
+india_1989_alcohol = calculate_consumption("India","1989")
+print(india_1989_alcohol)
+
+
+#### Finding_the_country_that_drinks_the_least ####
+
+# We can now loop over our dictionary keys to find the country with the lowest amount of alcohol consumed per person in 1989.
+
+# country_consumption_1989 has been loaded in for you.
+lowest_country = None
+lowest_consumption = None
+
+# Loop over the keys in country_consumption_1989 
+# and find the country where the average person drank the least in 1989.
+# To do this, you'll need to use a for loop, and keep track of the lowest value and country.
+# Assign the lowest value to lowest_consumption, 
+# and the country with the lowest value to lowest_country.
+# Check the hint if you need help.
+
+for key,value in country_consumption_1989.items():
+    #print(key,value)
+    if lowest_consumption is None or value < lowest_consumption:
+        lowest_consumption = value
+
+lowest_country = []
+for key,value in country_consumption_1989.items():
+    if value == lowest_consumption:
+        lowest_country.append(key)
+
+print(lowest_consumption)
+print(lowest_country)
+
+## But this also worked:
+
+for key,value in country_consumption_1989.items():
+    #print(key,value)
+    if lowest_consumption is None or value < lowest_consumption:
+        lowest_consumption = value
+        lowest_country = key
+
+#### Finding_the_country_that_drinks_the_most ####
+
+# country_consumption_1989 has been loaded in for you.
+highest_country = None
+highest_consumption = None
+
+# Loop over the keys in country_consumption_1989 
+# and find the country where the average person drank the most in 1989.
+# To do this, you'll need to use a for loop, and keep track of the highest value and country.
+# Assign the highest value to highest_consumption, 
+# and the country with the highest value to highest_country.
+# Check the hint if you need help.
+
+for key,value in country_consumption_1989.items():
+    if highest_consumption is None or value > highest_consumption:
+        highest_consumption = value
+        highest_country = key
+
+highest_country_consumption = []
+for key,value in country_consumption_1989.items():
+    if highest_consumption == value:
+        highest_country_consumption.append(key)
+print(highest_country)
+print(highest_consumption)
+print(highest_country_consumption)
+
+
