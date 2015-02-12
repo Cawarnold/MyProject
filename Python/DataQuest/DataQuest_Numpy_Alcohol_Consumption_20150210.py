@@ -8,18 +8,118 @@ url = ("https://dataquest.io")
 
 # Chapter 8
 
-# Basics: Finding out about world alcohol consumption
+# Basics: Finding out about world alcohol consumption (Finding_the_country_that_drinks_the_most)
 
 # Learn about numpy, matrices, and vectors while finding out with country drinks the most (and least!).   
 
 #####################################
 
 Overview of Useful code:
-
+Reading data into numpy. (Reading_data_into_numpy)
+Reading formatted data _type into numpy, dtype. (Fixing_the_data_types)
+Indexing data _with array equals matix[rows,columns]. (Indexing_the_data)
+Vectors, Indexing _and slicing. (Vectors)
+Array, finding the dimensions _with shape method. (Array_shape)
+Use booleans to check _if a vector equals X. (Boolean_elements)
+Subset vectors based on booleans. (Subsets_of_vectors)
+Subsetting multiple conditions _with the ampersand. (Subsets_with_multiple_conditions)
+Convert datatype to floats. (Convert_a_column_to_floats)
+Replace each value depending on condition. (Replace_values_in_an_array)
 
 #####################################
 
 #### SUMMARY OF USEFUL CODE ####
+
+#### Reading_data_into_numpy ####
+
+import numpy
+alcohol_file = "world_alcohol.csv"
+world_alcohol = numpy.genfromtxt(alcohol_file, delimiter=",")
+
+
+#### Fixing_the_data_types ####
+
+import numpy
+alcohol_file = "world_alcohol.csv"
+world_alcohol = numpy.genfromtxt(alcohol_file, delimiter=",", dtype="U75", skip_header=1)
+print(world_alcohol[:100]) # Prints first 100 rows of the data
+
+
+#### Indexing_the_data ####
+
+# Assign the amount of alcohol Uruguayans drank in other beverages per capita 
+# in 1986 to uruguay_other_1986. This is the second row in the data.
+# Assign the whole fourth row to row_four.
+# Assign the whole year column to years
+
+uruguay_other_1986 = world_alcohol[1,4]
+row_four = world_alcohol[3,:]
+years = world_alcohol[:,0]
+
+# array = matix[rows,columns] 
+
+
+#### Vectors ####
+
+# Countries is a vector.
+countries = world_alcohol[:,2]
+# We can index a vector with only one number.
+print(countries[0])
+# We can also slice vectors to get some of the values in the vector.
+print(countries[1:10])
+
+
+#### Array_shape ####
+
+# Print the shape of the world alcohol matrix.
+print(world_alcohol.shape)
+# We can do the same with a vector, but they only have one dimension, so only one number is printed.
+print(world_alcohol[1,:].shape)
+
+
+#### Boolean_elements ####
+
+years_1984 = (world_alcohol[:,0] == "1984")
+# years_1984 is a new vector with 'True/False' values.
+
+
+#### Subsets_of_vectors ####
+
+# We can subset vectors based on boolean vectors like the ones we generated in the last screen.
+beer = (world_alcohol[:,3] == "Beer")
+print(world_alcohol[:,3][beer])
+# The code above will select and print only the elements in the fourth column whose value is "Beer".
+
+# Subset the third column of world_alcohol on whether the value is "Algeria". 
+country_algeria = (world_alcohol[:,2][world_alcohol[:,2] == "Algeria"])
+
+
+#### Subsets_with_multiple_conditions ####
+
+algeria_1985_boolean = (world_alcohol[:,2] == "Algeria") & (world_alcohol[:,0] == "1985")
+print(algeria_1985_boolean)
+> [False False ... False False]
+# If both vectors are True at index 1, then the resulting vector will be True at index 1.
+# If either vector is False at index 1, the result will be False at index 1.
+
+# Assign all rows where the country is "Latvia", the year is "1989", and the type of alcohol is "Wine" to latvia_1989_wine.
+latvia_1989_wine_booleans = ((world_alcohol[:,2] == "Latvia") & (world_alcohol[:,0] == "1989") & (world_alcohol[:,3] == "Wine"))
+latvia_1989_wine = (world_alcohol[latvia_1989_wine_booleans,:])
+
+
+#### Convert_a_column_to_floats ####
+
+# Let's convert the column to floats.
+alcohol_numbers = world_alcohol[:,4].astype(float)
+# Hmm, but the above code fails with an error!
+
+
+#### Replace_values_in_an_array ####
+
+# We can replace values in a numpy array by just assigning to them with the equals sign.
+world_alcohol[:,4][world_alcohol[:,4]=='0'] = '10'
+
+
 
 
 
@@ -56,7 +156,9 @@ import numpy
 
 # We'll get our nfl filename from before.
 # Note that we don't need to use the open function to open it -- numpy will take care of that.
+
 f = "nfl.csv"
+# for_my_data = open("C:\Users\Christian\Anaconda\MyPractice_20141009\DataQuest_testing_Numpy_Pandas\hello.txt","r")
 
 # The genfromtxt function in numpy is used to read files.
 # delimiter is a named keyword argument specifying that commas separate the data fields (we have a csv file, which means comma separated values).
