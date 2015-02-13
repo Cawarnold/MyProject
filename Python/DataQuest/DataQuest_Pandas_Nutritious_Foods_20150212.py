@@ -290,6 +290,221 @@ descending_cholesterol_then_ascending_protein = food_info.sort(["Cholestrl_(mg)"
 # What we need to do is construct a rating for each food based on Superman's criteria.
 # Then we can recommend the food that scores the highest.
 
+# Let's assume that Superman is three times more interested in foods having a lot of protein than he is worried about them having too much fat.
+# We can "weight" the protein number by his criteria, or multiply it by three.
+# First we'll calculate the weighted value for protein.
+weighted_protein = food_info["Protein_(g)"] * 3
+
+# And now the weighted value for fat.
+# We'll give fat a weight of -1, because he wants to avoid foods that have a lot of it, but he cares about foods having a lot of protein three times as much.
+weighted_fat = -1 * food_info["Lipid_Tot_(g)"]
+
+# We can construct our rating by just adding the weighted values.
+initial_rating = weighted_protein + weighted_fat
+
+# Let's say Superman now decides that the food having a lot of protein 
+# is only twice as important as the food not being too fatty.
+
+# Construct the new rating, and assign it to new_rating
+
+new_rating = (food_info["Protein_(g)"]*2)+((-1)*food_info["Lipid_Tot_(g)"])
+
+#### Normalizing values ####
+
+# normalization of ratings means adjusting values measured on different scales to a notionally common scale.
+
+# There are various normalizations in statistics – 
+# nondimensional ratios of errors, residuals, means and standard deviations, which are hence scale invariant.
+
+#### Normalising_columns ####
+
+# One of the simplest ways to normalize a column is to divide all of the values by the maximum value in the column.
+# It will change all of the values to be between 0 and 1.
+# It doesn't work so well with negative values, but we don't have any (you can't have negative amounts of protein, fat, etc).
+# This isn't necessarily the best way to normalize, and we'll learn some better methods soon.
+
+# We can use the max() method to find the maximum value in a column.
+max_protein = food_info["Protein_(g)"].max()
+
+# And then we can divide the column by the scalar.
+normalized_protein = food_info["Protein_(g)"] / max_protein
+
+# See how all the values are between 0 and 1 now?
+print(normalized_protein[0:20])
+
+# Normalize the values in the "Vit_C_(mg)" column, and assign the result to normalized_vitamin_c
+# Normalize the values in the "Zinc_(mg)" column, and assign the result to normalized_zinc
+
+normalized_vitamin_c =  food_info["Vit_C_(mg)"] / food_info["Vit_C_(mg)"].max()
+normalized_zinc =  food_info["Zinc_(mg)"] / food_info["Zinc_(mg)"].max()
 
 
+#### Making_a_better_rating ####
 
+# We now know enough to construct a better rating for our friend Superman.
+# We just have to normalize the columns that we are interested in before we create the rating.
+
+better_protein_rating = None
+
+# Superman is twice as interested in a food having a lot of protein
+# than he is in it having too much fat.
+# Construct a rating with these new criteria, and assign it to better_protein_rating.
+# Make sure to normalize the protein ("Protein_(g)") and fat ("Lipid_Tot_(g)") columns first!
+
+normalized_protein =  food_info["Protein_(g)"] / food_info["Protein_(g)"].max()
+
+normalized_lipid_fat =  food_info["Lipid_Tot_(g)"] / food_info["Lipid_Tot_(g)"].max()
+
+better_protein_rating = (normalized_protein*2) + (-1*normalized_lipid_fat)
+print(better_protein_rating)
+
+
+#### Normalizing_multiple_columns_for_loop ####
+
+# Now, let's say we want to construct a total nutrition rating that takes all the columns into account.
+# In order to do this, we would have to normalize each of the columns, which is a huge pain.
+# An easier way is to use a for loop to normalize each column.
+# The "NDB_No" and "Shrt_Desc" columns (first two) can't be normalized, because they aren't nutritional values. 
+# The first one is the ID number of the food, and the second is the name.
+
+column_list = ["Energ_Kcal", "Protein_(g)"]
+
+# This will loop through column_list, and normalize each of the columns in it.
+for column in column_list:
+    food_info[column] = food_info[column] / food_info[column].max()
+
+# All columns is a list of all the columns in the food_info dataframe.
+all_columns = list(food_info.columns.values)
+print(all_columns)
+
+# Remove the "NDB_No" and "Shrt_Desc" columns from all_columns
+# Then, use a for loop to normalize all the other columns
+
+numeric_columns = all_columns[2:]
+for column in numeric_columns:
+    food_info[column] = food_info[column] / food_info[column].max()
+
+
+#### Finding_the_amount_of_vitamins ####
+
+# Now that we normalized all of the columns, we're well on our way to making a nutritional rating.
+# In order to get there, let's create a sum of all the vitamin columns.
+# Most methods on pandas dataframes can operate on series, or on dataframes.
+# Let's take the .sum() method as an example.
+# On a series, it gives you the total of all the values in the series.
+# When used on a dataframe, it takes the optional axis keyword argument.
+# When axis is 0, it gives you a new series with the sums of all of the columns in the dataframe.
+# When axis is 1, it gives you a new series with sums of all of the rows in the dataframe.
+
+column_list = ['Fiber_TD_(g)', 'Sugar_Tot_(g)']
+
+# Let's sum the amount of fiber and sugar in each of the foods.
+row_total = food_info[column_list].sum(axis=1)
+
+# This gives us a sum for each row in the data
+print(row_total)
+
+# Let's sum up the total amount of fiber and sugar across all the foods.
+column_total = food_info[column_list].sum(axis=0)
+print(column_total)
+
+vitamin_columns = ['Calcium_(mg)', 'Iron_(mg)', 'Magnesium_(mg)', 'Phosphorus_(mg)', 'Potassium_(mg)', 'Sodium_(mg)', 'Zinc_(mg)', 'Copper_(mg)', 'Manganese_(mg)', 'Selenium_(mcg)', 'Vit_C_(mg)', 'Thiamin_(mg)', 'Riboflavin_(mg)', 'Niacin_(mg)', 'Vit_B6_(mg)', 'Vit_B12_(mcg)', 'Vit_A_IU', 'Vit_A_RAE', 'Vit_E_(mg)', 'Vit_D_mcg', 'Vit_D_IU', 'Vit_K_(mcg)']
+
+
+# Sum up the amount of vitamins in each food 
+# (using the vitamin_columns list to get columns from the dataframe), 
+# and assign the result to vitamin_totals.
+# You'll need to sum the total in each row.
+
+vitamin_totals = food_info[vitamin_columns].sum(axis=1)
+print(vitamin_totals)      # The sum of vitamins for each food.
+
+vitamin_columns_total = food_info[vitamin_columns].sum(axis=0)
+print(vitamin_columns_total)     # The sum of foods for each vitamin.
+
+
+#### Adding_a_new_column ####
+
+# We can add a column to a dataframe by assigning to it.
+food_info["double_fat"] = food_info["Lipid_Tot_(g)"] * 2
+# The above code assigns double the amount of lipids to the "double_fat" column in food_info.
+
+food_info["double_protein"] = food_info["Protein_(g)"] * 2
+
+# We've read the vitamin_totals variable from the last screen in.
+# Assign vitamin_totals to the "vitamin_totals" column in food_info.
+
+vitamin_columns = ['Calcium_(mg)', 'Iron_(mg)', 'Magnesium_(mg)', 'Phosphorus_(mg)', 'Potassium_(mg)', 'Sodium_(mg)', 'Zinc_(mg)', 'Copper_(mg)', 'Manganese_(mg)', 'Selenium_(mcg)', 'Vit_C_(mg)', 'Thiamin_(mg)', 'Riboflavin_(mg)', 'Niacin_(mg)', 'Vit_B6_(mg)', 'Vit_B12_(mcg)', 'Vit_A_IU', 'Vit_A_RAE', 'Vit_E_(mg)', 'Vit_D_mcg', 'Vit_D_IU', 'Vit_K_(mcg)']
+
+food_info["vitamin_totals"] = food_info[vitamin_columns].sum(axis=1)
+
+#or
+
+food_info["vitamin_totals"] = vitamin_totals
+
+
+#### Making_a_nutritional_index ####
+
+# We've normalized the values in vitamin_totals, and assigned it to the "vitamin_totals" column in food_info.
+# Let's construct a nutritional rating using the amount of vitamins, fats, protein, sugar, fiber, and cholesterol.
+
+nutritional_rating = None
+
+# Give the "vitamin_totals" column a weight of 3,
+# the "Lipid_Tot_(g)" column a weight of -2, 
+# the "Protein_(g)" column a weight of 3, 
+# the "Sugar_Tot_(g)" column a weight of -1, 
+# the "Fiber_TD_(g)" a weight of 1, 
+# and the "Cholestrl_(mg)" column a weight of -2.
+
+# Construct a rating using the above weights, and assign it to nutritional_rating.
+
+nutritional_rating = ((food_info["vitamin_totals"]*3) + 
+(food_info["Lipid_Tot_(g)"]*(-2)) + 
+(food_info["Protein_(g)"]*3) + 
+(food_info["Sugar_Tot_(g)"]*(-1)) +
+(food_info["Fiber_TD_(g)"]*(1)) +
+(food_info["Cholestrl_(mg)"]*(-2)))
+
+
+#### Finding_the_most_nutritious_foods ####
+
+# We've read the nutritional rating series from the last screen to the "nutritional_rating" column in food_info.
+# Now, lets see if we can use it to find the most nutritious foods.
+
+most_nutritious_foods = []
+
+# Find the three most nutritious foods by sorting food_info using the "nutritional_rating" column.
+# Get the name of those foods (the "Shrt_Desc" column), and assign the names to most_nutritious_foods.
+# If most_nutritious_foods isn't a list at the end, use the list() function to turn it into one.
+
+sorted_food = food_info.sort(['nutritional_rating'], ascending = [False])
+top_3 = sorted_food.iloc[0:3][["Shrt_Desc","nutritional_rating"]]
+print(top_3)
+
+most_nutritious_foods = list(top_3["Shrt_Desc"])
+print(most_nutritious_foods)
+print(type(most_nutritious_foods))
+
+# ^ Works ^
+
+## Official Answer
+
+sorted_food_info = food_info.sort(["nutritional_rating"], ascending=[False])
+most_nutritious_foods = sorted_food_info["Shrt_Desc"].iloc[0:3]
+most_nutritious_foods = list(most_nutritious_foods)
+
+
+#### Finding_the_least_nutritious_foods ####
+
+# Let's do the same as in the last screen, but find the least nutritious foods.
+
+least_nutritious_foods = []
+
+# Find the three least nutritious foods by sorting food_info using the "nutritional_rating" column.
+# Get the name of those foods (the "Shrt_Desc" column), and assign the names to least_nutritious_foods
+# If least_nutritious_foods isn't a list at the end, use the list() function to turn it into one.
+
+sorted_food = food_info.sort(['nutritional_rating'], ascending = [True])
+top_3 = sorted_food.iloc[0:3][["Shrt_Desc","nutritional_rating"]]
+least_nutritious_foods = list(top_3["Shrt_Desc"])
