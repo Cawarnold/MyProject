@@ -15,11 +15,208 @@ url = ("https://dataquest.io")
 #####################################
 
 Overview of Useful code:
-
+Use .iloc to extract values based on i,j row,column locations. (Indexing_data_with_pandas)
+Index a series (one dimensional array). (Index_a_series)
+Get columns _with their names, instead of only by numbers. (Get_column_by_name)
+Get multiple columns by passing _in a _list of names. (Getting_multiple_columns_by_name)
+We can do math _with vectors, going through each value at each position. (Math_with_columns_CalculatedFields)
+We can also do math _with a vector (column) _and a scalar (single numbers). (Math_with_scalars)
+Sort the dataframe by the values _in a column using .sort method. (Sorting_columns)
+Sorting multiple columns _with the .sort method. (Multicolumn_sort)
+We can construct a rating _and recommend the highest value. (Creating_a_rating)
+Normalization of ratings means adjusting values measured on different scales to a notionally common scale. (Normalising_columns)
+Normalise the values before creating a rating. (Making_a_better_rating)
+Normalise multiple columns _with _for loop. (Normalizing_multiple_columns_for_loop)
+Finding the .sum()) of _all rows _and colummns. (Finding_the_amount_of_vitamins)
+Adding a new column to the dataframe. (Adding_a_new_column)
+Construct a nutritional rating using columns _and scalars. (Making_a_nutritional_index)
+Using the .sort method, now find the most nutritious foods. (Finding_the_most_nutritious_foods)
+Using the .sort method, now find the least nutritious foods. (Finding_the_least_nutritious_foods)
 
 #####################################
 
 #### SUMMARY OF USEFUL CODE ####
+
+# Import pandas
+import pandas
+# Read "food_info.csv" info food_info.
+food_info = pandas.read_csv("food_info.csv")
+
+
+#### Indexing_data_with_pandas ####
+
+pandas_dataframe.iloc[0,0]   # value from row 1, column 1 of pandas_dataframe
+pandas_dataframe.iloc[:,0]   # series of every row, column 1
+pandas_dataframe.iloc[0,:]   # series of row 1, every column
+
+
+#### Index_a_series ####
+
+# What we call a vector or a one-dimensional array is called a series in pandas.
+# We index a series without using .iloc[].
+
+# This is a series.
+first_row = food_info.iloc[0,:]
+
+# Get the first ten items in the first row.  Note how we index the series.
+first_ten_items_in_first_row = first_row[0:10]
+
+# Equivalent to the above two statements, just condensed.
+first_ten_items_in_first_row = food_info.iloc[0,:][0:10]
+
+
+#### Get_column_by_name ####
+
+# First we can get the names of all the columns (in order)
+print(list(food_info.columns.values))
+
+sodium_column = food_info["Sodium_(mg)"]
+
+
+#### Getting_multiple_columns_by_name ####
+
+zinc_and_copper = food_info[['Zinc_(mg)', 'Copper_mg)']]
+
+
+#### Math_with_columns_CalculatedFields ####
+
+total_fat = food_info["FA_Sat_(g)"] + food_info["FA_Mono_(g)"] + food_info["FA_Poly_(g)"]
+
+grams_of_protein_per_calorie = food_info["Protein_(g)"] / food_info["Energ_Kcal"]
+
+grams_of_protein_squared = food_info["Protein_(g)"] * food_info["Protein_(g)"]
+
+non_sugar_carbs = food_info["Carbohydrt_(g)"] - food_info["Sugar_Tot_(g)"]
+
+
+#### Math_with_scalars ####
+
+# A scalar is a 1 dimensional phrysical quantity - or a number. eg. 1000
+food_info["Iron_(mg)"] / 1000
+
+
+#### Sorting_columns ####
+
+# The first argument to the .sort method is a list of columns to sort by.
+# The other argument is named, and specifies the sort order of each of the columns.
+descending_fat = food_info.sort(["Lipid_Tot_(g)"], ascending=[False])
+
+
+#### Multicolumn_sort ####
+
+# The first column in the list will be sorted on first. 
+# Any rows that have the same value for the first column will be sorted based on the second column, 
+# We can specify different sort orders for each column using the ascending argument.
+ascending_fat_then_ascending_sodium = food_info.sort(["Lipid_Tot_(g)", "Sodium_(mg)"], ascending=[True, True])
+
+
+#### Creating_a_rating ####
+
+# To construct a rating for each food based on a criteria.
+# Then we can recommend the food that scores the highest.
+new_rating = (food_info["Protein_(g)"]*2)+(food_info["Lipid_Tot_(g)"]*(-1))
+
+
+#### Normalising_columns ####
+
+# One of the simplest ways to normalize a column is to divide all of the values by the maximum value in the column.
+# It will change all of the values to be between 0 and 1.
+normalized_vitamin_c =  food_info["Vit_C_(mg)"] / food_info["Vit_C_(mg)"].max()
+
+
+#### Making_a_better_rating ####
+
+# We just have to normalize the columns that we are interested in before we create the rating.
+normalized_protein =  food_info["Protein_(g)"] / food_info["Protein_(g)"].max()
+normalized_lipid_fat =  food_info["Lipid_Tot_(g)"] / food_info["Lipid_Tot_(g)"].max()
+better_protein_rating = (normalized_protein*2) + (-1*normalized_lipid_fat)
+
+#### Normalizing_multiple_columns_for_loop ####
+
+# All columns is a list of all the columns in the food_info dataframe.
+all_columns = list(food_info.columns.values)
+
+# Remove the "NDB_No" and "Shrt_Desc" columns from all_columns
+# Then, use a for loop to normalize all the other columns
+
+numeric_columns = all_columns[2:]
+for column in numeric_columns:
+    food_info[column] = food_info[column] / food_info[column].max()
+
+
+#### Finding_the_amount_of_vitamins ####
+
+# Now that we normalized all of the columns, we're well on our way to making a nutritional rating.
+# In order to get there, let's create a sum of all the vitamin columns.
+# Most methods on pandas dataframes can operate on series, or on dataframes.
+# Let's take the .sum() method as an example.
+# On a series, it gives you the total of all the values in the series.
+# When used on a dataframe, it takes the optional axis keyword argument.
+# When axis is 0, it gives you a new series with the sums of all of the columns in the dataframe.
+# When axis is 1, it gives you a new series with sums of all of the rows in the dataframe.
+
+vitamin_columns = ['Calcium_(mg)', 'Iron_(mg)', 'Magnesium_(mg)', 'Phosphorus_(mg)', 'Potassium_(mg)',
+ 'Sodium_(mg)', 'Zinc_(mg)', 'Copper_(mg)', 'Manganese_(mg)', 'Selenium_(mcg)', 'Vit_C_(mg)', 
+ 'Thiamin_(mg)', 'Riboflavin_(mg)', 'Niacin_(mg)', 'Vit_B6_(mg)', 'Vit_B12_(mcg)', 'Vit_A_IU', 
+ 'Vit_A_RAE', 'Vit_E_(mg)', 'Vit_D_mcg', 'Vit_D_IU', 'Vit_K_(mcg)']
+
+vitamin_totals = food_info[vitamin_columns].sum(axis=1)
+print(vitamin_totals)      # The sum of vitamins for each food.
+
+vitamin_columns_total = food_info[vitamin_columns].sum(axis=0)
+print(vitamin_columns_total)     # The sum of foods for each vitamin.
+
+
+#### Adding_a_new_column ####
+
+# The below code assigns double the amount of lipids to the "double_fat" column in food_info.
+food_info["double_fat"] = food_info["Lipid_Tot_(g)"] * 2
+
+food_info["vitamin_totals"] = food_info[vitamin_columns].sum(axis=1)
+
+
+
+#### Making_a_nutritional_index ####
+
+# We've normalized the values in vitamin_totals, and assigned it to the "vitamin_totals" column in food_info.
+# Let's construct a nutritional rating using the amount of vitamins, fats, protein, sugar, fiber, and cholesterol.
+
+nutritional_rating = None
+
+nutritional_rating = ((food_info["vitamin_totals"]*3) + 
+(food_info["Lipid_Tot_(g)"]*(-2)) + 
+(food_info["Protein_(g)"]*3) + 
+(food_info["Sugar_Tot_(g)"]*(-1)) +
+(food_info["Fiber_TD_(g)"]*(1)) +
+(food_info["Cholestrl_(mg)"]*(-2)))
+
+
+#### Finding_the_most_nutritious_foods ####
+
+# We've read the nutritional rating series from the last screen to the "nutritional_rating" column in food_info.
+# Now, lets see if we can use it to find the most nutritious foods.
+
+most_nutritious_foods = []
+
+sorted_food = food_info.sort(['nutritional_rating'], ascending = [False])
+top_3 = sorted_food.iloc[0:3][["Shrt_Desc","nutritional_rating"]]
+most_nutritious_foods = list(top_3["Shrt_Desc"])
+print(most_nutritious_foods)
+
+
+#### Finding_the_least_nutritious_foods ####
+
+# Let's do the same as in the last screen, but find the least nutritious foods.
+
+least_nutritious_foods = []
+
+# Find the three least nutritious foods by sorting food_info using the "nutritional_rating" column.
+# Get the name of those foods (the "Shrt_Desc" column), and assign the names to least_nutritious_foods
+# If least_nutritious_foods isn't a list at the end, use the list() function to turn it into one.
+
+sorted_food = food_info.sort(['nutritional_rating'], ascending = [True])
+top_3 = sorted_food.iloc[0:3][["Shrt_Desc","nutritional_rating"]]
+least_nutritious_foods = list(top_3["Shrt_Desc"])
 
 
 
@@ -158,7 +355,7 @@ zinc_and_copper = food_info[['Zinc_(mg)', 'Copper_mg)']]
 selenium_and_thiamin = food_info[['Selenium_(mcg)', 'Thiamin_(mg)']]
 
 
-#### Math_with_columns_(CalculatedFields) ####
+#### Math_with_columns_CalculatedFields ####
 
 # We can do math with vectors (or, as we are more familiar with them as, columns).
 # Adding two columns will go through and add each value at each position to the corresponding value in the same position.
@@ -308,6 +505,7 @@ initial_rating = weighted_protein + weighted_fat
 # Construct the new rating, and assign it to new_rating
 
 new_rating = (food_info["Protein_(g)"]*2)+((-1)*food_info["Lipid_Tot_(g)"])
+
 
 #### Normalizing values ####
 
