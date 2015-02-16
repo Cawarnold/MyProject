@@ -6,7 +6,7 @@ url = ("https://dataquest.io")
 
 #####################################
 
-# Chapter 8
+# Chapter 9
 
 # Basics: Finding the most (and least) nutritious foods
 
