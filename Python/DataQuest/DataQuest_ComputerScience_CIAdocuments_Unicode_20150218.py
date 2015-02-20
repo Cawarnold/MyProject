@@ -1,4 +1,4 @@
-## DataQuest_ComputerScience_CIAdocuments_StoringVariablesUnicode_20150218
+## DataQuest_ComputerScience_CIAdocuments_Unicode_20150218
 
 url = ("https://dataquest.io")
 
@@ -200,7 +200,37 @@ print(binary_bracket)
 # utf-8 can encode values that are longer that one byte, enabling it to store all unicode characters.
 # utf-8 encodes characters using a variable length of bytes, which means that it also supports regular ascii characters (which are one byte each).
 
+# We can initialize unicode code points (the value for this code point is \u27F6, but you see it as a character because it is being automatically converted)
+code_point = "⟶"
 
+# This particular code point maps to a right arrow character
+print(code_point)
+
+# We can get the base 10 integer value of the code point with the ord function
+print(ord(code_point))
+
+# As you can see, this takes up a lot more than 1 byte
+print(bin(ord(code_point)))
+
+# Find the binary representation of "\u1019". Assign it to binary_1019.
+
+code_point = "\u1019"
+print(code_point)
+# Get base 10 integer value of the code point with the ord function
+print(ord(code_point))
+# Get base 2 integer value of code point with bin and ord functions
+print(bin(ord(code_point)))
+
+binary_1019 = bin(ord(code_point))
+
+
+#### Strings_with_unicode ####
+
+# ascii is a subset of unicode. Unicode implements all of the ascii characters, as well as the additional characters that code points allow.
+# This lets us create unicode strings, that have ascii and unicode characters together.
+# By default in python 3, all strings are unicode, and encoded with utf-8, so we can directly use unicode code points or characters
+
+# 
 
 
 
