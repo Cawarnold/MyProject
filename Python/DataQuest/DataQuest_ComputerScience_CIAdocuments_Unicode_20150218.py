@@ -230,7 +230,24 @@ binary_1019 = bin(ord(code_point))
 # This lets us create unicode strings, that have ascii and unicode characters together.
 # By default in python 3, all strings are unicode, and encoded with utf-8, so we can directly use unicode code points or characters
 
-# 
+s1 = "café"
+# The \u prefix means "the next 4 digits are a unicode code point"
+# It doesn't change the value at all (the last character in the string below is \u00e9)
+s2 = "café"
+
+# These strings are the same, because code points are equal to their corresponding unicode character.
+# \u00e9 and é are equivalent.
+print(s1 == s2)
+
+# Make a string with mixed unicode and ascii, and assign it to s3
+
+unicode_code_point = "\u00e9"
+ascii_chars = "hello"
+
+s3 = "caf\u00e9"
+# incorrect answer
+
+s3 = "hello မ"
 
 
 
