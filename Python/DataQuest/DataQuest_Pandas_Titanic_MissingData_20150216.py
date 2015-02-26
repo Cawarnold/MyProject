@@ -15,12 +15,184 @@ url = ("https://dataquest.io")
 #####################################
 
 Overview of Useful code:
-
+Find missing data, count nulls _in age column. (Finding_missing_data)
+Calculations we do _with a null value also result _in a null value. (Whats_the_big_deal_with_missing_data)
+The .mean() will automatically remove missing values. (Easier_ways_to_do_math)
+Subset the fares column based on the pclass at each iteration. (Computing_summary_statistics)
+Index _is the grouping, values _is the _object that the aggfunc will operate on. (Making_pivot_tables)
+Grouping by one category, summing multiple values. (More_complex_pivot_tables)
+Using the dropna method to drop _any rows containing missing values. (Drop_missing_values)
+Indexing _and selecting data using .iloc _and .loc methods. (Row_indices_loc_OR_iloc)
+Sometimes it _is useful to reindex, _and make new indexes starting _from Zero. (Reindexing_rows)
+Using _apply functions on columns, dataframe.apply(function). (Use_the_apply_function_on_columns)
+Setting axis equal to one, we can use the .apply() method to iterate over rows, _not columns.(Applying_a_function_to_a_row)
+Make a pivot table to find survival chance by age group. (Computing_survival_percentage_by_age_group)
 
 #####################################
 
 #### SUMMARY OF USEFUL CODE ####
 
+#### Finding_missing_data ####
+
+import pandas as pd
+
+f = "titanic_survival.csv"
+titanic_survival = pd.read_csv(f)
+
+print(titanic_survival["age"])
+age_null = pd.isnull(titanic_survival["age"])
+count = 0
+for item in age_null:
+    if item == True:
+        count = count + 1
+
+age_null_count = (count)
+print(age_null_count)
+
+
+#### Whats_the_big_deal_with_missing_data ####
+
+import pandas as pd
+mean_age = sum(titanic_survival["age"]) / len(titanic_survival["age"])
+
+# Unfortunately, mean_age is NaN.  This is because any calculations we do with a null value also result in a null value.
+# What we have to do instead is filter the missing values out before we compute the mean.
+age_null = pd.isnull(titanic_survival["age"])
+nonnull_age = titanic_survival["age"][age_null == False]
+correct_mean_age = sum(nonnull_age) / len(nonnull_age)
+
+
+#### Easier_ways_to_do_math ####
+
+# Luckily, missing data is so common that pandas automatically filters for it with some methods.
+
+import pandas as pd
+correct_mean_age = titanic_survival["age"].mean()
+
+
+#### Computing_summary_statistics ####
+
+# Passengers can be in first class (1), second class (2), or third class (3)
+# Let's compute the average fare for each class
+passenger_classes = [1, 2, 3]
+fares_by_class = {}
+for pclass in passenger_classes:
+    fare_for_class = None
+    fare_for_class = (titanic_survival["fare"][titanic_survival["pclass"] == pclass]).mean()
+    fares_by_class[pclass] = fare_for_class
+
+print(fares_by_class)
+## Needed to subset the fares column based on the pclass at each iteration.
+
+
+#### Making_pivot_tables ####
+
+import pandas as pd
+import numpy as np
+
+# A pivot table can automatically sort, count total or give the average of the data stored in one table or spreadsheet.
+# Index specifies which column to subset data based on 
+# Values specifies which column to subset based on the index
+# The aggfunc specifies what to do with the subsets
+# In this case, we split survived into 3 vectors, one for each passenger class, and take the mean of each
+passenger_survival = titanic_survival.pivot_table(index="pclass", values="survived", aggfunc=np.mean)
+
+## index is the grouping, values is the object that the aggfunc will operate on.
+
+
+#### More_complex_pivot_tables ####
+
+import numpy as np
+
+# This will compute the mean survival chance and the mean age for each passenger class
+passenger_survival = titanic_survival.pivot_table(index="pclass", values=["age", "survived"], aggfunc=np.mean)
+print(passenger_survival)
+
+>#            age       survived 
+># pclass
+>#  1         39.16       0.62
+>#  2         29.51       0.43
+>#  3         24.82       0.26
+
+#### Drop_missing_values ####
+
+# Using the dropna method on pandas dataframe to drop any rows containing missing values
+import pandas as pd
+
+new_titanic_survival = titanic_survival.dropna()
+
+# We can also use the axis argument to drop columns that have missing values.
+new_titanic_survival = titanic_survival.dropna(axis=1)
+
+# We can use the subset argument to only drop rows if certain columns have missing values.
+new_titanic_survival = titanic_survival.dropna(subset=["age", "body", "home.dest"])
+
+
+#### Row_indices_loc_OR_iloc ####
+
+# .iloc works by position (row/column number)
+# Using .loc instead addresses rows and columns by index, not position
+
+if new_titanic_survival.loc[3,:]["name"] == new_titanic_survival.iloc[0,:]["name"]:
+    print(".loc uses index (dataframe index), .iloc uses position (row/column numbers)")
+
+#### Reindexing_rows ####
+
+# Remember how new_titanic_survival didn't have sequential row indexes?
+# Each row retained its original index from titanic_survival.
+# Sometimes it is useful to reindex, and make new indexes starting from 0.
+
+new_titanic_survival1 = titanic_survival.dropna(subset=["age", "boat"])
+titanic_reindexed = new_titanic_survival1.reset_index(drop=True)
+
+
+#### Use_the_apply_function_on_columns ####
+
+# The first step we need to take to figure out the age breakdown is to learn about the .apply() method.
+# By default, .apply() will iterate through each column in a dataframe, and perform a function on it.
+# The column will be passed into the function.
+# The result from the function will be combined with all of the other results, and placed into a new series.
+# The function results will have the same position as the column they were generated from.
+
+import pandas as pd
+
+# This function counts the number of null values in a series
+def null_count(column):
+    # Make a vector that contains True if null, False if not.
+    column_null = pd.isnull(column)
+    # Create a new vector with only values where the series is null.
+    null = column[column_null == True]
+    # Return the count of null values.
+    return len(null)
+
+# Compute null counts for each column
+column_null_count = titanic_survival.apply(null_count)
+
+
+#### Applying_a_function_to_a_row ####
+
+# By passing in the axis argument, we can use the .apply() method to iterate over rows, not columns.
+# This function will check if a row is an entry for a minor (under 18), or not.
+def is_minor(row):
+    if row["age"] < 18:
+        return True
+    else:
+        return False
+
+# This is a boolean series with the same length as the number of rows in titanic_survival
+# Each entry is True if the row at the same position is a record for a minor
+# The axis of 1 specifies that it will iterate over rows, not columns
+minors = titanic_survival.apply(is_minor, axis=1)
+
+
+#### Computing_survival_percentage_by_age_group ####
+
+# Now that we have age labels for everyone, let's make a pivot table to find survival chance by age group.
+
+import numpy as np
+
+print(list(titanic_survival.columns.values))
+age_group_survival = titanic_survival.pivot_table(index=["age_labels"], values=["survived"], aggfunc=np.mean)
 
 
 ########################################################################################################################
@@ -76,6 +248,7 @@ for item in age_null:
 
 age_null_count = (count)
 print(age_null_count)
+
 
 #### Whats_the_big_deal_with_missing_data ####
 
@@ -213,7 +386,7 @@ port_stats = titanic_survival.pivot_table(index="embarked", values=["age", "surv
 print(port_stats)
 
 
-#### Dop_missing_values ####
+#### Drop_missing_values ####
 
 # We looked at how to remove missing values in a vector of data, but how about in a matrix?
 # We can use the dropna method on pandas dataframes to do this.
@@ -247,7 +420,7 @@ new_titanic_survival = titanic_survival.dropna(subset=["age", "body", "home.dest
 print(new_titanic_survival)
 
 
-#### Row_indices_.loc_OR_.iloc ####
+#### Row_indices_loc_OR_iloc ####
 
 # In pandas, dataframes and series have row indexes.
 # These work just like column indexes, and can take values like numbers, characters, and strings.
@@ -286,7 +459,7 @@ row_index_25 = new_titanic_survival.loc[25,:]
 row_position_fifth = new_titanic_survival.iloc[4,:]
 
 
-#### Column_indices_.loc ####
+#### Column_indices_loc ####
 
 # We can also index columns using the .loc[] method.
 

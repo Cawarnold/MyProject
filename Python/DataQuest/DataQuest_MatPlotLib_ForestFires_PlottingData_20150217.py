@@ -15,11 +15,109 @@ url = ("https://dataquest.io")
 #####################################
 
 Overview of Useful code:
-
+Make a graph _with weight vs height. (Making_a_scatter_plot)
+Making a scatter plot of spatial positions. (Plotting_fire_data)
+We can use the plt.plot() function to make a line plot. (Making_a_line_chart)
+Add some axis labels _and titles to our charts. (Labeling_the_chart)
+Using plt.style.available to change style of plots. (Nicer_looking_plots)
+Bar plots graph categories _and their values against each other. (Making_a_bar_plot)
 
 #####################################
 
 #### SUMMARY OF USEFUL CODE ####
+
+#### Making_a_scatter_plot ####
+
+# A scatter plot is used to show the relationship between two variables --- in our case, two columns of data.
+
+import matplotlib.pyplot as plt
+# Let's say that we want to graph weight vs height.
+weight = [600,150,200,300,200,100,125,180]
+height = [60,65,73,70,65,58,66,67]
+
+# The first input will be the x-axis, and the second will be the y-axis.
+plt.scatter(weight, height)
+plt.show()
+# Don't forget to clear the figure after showing it!
+plt.clf()
+
+
+#### Plotting_fire_data ####
+
+import matplotlib.pyplot as plt
+# We can plot the X column from the dataframe against the Y column.
+# This will show us the spatial positions of all the fires on a 10x10 grid.
+plt.scatter(forest_fires["X"], forest_fires["Y"])
+plt.show()
+plt.clf()
+
+
+#### Making_a_line_chart ####
+
+# Another type of chart is a line chart.
+# This is similar to a scatter plot, but the points are connected into a line.
+# This generally makes sense for trends and other data that have a clear direction.
+
+import matplotlib.pyplot as plt
+# We can use the plt.plot() function to make a line plot.
+# If we don't sort, points are placed wherever they occur in the data, 
+# Sorting puts all of the values in the order of the x axis, which means a line is drawn from left to right.
+forest_fires = forest_fires.sort(["temp"])
+plt.plot(forest_fires["temp"], forest_fires["area"])
+plt.show()
+plt.clf()
+
+
+#### Labeling_the_chart ####
+
+# Let's add some axis labels and titles to our charts.
+
+import matplotlib.pyplot as plt
+plt.scatter(forest_fires["X"], forest_fires["Y"])
+# Set the x axis label
+plt.xlabel('X position in grid')
+# Set the y axis label
+plt.ylabel('Y position in grid')
+# Set the title
+plt.title("Grid positions of fires in Montesinho national park")
+plt.show()
+plt.clf()
+
+
+#### Nicer_looking_plots ####
+
+import matplotlib.pyplot as plt
+
+# Print all available styles
+print(plt.style.available)
+
+plt.style.use('fivethirtyeight')
+plt.scatter(forest_fires["rain"], forest_fires["area"])
+plt.show()
+plt.clf()
+
+
+#### Making_a_bar_plot ####
+
+# The last type of plot we'll look at right now is the bar plot.
+# Bar plots graph categories and their values against each other.
+# For example, we can graph month against the area that fires consumed in that month.
+
+import matplotlib.pyplot as plt
+import numpy
+# The pivot_table method will return a new array containing a summary of the data.
+# This pivot table will have the Y position of the fire as the index, 
+# and the average area of forest burned per fire as the values.
+# It will return a vector, or one dimensional array.
+area_by_y = forest_fires.pivot_table(index="Y", values="area", aggfunc=numpy.mean)
+
+plt.style.use("ggplot")
+# This gets the index values of the vector, in this case, the sorted y positions
+y_index = area_by_y.index
+plt.bar(y_index, area_by_y)
+plt.show()
+plt.clf()
+
 
 
 
