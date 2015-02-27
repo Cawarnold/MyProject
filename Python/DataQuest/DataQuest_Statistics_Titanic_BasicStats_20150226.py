@@ -6,20 +6,363 @@ url = ("https://dataquest.io")
 
 #####################################
 
-# Chapter 12
+# Chapter 13
 
-# Basics: Looking at Titanic survival data
+# Basics: Looking at Titanic survival data (Calculating_basic_stats_for_age)
 
 # Learn the basics of statistics while looking at survival data from the Titanic.
 
 #####################################
 
 Overview of Useful code:
+Statistics _is, at the core, about counting _and measuring. (Equal_interval_scales)
+Make a line plot _with discrete _and conitinuous data. (Discrete_and_continuous_scales)
+Scales can also have a zero point at different places. (Scale_starting_points)
+Compute the average value of _all the survey responses. (Ordinal_scales)
+We can also have categorical scales, that have category labels. (Categorical_scales)
+Frequency histogram that helps us visualize counts of data. (Frequency_histograms)
+Histograms use something called bins to count up values. (Histogram_bins)
+Histogram shapes can show you how the data _is distibuted. (Skew)
+Histogram shapes can show you how the data _is distibuted. (Kurtosis)
+Histogram shapes can show you how the data _is distibuted. (Modality)
+Central tendancy measures how likely points _in the data are to cluster around a central point. (Measures_of_central_tendancy_mean)
+Central tendancy measures how likely points _in the data are to cluster around a central point. (Measures_of_central_tendancy_median)
 
+Using .dropna to clean the missing data. (Cleaning_missing_titanic_data)
+Analyse the cleaned data using a histogram, the mean _and the median. (Plotting_age)
+Calculate the mean, median, skew, kurtosis of age, _from the clean titanic survival data. (Calculating_basic_stats_for_age)
 
 #####################################
 
 #### SUMMARY OF USEFUL CODE ####
+
+#### Equal_interval_scales ####
+
+# Statistics is, at the core, about counting and measuring.
+# In order to do both effectively, we have to define scales on which we can count.
+# One type of scale is called equal interval.
+
+car_speeds = [10,20,30,50,20]
+earthquake_intensities = [2,7,4,5,8]
+
+# Compute the mean of car_speeds and assign it to mean_car_speed.
+# Compute the mean of earthquake_intensities and assign the result to mean_earthquake_intensities. 
+# This value will not be meaningful, because we can't average values on a logarithmic scale this way.
+
+import pandas as pd
+mean_car_speed = sum(car_speeds) / len(car_speeds)
+print(mean_car_speed)
+
+mean_earthquake_intensities = sum(earthquake_intensities) / len(earthquake_intensities)
+print(mean_earthquake_intensities)
+
+
+#### Discrete_and_continuous_scales ####
+
+# Scales can be discrete or continuous
+
+day_numbers = [1,2,3,4,5,6,7]
+snail_crawl_length = [.5,2,5,10,1,.25,4]  #continuous
+cars_in_parking_lot = [5,6,4,2,1,7,8]     #discrete
+
+import matplotlib.pyplot as plt
+
+# Make a line plot with day_numbers on the x axis and snail_crawl_length on the y axis.
+# Make a line plot with day_numbers on the x axis and cars_in_parking_lot on the y axis.
+
+plt.plot(day_numbers, snail_crawl_length)
+plt.show()
+plt.clf()
+
+plt.plot(day_numbers, cars_in_parking_lot)
+plt.show()
+plt.clf()
+
+
+##### Scale_starting_points ####
+
+# Scales can also have a zero point at different places.
+# Think of the number of cars in a parking lot.
+# Zero cars in the lot means that there are absolutely no cars at all in the lot, so absolute zero is at 0 cars. 
+# You can't have negative cars.
+# Now, think of degrees fahrenheit.
+# Zero degrees doesn't mean that there isn't any warmth -- the degree scale can also be negative, 
+# and absolute zero (when there is no warmth at all) is at -459.67 degrees.
+# Scales that don't have their absolute zero point at 0 don't enable us to take meaningful ratios.
+
+fahrenheit_degrees = [32, 64, 78, 102]
+yearly_town_population = [100,102,103,110,105,120]
+
+# You can convert a scale that doesn't have absolute zero at zero to a scale that does 
+# by substracting absolute zero from all of the values on the scale.
+
+population_zero = yearly_town_population
+degrees_zero = [f + 459.67 for f in fahrenheit_degrees]
+
+
+#### Ordinal_scales ####
+
+# Results from our survey on how many cigarettes people smoke per day
+survey_responses = ["none", "some", "a lot", "none", "a few", "none", "none"]
+
+# Compute the average value of all the survey responses, and assign it to average_smoking.
+
+# You'll want to make a new list that assigns 0 to any response in survey_responses that is "none", 
+# 1 to any response that is "a few", and so on.
+# Then, calculate the sum of that list, and divide by the length to get the average response.
+
+survey_scale = ["none", "a few", "some", "a lot"]
+survey_numbers = [survey_scale.index(response) for response in survey_responses]
+average_smoking = sum(survey_numbers) / len(survey_numbers)
+
+list.index(x)
+# Return the index in the list of the first item whose value is x. It is an error if there is no such item.
+
+
+#### Categorical_scales ####
+
+# We can also have categorical scales, that have category labels.
+# One example is gender, which can be male or female.
+# There isn't an ordering between male and female -- one is not greater than or less than the other, so it's not an ordinal scale.
+
+gender = ["male", "female", "female", "male", "male", "female"]
+savings = [1200, 5000, 3400, 2400, 2800, 4100]
+
+# You can use a list comprehension to filter out the values in savings where the corresponding gender is "male" or "female". 
+# You can do this by looping over the range() from 0 to the length of gender.
+
+# Answer
+male_savings_list = [savings[i] for i in range(0, len(gender)) if gender[i] == "male"]
+female_savings_list = [savings[i] for i in range(0, len(gender)) if gender[i] == "female"]
+
+male_savings = sum(male_savings_list) / len(male_savings_list)
+female_savings = sum(female_savings_list) / len(female_savings_list)
+
+
+#### Frequency_histograms ####
+
+# There's a plot called a frequency histogram that helps us visualize counts of data a lot better.
+# The idea is to count up how many times a value occurs in a list, then graph the values on the x-axis, and the counts on the y-axis.
+
+# Let's say that we watch cars drive by, and measure average speed in miles per hour
+average_speed = [10, 20, 25, 27, 28, 22, 15, 18, 17]
+import matplotlib.pyplot as plt
+plt.hist(average_speed)
+plt.show()
+plt.clf()
+
+
+
+#### Histogram_bins ####
+
+# Histograms use something called bins to count up values.
+
+average_speed = [10, 20, 25, 27, 28, 22, 15, 18, 17]
+import matplotlib.pyplot as plt
+plt.hist(average_speed, bins=6)
+plt.show()
+plt.clf()
+plt.clf()
+
+# Plot a histogram of average_speed with only 2 bins.
+plt.hist(average_speed, bins=2)
+plt.show()
+plt.clf()
+
+
+#### Skew ####
+
+import matplotlib.pyplot as plt
+
+# This plot is negatively skewed.
+plt.hist(test_scores_negative)
+plt.show()
+plt.clf()
+
+# We can test how skewed a distribution is using the skew function.
+# A positive value means positive skew, a negative value means negative skew, and close to zero means no skew.
+from scipy.stats import skew
+
+positive_skew = skew(test_scores_positive)
+print(positive_skew)    #0.585
+negative_skew = skew(test_scores_negative)
+print(negative_skew)    #-0.563
+no_skew = skew(test_scores_normal)
+print(no_skew)          #0.0124
+
+
+#### Kurtosis ####
+
+# Kurtosis measures whether the distribution is short and flat, or tall and skinny.
+
+import matplotlib.pyplot as plt
+
+# This plot is short, making it platykurtic
+# See how the values are distributed pretty evenly, and there isn't a huge cluster in the middle?
+# Students had a wide variation in their performance
+plt.hist(test_scores_platy)
+plt.show()
+plt.clf()
+
+# This plot is tall, and is leptokurtic
+# Most students did very similarly to the others
+plt.hist(test_scores_lepto)
+plt.show()
+plt.clf()
+
+# This plot is in between, and is mesokurtic
+plt.hist(test_scores_meso)
+plt.show()
+plt.clf()
+
+# We can measure kurtosis with the kurtosis function
+# Negative values indicate platykurtic distributions, 
+# positive values indicate leptokurtic distributions, 
+# and values close to 0 are mesokurtic
+from scipy.stats import kurtosis
+
+kurtosis_platykurtic = kurtosis(test_scores_platy)
+print(kurt_platy)	# -0.9498
+kurtosis_leptokurtic = kurtosis(test_scores_lepto)
+print(kurt_lepto)	# 0.00396
+kurtosis_mesokurtic = kurtosis(test_scores_meso)
+print(kurt_meso)	#-0.0561
+
+
+##### Modality ####
+
+# Modality is another parameter of distributions.
+# Modality refers to the number of modes, or peaks, in a distribution.
+# Real-world data often is unimodal (only has one mode)
+
+import matplotlib.pyplot as plt
+
+# This plot has two peaks, and is bimodal
+# This could happen if one group of students learned the material, and one learned something else, for example.
+plt.hist(test_scores_bi)
+plt.show()
+plt.clf()
+
+# Often, the best way to detect multimodality is to observe the plot.
+
+# Plot test_scores_multi, which has four peaks.
+plt.hist(test_scores_multi)
+plt.show()
+plt.clf()
+
+
+#### Measures_of_central_tendancy_mean ####
+
+# Central tendancy measures how likely points in the data are to cluster around a central point.
+# The mean is just the sum of all the elements in an array divided by the number of elements.
+
+import matplotlib.pyplot as plt
+# We're going to put a line over our plot that shows the mean.
+# This is the same histogram we plotted for skew a few screens ago
+plt.hist(test_scores_normal)
+# We can use the .mean() method of a numpy array to compute the mean
+mean_test_score = test_scores_normal.mean()
+# The axvline function will plot a vertical line over an existing plot
+plt.axvline(mean_test_score)
+plt.show()
+plt.clf()
+
+mean_normal = test_scores_normal.mean()
+print(mean_normal)		# 50.200
+mean_negative = test_scores_negative.mean()
+print(mean_negative)	# 82.809
+mean_positive = test_scores_positive.mean()
+print(mean_positive)	# 16.816
+
+
+#### Measures_of_central_tendancy_median ####
+
+# Another measure of central tendency is the median.
+# This is the midpoint of an array.
+# You have to sort the array, and then take the value in the middle.
+# If two values are in the middle (if there are an even number of items in the array), then you take the mean of the two middle values.
+# The median is less sensitive to very large or very small values (outliers), and is a more realistic center of the distribution.
+
+# Let's plot the mean and median side by side in a negatively skewed distribution.
+import numpy
+import matplotlib.pyplot as plt
+
+plt.hist(test_scores_negative)
+median = numpy.median(test_scores_negative)
+plt.axvline(median, color="b")
+plt.axvline(test_scores_negative.mean(), color="r")
+plt.show()
+plt.clf()
+
+# Plot a histogram for test_scores_positive.
+# Add in a blue line for the median.
+# Add in a red line for the mean.
+plt.hist(test_scores_positive)
+plt.axvline(numpy.median(test_scores_positive), color = "b")
+plt.axvline(test_scores_positive.mean(), color = "r")
+plt.show()
+plt.clf()
+
+
+#### Cleaning_missing_titanic_data ####
+
+
+print(titanic_survival.shape)
+# Remove the NaN values in the "age" and "sex" columns.
+# Assign the result to new_titanic_survival.
+new_titanic_survival = titanic_survival.dropna(subset=["age", "sex"])
+print(new_titanic_survival.shape)
+
+
+#### Plotting_age ####
+
+# Now that we have cleaned up data, let's analyze it.
+
+# The cleaned up data has been loaded into the titanic_survival variable
+import matplotlib.pyplot as plt
+import numpy
+
+# Plot a histogram of the "age" column in titanic_survival.
+# Add in a blue line for the median.
+# Add in a red line for the mean.
+
+plt.hist(titanic_survival["age"])
+plt.axvline(numpy.median(titanic_survival["age"]),color = "b")
+plt.axvline((titanic_survival["age"]).mean(),color = "r")
+
+plt.show()
+plt.clf()
+
+
+#### Calculating_basic_stats_for_age ####
+
+# The age distribution was very interesting, and showed that a lot of people in their 20s-40s were travelling without children.
+# Now that we know what the distribution looks like, let's calculate the parameters and central tendency measures.
+
+# The cleaned up data has been loaded into the titanic_survival variable
+
+# Assign the mean of the "age" column of titanic_survival to mean_age.
+# Assign the median of the "age" column of titanic_survival to median_age.
+# Assign the skew of the "age" column of titanic_survival to skew_age.
+# Assign the kurtosis of the "age" column of titanic_survival to kurtosis_age.
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from scipy.stats import skew
+from scipy.stats import kurtosis
+
+mean_age = (titanic_survival["age"]).mean()
+median_age = np.median(titanic_survival["age"])
+
+skew_age = skew(titanic_survival["age"])
+kurtosis_age = kurtosis(titanic_survival["age"])
+
+print(mean_age)       # 29.88
+print(median_age)     # 28.0
+print(skew_age)       # 0.407
+print(kurtosis_age)   # 0.141
+
 
 
 
@@ -542,7 +885,7 @@ plt.hist(titanic_survival["age"])
 # We need to deal with those values before we can proceed
 
 
-#### Cleaning_missing_data ####
+#### Cleaning_missing_titanic_data ####
 
 # Now that we know some statistics, let's practice on our Titanic data.
 # Our data is a manifest of all the passengers on the Titanic, a ship that sunk in April 1912.
@@ -604,7 +947,7 @@ plt.show()
 plt.clf()
 
 
-#### Calculating_indices_for_age ####
+#### Calculating_basic_stats_for_age ####
 
 # The age distribution was very interesting, and showed that a lot of people in their 20s-40s were travelling without children.
 # Now that we know what the distribution looks like, let's calculate the parameters and central tendency measures.
