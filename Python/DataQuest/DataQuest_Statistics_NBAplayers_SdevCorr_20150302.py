@@ -295,9 +295,14 @@ print(mp_dev, "\n", ast_dev)   # 896.326, 130.883
 
 #### Find_standard_deviation_distance ####
 
+# Calculate how many standard deviations a data point is from the mean
+
 # The standard deviation is very useful because it lets us compare points in a distribution to the mean.
 # We can say that a certain point is "two standard deviations away from the mean".
 # This gives us a way to compare how spread out values are across different charts.
+
+
+
 
 
 
