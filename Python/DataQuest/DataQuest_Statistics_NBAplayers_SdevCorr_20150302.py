@@ -301,6 +301,303 @@ print(mp_dev, "\n", ast_dev)   # 896.326, 130.883
 # We can say that a certain point is "two standard deviations away from the mean".
 # This gives us a way to compare how spread out values are across different charts.
 
+import matplotlib.pyplot as plt
+
+plt.hist(nba_stats["pf"])
+mean = nba_stats["pf"].mean()
+plt.axvline(mean, color="r")
+# We can calculate standard deviation by using the std() method on a pandas series.
+std_dev = nba_stats["pf"].std()
+# Plot a line one standard deviation below the mean
+plt.axvline(mean - std_dev, color="g")
+# Plot a line one standard deviation above the mean
+plt.axvline(mean + std_dev, color="g")
+
+# We can see how much of the data points fall within 1 standard deviation of the mean
+# The more that falls into this range, the less spread out the data is
+plt.show()
+plt.clf()
+
+# We can calculate how many standard deviations a data point is from the mean by doing some subtraction and division
+# First, we find the total distance by subtracting the mean
+total_distance = nba_stats["pf"][0] - mean
+# Then we divide by standard deviation to find how many standard deviations away the point is.
+standard_deviation_distance = total_distance / std_dev
+
+point_10 = nba_stats["pf"][9]
+point_100 = nba_stats["pf"][99]
+
+# Find how many standard deviations away from the mean point_10 is. Assign the result to point_10_std.
+# Find how many standard deviations away from the mean point_100 is. Assign the result to point_100_std.
+
+point_10_std = (nba_stats["pf"][9] - mean) / std_dev
+point_100_std = (nba_stats["pf"][99] - mean) / std_dev
+
+print(point_10_std)
+print(point_100_std)
+
+
+#### Working_with_the_normal_distribution ####
+
+# The normal distribution is a special kind of distribution.
+# You might recognize it more commonly as a bell curve.
+# The normal distribution is found in a variety of natural phenomena. 
+# For example, if you made a histogram of the heights of all humans, it would be more or less a normal distribution.
+# We can generate a normal distribution by using a probability density function.
+
+import numpy as np
+import matplotlib.pyplot as plt
+# The norm module has a pdf function (pdf stands for probability density function)
+from scipy.stats import norm
+
+# The arange function generates a numpy vector
+# The vector below will start at -1, and go up to, but not including 1
+# It will proceed in "steps" of .01.  So the first element will be -1, the second -.99, the third -.98, all the way up to .99.
+points = np.arange(-1, 1, 0.01)
+#print(points)    ## [-1 -.99 -.98 ... .98 .99]
+
+# The norm.pdf function will take points vector and turn it into a probability vector
+# Each element in the vector will correspond to the normal distribution (earlier elements and later element smaller, peak in the center)
+# The distribution will be centered on 0, and will have a standard devation of .3
+probabilities = norm.pdf(points, 0, .3)
+#print(probabilities)    ## [0.00514 0.005751  ...  0.833 ... 1.13 ... 0.772 ... 0.0064 0.0057]
+
+# Plot the points values on the x axis and the corresponding probabilities on the y axis
+# See the bell curve?
+plt.plot(points, probabilities)
+plt.show()
+plt.clf()
+
+
+# Make a normal distribution across the range that starts at -10, ends at 10, and has the step .1.
+# The distribution should have mean 0 and standard deviation of 2.
+
+## Create Normal Distribution ##
+points = np.arange(-10, 10, 0.1)           # generate x-axis points
+probabilities = norm.pdf(points, 0, 2)     # generate corresponding y-axis probabilities
+plt.plot(points, probabilities)            # plot points vs probabilities
+
+#mean = probabilities.mean()                # find mean value
+#plt.axvline(mean, color="r")               # plot mean value
+
+plt.show()
+plt.clf()
+
+
+#### Normal_disribution_deviation ####
+
+# One cool thing about normal distributions is that for every single one, 
+# the same percentage of the data is within 1 standard deviation of the mean, 
+# the same percentage is within 2 standard deviations of the mean, and so on.
+# About 68% of the data is within 1 standard deviation of the mean, 
+# about 95% is within 2 standard deviations of the mean, and about 99% is within 3 standard deviations of the mean.
+# This helps us to quickly understand where values fall and how unusual they are.
+
+
+# Housefly wing lengths in millimeters
+wing_lengths = [36, 37, 38, 38, 39, 39, 40, 40, 40, 40, 41, 41, 41, 41, 41, 41, 42, 42, 42, 42, 42, 42, 42, 43, 43, 43, 43, 43, 43, 43, 43, 44, 44, 44, 44, 44, 44, 44, 44, 44, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 47, 47, 47, 47, 47, 47, 47, 47, 47, 48, 48, 48, 48, 48, 48, 48, 48, 49, 49, 49, 49, 49, 49, 49, 50, 50, 50, 50, 50, 50, 51, 51, 51, 51, 52, 52, 53, 53, 54, 55]
+
+# For each point in wing_lengths, calculate the number of standard deviations away from the mean the point is.
+
+# Once you have done this, compute what percentage of the data is within 1 standard deviation of the mean. 
+# Assign the result to within_one_percentage.
+# Compute what percentage of the data is within 2 standard deviations of the mean. 
+# Assign the result to within_two_percentage.
+# Once you have done this, compute what percentage of the data is within 3 standard deviations of the mean. 
+# Assign the result to within_three_percentage.
+
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+plt.hist(wing_lengths)
+plt.show()
+plt.clf()
+
+pd_wing_lengths = pd.Series(wing_lengths)       #Turn python list into pandas series
+wing_length_mean = pd_wing_lengths.mean()
+print(wing_length_mean == (sum(wing_lengths) / len(wing_lengths)))  #True
+
+wing_length_std = pd_wing_lengths.std()
+print(wing_length_std)  # 3.9196
+
+number_of_stds_from_mean = []
+for point in wing_lengths:
+    standard_deviation_distance = (point - wing_length_mean) / wing_length_std
+    number_of_stds_from_mean.append(standard_deviation_distance)
+
+# Attempt 1
+
+within_one_percentage_list = [item for item in number_of_stds_from_mean if >= -1 item <= 1]
+within_two_percentage_list = [item for item in number_of_stds_from_mean if >= -2 item <= 2]
+within_three_percentage_list = [item for item in number_of_stds_from_mean if >= -3 item <= 3]
+
+    
+within_one_percentage = len(within_one_percentage_list) / len(number_of_stds_from_mean)
+within_two_percentage = len(within_two_percentage_list) / len(number_of_stds_from_mean)
+within_three_percentage = len(within_three_percentage_list) / len(number_of_stds_from_mean)
+
+print(within_one_percentage, "\n", within_two_percentage, "\n", within_three_percentage)
+## (0.84, 0.98, 1)
+
+
+# Attempt 2
+
+within_one_percentage_list = [item for item in number_of_stds_from_mean if abs(item) <= 1]
+within_two_percentage_list = [item for item in number_of_stds_from_mean if abs(item) <= 2]
+within_three_percentage_list = [item for item in number_of_stds_from_mean if abs(item) <= 3]
+
+    
+within_one_percentage = len(within_one_percentage_list) / len(number_of_stds_from_mean)
+within_two_percentage = len(within_two_percentage_list) / len(number_of_stds_from_mean)
+within_three_percentage = len(within_three_percentage_list) / len(number_of_stds_from_mean)
+
+print(within_one_percentage, "\n", within_two_percentage, "\n", within_three_percentage)
+## (0.68, 0.96, 1.0)
+
+#### CORRECT!! ####
+
+
+# Answer
+
+mean = sum(wing_lengths) / len(wing_lengths)
+variances = [(i - mean) ** 2 for i in wing_lengths]
+variance = sum(variances)/ len(variances)
+standard_deviation = variance ** (1/2)
+
+standard_deviations = [(i - mean) / standard_deviation for i in wing_lengths]
+def within_percentage(deviations, count):
+    within = [i for i in deviations if i <= count and i >= -count]
+    count = len(within)
+    return count / len(deviations)
+
+within_one_percentage = within_percentage(standard_deviations, 1)
+within_two_percentage = within_percentage(standard_deviations, 2)
+within_three_percentage = within_percentage(standard_deviations, 3)
+
+
+#### Plotting_correlations ####
+
+# We've spent a lot of time looking at single variables and how their distributions look.
+# While distributions are interesting on their own, it's also interesting to look at how two variables correlate with each other.
+# A lot of statistics is about analyzing how variables impact each other, and the the first step is to graph them out with a scatterplot.
+# While graphing them out, we can look at correlation.
+# If two variables both change together (ie, when one goes up, the other goes up), we know that they are correlated.
+
+
+import matplotlib.pyplot as plt
+
+# This is plotting field goals attempted (number of shots someone takes in a season) vs point scored in a season
+# Field goals attempted is on the x-axis, and points is on the y-axis
+# As you can tell, they are very strongly correlated -- the plot is close to a straight line.
+# The plot also slopes upward, which means that as field goal attempts go up, so do points.
+# That means that the plot is positively correlated.
+plt.scatter(nba_stats["fga"], nba_stats["pts"])
+plt.show()
+plt.clf()
+
+# If we make points negative (so the people who scored the most points now score the least, because 3000 becomes -3000), we can change the direction of the correlation
+# Field goals are negatively correlated with our new "negative" points column -- the more free throws you attempt, the less negative points you score.
+# We can see this because the correlation line slopes downward.
+plt.scatter(nba_stats["fga"], -nba_stats["pts"])
+plt.show()
+plt.clf()
+
+# Now, we can plot total rebounds (number of times someone got the ball back for their team after someone shot) vs total assists (number of times someone helped another person score)
+# These are uncorrelated, so you don't see the same nice line as you see with the plot above.
+plt.scatter(nba_stats["trb"], nba_stats["ast"])
+plt.show()
+plt.clf()
+
+
+# Make a scatterplot of the "fta" (free throws attempted) column against the "pts" column.
+# Make a scatterplot of the "stl" (steals) column against the "pf" column.
+
+plt.scatter(nba_stats["fta"], nba_stats["pts"])
+plt.show()
+plt.clf()
+# plots looks positively correlated but a weaker correlation than "fga" vs "pts"
+
+plt.scatter(nba_stats["stl"], nba_stats["pf"])
+plt.show()
+plt.clf()
+# plot looks similar to "trb" vs "ast" but has a steeper slope.
+
+
+#### Measuring_correlation ####
+
+# One thing that can help us a lot when we need to analyze a lot of variables is to measure correlation -- 
+# this means that we don't need to eyeball everything.
+# The most common way to measure correlation is to use pearson's r, also called an r-value.
+# We'll go through how the calculations for it work, but for now, we'll focus on the values.
+
+# An r-value ranges from -1 to 1, and indicates how strongly two variables are correlated.
+# A 1 means perfect positive correlation -- this would show as a straight, upward sloping, line on our plots.
+# A 0 means no correlation -- you'll see a scatterplot with points placed randomly.
+# A -1 means perfect negative correlation -- this would show as a straight, downward sloping line.
+# Anything between -1 and 0, and 0 and 1 will show up as a scattering of points. 
+# The closer the value is to 0, the more random the points will look. 
+# The closer to -1 or 1, the more like a line the points will look.
+# We can use a function from scipy to calculate pearson's r for the moment.
+
+
+from scipy.stats.stats import pearsonr
+
+# The pearsonr function will find the correlation between two columns of data.
+# It returns the r value and the p value.  We'll learn more about p values later on.
+r, p_value = pearsonr(nba_stats["fga"], nba_stats["pts"])
+# As we can see, this is a very high positive r value -- close to 1
+print(r)
+
+# These two columns are much less correlated
+r, p_value = pearsonr(nba_stats["trb"], nba_stats["ast"])
+# We get a much lower, but still positive, r value
+print(r)
+
+
+# Find the correlation between the "fta" column and the "pts" column. Assign the result to r_fta_pts.
+# Find the correlation between the "stl" column and the "pf" column. Assign the result to r_stl_pf.
+
+r_fta_pts = list(pearsonr(nba_stats["fta"], nba_stats["pts"]))[0]
+print(r_fta_pts)
+r, p_value = pearsonr(nba_stats["stl"], nba_stats["pf"])  #output is 2 values so need to be assigned to 2 values.
+r_stl_pf = r
+print(r_stl_pf)
+
+
+#### Calculate_covariance ####
+
+# We looked at calculating the correlation coefficient with a function, 
+# but let's briefly look under the hood to see how we can do it ourselves.
+# Another way to think of correlation is variance.
+# Two variables are correlated when they both individually vary in similar ways.
+
+# For example, correlation occurs when if one variable goes up, another variable also goes up.
+# This is called covariance. Covariance is how things vary together.
+# There is a maximum amount to how much two variables can co-vary.
+# This is because of how each variable is individually distributed. 
+# Each individual distribution has its own variance. 
+# These variances set a maximum theoretical limit on covariance between two variables -- 
+# you can't co-vary more from the mean than the two variables individually vary from the mean.
+
+# As you may have guessed at this point, the r-value is a ratio between the actual covariance, 
+# and the maximum possible positive covariance.
+
+# The maximum possible covariance occurs when two variables vary perfectly (ie, you see a straight line on the plot).
+# Let's look at actual covariance first. Mathematically speaking, covariance between two variables looks like this: 
+# cov(x,y)=∑ni=1(xi−x¯)(yi−y¯)ncov(x,y)=∑ni=1(xi−x¯)(yi−y¯)ncov(x,y)=∑ni=1(xi−x¯)(yi−y¯)n. 
+
+# For each element in the vectors x and y, you take the value at each position from 1 to the length of the vectors. 
+# Subtract the mean of the vector from that value. 
+# Then multiply them together at each position, and all all of the resulting values together.
+
+
+# Make a function to compute covariance.
+# Use the function to compute the covariance of the "stl" and "pf" columns. Assign the result to cov_stl_pf.
+# Use the function to compute the covariance of the "fta" and "pts" columns. Assign the result to cov_fta_pts.
+
+
 
 
 
