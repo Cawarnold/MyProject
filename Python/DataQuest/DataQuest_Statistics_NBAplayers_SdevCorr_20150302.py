@@ -597,17 +597,109 @@ print(r_stl_pf)
 # Use the function to compute the covariance of the "stl" and "pf" columns. Assign the result to cov_stl_pf.
 # Use the function to compute the covariance of the "fta" and "pts" columns. Assign the result to cov_fta_pts.
 
+# written overview: covariance = [sum (v1 - mean(v1))(v2 - mean(v2))]/ len(v1)
+'''
+v1 = nba_stats["stl"]
+v2 = nba_stats["pf"]
+
+mean_v1 = sum(v1) / len(v1)
+mean_v2 = sum(v2) / len(v2)
+
+ededed = []
+for i, v1i in enumerate(v1):
+    ededed.append((v1i - mean_v1)*(v2[i] - mean_v2))
+#print(ededed)
+    
+covariances = [(v1i - mean_v1)*(v2[i] - mean_v2) for i, v1i in enumerate(v1)]
+#print(covariance)
+print(ededed == covariances)
+cov_stl_pf = sum(covariances) / len(covariances)
+print(cov_stl_pf)
+
+'''
+
+def compute_cov(col1,col2):
+    v1 = nba_stats[str(col1)]
+    v2 = nba_stats[str(col2)]
+    mean_v1 = sum(v1) / len(v1)
+    mean_v2 = sum(v2) / len(v2)
+    covariances = [(v1i - mean_v1)*(v2[i] - mean_v2) for i, v1i in enumerate(v1)]
+    return (sum(covariances) / len(v1))
+    
+cov_stl_pf = compute_cov("stl","pf")
+cov_fta_pts = compute_cov("fta","pts")
+
+print(cov_stl_pf)
+print(cov_fta_pts)
+
+## CORRECT! ##
+
+#Answer
+def covariance(x, y):
+    x_mean = sum(x) / len(x)
+    y_mean = sum(y) / len(y)
+    x_diffs = [i - x_mean for i in x]
+    y_diffs = [i - y_mean for i in y]
+    codeviates = [x_diffs[i] * y_diffs[i] for i in range(len(x))]
+    return sum(codeviates) / len(codeviates)
+
+cov_stl_pf = covariance(nba_stats["stl"], nba_stats["pf"])
+cov_fta_pts = covariance(nba_stats["fta"], nba_stats["pts"])
 
 
+#### Calculate_correlation ####
 
+# Now that we know how to calculate covariance, we can finish calculating correlation.
+# Here's the full formula for correlation:
+# cov(x,y)σx2σy2√cov(x,y)σx2σy2√cov(x,y)σx2σy2√.
+# To get the denominator, we just have to find the variance for x and y, multiply them together, and take the square root. 
+# This is the maximum possible positive covariance -- it's just both the total variances multiplied.
+# If we divide our actual covariance by this, we get our r-value.
+# You can use the var method on any pandas dataframe or series to find variance. 
+# nba_stats["pf"].var() will give you the variance of that column.
+# You can use the cov function from numpy to compute covariance. It returns a 2x2 matrix, though. 
+# cov(nba_stats["pf"], nba_stats["stl"])[0,1] will give the covariance between the "pf" and "stl" columns.
 
+print(cov(nba_stats["pf"], nba_stats["stl"]))
+## [Variance(a), Covariance(a,b)]
+## [Covariance(b,a), Variance(b)]
 
+# written overview: rvalue = pearsonr/correlation = cov(x,y) / square_root( variance(x) * variance(y))
+    # where max_possible_positive_covariance =  square_root(variance(x) * variance(y))
 
+## variance of 1D array - pandas method - pd_series.var()
+## OR
+## covariance of series1 - numpy function - cov(series1,series2)[0,0]
+## covariance of series2 - numpy function - cov(series1,series2)[1,1]
+## covariance of 2x1D arrays - numpy function - cov(series1,series2)[0,1]
 
+print((round(cov(nba_stats["fta"],nba_stats["blk"])[0,0])) == (round(nba_stats["fta"].var()))) #True
 
+from numpy import cov
+# The nba_stats variable has been loaded in.
 
+# Using the above covariance function, and the var method, 
+# compute the correlation coefficient for the "fta" and "blk" columns. 
+# Assign the result to r_fta_blk.
+# Compute the correlation coefficient for the "ast" and "stl" columns. 
+# Assign the result to r_ast_stl.
 
+def corr_coef_r(col1,col2):
+    v1 = nba_stats[str(col1)]
+    v2 = nba_stats[str(col2)]
+    max_possible_positive_cov = ((v1.var())*(v2.var()))**(1/2)  #pandas
+    covariance_v1_v2 = cov(v1, v2)[0,1]  #numpy
+    return (covariance_v1_v2 / max_possible_positive_cov)
 
+r_fta_blk = corr_coef_r("fta","blk")
+r_ast_stl = corr_coef_r("ast","stl")
+
+print(r_fta_blk)   # 0.456
+print(r_ast_stl)   # 0.770
+
+# Answer:
+r_fta_blk = cov(nba_stats["fta"], nba_stats["blk"])[0,1] / ((nba_stats["fta"].var() * nba_stats["blk"].var())** (1/2))
+r_ast_stl = cov(nba_stats["ast"], nba_stats["stl"])[0,1] / ((nba_stats["ast"].var() * nba_stats["stl"].var())** (1/2))
 
 
 
