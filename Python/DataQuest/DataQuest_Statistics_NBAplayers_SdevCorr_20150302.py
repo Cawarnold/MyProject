@@ -16,11 +16,80 @@ url = ("https://dataquest.io")
 #####################################
 
 Overview of Useful code:
+(The_mean_as_the_center)
+(Finding_variance)
+(Fractional_powers)
+(Calculating_standard_deviation)
+(Find_standard_deviation_distance)
+(Working_with_the_normal_distribution)
+(Normal_disribution_deviation)
+(Plotting_correlations)
+(Measuring_correlation)
+(Calculate_covariance)
+(Calculate_correlation)
 
 
 #####################################
 
 #### SUMMARY OF USEFUL CODE ####
+
+
+
+
+#### Calculate_correlation ####
+
+print(cov(nba_stats["pf"], nba_stats["stl"]))
+## [Variance(a), Covariance(a,b)]
+## [Covariance(b,a), Variance(b)]
+
+# written overview: rvalue = pearsonr/correlation = cov(x,y) / square_root( variance(x) * variance(y))
+    # where max_possible_positive_covariance =  square_root(variance(x) * variance(y))
+
+## variance of 1D array - pandas method - pd_series.var()
+## OR
+## covariance of series1 - numpy function - cov(series1,series2)[0,0]
+## covariance of series2 - numpy function - cov(series1,series2)[1,1]
+## covariance of 2x1D arrays - numpy function - cov(series1,series2)[0,1]
+
+print((round(cov(nba_stats["fta"],nba_stats["blk"])[0,0])) == (round(nba_stats["fta"].var()))) #True
+
+from numpy import cov
+# The nba_stats variable has been loaded in.
+
+# Using the above covariance function, and the var method, 
+# compute the correlation coefficient for the "fta" and "blk" columns. 
+# Assign the result to r_fta_blk.
+# Compute the correlation coefficient for the "ast" and "stl" columns. 
+# Assign the result to r_ast_stl.
+
+def corr_coef_r(col1,col2):
+    v1 = nba_stats[str(col1)]
+    v2 = nba_stats[str(col2)]
+    max_possible_positive_cov = ((v1.var())*(v2.var()))**(1/2)  #pandas
+    covariance_v1_v2 = cov(v1, v2)[0,1]  #numpy
+    return (covariance_v1_v2 / max_possible_positive_cov)
+
+r_fta_blk = corr_coef_r("fta","blk")
+r_ast_stl = corr_coef_r("ast","stl")
+
+print(r_fta_blk)   # 0.456
+print(r_ast_stl)   # 0.770
+
+# Answer:
+r_fta_blk = cov(nba_stats["fta"], nba_stats["blk"])[0,1] / ((nba_stats["fta"].var() * nba_stats["blk"].var())** (1/2))
+r_ast_stl = cov(nba_stats["ast"], nba_stats["stl"])[0,1] / ((nba_stats["ast"].var() * nba_stats["stl"].var())** (1/2))
+
+
+
+
+
+
+
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+
+#### FULL SET OF INSTRUCTIONS ####
 
 # NBA data, basketball.
 
