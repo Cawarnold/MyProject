@@ -21,9 +21,34 @@ url = ("https://dataquest.io")
 Overview of Useful code:
 
 
+
+
+
 #####################################
 
 #### SUMMARY OF USEFUL CODE ####
+
+# Regressions line: Predict y using y = mx + b, m is the slope, b is the intercept
+# the slope, m,is calculated as covariance of x and y divided by the variance of x: cov(x, y) / var(x)
+# the intercept, b, is calculated as the mean of y minus the slope times the mean of x: y¯−mx¯
+
+# Residual sum of squares: rss checks the error between the prediction using y = mx + b and the actual values.
+# rss is calculated by summing (the predicted values of y minus the actual values of y) squared. 
+
+# overview: regression_line = y = mx + b
+# overview: slope = m = cov(x,y) / var(x)
+# overview: intercept = b = y¯ - mx¯ = mean(y) - m * mean(x)
+# overview: predicted_y = slope * actual_x + intercept
+# overview: rss = (sum(predicted_y - actual_y)**2)
+# overview: standar_error = (rss/(n-2))**(1/2)
+
+
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+
+#### FULL SET OF INSTRUCTIONS ####
+
 
 # we have some data on wine quality
 
