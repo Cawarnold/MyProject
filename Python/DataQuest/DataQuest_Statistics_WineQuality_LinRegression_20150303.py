@@ -14,6 +14,8 @@ url = ("https://dataquest.io")
 
 # Next: https://learningwithdata.wordpress.com/2015/02/21/introduction-to-bayes-theorem-with-python/
 
+# Connect with GitHub - https://dataquest.io/creator/github_link
+
 #####################################
 
 Overview of Useful code:
