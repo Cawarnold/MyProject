@@ -4,6 +4,10 @@ url = ("https://dataquest.io")
 
 # You can also use ctrl+alt+r to run code. Click on the instructions panel, then type ? to see all the hotkeys.
 
+#Next: https://github.com/adamhajari/spyre
+
+# Python front-end for data -- Flask (simple) or Django (hard)   (http://insightdataengineering.com/blog/pipeline_map.html)
+
 #####################################
 
 # Chapter 15

@@ -12,6 +12,7 @@ url = ("https://dataquest.io")
 
 # Bayes theorem is what allows us to go from a sampling distribution and a prior distribution to a posterior distribution.
 
+# http://adilmoujahid.com/posts/2015/01/interactive-data-visualization-d3-dc-python-mongodb/
 
 #####################################
 
