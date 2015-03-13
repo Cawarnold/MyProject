@@ -1,0 +1,23 @@
+## Setup New Windows:
+
+Data Analysis:
+LibreOffice
+Tableau 8.2
+R 3.1.2, RStudio 0.98
+Python - (Anaconda2.1 & PyCharm4)
+
+Data Storage:
+PostgreSQL9.0 - pgAdmin III
+MongoDB - RoboMongo
+
+Windows connection to servers:
+PuTTY (SSH Client)
+WinSCP (SecureCopy)
+Remote Desktop Connection
+
+Text Editor:
+Sublime Text 2
+
+Version Control:
+Git, Github
+
