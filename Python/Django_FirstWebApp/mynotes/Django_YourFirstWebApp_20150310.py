@@ -128,7 +128,8 @@
 # A view is a “type” of Web page in your Django application that generally serves a specific function 
 # and has a specific template. 
 
-
+# Django - model, template, view -> 
+# model is the db, template is html, view is python connecting the model(data) with the template(html page).
 
 ########################################################################################################################
 ########################################################################################################################
@@ -1633,7 +1634,7 @@ def detail(request, question_id):
 
 ### A shortcut: get_object_or_404() ####
 
-
+# https://docs.djangoproject.com/en/1.7/intro/tutorial03/
 
 
 
