@@ -1636,6 +1636,165 @@ def detail(request, question_id):
 
 # https://docs.djangoproject.com/en/1.7/intro/tutorial03/
 
+# It’s a very common idiom to use get() and raise Http404 if the object doesn’t exist. 
+# Django provides a shortcut. Here’s the detail() view, rewritten:
+
+# polls/views.py
+from django.shortcuts import get_object_or_404, render
+
+from polls.models import Question
+# ...
+def detail(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/detail.html', {'question': question})
+
+
+# The get_object_or_404() function takes a Django model as its first argument and an arbitrary 
+# number of keyword arguments, which it passes to the get() function of the model’s manager. 
+# It raises Http404 if the object doesn’t exist.
+
+	# Philosophy
+
+	# Why do we use a helper function get_object_or_404() instead of automatically catching 
+	# the ObjectDoesNotExist exceptions at a higher level, 
+	# or having the model API raise Http404 instead of ObjectDoesNotExist?
+
+	# Because that would couple the model layer to the view layer. 
+	# One of the foremost design goals of Django is to maintain loose coupling. 
+	# Some controlled coupling is introduced in the django.shortcuts module.
+
+# There’s also a get_list_or_404() function, which works just as get_object_or_404() – 
+# except using filter() instead of get(). It raises Http404 if the list is empty.
+
+
+####################################################
+####################################################
+####################################################
+
+
+#### Use the template system ####
+
+# Back to the detail() view for our poll application. 
+# Given the context variable question, here’s what the polls/detail.html template might look like:
+
+#polls/templates/polls/detail.html
+<h1>{{ question.question_text }}</h1>
+<ul>
+{% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }}</li>
+{% endfor %}
+</ul>
+
+# The template system uses dot-lookup syntax to access variable attributes. 
+# In the example of {{ question.question_text }}, 
+# first Django does a dictionary lookup on the object question. 
+# Failing that, it tries an attribute lookup – which works, in this case. 
+# If attribute lookup had failed, it would’ve tried a list-index lookup.
+
+# Method-calling happens in the {% for %} loop: question.choice_set.all 
+# is interpreted as the Python code question.choice_set.all(), 
+# which returns an iterable of Choice objects and is suitable for use in the {% for %} tag.
+
+# <h1>{{ question.question_text }}</h1>
+#~=
+# Question.objects.all()[0].question_text
+#=
+#"What's up?"
+
+# {% for choice in question.choice_set.all %}
+#~=
+# Question.objects.get(pk=1).choice_set.all()
+#=
+# [<Choice: Not Much>, <Choice: The sky>]
+
+
+#See the template guide for more about templates.
+	# https://docs.djangoproject.com/en/1.7/topics/templates/
+	# Django’s template language is designed to strike a balance between power and ease. 
+	# It’s designed to feel comfortable to those used to working with HTML
+	# A template is simply a text file. It can generate any text-based format (HTML, XML, CSV, etc.).
+	# A template contains variables, which get replaced with values when the template is evaluated, 
+	# and tags, which control the logic of the template.
+
+
+####################################################
+####################################################
+####################################################
+
+
+#### Removing hardcoded URLs in Tempates ####
+
+# Remember, when we wrote the link to a question in the polls/index.html template, 
+# the link was partially hardcoded like this:
+
+<li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+
+# The problem with this hardcoded, tightly-coupled approach is that 
+# it becomes challenging to change URLs on projects with a lot of templates. 
+# However, since you defined the name argument in the url() functions in the polls.urls module, 
+# you can remove a reliance on specific URL paths defined in your url configurations by using 
+# the {% url %} template tag:
+
+<li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
+
+# The way this works is by looking up the URL definition as specified in the polls.urls module. 
+# You can see exactly where the URL name of ‘detail’ is defined below:
+
+...
+# the 'name' value as called by the {% url %} template tag
+url(r'^(?P<question_id>\d+)/$', views.detail, name='detail'),
+...
+
+# If you want to change the URL of the polls detail view to something else, 
+# perhaps to something like polls/specifics/12/ instead of doing it in the template 
+# (or templates) you would change it in polls/urls.py:
+
+...
+# added the word 'specifics'
+url(r'^specifics/(?P<question_id>\d+)/$', views.detail, name='detail'),
+...
+
+
+####################################################
+####################################################
+####################################################
+
+
+#### Namespacing URL names ####
+
+# The tutorial project has just one app, polls. 
+# In real Django projects, there might be five, ten, twenty apps or more. 
+# How does Django differentiate the URL names between them? 
+# For example, the polls app has a detail view, 
+# and so might an app on the same project that is for a blog. 
+# How does one make it so that Django knows which app view to create for 
+# a url when using the {% url %} template tag?
+
+# The answer is to add namespaces to your root URLconf. 
+# In the mysite/urls.py file, go ahead and change it to include namespacing:
+
+# mysite/urls.py
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+
+urlpatterns = patterns('',
+    url(r'^polls/', include('polls.urls', namespace="polls")),
+    url(r'^admin/', include(admin.site.urls)),
+)
+
+#Now change your polls/index.html template from:
+
+#polls/templates/polls/index.html
+<li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
+
+
+#to point at the namespaced detail view:
+
+#polls/templates/polls/index.html
+<li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+
+# When you’re comfortable with writing views, 
+# read part 4 of this tutorial to learn about simple form processing and generic views.
 
 
 
