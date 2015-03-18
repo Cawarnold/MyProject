@@ -506,3 +506,40 @@ within_three = within_percentage(wine_quality["quality"], predicted_y, stderr, 3
 # overview: predicted_y = slope * actual_x + intercept
 # overview: rss = (sum(predicted_y - actual_y)**2)
 # overview: standar_error = (rss/(n-2))**(1/2)
+
+################
+################
+################
+#
+#http://technology.stitchfix.com/blog/2015/03/17/grammar-of-data-science/
+#My data exploration process has the following steps: 
+#hypothesize, get data, sanitize the data, compute descriptive statistics, plot things, drill down, rinse and repeat.
+#
+####
+#
+#http://simplystatistics.org/2015/03/17/data-science-done-well-looks-easy-and-that-is-a-big-problem-for-data-scientists/
+#In general the data science process is iterative and the different components blend together a little bit. But for simplicity lets discretize the tasks into the following 7 steps:
+#
+#Define the question of interest
+#Get the data
+#Clean the data
+#Explore the data
+#Fit statistical models
+#Communicate the results
+#Make your analysis reproducible
+#
+#
+# A good data science project answers a real scientific or business analytics question. 
+# In almost all of these experiments the vast majority of the analyst's time is spent on 
+# etting and cleaning the data (steps 2-3) and communication and reproducibility (6-7). 
+# In most cases, if the data scientist has done her job right the statistical models don't 
+# need to be incredibly complicated to identify the important relationships the project is trying to find. 
+# In fact, if a complicated statistical model seems necessary, it often means that you don't have
+# the right data to answer the question you really want to answer. 
+# One option is to spend a huge amount of time trying to tune a statistical model to try to 
+# answer the question but serious data scientist's usually instead try to go back and get the right data.
+# 
+#You have to ask questions about the details of how the data were collected, what kind of biases might exist, 
+#why they picked one data set over another, etc. 
+
+

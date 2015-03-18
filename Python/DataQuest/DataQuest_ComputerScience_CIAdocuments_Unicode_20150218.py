@@ -23,6 +23,12 @@ Overview of Useful code:
 
 #### SUMMARY OF USEFUL CODE ####
 
+unicode(p) # will return a Unicode string, 
+
+str(p) # will return a bytestring,
+
+
+
 
 
 ########################################################################################################################
