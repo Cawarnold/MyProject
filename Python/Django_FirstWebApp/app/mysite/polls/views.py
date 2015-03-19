@@ -13,11 +13,13 @@ class IndexView(generic.ListView):
         """Return the last five published questions."""
         return Question.objects.order_by('-pub_date')[:5]
 
+# template name tells the IndexView to use our existing "polls/index.html" template.
+# Similarily for DetailView.
 
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
-
+    # context variable is auto generated from the model.
 
 class ResultsView(generic.DetailView):
     model = Question
