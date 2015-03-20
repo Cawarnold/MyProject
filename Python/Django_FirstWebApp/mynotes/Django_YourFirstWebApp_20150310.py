@@ -87,6 +87,12 @@
 
 	python manage.py migrate
 
+
+### In the terminal, we can run our test:
+
+	python manage.py test polls
+
+
 ### Hop into the interactive Python shell and play around with the free API Django gives you:
 
 	python manage.py shell
@@ -99,6 +105,9 @@
 
 #### View all Questions:
 	Question.objects.all()
+
+#### View all Choices for a specific question
+	Question.objects.get(pk=1).choice_set.all()
 
 ### Creating Choices for those Questions:
 	q = Question.objects.get(pk=1)
@@ -142,6 +151,8 @@
 	>>> # we should expect a 404 from that address
 	>>> response.status_code
 	## Now begin testing
+
+
 
 ########################################################################################################################
 ########################################################################################################################
@@ -2574,9 +2585,258 @@ def get_queryset(self):
         pub_date__lte=timezone.now()
     ).order_by('-pub_date')[:5]
 
+# Question.objects.filter(pub_date__lte=timezone.now()) returns a queryset containing 
+# Questions whose pub_date is less than or equal to - that is, earlier than or equal to - timezone.now.
+
+#######
+#######
+
+### Testing our new view
+
+# Now you can satisfy yourself that this behaves as expected by firing up the runserver, 
+# loading the site in your browser, creating Questions with dates in the past and future, 
+# and checking that only those that have been published are listed. 
+# You don’t want to have to do that every single time you make any change that might affect this - 
+# so let’s also create a test, based on our shell session above.
+
+# Add the following to polls/tests.py:
+
+#polls/tests.py
+from django.core.urlresolvers import reverse
+
+# and we’ll create a shortcut function to create questions as well as a new test class:
+
+polls/tests.py
+def create_question(question_text, days):
+    """
+    Creates a question with the given `question_text` published the given
+    number of `days` offset to now (negative for questions published
+    in the past, positive for questions that have yet to be published).
+    """
+    time = timezone.now() + datetime.timedelta(days=days)
+    return Question.objects.create(question_text=question_text,
+                                   pub_date=time)
 
 
+class QuestionViewTests(TestCase):
+    def test_index_view_with_no_questions(self):
+        """
+        If no questions exist, an appropriate message should be displayed.
+        """
+        response = self.client.get(reverse('polls:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No polls are available.")
+        self.assertQuerysetEqual(response.context['latest_question_list'], [])
 
+    def test_index_view_with_a_past_question(self):
+        """
+        Questions with a pub_date in the past should be displayed on the
+        index page.
+        """
+        create_question(question_text="Past question.", days=-30)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            ['<Question: Past question.>']
+        )
+
+    def test_index_view_with_a_future_question(self):
+        """
+        Questions with a pub_date in the future should not be displayed on
+        the index page.
+        """
+        create_question(question_text="Future question.", days=30)
+        response = self.client.get(reverse('polls:index'))
+        self.assertContains(response, "No polls are available.",
+                            status_code=200)
+        self.assertQuerysetEqual(response.context['latest_question_list'], [])
+
+    def test_index_view_with_future_question_and_past_question(self):
+        """
+        Even if both past and future questions exist, only past questions
+        should be displayed.
+        """
+        create_question(question_text="Past question.", days=-30)
+        create_question(question_text="Future question.", days=30)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            ['<Question: Past question.>']
+        )
+
+    def test_index_view_with_two_past_questions(self):
+        """
+        The questions index page may display multiple questions.
+        """
+        create_question(question_text="Past question 1.", days=-30)
+        create_question(question_text="Past question 2.", days=-5)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            ['<Question: Past question 2.>', '<Question: Past question 1.>']
+        )
+
+
+# Let’s look at some of these more closely.
+
+# First is a question shortcut function, create_question, 
+# to take some repetition out of the process of creating questions.
+
+# test_index_view_with_no_questions doesn’t create any questions, but checks the message: “No polls are available.” 
+# and verifies the latest_question_list is empty. 
+# Note that the django.test.TestCase class provides some additional assertion methods. 
+# In these examples, we use assertContains() and assertQuerysetEqual().
+
+# In test_index_view_with_a_past_question, we create a question and verify that it appears in the list.
+
+# In test_index_view_with_a_future_question, we create a question with a pub_date in the future. 
+# The database is reset for each test method, so the first question is no longer there, 
+# and so again the index shouldn’t have any questions in it.
+
+# And so on. In effect, we are using the tests to tell a story of admin input and user experience on the site, 
+# and checking that at every state and for every new change in the state of the system, 
+# the expected results are published.
+
+#######
+#######
+
+### Testing the DetailView
+
+# What we have works well; however, even though future questions don’t appear in the index, 
+# users can still reach them if they know or guess the right URL. 
+# So we need to add a similar constraint to DetailView:
+
+#polls/views.py
+class DetailView(generic.DetailView):
+    ...
+    def get_queryset(self):
+        """
+        Excludes any questions that aren't published yet.
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
+
+
+# And of course, we will add some tests, 
+# to check that a Question whose pub_date is in the past can be displayed, 
+# and that one with a pub_date in the future is not:
+
+#polls/tests.py
+class QuestionIndexDetailTests(TestCase):
+    def test_detail_view_with_a_future_question(self):
+        """
+        The detail view of a question with a pub_date in the future should
+        return a 404 not found.
+        """
+        future_question = create_question(question_text='Future question.',
+                                          days=5)
+        response = self.client.get(reverse('polls:detail',
+                                   args=(future_question.id,)))
+        self.assertEqual(response.status_code, 404)
+
+    def test_detail_view_with_a_past_question(self):
+        """
+        The detail view of a question with a pub_date in the past should
+        display the question's text.
+        """
+        past_question = create_question(question_text='Past Question.',
+                                        days=-5)
+        response = self.client.get(reverse('polls:detail',
+                                   args=(past_question.id,)))
+        self.assertContains(response, past_question.question_text,
+                            status_code=200)
+
+#######
+#######
+
+### Ideas for more tests
+
+# We ought to add a similar get_queryset method to ResultsView and create a new test class for that view.
+# It’ll be very similar to what we have just created; in fact there will be a lot of repetition.
+
+ We could also improve our application in other ways, adding tests along the way. 
+ For example, it’s silly that Questions can be published on the site that have no Choices. 
+ So, our views could check for this, and exclude such Questions. 
+ Our tests would create a Question without Choices and then test that it’s not published, 
+ as well as create a similar Question with Choices, and test that it is published.
+
+
+####  MY WORKINGS ####
+# Change below to make it not accept questions which do not have choices
+
+class IndexView(generic.ListView):
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_question_list'
+
+    def get_queryset(self):
+        """
+        Return the last five published questions (not including those set to be
+        published in the future).
+        """
+        return Question.objects.filter(
+            pub_date__lte=timezone.now()
+        ).order_by('-pub_date')[:5]
+
+
+all_questions = Question.objects.filter()  #list of all questions
+[i.choice_set.exists() for i in Question.objects.filter()] #list of all choices for those questions
+
+[i for i in Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5] if i.choice_set.exists()]
+#list of questions if choice_set exists!
+
+
+#### NOW BUILD TEST FOR IT ####
+
+# design test to verify that questions with no choices are not shown.
+
+class QuestionViewTests(TestCase):
+    def test_index_view_for_questions_with_no_choices(self):
+        """
+        If no choices exist for specific question, then that question should not be shown.
+        """
+        response = self.client.get(reverse('polls:index'))
+        self.assertEqual(response.status_code, 200)
+        past_question = create_question(question_text='A Question.',
+                                        days=-5)
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            ['<Question: A Question.>']
+
+## Creates question
+def create_question(question_text, days):
+    """
+    Creates a question with the given `question_text` published the given
+    number of `days` offset to now (negative for questions published
+    in the past, positive for questions that have yet to be published).
+    """
+    time = timezone.now() + datetime.timedelta(days=days)
+    return Question.objects.create(question_text=question_text,
+                                   pub_date=time)
+
+
+## Create Choice function to create choices for a question
+def create_choice(choice_text, question_id):
+	"""
+	Creatas a choice with the given `choice_text` published for a given
+	question that has been created using create_question.
+	"""
+	return  Choice.objects.create(question = Question.objects.get(id=question_id), 
+									choice_text = choice_text, 
+									votes = 0)
+
+## Create test for if question has choices it should be shown.
+class QuestionViewTests(TestCase):
+    def test_index_view_for_questions_with_choices(self):
+        """
+        If no choices exist for specific question, then that question should not be shown.
+        """
+        response = self.client.get(reverse('polls:index'))
+        self.assertEqual(response.status_code, 200)
+        question = create_question(question_text='A Question.',
+                                        days=-5)
+        create_choice(choice_text="A Choice.", question_id=question.id)
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            ['<Question: A Question.>']
 
 
 

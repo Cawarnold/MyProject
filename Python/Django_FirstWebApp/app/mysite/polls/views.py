@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404, render
 from django.core.urlresolvers import reverse
 from django.views import generic
 
+from django.utils import timezone
+
 from polls.models import Question, Choice
 
 class IndexView(generic.ListView):
@@ -25,10 +27,20 @@ class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
     # context variable is auto generated from the model.
+    def get_queryset(self):
+        """
+        Excludes any questions that aren't published yet.
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+    def get_queryset(self):
+        """
+        Excludes any questions that aren't published yet.
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 # http://127.0.0.1:8000/polls/1/vote/
 def vote(request, question_id):
