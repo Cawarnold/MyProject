@@ -2788,19 +2788,6 @@ all_questions = Question.objects.filter()  #list of all questions
 
 # design test to verify that questions with no choices are not shown.
 
-class QuestionViewTests(TestCase):
-    def test_index_view_for_questions_with_no_choices(self):
-        """
-        If no choices exist for specific question, then that question should not be shown.
-        """
-        response = self.client.get(reverse('polls:index'))
-        self.assertEqual(response.status_code, 200)
-        past_question = create_question(question_text='A Question.',
-                                        days=-5)
-        self.assertQuerysetEqual(
-            response.context['latest_question_list'],
-            ['<Question: A Question.>']
-
 ## Creates question
 def create_question(question_text, days):
     """
@@ -2823,25 +2810,42 @@ def create_choice(choice_text, question_id):
 									choice_text = choice_text, 
 									votes = 0)
 
+
 ## Create test for if question has choices it should be shown.
 class QuestionViewTests(TestCase):
-    def test_index_view_for_questions_with_choices(self):
+    def test_index_view_only_questions_with_choices(self):
         """
         If no choices exist for specific question, then that question should not be shown.
         """
         response = self.client.get(reverse('polls:index'))
         self.assertEqual(response.status_code, 200)
-        question = create_question(question_text='A Question.',
-                                        days=-5)
+        question = create_question(question_text="A Question.", days=-5)
+        question
         create_choice(choice_text="A Choice.", question_id=question.id)
+        response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
             ['<Question: A Question.>']
+        )
 
+#### WORKS!!! 
 
-
-
-
+## Create test for if question has no choices it should not be shown.
+class QuestionViewTests(TestCase):
+    def test_index_view_only_questions_with_choices(self):
+        """
+        If no choices exist for specific question, then that question should not be shown.
+        """
+        response = self.client.get(reverse('polls:index'))
+        self.assertEqual(response.status_code, 200)
+        question = create_question(question_text="A Question.", days=-5)
+        question
+        create_choice(choice_text="A Choice.", question_id=question.id)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            ['<Question: A Question.>']
+        )
 
 
 

@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.test import TestCase
 
-from polls.models import Question
+from polls.models import Question, Choice
 
 ## Any function of a module (def of a class) that begins with test will be picked up in the running of the tests.
 ## The database is reset for each test method.
@@ -56,6 +56,17 @@ def create_question(question_text, days):
     time = timezone.now() + datetime.timedelta(days=days)
     return Question.objects.create(question_text=question_text,
                                    pub_date=time)
+
+
+def create_choice(choice_text, question_id):
+    """
+    Creatas a choice with the given `choice_text` published for a given
+    question that has been created using create_question.
+    """
+    return  Choice.objects.create(question = Question.objects.get(id=question_id), 
+                                    choice_text = choice_text, 
+                                    votes = 0)
+
 
 
 class QuestionViewTests(TestCase):
@@ -116,6 +127,22 @@ class QuestionViewTests(TestCase):
             ['<Question: Past question 2.>', '<Question: Past question 1.>']
         )
 
+    def test_index_view_only_questions_with_choices(self):
+        """
+        If no choices exist for specific question, then that question should not be shown.
+        """
+        response = self.client.get(reverse('polls:index'))
+        self.assertEqual(response.status_code, 200)
+        question = create_question(question_text="A Question.", days=-5)
+        question
+        create_choice(choice_text="A Choice.", question_id=question.id)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            ['<Question: A Question.>']
+        )
+
+
 
 class QuestionIndexDetailTests(TestCase):
     def test_detail_view_with_a_future_question(self):
@@ -141,6 +168,7 @@ class QuestionIndexDetailTests(TestCase):
         self.assertContains(response, past_question.question_text,
                             status_code=200)
 
+
 class QuestionIndexResultsTests(TestCase):
     def test_results_view_with_a_future_question(self):
         """
@@ -164,4 +192,3 @@ class QuestionIndexResultsTests(TestCase):
                                    args=(past_question.id,)))
         self.assertContains(response, past_question.question_text,
                             status_code=200)
-        
