@@ -10,7 +10,7 @@
 # companies are able to launch across many countries at a very high speed with a strong, technology 
 # and analytics-enabled central infrastructure and light local teams.
 
-
+## http://work.thaslwanter.at/Stats/html/statsPreface.html
 
 ########################################################################################################################
 ########################################################################################################################

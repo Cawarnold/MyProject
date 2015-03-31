@@ -85,11 +85,68 @@ print(np.ravel(x))
 import pandas as pd
 # The kmeans algorithm is implemented in the scikits-learn library
 from sklearn.cluster import KMeans
-# Create a kmeans model on our data, using 2 clusters.  random_state helps ensure that the algorithm returns the same results each time.
+# Create a kmeans model on our data, using 2 clusters.  
+# random_state helps ensure that the algorithm returns the same results each time.
 kmeans_model = KMeans(n_clusters=2, random_state=1).fit(votes.iloc[:, 3:])
 # These are our fitted labels for clusters -- the first cluster has label 0, and the second has label 1.
 labels = kmeans_model.labels_
 # The clustering looks pretty good!
 # It's separated everyone into parties just based on voting history
+print(pd.crosstab(labels, votes["party"]))
+
+>party D   I   R
+>row_0
+>0    41   2   0
+>1     3   0  54
+
+
+#### Exploring people in the wrong cluster ####
+
+# We can now find out which senators are in the "wrong" cluster.
+# These senators are in the cluster associated with the opposite party.
+
+# Let's call these types of voters "oddballs" (why not?)
+# There aren't any republican oddballs
+democratic_oddballs = votes[(votes["label"] == 1) & (votes["party"] == "D")]
+# It looks like Reid has abstained a lot, which changed his cluster.
+# Manchin seems like a genuine oddball voter.
+print(democratic_oddballs["name"])
+
+> 42 Heikamp
+> 56 Manchin
+> 74 Reid
+
+#### Plotting out the clusters ####
+
+# Let's explore our clusters a little more by plotting them out.
+# Each column of data is a dimension on a plot, and we can't visualize 15 dimensions.
+# We'll use principal component analysis to compress the vote columns into two.
+# Then, we can plot out all of our senators according to their votes, and shade them by their cluster.
+
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+pca_2 = PCA(2)
+# Turn the vote data into two columns with PCA
+plot_columns = pca_2.fit_transform(votes.iloc[:,3:18])
+print(plot_columns)
+# Plot senators based on the two dimensions, and shade by cluster label
+# You can see the plot by clicking "plots" to the bottom right
+plt.scatter(x=plot_columns[:,0], y=plot_columns[:,1], c=votes["label"])
+plt.show()
+plt.clf()
+
+## plot_columns is just a list of points for a graph. 
+
+#### Trying even more clusters ####
+
+# While two clusters is interesting, it didn't tell us anything we don't already know.
+# More clusters could show wings of each party, or cross-party groups.
+# Let's try using 5 clusters to see what happens.
+
+import pandas as pd
+from sklearn.cluster import KMeans
+kmeans_model = KMeans(n_clusters=5, random_state=1).fit(votes.iloc[:, 3:])
+labels = kmeans_model.labels_
+# The republicans are still pretty solid, but it looks like there are two democratic "factions"
 print(pd.crosstab(labels, votes["party"]))
 
