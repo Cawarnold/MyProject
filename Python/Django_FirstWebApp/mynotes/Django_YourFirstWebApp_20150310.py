@@ -2815,7 +2815,7 @@ def create_choice(choice_text, question_id):
 class QuestionViewTests(TestCase):
     def test_index_view_only_questions_with_choices(self):
         """
-        If no choices exist for specific question, then that question should not be shown.
+        If choices exist for specific question, then that question should be shown.
         """
         response = self.client.get(reverse('polls:index'))
         self.assertEqual(response.status_code, 200)
