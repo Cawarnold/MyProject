@@ -13,6 +13,10 @@
 ## http://work.thaslwanter.at/Stats/html/statsPreface.html
 ## https://code.djangoproject.com/wiki/DjangoGraphviz
 
+# Setting up Django on Heroku with Postgresql
+## https://thefreshlybaked.wordpress.com/2014/07/09/setting-up-django-on-heroku-with-postgresql/
+
+
 
 ########################################################################################################################
 ########################################################################################################################
@@ -120,17 +124,99 @@ $ foreman start
 
 # Make sure things are working properly curl or a web browser, then Ctrl-C to exit.
 
+	# I got:
+	# 11:57:39 web.1  | started with pid 5180
+	# 11:57:46 web.1  | exited with code 1
+	# 11:57:46 system | sending SIGKILL to all processes
 
+Make sure things are working properly curl or a web browser, then Ctrl-C to exit.
 
+#######
+#######
 
+#### Specify dependencies with Pip ####
+
+# Heroku recognizes Python applications by the existence of a requirements.txt file 
+# in the root of a repository. This simple format is used by most Python projects 
+# to specify the external Python modules the application requires.
+
+# Pip has a nice command (pip freeze) that will generate this file for us:
+# $ pip freeze > requirements.txt
+# Pip can also be used for advanced dependency management. 
+# See Python Dependencies via Pip to learn more.
+
+#######
+#######
+
+#### Django settings ####
+
+# Next, configure the application for the Heroku environment, including Heroku’s Postgres database. 
+# The dj-database-url module will parse the value of the DATABASE_URL environment variable and 
+# convert them to something Django can understand.
+# Make sure ‘dj-database-url’ is in your requirements file, 
+# then add the following to the bottom of your settings.py file:
+
+# settings.py
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
+# Static asset configuration
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+	## I've commented out variables that I thought were over lapping.
+
+# With these settings available, you can add the following code to wsgi.py 
+# to serve static files in production:
+
+wsgi.py
+
+from django.core.wsgi import get_wsgi_application
+from dj_static import Cling
+
+application = Cling(get_wsgi_application())
+
+# Store your app in Git
+
+# Now that we’ve written and tested our application, 
+# we need to store the project in a Git repository.
+# Since our current directory contains a lof of extra files, 
+# we’ll want to configure our repository to ignore these files with a .gitignore file:
+# GitHub provides an excellent Python gitignore file that can be installed system-wide.
+
+.gitignore
+
+venv
+*.pyc
+staticfiles
 
 
 ############################################################################
 ############################################################################
 ############################################################################
 
-# Restart Env with
+## Restart Env with:
+	# C:\Users\Christian\Documents\GitHub\MyProject\Python\Heroku_DjangoApp\hellodjango>
+	# activate ENV_HEROKU_DJANGO_20150401
 
-# activate ENV_HEROKU_DJANGO_20150401
+## Login to Heroku:
+	# C:\Users\Christian\Documents\GitHub\MyProject\Python\Heroku_DjangoApp\hellodjango>
+	# heroku login
 
-
+## Push to heroku:
+	# Push app from base directory of the project.
+	# where the manage.py is located.
