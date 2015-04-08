@@ -38,6 +38,9 @@
 # Math view point guide to Python
 ## http://www.kevinsheppard.com/images/0/09/Python_introduction.pdf
 
+# Pandas Introduction to Data Analysis
+## http://nbviewer.ipython.org/format/slides/github/jorisvandenbossche/2015-PyDataParis/blob/master/pandas_introduction.ipynb#/6
+
 ########################################################################################################################
 ########################################################################################################################
 ########################################################################################################################
