@@ -204,19 +204,218 @@ venv
 *.pyc
 staticfiles
 
+# Next, we’ll create a new git repository and save our changes.
+$ git init
+# Initialized empty Git repository in /Users/kreitz/hellodjango/.git/
+$ git add .
+$ git commit -m "my django app"
+# [master (root-commit) 2943412] my django app
+# 7 files changed, 230 insertions(+)
+# create mode 100644 .gitignore
+# create mode 100644 Procfile
+# create mode 100644 hellodjango/__init__.py
+# create mode 100644 hellodjango/settings.py
+# create mode 100644 hellodjango/urls.py
+# create mode 100644 hellodjango/wsgi.py
+# create mode 100644 manage.py
+# create mode 100644 requirements.txt
+
+#######
+#######
+
+#### Deploy to Heroku ####
+
+# The next step is to push the application’s repository to Heroku. 
+# First, we have to get a place to push to from Heroku. 
+# We can do this with the heroku create command:
+$ heroku create
+# Creating simple-spring-9999... done, stack is cedar-14
+# http://simple-spring-9999.herokuapp.com/ | git@heroku.com:simple-spring-9999.git
+# Git remote heroku added
+	
+	# [ENV_HEROKU_DJANGO_20150401] C:\Users\Christian\Documents\GitHub\MyApp>heroku create
+	# Creating damp-bayou-1587... done, stack is cedar-14
+	# https://damp-bayou-1587.herokuapp.com/ | https://git.heroku.com/damp-bayou-1587.git
+	# Git remote heroku added
+
+# This automatically added the Heroku remote for our app 
+# (git@heroku.com:simple-spring-9999.git) to our repository. 
+# Now we can do a simple git push to deploy our application:
+
+$ git push heroku master
+# Counting objects: 11, done.
+# Delta compression using up to 4 threads.
+# Compressing objects: 100% (9/9), done.
+# Writing objects: 100% (11/11), 4.01 KiB, done.
+# Total 11 (delta 0), reused 0 (delta 0)
+# -----> Python app detected
+# -----> No runtime.txt provided; assuming python-2.7.6.
+# -----> Preparing Python runtime (python-2.7.6)
+# -----> Installing Distribute (0.6.36)
+# -----> Installing Pip (1.3.1)
+# -----> Installing dependencies using Pip (1.3.1)
+#        Downloading/unpacking Django==1.5 (from -r requirements.txt (line 1))
+#        ...
+#        Successfully installed Django psycopg2 gunicorn dj-database-url dj-static static
+#        Cleaning up...
+# -----> Collecting static files
+#        0 static files copied.
+# 
+# -----> Discovering process types
+#        Procfile declares types -> web
+# 
+# -----> Compiled slug size is 29.5MB
+# -----> Launching... done, v6
+#        http://simple-spring-9999.herokuapp.com deployed to Heroku
+# 
+# To git@heroku.com:simple-spring-9999.git
+# * [new branch]      master -> master
+
+
+	# I got a similar output, 
+	# https://damp-bayou-1587.herokuapp.com/ deployes to Heroku
+
+#######
+#######
+
+#### Visit your application ####
+
+# You’ve deployed your code to Heroku, and specified the process types in a Procfile. 
+# You can now instruct Heroku to execute a process type. 
+# Heroku does this by running the associated command in a dyno - 
+# a lightweight container which is the basic unit of composition on Heroku.
+
+# Let’s ensure we have one dyno running the web process type:
+heroku ps:scale web=1
+
+# You can check the state of the app’s dynos. 
+# The heroku ps command lists the running dynos of your application:
+$ heroku ps
+=== web: `gunicorn hellodjango.wsgi`
+web.1: up for 10s
+
+# Here, one dyno is running.
+# We can now visit the app in our browser with heroku open.
+$ heroku open
+# Opening simple-spring-9999.herokuapp.com... done
+
+# You should see the satisfying “It worked!” Django welcome page.
+
+#######
+#######
+
+#### Dyno sleeping and scaling ####
+
+# Having only a single web dyno running will result in the dyno going to sleep after one hour of inactivity. 
+# This causes a delay of a few seconds for the first request upon waking. 
+# Subsequent requests will perform normally.
+# To avoid this, you can scale to more than one web dyno. For example:
+$ heroku ps:scale web=2
+# For each application, Heroku provides 750 free dyno-hours. 
+# Running your app at 2 dynos would exceed this free, monthly allowance, so let’s scale back:
+$ heroku ps:scale web=1
+
+#######
+#######
+
+#### View the logs ####
+
+# Heroku treats logs as streams of time-ordered events aggregated from 
+# the output streams of all the dynos running the components of your application. 
+# Heroku’s Logplex provides a single channel for all of these events.
+# View information about your running app using one of the logging commands, heroku logs:
+$ heroku logs
+# 2012-04-06T19:38:25+00:00 heroku[web.1]: State changed from created to starting
+# 2012-04-06T19:38:29+00:00 heroku[web.1]: Starting process with command `gunicorn hellodjango.wsgi`
+# 2012-04-06T19:38:29+00:00 app[web.1]: Validating models...
+# 2012-04-06T19:38:29+00:00 app[web.1]:
+# 2012-04-06T19:38:29+00:00 app[web.1]: 0 errors found
+# 2012-04-06T19:38:29+00:00 app[web.1]: Django version 1.5, using settings 'hellodjango.settings'
+# 2012-04-06T19:38:29+00:00 app[web.1]: Development server is running at http://0.0.0.0:6566/
+# 2012-04-06T19:38:29+00:00 app[web.1]: Quit the server with CONTROL-C.
+# 2012-04-06T19:38:30+00:00 heroku[web.1]: State changed from starting to up
+# 2012-04-06T19:38:32+00:00 heroku[slugc]: Slug compilation finished
+
+#######
+#######
+
+#### Syncing the database ####
+# The heroku run command lets you run one-off dynos. 
+# You can use this to sync the Django models with the database schema:
+$ heroku run python manage.py syncdb
+# Running python manage.py syncdb attached to terminal... up, run.1
+# Creating tables ...
+# Creating table auth_permission
+# Creating table auth_group_permissions
+# Creating table auth_group
+# Creating table auth_user_groups
+# Creating table auth_user_user_permissions
+# Creating table auth_user
+# Creating table django_content_type
+# Creating table django_session
+# Creating table django_site
+
+# You just installed Django's auth system, which means you don't have any superusers defined.
+# Would you like to create one now? (yes/no): yes
+# Username (leave blank to use 'u53976'): kenneth
+# Email address: kenneth@heroku.com
+# Password:
+# Password (again):
+# Superuser created successfully.
+# Installing custom SQL ...
+# Installing indexes ...
+# Installed 0 object(s) from 0 fixture(s)
+
+#######
+#######
+
+#### Using the Django shell ####
+
+# Similarly, you can use heroku run to get a Django shell 
+# for executing arbitrary code against your deployed app:
+$ heroku run python manage.py shell
+# Running python manage.py shell attached to terminal... up, run.1
+# Python 2.7.6 (default, Jan 16 2014, 02:39:37)
+# [GCC 4.4.3] on linux2
+# Type "help", "copyright", "credits" or "license" for more information.
+# (InteractiveConsole)
+# >>> from django.contrib.auth.models import User
+# >>> User.objects.all()
+# [<User: kenneth>]
+
+#######
+#######
+
+#### Next steps #### 
+
+# Now that you’ve deployed your first Django application to Heroku, 
+# it’s time to take the next step! If if you’d like to learn more about Heroku, 
+# these articles are a great place to start.
+
+
+
+
 
 ############################################################################
 ############################################################################
 ############################################################################
 
 ## Restart Env with:
-	# C:\Users\Christian\Documents\GitHub\MyProject\Python\Heroku_DjangoApp\hellodjango>
+	# C:\Users\Christian\Documents\GitHub\MyApp>
 	# activate ENV_HEROKU_DJANGO_20150401
 
 ## Login to Heroku:
-	# C:\Users\Christian\Documents\GitHub\MyProject\Python\Heroku_DjangoApp\hellodjango>
+	# [ENV_HEROKU_DJANGO_20150401] C:\Users\Christian\Documents\GitHub\MyApp>
 	# heroku login
 
 ## Push to heroku:
 	# Push app from base directory of the project.
 	# where the manage.py is located.
+	# [ENV_HEROKU_DJANGO_20150401] C:\Users\Christian\Documents\GitHub\MyApp>
+	# git push heroku master
+
+## Open app in our browser:
+	# Should open the app at the designated web address.
+	# Django welcome page “It worked!” should be in your web browser.
+	# heroku open
+
