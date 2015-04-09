@@ -404,6 +404,9 @@ $ heroku run python manage.py shell
 	# C:\Users\Christian\Documents\GitHub\MyApp>
 	# activate ENV_HEROKU_DJANGO_20150401
 
+## Run app locally:
+	# foreman start
+
 ## Login to Heroku:
 	# [ENV_HEROKU_DJANGO_20150401] C:\Users\Christian\Documents\GitHub\MyApp>
 	# heroku login
