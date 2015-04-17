@@ -1,0 +1,33 @@
+#### Building an App ####
+
+Tools:
+Linux environment,
+WebHosting,
+
+On Linux environemt:
+Python 3.4 or 2.7
+Django 1.9
+
+Python Tools:
+virtual env,
+heroku toolbelt,
+
+
+
+###################################################
+###################################################
+###################################################
+
+Cloud9
+https://c9.io/cawarnold
+https://ide.c9.io
+
+https://c9.io/site/blog/2013/08/django-workspace-type/?utm_source=facebook&utm_medium=post&utm_campaign=django_ws
+
+https://ecostuff-cawarnold.c9.io
+Next, start your first app by running 
+	$ python manage.py startapp [app_label]
+
+
+
+
