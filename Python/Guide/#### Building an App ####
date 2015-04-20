@@ -29,5 +29,46 @@ Next, start your first app by running
 	$ python manage.py startapp [app_label]
 
 
+mysql-ctl start   
+   Root User: cawarnold  / H..
+   Database Name: c9
+
+
+##############
+
+Notes from http://charless.org/?p=283
+
+	Github is a web-based hosting service for software development projects that use the Git revision control system.
+	
+	Cloud9 is a state-of-the-art IDE that runs in your browser and lives in the cloud, 
+	allowing you to run, debug and 	deploy applications from anywhere, anytime.
+	
+	Node.js is a server-side JavaScript environment that uses an asynchronous event-driven model. 
+	This allows Node.js to 	get excellent performance based on the architectures of many Internet applications.
+	
+	Heroku (pronounced her-OH-koo) is a cloud application platform – a new way of building and deploying web apps. 
+	It let 	developers spend 100% of their time on their application code, 
+	not managing servers, deployment, ongoing operations, 	or scaling.
+	
+	In this post, I will show you how to quickly develop and deploy a web(socket) application with Javascript, 
+	by using 	only a web browser, all for free.
+	
+
+Create/ login to Github
+
+
+
+git clone git@github.com:yourusername/project.git
+
+
+###################################################
+###################################################
+###################################################
+
+#### Tango with Django ####
+
+http://www.tangowithdjango.com/book/chapters/overview.html
+
+## The next django trial project to go through.
 
 
