@@ -23,3 +23,6 @@ class Choice(models.Model):
 
 	def __str__(self):              # __unicode__ on Python 2
 		return self.choice_text
+
+	def number_of_votes(self):
+		return self.votes
