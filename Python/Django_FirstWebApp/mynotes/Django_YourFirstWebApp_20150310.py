@@ -11,6 +11,7 @@
 # and analytics-enabled central infrastructure and light local teams.
 
 ## http://work.thaslwanter.at/Stats/html/statsPreface.html
+## https://code.djangoproject.com/wiki/DjangoGraphviz
 
 ########################################################################################################################
 ########################################################################################################################
@@ -33,6 +34,12 @@
 
 # Heroku for django
 ## https://devcenter.heroku.com/articles/getting-started-with-django
+
+# Math view point guide to Python
+## http://www.kevinsheppard.com/images/0/09/Python_introduction.pdf
+
+# Pandas Introduction to Data Analysis
+## http://nbviewer.ipython.org/format/slides/github/jorisvandenbossche/2015-PyDataParis/blob/master/pandas_introduction.ipynb#/6
 
 ########################################################################################################################
 ########################################################################################################################
@@ -129,6 +136,10 @@
 ### Visit admin site, (first run server):
 	python manage.py runserver
 	# Then visit http://127.0.0.1:8000/admin/
+
+#### Check HTTP response codes:
+	Responses: 200 = OK, 302 = Found, 400 = Bad Request
+	# http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
 # A model is the single, definitive source of data about your data. 
 # It contains the essential fields and behaviors of the data you’re storing. 
@@ -2753,12 +2764,13 @@ class QuestionIndexDetailTests(TestCase):
 # We ought to add a similar get_queryset method to ResultsView and create a new test class for that view.
 # It’ll be very similar to what we have just created; in fact there will be a lot of repetition.
 
- We could also improve our application in other ways, adding tests along the way. 
- For example, it’s silly that Questions can be published on the site that have no Choices. 
- So, our views could check for this, and exclude such Questions. 
- Our tests would create a Question without Choices and then test that it’s not published, 
- as well as create a similar Question with Choices, and test that it is published.
+# We could also improve our application in other ways, adding tests along the way. 
+# For example, it’s silly that Questions can be published on the site that have no Choices. 
+# So, our views could check for this, and exclude such Questions. 
+# Our tests would create a Question without Choices and then test that it’s not published, 
+# as well as create a similar Question with Choices, and test that it is published.
 
+#### From end of page # https://docs.djangoproject.com/en/1.7/intro/tutorial05/
 
 ####  MY WORKINGS ####
 # Change below to make it not accept questions which do not have choices
@@ -2815,7 +2827,7 @@ def create_choice(choice_text, question_id):
 class QuestionViewTests(TestCase):
     def test_index_view_only_questions_with_choices(self):
         """
-        If no choices exist for specific question, then that question should not be shown.
+        If choices exist for specific question, then that question should be shown.
         """
         response = self.client.get(reverse('polls:index'))
         self.assertEqual(response.status_code, 200)
@@ -2827,49 +2839,231 @@ class QuestionViewTests(TestCase):
             response.context['latest_question_list'],
             ['<Question: A Question.>']
         )
-
-#### WORKS!!! 
 
 ## Create test for if question has no choices it should not be shown.
-class QuestionViewTests(TestCase):
-    def test_index_view_only_questions_with_choices(self):
+    def test_index_view_only_questions_with_NOchoices(self):
         """
         If no choices exist for specific question, then that question should not be shown.
         """
         response = self.client.get(reverse('polls:index'))
         self.assertEqual(response.status_code, 200)
-        question = create_question(question_text="A Question.", days=-5)
-        question
-        create_choice(choice_text="A Choice.", question_id=question.id)
+        question1 = create_question(question_text="A Question 1.", days=-5)
+        question1
+        create_choice(choice_text="A Choice.", question_id=question1.id)
+        question2 = create_question(question_text="A Question 2.", days=-5)
+        question2
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
-            ['<Question: A Question.>']
+            ['<Question: A Question 1.>']
         )
 
-this does not work ^^^^
+#### WORKS!!! 20150331
+
+## I also had to change all the other tests to conform to this new rule:
+# that a question should have a choice, otherwise it will not be displayed.
+
+# And added a test that tested that if there were 6 questions only the most recent 5 would be displayed.
+
+#### END OF MY WORKINGS ####
+
+# Perhaps logged-in admin users should be allowed to see unpublished Questions, 
+# but not ordinary visitors. 
+# Again: whatever needs to be added to the software to accomplish this should be 
+# accompanied by a test, whether you write the test first and then make the code pass the test, 
+# or work out the logic in your code first and then write a test to prove it.
+
+# At a certain point you are bound to look at your tests and wonder whether 
+# your code is suffering from test bloat, which brings us to:
+
+#######
+#######
+
+#### When testing, more is better #####
+
+# It might seem that our tests are growing out of control. 
+# At this rate there will soon be more code in our tests than in our application, 
+# and the repetition is unaesthetic, compared to the elegant conciseness of the rest of our code.
+
+# It doesn’t matter. Let them grow. 
+# For the most part, you can write a test once and then forget about it. 
+# It will continue performing its useful function as you continue to develop your program.
+
+# Sometimes tests will need to be updated. 
+# Suppose that we amend our views so that only Questions with Choices are published. 
+# In that case, many of our existing tests will fail - 
+# telling us exactly which tests need to be amended to bring them up to date, 
+# so to that extent tests help look after themselves.
+
+# At worst, as you continue developing, 
+# you might find that you have some tests that are now redundant. 
+# Even that’s not a problem; in testing redundancy is a good thing.
+
+# As long as your tests are sensibly arranged, they won’t become unmanageable. 
+# Good rules-of-thumb include having:
+
+# a separate TestClass for each model or view
+# a separate test method for each set of conditions you want to test
+# test method names that describe their function
+
+#######
+#######
+
+#### Further testing ####
+
+# This tutorial only introduces some of the basics of testing. 
+# There’s a great deal more you can do, and a number of very useful tools 
+# at your disposal to achieve some very clever things.
+
+# For example, while our tests here have covered some of the internal logic of a model 
+# and the way our views publish information, you can use an “in-browser” framework 
+# such as Selenium to test the way your HTML actually renders in a browser. 
+# These tools allow you to check not just the behavior of your Django code, 
+# but also, for example, of your JavaScript. 
+# It’s quite something to see the tests launch a browser, and start interacting with your site, 
+# as if a human being were driving it! Django includes LiveServerTestCase to facilitate 
+# integration with tools like Selenium.
+
+# If you have a complex application, you may want to run tests automatically with every commit for 
+# the purposes of continuous integration, so that quality control is itself - at least partially - automated.
+
+# A good way to spot untested parts of your application is to check code coverage. 
+# This also helps identify fragile or even dead code. 
+# If you can’t test a piece of code, it usually means that code should be refactored or removed. 
+# Coverage will help to identify dead code. See Integration with coverage.py for details.
+
+# Testing in Django has comprehensive information about testing.
+
+#### What’s next? ###
+
+# For full details on testing, see Testing in Django. 
+# https://docs.djangoproject.com/en/1.7/topics/testing/
+
+# When you’re comfortable with testing Django views, 
+# read part 6 of this tutorial to learn about static files management.
+
+############################################################################
+############################################################################
+############################################################################
+
+#### Writing your first Django app, part 6 ####
+
+# This tutorial begins where Tutorial 5 left off. 
+# We’ve built a tested Web-poll application, and we’ll now add a stylesheet and an image.
+
+# Aside from the HTML generated by the server, web applications generally need to serve additional files — 
+# such as images, JavaScript, or CSS — necessary to render the complete web page. 
+# In Django, we refer to these files as “static files”.
+
+# For small projects, this isn’t a big deal, 
+# because you can just keep the static files somewhere your web server can find it. 
+# However, in bigger projects – especially those comprised of multiple apps – 
+# dealing with the multiple sets of static files provided by each application starts to get tricky.
+
+# That’s what django.contrib.staticfiles is for: 
+# it collects static files from each of your applications (and any other places you specify) 
+# into a single location that can easily be served in production.
+
+####################################################
+####################################################
+####################################################
+
+#### Customize your app’s look and feel ####
+
+# First, create a directory called static in your polls directory. 
+# Django will look for static files there, similarly to how Django finds templates inside polls/templates/.
+
+# Django’s STATICFILES_FINDERS setting contains a list of finders 
+# that know how to discover static files from various sources. 
+# One of the defaults is AppDirectoriesFinder which looks for a “static” subdirectory 
+# in each of the INSTALLED_APPS, like the one in polls we just created. 
+# The admin site uses the same directory structure for its static files.
+
+# Within the static directory you have just created, create another directory called polls 
+# and within that create a file called style.css. 
+# In other words, your stylesheet should be at polls/static/polls/style.css. 
+# Because of how the AppDirectoriesFinder staticfile finder works, 
+# you can refer to this static file in Django simply as polls/style.css, 
+# similar to how you reference the path for templates.
+
+	## Static file namespacing ##
+
+	# Just like templates, we might be able to get away with putting our static files directly in 
+	# polls/static (rather than creating another polls subdirectory), but it would actually be a bad idea. 
+	# Django will choose the first static file it finds whose name matches, 
+	# and if you had a static file with the same name in a different application, 
+	# Django would be unable to distinguish between them. 
+	# We need to be able to point Django at the right one, 
+	# and the easiest way to ensure this is by namespacing them. 
+	# That is, by putting those static files inside another directory named for the application itself.
+
+# Put the following code in that stylesheet (polls/static/polls/style.css):
+
+#polls/static/polls/style.css
+li a {
+    color: green;
+}
+
+# Next, add the following at the top of polls/templates/polls/index.html:
+
+#polls/templates/polls/index.html
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+# {% load staticfiles %} loads the {% static %} template tag from the staticfiles template library. 
+# The {% static %} template tag generates the absolute URL of the static file.
+
+# That’s all you need to do for development. 
+# Reload http://localhost:8000/polls/ and you should see that the question links are green 
+# (Django style!) which means that your stylesheet was properly loaded.
+
+#######
+#######
+
+#### Adding a background-image ####
+
+# Next, we’ll create a subdirectory for images. 
+# Create an images subdirectory in the polls/static/polls/ directory. 
+# Inside this directory, put an image called background.gif. 
+# In other words, put your image in polls/static/polls/images/background.gif.
+
+# Then, add to your stylesheet (polls/static/polls/style.css):
+
+#polls/static/polls/style.css
+body {
+    background: white url("images/background.gif") no-repeat right bottom;
+}
+
+# Reload http://localhost:8000/polls/ and you should see the background loaded in the bottom right of the screen.
 
 
+	## Warning
+
+	# Of course the {% static %} template tag is not available for use in static files 
+	# like your stylesheet which aren’t generated by Django. 
+	# You should always use relative paths to link your static files between each other, 
+	# because then you can change STATIC_URL (used by the static template tag to generate its URLs) 
+	# without having to modify a bunch of paths in your static files as well.
+
+# These are the basics. 
+# For more details on settings and other bits included with the framework see the static files how to 
+# and the staticfiles reference. Deploying static files discusses how to use static files on a real server.
 
 
+#### What’s next? ####
+
+# The beginner tutorial ends here for the time being. 
+# In the meantime, you might want to check out some pointers on where to go from here.
+
+# If you are familiar with Python packaging and interested in learning how to turn polls into a “reusable app”, 
+# check out Advanced tutorial: How to write reusable apps.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# NEXT UP REUSABLE APP
+####
+# https://docs.djangoproject.com/en/1.7/intro/reusable-apps/
+####
 
 
 
