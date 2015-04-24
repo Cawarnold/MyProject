@@ -137,6 +137,10 @@
 	python manage.py runserver
 	# Then visit http://127.0.0.1:8000/admin/
 
+#### Check HTTP response codes:
+	Responses: 200 = OK, 302 = Found, 400 = Bad Request
+	# http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+
 # A model is the single, definitive source of data about your data. 
 # It contains the essential fields and behaviors of the data you’re storing. 
 
