@@ -12,6 +12,7 @@
 
 ## http://work.thaslwanter.at/Stats/html/statsPreface.html
 ## https://code.djangoproject.com/wiki/DjangoGraphviz
+## http://blog.treasuredata.com/blog/2015/04/24/python-for-aspiring-data-nerds/
 
 ########################################################################################################################
 ########################################################################################################################

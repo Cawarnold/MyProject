@@ -6,6 +6,8 @@ http://pystar.github.io/pystar/badges/badge_djangoapp.html
 This is a walk through of what is actually happening in the app.
 With useful tips on how to communicate with the app.
 
+## new python project.
+##http://blog.treasuredata.com/blog/2015/04/24/python-for-aspiring-data-nerds/
 
 #### Summary ####
 
@@ -20,10 +22,8 @@ URLs - when you visit a django webpage eg. http://ecostuff-cawarnold.c9.io/polls
 	which directs the url to mysite/urls.py and has a look through urlpatterns for a url that matches.
 
 Models - Each Django model corresponds to a SQL table.
-
-
-
-
+	All models in Django code are represented by a class that subclasses django.db.models.Model. 
+	Each model has a number of class variables, each of which represents a database field in the model.
 
 
 #### In the Shell ####
@@ -31,9 +31,112 @@ Models - Each Django model corresponds to a SQL table.
 Go to folder with app in it.
 	$ python ./manage.py shell
 
+Query the app from here.
+
+    Import model classes
+    >>> from polls.models import Poll, Choice
+
+    List all the current Polls:
+    >>> Poll.objects.all()
+    []
+
+    Add a Poll.
+    >>> import datetime
+    >>> p = Poll(question="What is the Weirdest Cookbook Ever?", pub_date=datetime.datetime.now())
+    
+    Save the Poll instance into the database. You have to call save() explicitly.
+    >>> p.save()
+
+    Get the id of the Poll instance. Because it’s been saved, it has an ID in the database
+    >>> p.id
+    1
+    
+    What other methods and attributes does this Poll instance have?
+    >>> dir(p)
+    >>> help(p)
+
+    Access the database columns (Fields, in Django parlance) as Python attributes:
+    >>> p.question
+    "What is the Weirdest Cookbook Ever?"
+    >>> p.pub_date
+    datetime.datetime(2007, 7, 15, 12, 00, 53)
+    Send the Poll back in time:
+    # Change values by changing the attributes, then calling save().
+    >>> p.pub_date = datetime.datetime(2007, 4, 1, 0, 0)
+    >>> p.save()
+    >>> p.pub_date
+    datetime.datetime(2007, 4, 1, 0, 0)
+    Ask Django to show a list of all the Poll objects available:
+    >>> Poll.objects.all()
+    [<Poll: Poll object>]
 
 
+####################################################################################################
+####################################################################################################
+####################################################################################################
 
+#### Adding Users to my app ####
+
+Users can create questions and answer them.
+
+Table of users with, questions answered and the choices for those questions.
+
+Unfortunately, 
+Django (and most database-using software) can’t figure out how to handle model changes very well on its own. 
+Fortunately, a Django app called `south` can handle these changes–called ‘migrations’–for us.
+
+Change your models then run:
+    python manage.py makemigrations polls
+    python manage.py migrate polls
+
+
+####################################################################################################
+####################################################################################################
+####################################################################################################
+
+#### In the Shell ####
+
+Go to folder with app in it.
+    $ python ./manage.py shell
+
+Query the app from here.
+
+    Import model classes
+    >>> from polls.models import Poll, Choice
+
+    List all the current Polls:
+    >>> Poll.objects.all()
+    []
+
+    Add a Poll.
+    >>> import datetime
+    >>> p = Poll(question="What is the Weirdest Cookbook Ever?", pub_date=datetime.datetime.now())
+    
+    Save the Poll instance into the database. You have to call save() explicitly.
+    >>> p.save()
+
+    Get the id of the Poll instance. Because it’s been saved, it has an ID in the database
+    >>> p.id
+    1
+    
+    What other methods and attributes does this Poll instance have?
+    >>> dir(p)
+    >>> help(p)
+
+    Access the database columns (Fields, in Django parlance) as Python attributes:
+    >>> p.question
+    "What is the Weirdest Cookbook Ever?"
+    >>> p.pub_date
+    datetime.datetime(2007, 7, 15, 12, 00, 53)
+    Send the Poll back in time:
+    # Change values by changing the attributes, then calling save().
+    >>> p.pub_date = datetime.datetime(2007, 4, 1, 0, 0)
+    >>> p.save()
+    >>> p.pub_date
+    datetime.datetime(2007, 4, 1, 0, 0)
+    Ask Django to show a list of all the Poll objects available:
+    >>> Poll.objects.all()
+    [<Poll: Poll object>]
 
 ####################################################################################################
 ####################################################################################################

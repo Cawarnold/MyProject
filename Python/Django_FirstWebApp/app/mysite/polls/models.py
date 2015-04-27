@@ -8,6 +8,7 @@ from django.utils import timezone
 class Question(models.Model):
 	question_text = models.CharField(max_length=200)
 	pub_date = models.DateTimeField('date published', default=timezone.now())
+
 	def __str__(self):              # __unicode__ on Python 2
 		return self.question_text
 	def was_published_recently(self):
@@ -26,3 +27,11 @@ class Choice(models.Model):
 
 	def number_of_votes(self):
 		return self.votes
+
+class User(models.Model):
+	username = models.CharField(max_length=200)
+	reg_date = models.DateTimeField('registry date', default=timezone.now())
+
+	def __str__(self):
+		return self.username
+		
