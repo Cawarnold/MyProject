@@ -251,7 +251,8 @@ Validating models...
 Django version 1.2, using settings 'myproject.settings'
 Development server is running at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
-Now that the server’s running, visit http://127.0.0.1:8000/ with your Web browser. You’ll see a “Welcome to Django” page, in pleasant, light-blue pastel. It worked!
+Now that the server’s running, visit http://127.0.0.1:8000/ with your Web browser. You’ll see a “Welcome to Django” page, 
+in pleasant, light-blue pastel. It worked!
 
 ../_images/itworks.png
 Note how mouthy this is, and that it mentions DEBUG, settings.py, and a lot more, which will be covered in later sections.
@@ -259,8 +260,8 @@ Note how mouthy this is, and that it mentions DEBUG, settings.py, and a lot more
 Of course, you haven't actually done any work yet. Here's what to do next:
 If you plan to use a database, edit the DATABASES setting in myproject/settings.py.
 Start your first app by running python myproject/manage.py startapp [appname].
-You're seeing this message because you have DEBUG = True in your Django settings
-file and you haven't configured any URLs. Get to work!
+You are seeing this message because you have DEBUG = True in your Django settings file 
+and you have not configured any URLs. Get to work!
 Observe the logging that happens in the terminal where your server is running:
 
 [24/Mar/2011 11:50:18] "GET / HTTP/1.1" 200 2057
