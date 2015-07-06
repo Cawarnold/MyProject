@@ -152,7 +152,8 @@ The app is an online poll where visitors can view choices (a bit of text) and vo
 We will cover local deployment as well as deploying your web application to the world, 
 where other people can play with it, and where you can modify it.
 
-This is based heavily on the official tutorial for the Django web programming framework as well as the Ruby on Rails for Women workshop.
+This is based heavily on the official tutorial for the Django web programming framework 
+as well as the Ruby on Rails for Women workshop.
 
 If you would like to see an example of this completed tutorial, Gregg did it, Lukas did it
 
@@ -160,7 +161,11 @@ Part 1: If You Build It... They Will Pay You
 
 The Client
 
-VoteOnEverything, Ltd. (VOEL) is a web startup hoping to make some money on this “internet” thing the kids are talking about. Their idea: an app where people can easily create polls on their favorite subjects and vote on them! They are flush with cash, and have hired you (you’re smart, right?) to help out!
+VoteOnEverything, Ltd. (VOEL) is a web startup hoping to make some money 
+on this “internet” thing the kids are talking about. 
+Their idea: an app where people can easily create polls on their favorite subjects 
+and vote on them! They are flush with cash, and have hired you (you’re smart, right?) to help out!
+
 
 Example User Stories
 
@@ -173,9 +178,11 @@ As a user, I want the application to keep track of polls I have created, my voti
 (many many more)
 Designing The Prototype
 
-Time to make a prototype! After hearing about Python and the Django web framework from that smart woman you know who works at Google, you have decided to try it out!
+Time to make a prototype! After hearing about Python and the Django web framework from that smart woman 
+you know who works at Google, you have decided to try it out!
 
-Since this is a prototype, you have decided to eliminate some features (logins, history tracking, demographic information, etc.) to focus on the core applicaion: polls and voting.
+Since this is a prototype, you have decided to eliminate some features 
+(logins, history tracking, demographic information, etc.) to focus on the core applicaion: polls and voting.
 
 The prototype will consist of two parts:
 
@@ -218,7 +225,9 @@ In a terminal (or GitBash), get into the django_projects directory we created in
 You can do that by typing this into your terminal:
 
 cd django_projects
-In the Friday setup portion of the workshop, you already saw how to use the django-admin.py command to start a project. However, today, we’re using a super basic Django project that has some of the less crucial settings already predefined. Download the files at http://pystar.org/_downloads/myproject.tar.gz and add the myproject folder to your django_projects directory.
+In the Friday setup portion of the workshop, you already saw how to use the django-admin.py command to start a project. 
+However, today, we’re using a super basic Django project that has some of the less crucial settings already predefined.
+Download the files at http://pystar.org/_downloads/myproject.tar.gz and add the myproject folder to your django_projects directory.
 
 Let’s go into myproject and start looking around.
 
@@ -234,10 +243,13 @@ $ ls
     urls.py
 These files are:
 
-__init__.py: An empty file that tells Python that this directory should be considered a Python module. Because of the __init__.py file, you can use import to import myproject.
-manage.py: A command-line utility that lets you interact with this Django project in various ways. You can read all the details about manage.py in django-admin.py and manage.py.
+__init__.py: An empty file that tells Python that this directory should be considered a Python module. Because of the __init__.py file, 
+        you can use import to import myproject.
+manage.py: A command-line utility that lets you interact with this Django project in various ways. 
+        You can read all the details about manage.py in django-admin.py and manage.py.
 settings.py: Settings/configuration for this Django project. Django settings will tell you all about how settings work.
-urls.py: The URL declarations for this Django project; a “table of contents” of your Django-powered site. You can read more about URLs in URL dispatcher.
+urls.py: The URL declarations for this Django project; a “table of contents” of your Django-powered site. 
+        You can read more about URLs in URL dispatcher.
 Start the Development (Local) Server
 
 Verify the development server will start.
