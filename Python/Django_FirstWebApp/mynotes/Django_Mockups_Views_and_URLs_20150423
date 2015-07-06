@@ -146,9 +146,11 @@ VVVVV Just a copy of the text from the webpage in case it gets taken down VVVVVV
 
 Django Polls Webapp
 
-This tutorial will look at writing and deploying a web application. The app is an online poll where visitors can view choices (a bit of text) and vote the option up and down.
+This tutorial will look at writing and deploying a web application. 
+The app is an online poll where visitors can view choices (a bit of text) and vote the option up and down.
 
-We will cover local deployment as well as deploying your web application to the world, where other people can play with it, and where you can modify it.
+We will cover local deployment as well as deploying your web application to the world, 
+where other people can play with it, and where you can modify it.
 
 This is based heavily on the official tutorial for the Django web programming framework as well as the Ruby on Rails for Women workshop.
 
