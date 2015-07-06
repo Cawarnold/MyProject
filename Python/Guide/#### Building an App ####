@@ -47,7 +47,7 @@ Notes from http://charless.org/?p=283
 	This allows Node.js to 	get excellent performance based on the architectures of many Internet applications.
 	
 	Heroku (pronounced her-OH-koo) is a cloud application platform – a new way of building and deploying web apps. 
-	It let 	developers spend 100% of their time on their application code, 
+	It lets	developers spend 100% of their time on their application code, 
 	not managing servers, deployment, ongoing operations, 	or scaling.
 	
 	In this post, I will show you how to quickly develop and deploy a web(socket) application with Javascript, 
