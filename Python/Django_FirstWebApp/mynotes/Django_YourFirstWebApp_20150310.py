@@ -48,6 +48,11 @@
 
 #### Short Notes ####
 
+### Creating / Checking conda envs
+	
+	## Creating: conda create --name Python3Env python=2.7
+	## Checking: conda info --envs 
+
 ### Installing Packages: 
 
 	## To install package (django) to Anaconda/envs/py34:
@@ -77,6 +82,7 @@
 ### Visit views page:
 	# Which you defined in the index view. (polls/views.py > def index(request)...)
 	http://localhost:8000/polls/
+	http://ecostuff-cawarnold.c9.io/polls/
 
 ### Include new tables in database:
 
