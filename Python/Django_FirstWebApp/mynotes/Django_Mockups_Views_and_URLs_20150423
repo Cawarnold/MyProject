@@ -534,7 +534,8 @@ Right? How do you know? [answer]
 
 Good. Because you got a case of the accidental deletes and you’ve deleted your settings.py file!
 
-No really. Go and delete settings.py. Throw it in the trash. Or the recycling bin. Or rm from the command line. 
+No really. Go and delete settings.py. Throw it in the trash. Or the recycling bin. 
+Or rm from the command line. 
 Make sure it’s really gone using ls.
 
 Try running your dev server. What happens? Why?
@@ -549,15 +550,22 @@ $ git checkout settings.py
 Look at your project folder again, using ls. Lo and behold, settings.py! Back from beyond the grave! 
 Cool, huh? Open it up, and verify it is exactly as you left it. Isn’t that magical? [answer].
 
-But what of settings.pyc? Start your dev server. It works, right? Stop your dev server and look at the files in your project. 
+But what of settings.pyc? Start your dev server. It works, right? 
+Stop your dev server and look at the files in your project. 
 Do you see settings.pyc? How did it get there? [answer]
+
+#########################################################################
+#########################################################################
+#########################################################################
 
 Part 6: Build The Polls Application
 
 Now that your environment – a “project” – is set up, you’re set to start building the poll application.
 
-Each application you write in Django consists of a Python package, somewhere on your Python path, that follows a certain convention. 
-Django comes with a utility that automatically generates the basic directory structure of an app (that Django expects), 
+Each application you write in Django consists of a Python package, 
+somewhere on your Python path, that follows a certain convention. 
+Django comes with a utility that automatically generates the basic directory structure of an app 
+(that Django expects), 
 so you can focus on writing code!.
 
 Projects and Apps
@@ -566,13 +574,19 @@ We’ve talked a little about Django apps and projects. You might be wondering w
 
 Here are the things to know:
 
-An app is component of a website that does something. For example, the Django administration app is something you’ll see later in this tutorial. So is our polls app. An app is:
+An app is component of a website that does something. 
+For example, the Django administration app is something you’ll see later in this tutorial. 
+So is our polls app. An app is:
 
 single purpose - login, passwords, polls, forum, etc.
-orthonogal to / independent of other apps - polls shouldn’t have to know the inside details of authentication, for example.
-A project corresponds to a ‘website’: it contains a settings.py file, and it may have corresponding databases or other data stores that the apps interact with.
+orthonogal to / independent of other apps - polls shouldn’t have to know the inside 
+                                                details of authentication, for example.
 
-Django apps can live anywhere on the Python path. The python path is a list of paths where the python interpreter looks for modules.
+A project corresponds to a ‘website’: it contains a settings.py file, 
+and it may have corresponding databases or other data stores that the apps interact with.
+
+Django apps can live anywhere on the Python path. 
+The python path is a list of paths where the python interpreter looks for modules.
 
 $ python
 >>> import sys
@@ -583,13 +597,17 @@ $ python
 '/Users/gregg/mydir/pystar/lib/python2.6',
 '/Users/gregg/mydir/pystar/lib/python2.6/plat-darwin',
 '/Users/gregg/mydir/pystar/lib/python2.6/plat-mac' ... ]
+
 To be importable (seeable by Python), your Django app must be in one of the folders on your path.
 
 Experiment: look at your Python Path!
 
 Create The Poll App
 
-In this tutorial, we’ll create our poll app in the myproject directory for simplicity. In the future, when you decide that the world needs to be able to use your poll app and plug it into their own projects, and after you determine that your app plays nicely with other apps, you can publish that directory separately!
+In this tutorial, we’ll create our poll app in the myproject directory for simplicity. 
+In the future, when you decide that the world needs to be able to use your poll app 
+and plug it into their own projects, and after you determine that your app plays nicely 
+with other apps, you can publish that directory separately!
 
 open your terminal and navigate to myproject
 
@@ -602,7 +620,8 @@ Verify what is new.
 
 git status
 # should show 'polls/' in 'untracked'
-While were are here lets make git ignore ‘database.db’ by adding database.db to .git/info/exclude. Verify (using ‘git status’) that is it gone.
+While were we are here lets make git ignore ‘database.db’ by adding database.db to .git/info/exclude. 
+Verify (using ‘git status’) that is it gone.
 
 Examine the layout of polls (we will do more of this in following sections).
 
