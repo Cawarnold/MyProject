@@ -1,6 +1,6 @@
 Django_Mockups_Views_and_URLs_20150423
 
-http://pystar.github.io/pystar/badges/badge_djangoapp.html
+####  http://pystar.github.io/pystar/badges/badge_djangoapp.html
 
 
 This is a walk through of what is actually happening in the app.
@@ -247,11 +247,12 @@ $ ls
     urls.py
 These files are:
 
-__init__.py: An empty file that tells Python that this directory should be considered a Python module. Because of the __init__.py file, 
-        you can use import to import myproject.
+__init__.py: An empty file that tells Python that this directory should be considered a Python module. 
+        Because of the __init__.py file,  you can use import to import myproject.
 manage.py: A command-line utility that lets you interact with this Django project in various ways. 
         You can read all the details about manage.py in django-admin.py and manage.py.
-settings.py: Settings/configuration for this Django project. Django settings will tell you all about how settings work.
+settings.py: Settings/configuration for this Django project. 
+        Django settings will tell you all about how settings work.
 urls.py: The URL declarations for this Django project; a “table of contents” of your Django-powered site. 
         You can read more about URLs in URL dispatcher.
 Start the Development (Local) Server
