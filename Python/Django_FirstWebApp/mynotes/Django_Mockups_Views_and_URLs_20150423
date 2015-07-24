@@ -202,6 +202,11 @@ To support these pages, you need these abstractions (models, objects):
 
 Polls
 Choices
+
+#########################################################################
+#########################################################################
+#########################################################################
+
 Part 2: Create your Django App
 
 Goal: Configure and explore a basic Django “out of the box app”.
@@ -304,6 +309,11 @@ and navigate to it using your browser [answer].
 Type python manage.py help. Speculate what some of these commands might do. 
 For reference: http://docs.djangoproject.com/en/dev/ref/django-admin/
 
+#########################################################################
+#########################################################################
+#########################################################################
+
+
 Part 3: Save your work!
 
 Before we do anything else, let’s save our work and start it with the world.
@@ -322,7 +332,8 @@ create a git repository in the project directory:
 # in myproject
 git init
 Create your project on GitHub. Go to http://github.com/ and create a new repository called “myproject”. 
-On the main dashboard page, click on “New Repository” fill out the necessary information. cf: http://help.github.com/create-a-repo/.
+On the main dashboard page, click on “New Repository” fill out the necessary information. 
+cf: http://help.github.com/create-a-repo/.
 
 Check the status of your files. At this point:
 
@@ -354,7 +365,8 @@ git commit to commit those files:
 git commit -m "Initial commit of django project from the PyStar workshop"
 Look at your changes with git log to see your history. Is your commit message there?
 
-Connect the remote github repo to your local one, and use git push to push those up to your Github repository 
+Connect the remote github repo to your local one, 
+and use git push to push those up to your Github repository 
 (putting your user name and project title in the appropriate slots):
 
 git remote add origin git@github.com:myusername/myproject.git
@@ -364,8 +376,12 @@ Go to your Github account in your browser. Find the myproject repository. Do you
 Remember:
 
 “commit your work” means “add and commit it to the local repository on your computer”
-“push your work” means “git push it to github” (if your computer explodes, there will still be a copy of your code on github!)
+“push your work” means “git push it to github” 
+(if your computer explodes, there will still be a copy of your code on github!)
 
+#########################################################################
+#########################################################################
+#########################################################################
 
 Part 4: Configure your Django Project
 
