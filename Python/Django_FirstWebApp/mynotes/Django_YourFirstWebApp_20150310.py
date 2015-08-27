@@ -42,6 +42,9 @@
 # Pandas Introduction to Data Analysis
 ## http://nbviewer.ipython.org/format/slides/github/jorisvandenbossche/2015-PyDataParis/blob/master/pandas_introduction.ipynb#/6
 
+# Python Intermediate tips
+## http://book.pythontips.com/en/latest/args_and_kwargs.html
+
 ########################################################################################################################
 ########################################################################################################################
 ########################################################################################################################
@@ -50,8 +53,14 @@
 
 ### Creating / Checking conda envs
 	
-	## Creating: conda create --name Python3Env python=2.7
+	## Creating: conda create --name Python2Env python=2.7
 	## Checking: conda info --envs 
+	## Activate: activate Python2Env
+
+### Replacing root env with default env
+	
+	## $ conda create --name=Env_Python276_Django171 anaconda=2 python=2.7 django=1.7
+	## $ conda config --set core.default_env=Env_Python276_Django171
 
 ### Installing Packages: 
 

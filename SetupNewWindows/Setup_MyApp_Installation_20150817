@@ -1,0 +1,6 @@
+#### Setup MyApp - Installation ####
+
+Download Github
+Download Anaconda 2.7
+
+Then create an env with Python 2.7 & Django 1.8

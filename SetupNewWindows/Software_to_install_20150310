@@ -1,10 +1,38 @@
 ## Setup New Windows:
 
+#### TR setup 20150601 ####
+
+
+Sublime Text 3
+Github
+Anaconda (Python 2.7)
+ConEmu
+
+WinZip
+FileZilla
+
+Outlook
+Excel
+Access
+SQL Server Management Studio (for general SQL code writing)
+Visual Studio 2015 (for C# projects)
+SQL Server Data Tools for visual Studio 2013
+
+SAP (from hub)
+Freemind 
+
+Chrome
+Opera (for MyApp Development)
+Firefox (for Eloqua)
+
+
+#### GLOW setup 20131004 - 20150525 ####
+
 Data Analysis:
 LibreOffice
 Tableau 8.2
 R 3.1.2, RStudio 0.98
-Python - (Anaconda2.1 & PyCharm4)
+Python - (Anaconda (Python 2.7) & PyCharm4)
 
 Data Storage:
 PostgreSQL9.0 - pgAdmin III
@@ -26,3 +54,6 @@ File Archiver:
 
 Screen Recorder:
 Debut by NCh Software 
+
+Terminal:
+ConEmu (Alpha - Installer)
