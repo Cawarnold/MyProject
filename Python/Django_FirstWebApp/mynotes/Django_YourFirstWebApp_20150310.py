@@ -86,6 +86,7 @@
 
 	## When the server’s running, visit http://127.0.0.1:8000/ with your Web browser. 
 	python manage.py runserver
+	python manage.py runserver 8103 ## To use a different port
 	# ctrl c to break the connection.
 
 ### Visit views page:
@@ -114,6 +115,7 @@
 ### In the terminal, we can run our test:
 
 	python manage.py test polls
+	python manage.py test polls -v 2 ## where v is for verbosity, it now names the tests.
 
 
 ### Hop into the interactive Python shell and play around with the free API Django gives you:
@@ -179,6 +181,29 @@
 	>>> response.status_code
 	## Now begin testing
 
+
+######## 
+########
+########
+
+#### Dealing with git "modified: db.sqlite3" ####
+
+	#20151016: I have seen this problem before and it cause me some trouble.
+		# I am going to find the most recent commit to the branch [AddUsersModel]
+		# and then try and do a git add . > git commit . > git push
+
+		## Most recent commit was 657fd94d25b562336b312a93634582cb48d40f5d
+		## authored on 20th Aug 2015
+	# if i need to revert I can do the following:
+	# git revert --no-commit 657fd94d25b562336b312a93634582cb48d40f5d
+	# git commit
+
+		## I have commited the change and tested the app: python ./manage.py runserver 8100
+			# and it works fine
+			# now try and push to github..
+			# also seems to have gone fine.
+		## Now I'm going to check the cloud9 instance, yep working fine. 
+		## Ok will leave it for now. 
 
 
 ########################################################################################################################

@@ -533,7 +533,8 @@ We’ve talked a little about Django apps and projects. You might be wondering w
 
 Here are the things to know:
 
-An app is component of a website that does something. For example, the Django administration app is something you’ll see later in this tutorial. So is our polls app. An app is:
+An app is component of a website that does something. For example, the Django administration app is something you’ll see later in this tutorial. So is our polls app. 
+An app is:
 
 single purpose - login, passwords, polls, forum, etc.
 orthonogal to / independent of other apps - polls shouldn’t have to know the inside details of authentication, for example.
@@ -556,7 +557,9 @@ Experiment: look at your Python Path!
 
 Create The Poll App
 
-In this tutorial, we’ll create our poll app in the myproject directory for simplicity. In the future, when you decide that the world needs to be able to use your poll app and plug it into their own projects, and after you determine that your app plays nicely with other apps, you can publish that directory separately!
+In this tutorial, we’ll create our poll app in the myproject directory for simplicity. 
+In the future, when you decide that the world needs to be able to use your poll app and plug it into their own projects, 
+and after you determine that your app plays nicely with other apps, you can publish that directory separately!
 
 open your terminal and navigate to myproject
 
@@ -569,7 +572,7 @@ Verify what is new.
 
 git status
 # should show 'polls/' in 'untracked'
-While were are here lets make git ignore ‘database.db’ by adding database.db to .git/info/exclude. Verify (using ‘git status’) that is it gone.
+While we are here lets make git ignore ‘database.db’ by adding database.db to .git/info/exclude. Verify (using ‘git status’) that is it gone.
 
 Examine the layout of polls (we will do more of this in following sections).
 
