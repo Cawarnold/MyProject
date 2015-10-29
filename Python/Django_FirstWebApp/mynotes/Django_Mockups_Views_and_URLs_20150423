@@ -613,7 +613,8 @@ Ran 1 test in 0.001s
 
 OK
 Destroying test database for alias 'default'...
-Make it louder! Run python manage.py test polls -v 2 and see that it now names the test –> test_basic_addition (polls.tests.SimpleTest). ‘-v’ is for verbosity, and (here) can be 0,1,2,3.
+Make it louder! Run python manage.py test polls -v 2 and see that it now names the test –> test_basic_addition (polls.tests.SimpleTest). 
+‘-v’ is for verbosity, and (here) can be 0,1,2,3.
 
 View polls/test.py, and see the example test.
 
