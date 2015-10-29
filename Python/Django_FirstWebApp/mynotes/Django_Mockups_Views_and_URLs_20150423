@@ -628,11 +628,14 @@ Add it into your project code git repo:
 
 git add polls/tests.py polls/test_polls.py
 git commit -m "added tests"
-Examine test_polls.py in your editor. This file (provided by us) gives acceptance tests for many of the points on the original spec sheet. Normally this is the sort of thing you would write yourself, after reading your spec, and deciding on acceptence criteria. We done it here to help you along, and provide an example for your work in the future!
+Examine test_polls.py in your editor. This file (provided by us) gives acceptance tests for many of the points on the original spec sheet. 
+Normally this is the sort of thing you would write yourself, after reading your spec, and deciding on acceptence criteria. 
+Weve done it here to help you along, and provide an example for your work in the future!
 
 Writing good tests is hard!
 
-Re-run your tests. python manage.py test polls. Note that most fail! (We will assume that the django tests all pass and focus on testing the polls tests, from here on out.)
+Re-run your tests. python manage.py test polls. Note that most fail! 
+(We will assume that the django tests all pass and focus on testing the polls tests, from here on out.)
 
 Discuss with your groups why testing matters. [answer]
 
