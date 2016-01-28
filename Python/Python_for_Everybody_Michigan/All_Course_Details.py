@@ -80,4 +80,25 @@ print bigword, bigcount
 	>>> print(name)
 	Chuck
 
+## Placeholder for code you haven't written yet.
+
+	if x < 0:
+		pass
+
+
+## The try / except feature is a trial and error statement.
+	#try these things, if they dont work print (except) print error message.
+	
+	inp = raw_input('Enter Fahrenheit Temperature:')
+	try:
+		fahr = float(inp)
+		cel = (fahr - 32.0) * 5.0 / 9.0
+		print cel
+	except:
+		print 'Please enter a number'
+
+
+
+
 #### 20160114: now at Chapter 3.   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+
