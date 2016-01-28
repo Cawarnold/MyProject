@@ -119,6 +119,11 @@
 
 	python manage.py migrate
 
+### syncdb looks for apps that have not yet been set up, or changed in ways that it can understand.
+	
+	# This creates all the tables, initial data and indexes for any apps you have added to your project since the last time you ran syncdb. 
+	# syncdb can be called as often as you like, and it will only ever create the tables that don’t exist.	
+	python manage.py syncdb
 
 ### In the terminal, we can run our test:
 
@@ -135,16 +140,33 @@
 	try:
 		stuff
 
+### To execute a script from the python shell
+	
+	execfile('TOTALLYMETALCODE.py')
+
 ### Create a Question:
 	from polls.models import Question, Choice
 	from django.utils import timezone
 	q = Question(question_text="What's new?", pub_date=timezone.now())
 	q.save()
 
-#### View all Questions:
+### Other methods and attributes for the Question instance
+	dir(q)
+	help(q)
+
+### Change the values of an attirbute:
+	q.pub_date = datetime.datetime(2015, 12, 15, 0, 0)
+	q.save()
+
+### View all Questions:
 	Question.objects.all()
 
-#### View all Choices for a specific question
+### View Specific Question:
+	Question.objects.all()[1]
+	Question.objects.all()[5:10]
+	Question.objects.get(id=1) 	#These queries are similar.
+
+### View all Choices for a specific question
 	Question.objects.get(pk=1).choice_set.all()
 
 ### Creating Choices for those Questions:
@@ -161,6 +183,17 @@
 ### Delete a Question:
 	Question.objects.all()[1].delete
 
+### Filter for a Question:
+	Question.objects.filter(question_text__startswith='W')
+	Question.objects.filter(question_text__icontains='h') 
+			# Here the i of icontains means case in-sensitive
+	Question.objects.filter(pk__in=[1,4,7])
+			# Here filters exaclty for ids 1,4 or 7.
+
+	## Delete Entries where id > 4:
+		qs = Question.objects.filter(id__gte=4)
+		qs.delete()
+
 ### Create a user who can login to the admin site. Run the following command:
 	python manage.py createsuperuser
 
@@ -171,6 +204,18 @@
 #### Check HTTP response codes:
 	Responses: 200 = OK, 302 = Found, 400 = Bad Request
 	# http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+
+#### View contents of a directory
+	import polls.views
+	dir(polls.views)
+
+#### Get directory string
+	import inspect
+	inspect.getsourcefile(polls.views)
+		#C:\\Users\\U6030064\\Documents\\GitHub\\MyApp\\polls\\views.py
+
+#### HTTP Status codes
+	http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
 # A model is the single, definitive source of data about your data. 
 # It contains the essential fields and behaviors of the data you’re storing. 
@@ -219,6 +264,9 @@
 		## Ok will leave it for now. 
 
 	#20151029: I did it again, same outcome - so I'll leave it for now.
+	#20151211: It has the same "modified: db.sqlite3" part. 
+	#	Thinking about the above - the reason icloud9 workd is because i didn't pull anything down to it.
+	#	So its still in the same state. Obv. anyway I just commited again and local is fine.
 
 ########################################################################################################################
 ########################################################################################################################
@@ -3121,14 +3169,21 @@ body {
 ####
 
 
+
+
 ################################################################################################
 ######################## Continue working on the app, with help from pystar ####################
 ################################################################################################
 
+################################################################################################
+########################		  	DONE!!!!!!!!!!!!!!!!   				    ####################
+################################################################################################
+
+
+
 #### Around line 620 in the Django_Mockups_Views_andURLS_20150423 file
 
 ## line : "Copy test_polls.py and move it into polls directory"
-
 
 
 
@@ -3138,6 +3193,8 @@ body {
 
 
 #### Include the tests that pystar gives us ####
+
+	## compare them with the ones I have written.
 
     ## https://raw.githubusercontent.com/pystar/pystar/master/docs/test_polls.py
 
@@ -3399,23 +3456,6 @@ class Test_models(unittest.TestCase):
 ## also choices need a 'is today' method.
 
 ## templates!
-'''
-Usually when I go about testing a Django application, there are 3 major parts that I test. Models, Views, and Template Tags. Templates are hard to test, and are generally more about aesthetics than code, so I tend not to think about actually testing Templates. This should cover most of the parts of your application that are standard. Of course, if your project has utils, forms, feeds, and other things like that, you can and should probably test those as well!
-
-/ lives
-something good at slash!
-
-/other/lives 
-something is good there!
-
-
-try import models...
-except....
-assert false!
-
-
-
-'''
 
 
 
@@ -3425,9 +3465,8 @@ assert false!
 
 
 
-
-
-####^^^^^^^^^^^^^^^^^
+## I finished going through the PyStar version of the app.
+## I think the django tutorial had been updated since the last pystar update. 
 
 
 
