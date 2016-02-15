@@ -184,7 +184,7 @@ print "Minimum is", smallest
 
 
 
-#### 20160204: Readings -> 4.12 Debugging   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+#### 20160215: Readings -> 6.1   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
 
  
 
