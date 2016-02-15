@@ -51,6 +51,10 @@
 
 #### Short Notes ####
 
+### List Conda Environments
+
+	## $ conda info --envs
+
 ### Creating / Checking conda envs
 	
 	## Creating: conda create --name Python2Env python=2.7

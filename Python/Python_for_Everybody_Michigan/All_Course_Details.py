@@ -22,6 +22,13 @@
 #####################################################################
 #####################################################################
 
+#####
+#		To run snippets of code go to
+#		the Scrap_Python.py file to write your python
+#		Then run the file from the terminal
+#####
+
+
 # Python Reserved words
 
 # and 
@@ -55,7 +62,12 @@
 # while
 # with
 # yield
- 
+
+## Built-in Functions should also be treated as reserved words.
+	#eg. max, min, len
+
+
+
 ## Simple program to find the most common word in a text file.
 
 name = raw_input('Enter file:')
@@ -98,7 +110,81 @@ print bigword, bigcount
 		print 'Please enter a number'
 
 
+## Random function: returns a float between 0.0 and 1.0 (including 0.0 but not 1.0)
+	# Each time you call random you get the next number in a long series.
+
+	import random
+	for i in range(10):
+		x = random.random()
+		print x
 
 
-#### 20160114: now at Chapter 3.   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+## Raw input: takes a user input assigns it to variable
+
+	hours = raw_input('How many hours have you worked this week?')
+	rate = 12.5
+	pay = float(hours) * float(rate)	
+
+	print("You will be paid $" + str(pay) + " this week.")
+
+
+## End a program at certain point
+	
+	try:
+		blah
+	except:
+		print("Error")
+		quit()
+
+
+## The pay rate example with try except and definition
+
+def computepay(h,r):
+    if h > 40:
+    	overtime = h - 40
+    	return (40 * r) + (overtime * r * 1.5)
+    else:
+    	return (h * r)
+try:
+	hrs = raw_input("Enter Hours:")
+	rate = raw_input("Enter Rate:")
+except:
+	print("Please only enter numerical values. Eg. 45")
+	quit()
+
+h = float(hrs)
+r = float(rate)
+
+p = computepay(h,r)
+print "Pay",p
+
+## Finding Larget and smallest numbers from raw input.
+
+largest = None
+smallest = None
+while True:
+	num = raw_input("Enter a number: ")
+	if num == "done" :
+		break
+	#print(smallest, largest)	
+	try:
+		num = int(num)
+		if largest is None or num > largest:
+			largest = num
+		if smallest is None or num < smallest:
+			smallest = num
+	except:
+		print("Invalid input")
+
+
+print "Maximum is", largest
+print "Minimum is", smallest
+
+
+
+
+
+#### 20160204: Readings -> 4.12 Debugging   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+
+ 
 
