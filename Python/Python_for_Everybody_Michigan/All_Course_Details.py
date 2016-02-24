@@ -183,6 +183,59 @@ print "Minimum is", smallest
 
 
 
+## Remember to close the connection to the file after writing to it.
+
+fout = open('output','w')
+print fout
+
+line1 = "Debugging whitespaces can be made easier,\n"
+fout.write(line1)
+line2 = "by using the repr() function.\n"
+fout.write(line2)
+
+# Test this by commenting fout.close()
+fout.close()
+
+file = open('output','r')
+for line in file:
+	print line
+
+print('>print repr(' + repr('a 2\t 3\n 4') + ')')
+print(repr('a 2\t 3\n 4'))
+
+#### 7.1
+#file_name = raw_input('Enter a file name:')
+#file_connection = open(file_name, 'r')
+#for line in file_connection:
+#	print(line.upper())
+
+#### 7.2 and 7.3
+file_name = raw_input('Enter a file name:')
+#file_name = 'mbox-short.txt'
+if file_name == 'na na boo boo':
+	print('you child!')
+	exit()
+else:
+	try:
+		file_connection = open(file_name, 'r')
+	except:
+		print('Please Enter valid file name')
+		exit()
+
+
+counter = 0
+total_conf = 0.0
+for line in file_connection:
+	if line.upper()[:len('X-DSPAM-CONFIDENCE:')] == 'X-DSPAM-CONFIDENCE:':
+		counter = counter + 1
+		total_conf = total_conf + float(line.rstrip()[len('X-DSPAM-CONFIDENCE:')+1:])
+
+average_spam_confidence = total_conf / counter
+
+print(average_spam_confidence)
+
+
+
 
 #### 20160215: Readings -> 6.1   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
 

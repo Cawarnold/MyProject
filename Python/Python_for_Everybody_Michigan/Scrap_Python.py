@@ -1,19 +1,35 @@
 #!/usr/bin/env Env3_Python276_Django171_djangoextensions
 
 
+## Just Scrap stuff
 
-def computepay(h,r):
-    if h > 40:
-    	overtime = h - 40
-    	return (40 * r) + (overtime * r * 1.5)
-    else:
-    	return (h * r)
+#### 7.1
+#file_name = raw_input('Enter a file name:')
+#file_connection = open(file_name, 'r')
+#for line in file_connection:
+#	print(line.upper())
 
-hrs = raw_input("Enter Hours:")
-rate = raw_input("Enter Rate:")
+#### 7.2 and 7.3
+file_name = raw_input('Enter a file name:')
+#file_name = 'mbox-short.txt'
+if file_name == 'na na boo boo':
+	print('you child!')
+	exit()
+else:
+	try:
+		file_connection = open(file_name, 'r')
+	except:
+		print('Please Enter valid file name')
+		exit()
 
-h = float(hrs)
-r = float(rate)
 
-p = computepay(h,r)
-print "Pay",p
+counter = 0
+total_conf = 0.0
+for line in file_connection:
+	if line.upper()[:len('X-DSPAM-CONFIDENCE:')] == 'X-DSPAM-CONFIDENCE:':
+		counter = counter + 1
+		total_conf = total_conf + float(line.rstrip()[len('X-DSPAM-CONFIDENCE:')+1:])
+
+average_spam_confidence = total_conf / counter
+
+print(average_spam_confidence)
