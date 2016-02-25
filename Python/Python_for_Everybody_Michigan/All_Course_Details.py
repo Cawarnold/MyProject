@@ -235,6 +235,101 @@ average_spam_confidence = total_conf / counter
 print(average_spam_confidence)
 
 
+## List operations
+	#Concatenate
+		>a = [1, 2, 3]
+		>b = [4, 5, 6]
+		>c = a + b
+		>print(c)
+		[1, 2, 3, 4, 5, 6]
+
+	#Multi
+		>[0]*4
+		[0,0,0,0]
+		>[1,2,3]*3
+		[1, 2, 3, 1, 2, 3, 1, 2, 3]
+
+	#Slice
+		> t = ['a', 'b', 'c', 'd', 'e', 'f']
+		> t[1:3]
+		['b','c']
+
+	#Changing ontents of list
+		>t = ['a', 'b', 'c', 'd', 'e', 'f']
+		>t[1:3] = ['x', 'y']
+		print t
+		>['a', 'x', 'y', 'd', 'e', 'f']
+
+## List methods
+	#Append
+		> t = ['a', 'b', 'c']
+		> t.append('d')
+		> print t
+		['a', 'b', 'c', 'd']
+
+	#Extend
+		> t1 = ['a', 'b', 'c']
+		> t2 = ['d', 'e']
+		> t1.extend(t2)
+		> print t1
+		['a', 'b', 'c', 'd', 'e']
+
+	#Sort
+		> t = ['d', 'c', 'e', 'b', 'a']
+		> t.sort()
+		> print t
+
+## Deleting Elements
+	#pop - modifies list and returns element that was removed
+		> t = ['a', 'b', 'c']
+		> x = t.pop(1)
+		> print t
+		['a', 'c']
+		> print x
+		b
+
+	#remove - if you know the element but not the index
+		> t = ['a', 'b', 'c']
+		> t.remove('b')
+		> print t
+		['a', 'c']
+
+	#del - just removes the values
+		> t = ['a', 'b', 'c', 'd', 'e', 'f']
+		> del t[1:5]
+		> print t
+		['a', 'f']
+
+## Using lists
+	# writing a program that averages the numbers you give it.
+		> numlist = list()
+		> while ( True ) :
+			inp = raw_input('Enter a number: ')
+			if inp == 'done' : break
+			value = float(inp)
+			numlist.append(value)
+		> average = sum(numlist) / len(numlist)
+		> print 'Average:', average
+
+	# Convert a string of characters into a list of values.
+		> s = 'spam'
+		> t = list(s)
+		> print t
+		['s', 'p', 'a', 'm']
+
+	# split a string into list of words (use join to do the opposite)
+		> s = 'pining for the fjords'
+		> t = s.split()
+		> print t
+		['pining', 'for', 'the', 'fjords']
+
+	# split a sting on the deliminator
+		> s = 'spam-spam-spam'
+		> delimiter = '-'
+		> s.split(delimiter)
+		['spam', 'spam', 'spam']
+
+
 
 
 
