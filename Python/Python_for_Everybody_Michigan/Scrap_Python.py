@@ -33,3 +33,6 @@ for line in file_connection:
 average_spam_confidence = total_conf / counter
 
 print(average_spam_confidence)
+
+
+
