@@ -3,36 +3,27 @@
 
 ## Just Scrap stuff
 
-#### 7.1
-#file_name = raw_input('Enter a file name:')
-#file_connection = open(file_name, 'r')
-#for line in file_connection:
-#	print(line.upper())
+## List operations
+	#Concatenate
+		>a = [1, 2, 3]
+		>b = [4, 5, 6]
+		>c = a + b
+		>print(c)
+		[1, 2, 3, 4, 5, 6]
 
-#### 7.2 and 7.3
-file_name = raw_input('Enter a file name:')
-#file_name = 'mbox-short.txt'
-if file_name == 'na na boo boo':
-	print('you child!')
-	exit()
-else:
-	try:
-		file_connection = open(file_name, 'r')
-	except:
-		print('Please Enter valid file name')
-		exit()
+	#Multi
+		>[0]*4
+		[0,0,0,0]
+		>[1,2,3]*3
+		[1, 2, 3, 1, 2, 3, 1, 2, 3]
 
+	#Slice
+		> t = ['a', 'b', 'c', 'd', 'e', 'f']
+		> t[1:3]
+		['b','c']
 
-counter = 0
-total_conf = 0.0
-for line in file_connection:
-	if line.upper()[:len('X-DSPAM-CONFIDENCE:')] == 'X-DSPAM-CONFIDENCE:':
-		counter = counter + 1
-		total_conf = total_conf + float(line.rstrip()[len('X-DSPAM-CONFIDENCE:')+1:])
-
-average_spam_confidence = total_conf / counter
-
-print(average_spam_confidence)
-
-
-
+	#Changing ontents of list
+		>t = ['a', 'b', 'c', 'd', 'e', 'f']
+		>t[1:3] = ['x', 'y']
+		print t
+		>['a', 'x', 'y', 'd', 'e', 'f']
