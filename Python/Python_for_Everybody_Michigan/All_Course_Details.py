@@ -334,7 +334,7 @@ print(average_spam_confidence)
 
 
 
-#### 20160215: Readings -> 6.1   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+#### 20160301: Readings -> 8.1   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
 
  
 
