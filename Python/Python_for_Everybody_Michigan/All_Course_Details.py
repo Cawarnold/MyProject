@@ -66,6 +66,9 @@
 ## Built-in Functions should also be treated as reserved words.
 	#eg. max, min, len
 
+## Can find the methods of functions using dir
+x = list()
+dir(x)
 
 
 ## Simple program to find the most common word in a text file.
@@ -260,6 +263,20 @@ print(average_spam_confidence)
 		print t
 		>['a', 'x', 'y', 'd', 'e', 'f']
 
+	#Function
+		> nums = [3, 41, 12, 9, 74, 15]
+		> print len(nums)
+		6
+		> print max(nums)
+		74
+		> print min(nums)
+		3
+		> print sum(nums)  ## Only works when elements are all numbers.
+		154
+		> print sum(nums)/len(nums)
+		25
+
+
 ## List methods
 	#Append
 		> t = ['a', 'b', 'c']
@@ -330,7 +347,223 @@ print(average_spam_confidence)
 		['spam', 'spam', 'spam']
 
 
+## Parsing lines
+	file_name = open('mbox-short.txt','r')
 
+
+	for line in file_name:
+		if not line[0:5] == 'From ':
+			continue
+		else:
+			day = line.split(' ')[2]
+			print(day)
+
+## Objects and values
+	# Comparing Strings, Python creates one string object and both a and b refer to it.
+		> a = 'banana'
+		> b = 'banana'
+		> a is b
+		True
+		# these strings are identical and therefore equivalent
+
+	# Comparing Lists, Pyhon creates two list objects.
+		> a = [1,2,3]
+		> b = [1,2,3]
+		> a is b
+		False
+		# these lists are equivalent but not identical
+
+	# Creating a reference means one object is aliased to another.
+		> a = [1,2,3]
+		> b = a
+		> b is a
+		True
+		# If the aliase object is mutable, changes made to one alias affects the other.
+		> b[0] = 17
+		> print a
+		[17,2,3]
+
+## List arguements (things you can do to lists)
+	# It is important to distinguish between operations that modify lists
+		# and operations that create new lists.
+
+	# append -- modifies the list
+		> t1 = [1, 2]
+		> t2 = t1.append(3)
+		> print t1
+		[1, 2, 3]
+		> print t2
+		None
+		
+	# the + operator -- creates a new list
+		> t3 = t1 + [3]
+		> print t3
+		[1, 2, 3]
+		> t2 is t3
+		False
+
+	# Comparing functions
+	## The parameter t and the variable letters are aliases for the same object.
+
+	# 1. A new list is not created, the list is modified.
+	def delete_head(t):
+		del t[0]
+	letters = ['a', 'b', 'c']
+	delete_head(letters)
+	print letters
+	['b', 'c']
+
+	# 2. A new list is not created and the list is not modified. 
+	def bad_delete_head(t):
+		t = t[1:]
+
+	letters = ['a', 'b', 'c']
+	bad_delete_head(letters)
+	print letters
+	['a', 'b', 'c']
+
+	# 3. A new list is created, the old list is not modified.
+	def tail(t):
+		return t[1:]
+	
+	letters = ['a', 'b', 'c']
+	rest = tail(letters)
+	print letters
+	['a', 'b', 'c']
+	print rest
+	['b', 'c']
+
+
+#### 8.1a Remove first and last elements from list and return None.
+		# A new list is not created, the list is modified.
+def chop(t):
+	del t[0]
+	del t[len(t)-1]
+	return None
+
+letters = ['a', 'b', 'c','d','e','f']
+print chop(letters)
+print letters
+
+#### 8.1b Create new list containing all but the first and last element.
+		# A new list is created, the list is not modified.
+
+def middle(t):
+	return t[1:len(t)-1]
+
+letters = ['a', 'b', 'c','d','e','f']
+print middle(letters)
+print letters	
+
+
+# Debugging -- helpful tips:
+	# Don’t forget that most list methods modify the argument and return None.
+	# This is the opposite of the string methods, which return a new string and
+	# leave the original alone.
+
+		# If you are used to writing string code like this:
+		word = word.strip()
+		# It is tempting to write list code like this:
+		t = t.sort() # WRONG!
+
+
+	# Pick an idiom and stick with it.
+
+		# don’t forget that these are right:
+		t.append(x)
+		t = t + [x]
+		# And these are wrong:
+		t.append([x]) # WRONG!
+		t = t.append(x) # WRONG!
+		t + [x] # WRONG!
+		t = t + x # WRONG!
+
+
+	# Make copies to avoid aliasing.
+
+		# make the copy before applying the method
+		orig = t[:]
+		t.sort()
+
+	# Lists, split, and files
+
+		#  Use the "Guardian" pattern when reading through files.
+		fhand = open('mbox-short.txt')
+		for line in fhand:
+			words = line.split()
+			print 'Debug:',words
+			if len(words) == 0 : continue 	#Guardian
+			if words[0] != 'From' : continue	#Guardian becuase of blank lines
+			print words[2]
+
+
+#### 8.2 More guardians:
+
+fhand = open('mbox-short.txt')
+for line in fhand:
+	words = line.split()
+	print 'Debug:',words
+	if len(words) == 0 : continue
+	if words[0] != 'From ' : continue
+	if len(words) < 3 : continue
+	print words[2]
+
+#### 8.3 rewrite guardian code without if statements.
+			#instead use a compound logical expression with a sinlge if.
+
+fhand = open('mbox-short.txt')
+for line in fhand:
+	words = line.split()
+	print 'Debug:',words
+	if len(words) == 0 and words[0] != 'From ' and len(words) < 3: continue
+	print words[2]			
+
+#### 8.4 Romeo
+# For each line, split line into words, 
+# for each word check if it's in a list, if not add to list.
+
+fhand = open('romeo.txt')
+t = list()
+for line in fhand:
+	line = line.split()
+	for word in line:
+		if word in t : continue
+		t.append(word)
+
+romeo_orig = t[:]
+t.sort()
+print(t)
+
+
+#### 8.5 mbox-short
+# We are interested in the email addresses of the people who sent mail.
+# provide list of emails.
+
+fhand = open('mbox-short.txt')
+counter = 0
+for line in fhand:
+	line = line.split()
+	if len(line) == 0 or line[0] != 'From': continue
+	counter = counter + 1
+	print(line[1])
+print(counter)
+
+
+
+#### 8.6 Max and min from user input
+# Store the numbers the user enters in a list
+# Use max() and min() to compute max and min.
+list_numbers = list()
+while (True):
+	user_number = raw_input('Enter a number: ')
+	if user_number == 'done' or user_number == '': break
+	else:
+		user_number = float(user_number)
+		if user_number not in list_numbers:
+			list_numbers.append(user_number)
+
+print('Maximum: ' + str(max(list_numbers)))
+print 'Minimum: ', min(list_numbers)
 
 
 

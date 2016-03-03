@@ -4,14 +4,8 @@
 ## Just Scrap stuff
 
 
-file_name = open('mbox-short.txt','r')
 
 
-for line in file_name:
-	if not line[0:5] == 'From ':
-		continue
-	else:
-		day = line.split(' ')[2]
-		print(day)
-
-
+x = list()
+print(dir(x))
+	
