@@ -569,11 +569,8 @@ print 'Minimum: ', min(list_numbers)
 
 
 
-<<<<<<< Updated upstream
-#### 20160301: Readings -> 8.1   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
-=======
-#### 20160224: Readings -> 7.1   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
->>>>>>> Stashed changes
+#### 20160303: Readings -> 8.1   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+
 
  
 
