@@ -28,6 +28,32 @@
 #		Then run the file from the terminal
 #####
 
+#########################################################
+#########################################################
+				# Powerful Python idioms # 
+
+
+#### Count letters in string using a dictionary.
+
+word = 'brontosaurus'
+d = dict()
+for c in word:
+	d[c] = d.get(c,0) + 1
+	print d
+print 'finished dict', d
+
+# get returns the corresponding value; otherwise it returns the default value
+
+#### Turn dict into list
+x = { 'a' : 1, 'b' : 2, 'c': 3}
+list_of_tuples_stuff = x.items()
+print list_of_tuples_stuff
+>>> [('a', 1), ('c', 3), ('b', 2)]
+
+
+#########################################################
+#########################################################
+
 
 # Python Reserved words
 
@@ -237,6 +263,8 @@ average_spam_confidence = total_conf / counter
 
 print(average_spam_confidence)
 
+
+######### Lists
 
 ## List operations
 	#Concatenate
@@ -567,7 +595,599 @@ print 'Minimum: ', min(list_numbers)
 
 
 
-#### 20160301: Readings -> 8.1   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
 
- 
+######### Dictionaries 
+
+
+## Dictionaries
+	create_a_dictionary = dict()
+	create_a_dictionary = {}
+
+	# Adding items (Key:Value)
+		create_a_dictionary[one] = 'uno'
+		create_a_dictionary[two] = 'duo'
+		create_a_dictionary = {'one':'uno', 'two':'duo'}
+
+	# Exracting Vlaues
+		print(create_a_dictionary[one])
+		> 'uno'
+
+	# Does key exist?
+		'one' in create_a_dictionary
+		>True
+
+	# does value exist?
+		'uno' in create_a_dictionary.values()
+		>True
+
+#### 9.1 Dictionary as set of counters
+
+word = 'brontosaurus'
+d = dict()
+for c in word:
+	if c not in d:
+		d[c] = 1
+	else:
+		d[c] = d[c] + 1
+print d
+print d.get('z')
+
+# Can reduce this to 4 lines using the get method.
+	# get returns the corresponding value;
+		# otherwise it returns the default value.
+word = 'brontosaurus'
+d = dict()
+for c in word:
+	d[c] = d.get(c,0) + 1
+print d	
+
+
+## Open file, iterate through lines and count words
+
+fname = raw_input('Enter the file name: ')
+try:
+	fhand = open(fname)
+except:
+	print 'File cannot be opened:', fname
+	exit()
+counts = dict()
+for line in fhand:
+	words = line.split()
+	for word in words:
+		if word not in counts:
+			counts[word] = 1
+		else:
+			counts[word] += 1
+print counts
+
+
+
+## Sorting values of a dictionary.
+
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+lst = counts.keys()
+lst.sort()
+for key in lst:
+	print key, counts[key]
+
+
+## Removing the punctuation from the list before makeing the counts
+
+import string # New Code
+fhand = open('romeo.txt')
+
+countA = dict()
+countB = dict()
+
+for line in fhand:
+	line = line.translate(None, string.punctuation) # New Code
+	line = line.lower() # New Code
+	words = line.split()
+	
+	for word in words:
+		countA[word] = countA.get(word,0)+1
+
+		if word not in countB:
+			countB[word] = 1
+		else:
+			countB[word] += 1
+
+print countA
+print countB
+
+
+## Dealing with Large datasets
+	
+	## Scale down input
+		# eg. use top 10 rows
+
+	## Check summaries and types
+		# eg. number of items, many errors are cause by the type of values
+
+	## Write self -checks
+		# writing tests to check your code works.
+
+	## Print pretty output
+		# Build debugging error messages into code.
+
+#### Exercise 9.2
+
+	# write a program that counts frequency of days of the week.
+
+fhand = open('mbox-short.txt')
+
+day_list = list()
+day_dict = dict()
+
+for line in fhand:
+	words = line.split()
+	if len(words) == 0: continue
+	if words[0] != 'From': continue
+	day_list.append(words[2])
+
+	for day in day_list:
+		if day not in day_dict:
+			day_dict[day] = 1
+		else:
+			day_dict[day] = day_dict[day] + 1
+
+print(day_dict)
+
+
+
+#### Exercise 9.3
+
+	# write a program that counts frequency of emails.
+
+fhand = open('mbox-short.txt')
+
+email_list = list()
+email_dict = dict()
+
+for line in fhand:
+	words = line.split()
+	if len(words) == 0: continue
+	if words[0] != 'From': continue
+	email_list.append(words[1])
+
+	for item in email_list:
+		if item not in email_dict:
+			email_dict[item] = 1
+		else:
+			email_dict[item] = email_dict[item] + 1
+
+print(email_dict)
+
+
+#### Exercise 9.4
+
+	# write a program that counts frequency of emails.
+
+fhand = open('mbox-short.txt')
+
+day_list = list()
+day_dict = dict()
+
+for line in fhand:
+	words = line.split()
+	if len(words) == 0: continue
+	if words[0] != 'From': continue
+	day_list.append(words[1])
+
+	for day in day_list:
+		if day not in day_dict:
+			day_dict[day] = 1
+		else:
+			day_dict[day] = day_dict[day] + 1
+
+vals = day_dict.values()
+vals.sort(reverse = True)
+max_val = vals[0]
+
+for key, value in day_dict.iteritems():
+	if value == max_val:
+		print key, value
+
+
+#### Exercise 9.5
+
+	# write a program that counts frequency of email domains.
+
+fhand = open('mbox-short.txt')
+
+dom_list = list()
+domain_dict = dict()
+
+for line in fhand:
+	words = line.split()
+	if len(words) == 0: continue
+	if words[0] != 'From': continue
+	dom_list.append(words[1].split('@')[1])
+	for item in dom_list:
+		if item not in domain_dict:
+			domain_dict[item] = 1
+		else:
+			domain_dict[item] = domain_dict[item] + 1
+
+print(domain_dict)
+
+
+#### Exercise 9.6 (Chuck)
+
+	# write a program that prints more common word in text file.
+
+fhand = open('mbox-short.txt')
+text = fhand.read()
+words = text.split()
+
+counts = dict()
+for word in words:
+	counts[word] = counts.get(word,0)+1
+
+bigcount = None
+bigword = None
+
+for word, count in counts.items():
+	if bigcount is None or count > bigcount:
+		bigword = word
+		bigcount = count
+
+print bigword, bigcount
+
+#### Assignment 9.4
+
+name = raw_input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+
+counts = dict()
+for line in handle:
+	if line[:5] != 'From ': continue
+	email = line.split()[1]
+	counts[email] = counts.get(email,0)+1
+
+bigcount = None
+bigword = None
+
+for word, count in counts.items():
+	if bigcount is None or count > bigcount:
+		bigword = word
+		bigcount = count
+
+print bigword, bigcount
+
+
+######### Tuples
+
+
+## Tuples -- immutable, comparable, hashable
+
+	# created using brackets ()
+	t = tuple()
+	t = ('a', 'b', 'c', 'd', 'e')
+
+
+	# if the argument is a sting with no commas.
+	>>> t = tuple('lupins')
+	>>> print t
+	('l', 'u', 'p', 'i', 'n', 's')
+	>>> print t[2]
+	'p'
+
+
+## Comparing tuples
+	# compares first element of sequence, 
+	# then next until it finds one which differs.
+	>>> (0, 1, 2) == (0, 3, 4)
+	False
+	>>> (0, 1, 2) < (0, 3, 4)
+	True
+	>>> (0, 1, 2000000) < (0, 3, 4)
+	True
+
+## The DSU pattern
+	## building a list of tuples, sorting, and extracting part of the result
+
+	# Decorate - a sequence by building a list of tuples with one 
+		# or more sort keys preceding the elements from the sequence,
+	# Sort the - list of tuples using the Python built-in sort,
+	# Undecorate - by extracting the sorted elements of the sequence.
+
+	## Sort list of words longest to shortest:
+		txt = 'but soft what light in yonder window breaks'
+		words = txt.split()
+		t = list()
+			# builds list of tuples.
+		for word in words:
+			t.append((len(word), word))  
+		t.sort(reverse=True)
+		res = list()
+		for length, word in t:
+			res.append(word)
+		print res
+		['yonder', 'window', 'breaks', 'light', 'what','soft', 'but', 'in']
+
+## Tuple assignment
+
+	# In this example we have a two-element list (which is a sequence) 
+	# and assign the first and second elements of the sequence 
+	# to the variables x and y in a single statement.
+
+		>>> m = [ 'have', 'fun' ]
+		>>> x, y = m
+		>>> x
+		'have'
+		>>> y
+		'fun'
+
+	# Tuples translats the tuple assignement and does this
+
+		>>> m = [ 'have', 'fun' ]
+		>>> x = m[0]
+		>>> y = m[1]
+
+	# A particularly clever application of tuple assignment allows us 
+	# to swap the values of two variables in a single statement:
+	>>> a, b = b, a
+
+	# The right side can be any kind of sequence (string, list, or tuple).
+	# For example, to split an email address into 
+	# a user name and a domain:
+
+	>>> addr = 'monty@python.org'
+	>>> uname, domain = addr.split('@')
+
+
+## Dictionaries and Tuples
+	# Dictionaries have a method called items() 
+	# it returns a list of tuples, key, value.
+	>>> d = {'a':10, 'b':1, 'c':22}
+	>>> t = d.items()
+	>>> print t
+	[('a', 10), ('c', 22), ('b', 1)]
+
+	# items from a dictionary are inherently not ordered
+	# but since the list of tuples is a list, and tuples are comparable,
+	# we can now sort the list of tuples.
+
+	>>> d = {'a':10, 'b':1, 'c':22}
+	>>> t = d.items()
+	>>> t
+	[('a', 10), ('c', 22), ('b', 1)]
+	>>> t.sort()
+	>>> t
+	[('a', 10), ('b', 1), ('c', 22)]
+
+## Print out the contents of a dictionary sorted by the value.
+
+	# get dictionary, make list of tuples, sort by value.
+	>>> d = {'a':10, 'b':1, 'c':22}
+	>>> l = list()
+	>>> for key, val in d.items() :
+			l.append( (val, key) )
+	
+	>>> l
+	[(10, 'a'), (22, 'c'), (1, 'b')]
+	>>> l.sort(reverse=True)
+	>>> l
+	[(22, 'c'), (10, 'a'), (1, 'b')]
+
+
+## The most common words -- Romeo and Juliet example
+	import string
+	fhand = open('romeo.txt')
+	
+	counts = dict()
+	for line in fhand:
+		line = line.translate(None, string.punctuation)
+		line = line.lower()
+		words = line.split()
+		for word in words:
+			if word not in counts:
+				counts[word] = 1
+			else:
+				counts[word] = counts[word] + 1
+	
+	# sort the dictionary by value
+	lst = list()
+	for key, val in counts.items():
+		lst.append( (val, key) )
+	
+	lst.sort(reverse = True)
+	
+	for key, val in lst[:10]:
+		print key, val
+
+	# First part of the program - reads the file and 
+	# computes the dictionary that maps each word to the count of words in the document.
+	# second part constructs a list of (val, key) tuples then sorts them.
+
+## Using tuples as keys in dictionaries
+	
+	# Because tuples are hashable and lists are not, 
+	# if we want to create a composite key to use in a dictionary
+	# we must use a tuple as the key.
+
+	directory[last,first] = number
+	
+	for last, first in directory:
+		print first, last, directory[last,first]
+
+	# the loop traverses the keys in directory, which are tuples.
+	# it assigns the elements of each tuple to last and first, 
+	# then prints the name and corresponding telephone number.
+
+
+#### Exercise 10.1
+
+	# write a program that counts frequency of emails.
+		# using a list of (count, email) tuples from a dictionary. 
+
+fhand = open('mbox-short.txt', 'r')
+
+emails = list()
+count_email = dict()
+
+for line in fhand:
+	list_of_words = line.split()
+	if len(list_of_words) == 0: continue
+	if list_of_words[0] != 'From': continue
+	emails.append(list_of_words[1])
+
+for email in emails:
+	count_email[email] = count_email.get(email,0) + 1
+
+list_of_tuples = list()
+
+for key, val in count_email.items():
+	list_of_tuples.append( (val, key)  )
+
+list_of_tuples.sort(reverse = True)
+
+for val, key in list_of_tuples[:1]:
+	print key, val
+
+
+#### Exercise 10.2
+
+	# count frequency of hour of commits (in 'from' line).
+		# sort by hour, print one per line.
+
+fhand = open('mbox-short.txt', 'r')
+
+hours_of_day = list()
+count_hour = dict()
+
+for line in fhand:
+	list_of_words = line.split()
+	if len(list_of_words) == 0: continue
+	if list_of_words[0] != 'From': continue
+	hours_of_day.append(list_of_words[5].split(':')[0])
+
+for hour in hours_of_day:
+	count_hour[hour] = count_hour.get(hour,0) + 1
+
+list_of_tuples = list()
+
+for key, val in count_hour.items():
+	list_of_tuples.append( (key, val)  )
+
+list_of_tuples.sort()
+
+for val, key in list_of_tuples:
+	print val, key
+
+
+#### 10.3
+
+	# read a text file. print letters in decreasing order.
+
+import string
+
+fhand = open('romeo.txt', 'r')
+
+list_of_letters = list()
+count_letters = dict()
+
+for line in fhand:
+	line = line.translate(None, string.punctuation)
+	line = line.lower()
+	words = line.split()
+	for word in words:
+		for letter in word:
+			list_of_letters.append(letter)
+
+# put into count dictionary
+for letter in list_of_letters:
+	count_letters[letter] = count_letters.get(letter,0) + 1
+
+# put into list of tuples for sorting
+list_of_tuples = list()
+
+for key, val in count_letters.items():
+	list_of_tuples.append( (val, key) )
+
+list_of_tuples.sort(reverse = True)
+
+for val, key in list_of_tuples:
+	print key, val
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### 20160301: Readings -> 10.1   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+
+ ###############################################
+########        General Notes       ###########
+ ###############################################
+
+ #10.8 Sequences: strings, lists, and tuples—Oh My!
+#I have focused on lists of tuples, but almost all of the examples in this chapter also
+#work with lists of lists, tuples of tuples, and tuples of lists. To avoid enumerating
+#the possible combinations, it is sometimes easier to talk about sequences of
+#sequences.
+#In many contexts, the different kinds of sequences (strings, lists, and tuples) can
+#be used interchangeably. So how and why do you choose one over the others?
+#To start with the obvious, strings are more limited than other sequences because
+#the elements have to be characters. They are also immutable. If you need the
+#ability to change the characters in a string (as opposed to creating a new string),
+#you might want to use a list of characters instead.
+#Lists are more common than tuples, mostly because they are mutable. But there
+#are a few cases where you might prefer tuples:
+#1. In some contexts, like a return statement, it is syntactically simpler to
+#create a tuple than a list. In other contexts, you might prefer a list.
+#2. If you want to use a sequence as a dictionary key, you have to use an immutable
+#type like a tuple or string.
+#3. If you are passing a sequence as an argument to a function, using tuples
+#reduces the potential for unexpected behavior due to aliasing.
+#10.9. Debugging 125
+#Because tuples are immutable, they don’t provide methods like sort and reverse,
+#which modify existing lists. However Python provides the built-in functions
+#sorted and reversed, which take any sequence as a parameter and return a new
+#sequence with the same elements in a different order.
+#10.9 Debugging
+#Lists, dictionaries and tuples are known generically as data structures; in this
+#chapter we are starting to see compound data structures, like lists of tuples, and
+#dictionaries that contain tuples as keys and lists as values. Compound data structures
+#are useful, but they are prone to what I call shape errors; that is, errors
+#caused when a data structure has the wrong type, size, or composition, or perhaps
+#you write some code and forget the shape of your data and introduce an error.
+#For example, if you are expecting a list with one integer and I give you a plain old
+#integer (not in a list), it won’t work.
+#When you are debugging a program, and especially if you are working on a hard
+#bug, there are four things to try:
+#reading: Examine your code, read it back to yourself, and check that it says what
+#you meant to say.
+#running: Experiment by making changes and running different versions. Often
+#if you display the right thing at the right place in the program, the problem
+#becomes obvious, but sometimes you have to spend some time to build
+#scaffolding.
+#ruminating: Take some time to think! What kind of error is it: syntax, runtime,
+#semantic? What information can you get from the error messages, or from
+#the output of the program? What kind of error could cause the problem
+#you’re seeing? What did you change last, before the problem appeared?
+#retreating: At some point, the best thing to do is back off, undoing recent
+#changes, until you get back to a program that works and that you understand.
+#Then you can start rebuilding.
+#Beginning programmers sometimes get stuck on one of these activities and forget
+#the others. Each activity comes with its own failure mode.
+#For example, reading your code might help if the problem is a typographical error,
+#but not if the problem is a conceptual misunderstanding. If you don’t understand
+#what your program does, you can read it 100 times and never see the error, because
+#the error is in your head
+
+
 
