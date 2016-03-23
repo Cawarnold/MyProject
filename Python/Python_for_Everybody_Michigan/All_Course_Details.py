@@ -255,13 +255,16 @@ else:
 counter = 0
 total_conf = 0.0
 for line in file_connection:
-	if line.upper()[:len('X-DSPAM-CONFIDENCE:')] == 'X-DSPAM-CONFIDENCE:':
+	if not line.upper().startswith('X-DSPAM-CONFIDENCE:'):
+		continue
+	else:
 		counter = counter + 1
 		total_conf = total_conf + float(line.rstrip()[len('X-DSPAM-CONFIDENCE:')+1:])
 
-average_spam_confidence = total_conf / counter
+average_spam_confidence = float(total_conf) / float(counter)
 
-print(average_spam_confidence)
+print(('Average spam confidence: ')+ str(average_spam_confidence)) 
+
 
 
 ######### Lists
@@ -595,6 +598,11 @@ print 'Minimum: ', min(list_numbers)
 
 
 
+<<<<<<< HEAD
+=======
+#### 20160303: Readings -> 8.1   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+
+>>>>>>> be09384e34f864364a6c19c916ad77a5631214af
 
 ######### Dictionaries 
 
