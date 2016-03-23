@@ -859,6 +859,8 @@ print bigword, bigcount
 
 ######### Tuples
 
+dir(tuple())
+>> ['count','index']
 
 ## Tuples -- immutable, comparable, hashable
 
@@ -1018,6 +1020,18 @@ print bigword, bigcount
 	# then prints the name and corresponding telephone number.
 
 
+## From the video: list comprehension
+
+c = {'a':10, 'b':1, 'c':22}
+
+print sorted( [ (v,k) for k,v in c.items() ] )
+
+	# (v,k) is a list of tuples.
+	# sorted is a function
+
+
+
+
 #### Exercise 10.1
 
 	# write a program that counts frequency of emails.
@@ -1078,7 +1092,7 @@ for val, key in list_of_tuples:
 	print val, key
 
 
-#### 10.3
+#### Exercise 10.3
 
 	# read a text file. print letters in decreasing order.
 
@@ -1113,6 +1127,70 @@ for val, key in list_of_tuples:
 	print key, val
 
 
+#### Exercise 10.2 (Chuck Coursera)
+
+# its the hour problem Exercise 10.2 copies directly in.
+
+
+ #################################################################
+ #################################################################
+ ########        Using Python to Access Web Data       ###########
+ #################################################################
+ #################################################################
+
+## Scrape, Parse and Read Web Data as well as access data using web APIs.
+	# Work with HTML, XML, JSON data formats in python.
+
+
+#### Regluar Expressions ####
+
+# The task of searching and extracting is so common that Python
+ # has a very powerful library called regular expressions that
+ # handles many of these tasks quite elegantly
+
+## To import the re package use 'import re'
+
+import re
+hand = open('mbox-short.txt')
+for line in hand:
+	line = line.rstrip()
+	if re.search('From:', line) :
+		print line
+
+## The caret character is used in regular expressions to match 
+	# “the beginning” of a line
+
+import re
+hand = open('mbox-short.txt')
+for line in hand:
+	line = line.rstrip()
+	if re.search('ˆFrom:', line) :
+		
+## The period (or fullstop) character is used to match any character.
+	# “F..m:” matches any of “From:”, “Fxxm:”, “F12m:”, or “F!@m:”
+
+import re
+hand = open('mbox-short.txt')
+for line in hand:
+	line = line.rstrip()
+	if re.search('ˆF..m:', line) :
+		print line
+
+## The asterisk character indicates that the previous character 
+	# can be repeated zero or more times.
+	# Use plus sign for one or more times.
+
+# here we have any number of any characters until an @ sign.
+
+import re
+hand = open('mbox-short.txt')
+for line in hand:
+	line = line.rstrip()
+	if re.search('ˆF..m:.*@', line) :
+		print line
+
+# beware this will match lines such as
+#'From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen @iupui.edu' # up to the last @ sign in 'cwen @iupui.edu'
 
 
 
@@ -1124,11 +1202,7 @@ for val, key in list_of_tuples:
 
 
 
-
-
-
-
-#### 20160301: Readings -> 10.1   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+#### 20160321: Readings -> 11   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
 
  ###############################################
 ########        General Notes       ###########
