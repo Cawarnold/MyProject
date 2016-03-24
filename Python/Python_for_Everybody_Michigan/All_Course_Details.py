@@ -50,6 +50,34 @@ list_of_tuples_stuff = x.items()
 print list_of_tuples_stuff
 >>> [('a', 1), ('c', 3), ('b', 2)]
 
+#### Regex Cheatsheet
+	https://www.debuggex.com/cheatsheet/regex/python
+
+import re
+hand = open('mbox-short.txt')
+for line in hand:
+	line = line.rstrip()
+	x = re.findall('\S+@\S+', line)
+	if len(x) > 0 :
+		print x
+
+#### Regex Quick Guide
+
+	# ^	Matches the beginning of a line
+	# $	Matches the end of the line
+	# .	Matches any character
+	# \s	Matches whitespace
+	# \S	Matches any non-whitespace character
+	# *	Repeats a character zero or more times
+	# *?	Repeats a character zero or more times (non-greedy)
+	# +	Repeats a character one or more times
+	# +?	Repeats a character one or more times (non-greedy)
+	# [aeiou]	Matches a single character in the listed set
+	# [^XYZ]	Matches a single character not in the listed set
+	# [a-z0-9]	The set of characters can include a range
+	# (	Indicates where string extraction is to start
+	# )	Indicates where string extraction is to end
+
 
 #########################################################
 #########################################################
@@ -1201,7 +1229,93 @@ for line in hand:
 #'From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen @iupui.edu' # up to the last @ sign in 'cwen @iupui.edu'
 
 
+# The search string “ˆFrom:.+@” will successfully match lines that start with
+# “From:”, followed by one or more characters (“.+”), followed by an at-sign.
 
+
+## Extracting data using regular expressions
+
+	# Use the findall() method 
+
+import re
+s = 'Hello from csev@umich.edu to cwen@iupui.edu about the meeting @2PM'
+lst = re.findall('\S+@\S+', s)
+print lst
+
+# The output of the program would be:
+	['csev@umich.edu', 'cwen@iupui.edu']
+
+## re.findall('\S+@\S+', s) means: 
+	# we are looking for substrings that have at least 
+	# one non-whitespace character, followed by an at-sign, 
+	# followed by at least one more non-whitespace character
+
+## We can use this regular expression in a program 
+	# to read all the lines in a file and 
+	# print out anything that looks like an
+	# email address as follows:
+
+import re
+hand = open('mbox-short.txt')
+for line in hand:
+	line = line.rstrip()
+	x = re.findall('\S+@\S+', line)
+	if len(x) > 0 :
+		print x
+
+## Some of our email addresses have incorrect characters 
+	# like “<” or “;” at the beginning or end. 
+	# Let’s declare that we are only interested in 
+	# the portion of the string that starts and ends 
+	# with a letter or a number.
+
+import re
+hand = open('mbox-short.txt')
+	for line in hand:
+	line = line.rstrip()
+	x = re.findall('[a-zA-Z0-9]\S*@\S*[a-zA-Z]', line)
+	if len(x) > 0 :
+		print x
+
+## Translating this regular expression, [a-zA-Z0-9]\S*@\S*[a-zA-Z]:
+	# we are looking for substrings that start with 
+	# a single lowercase letter, uppercase letter, 
+	# or number “[a-zA-Z0-9]”, followed by 
+	# zero or more non-blank characters (“\S*”), followed by 
+	# an at-sign, followed by 
+	# zero or more non-blank characters (“\S*”), followed by 
+	# an uppercase or lowercase letter "[a-zA-Z]". 
+
+## Note that we switched from “+” to “*” 
+	# to indicate zero or more non-blank characters 
+	# since “[azA-Z0-9]” is already one non-blank character. 
+
+# Remember that the “*” or “+” applies to the single character 
+	# immediately to the left of the plus or asterisk.
+
+
+#### Combining searching and extracting
+	
+## Match lines like:
+	# X-DSPAM-Confidence: 0.8475
+	# X-DSPAM-Probability: 0.0000
+
+import re
+hand = open('mbox-short.txt')
+for line in hand:
+	line = line.rstrip()
+	if re.search('ˆX\S*: [0-9.]+', line) :
+		print line
+
+# we want lines that start with “X-”, followed by 
+# zero or more characters (“.*”), followed by 
+# a colon (“:”) and then a space. 
+# After the space we are looking for one or more 
+# characters that are either a digit (0-9)
+# or a period “[0-9.]+”. 
+
+# Note that inside the square brackets, the period matches an
+# actual period (ie. not a wildcard).
 
 
 
