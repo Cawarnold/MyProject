@@ -63,20 +63,22 @@ for line in hand:
 
 #### Regex Quick Guide
 
-	# ^	Matches the beginning of a line
-	# $	Matches the end of the line
-	# .	Matches any character
-	# \s	Matches whitespace
-	# \S	Matches any non-whitespace character
-	# *	Repeats a character zero or more times
-	# *?	Repeats a character zero or more times (non-greedy)
-	# +	Repeats a character one or more times
-	# +?	Repeats a character one or more times (non-greedy)
+	# ^			Matches the beginning of a line
+	# $			Matches the end of the line
+	# .			Matches any character
+	# \s		Matches whitespace
+	# \S		Matches any non-whitespace character
+	# *			Repeats a character zero or more times
+	# *?		Repeats a character zero or more times (non-greedy)
+	# +			Repeats a character one or more times
+	# +?		Repeats a character one or more times (non-greedy)
 	# [aeiou]	Matches a single character in the listed set
 	# [^XYZ]	Matches a single character not in the listed set
 	# [a-z0-9]	The set of characters can include a range
-	# (	Indicates where string extraction is to start
-	# )	Indicates where string extraction is to end
+	# (			Indicates where string extraction is to start
+	# )			Indicates where string extraction is to end
+	# \b 		Matches the empty string, but only at the start or end of a word.
+	# \B 		Matches the empty string, but not at the start or end of a word.
 
 
 #########################################################
@@ -1180,6 +1182,30 @@ for val, key in list_of_tuples:
 
 #### Regluar Expressions ####
 
+## CheatSheet
+
+import re
+re.search() # returns True/False depending if string matches (or not)
+re.findall() # returns the matching strings
+
+
+# ^			Matches the beginning of a line
+# $			Matches the end of the line
+# .			Matches any character
+# \s		Matches whitespace
+# \S		Matches any non-whitespace character
+# *			Repeats a character zero or more times
+# *?		Repeats a character zero or more times (non-greedy)
+# +			Repeats a character one or more times
+# +?		Repeats a character one or more times (non-greedy)
+# [aeiou]	Matches a single character in the listed set
+# [^XYZ]	Matches a single character not in the listed set
+# [a-z0-9]	The set of characters can include a range
+# (			Indicates where string extraction is to start
+# )			Indicates where string extraction is to end
+
+
+
 # The task of searching and extracting is so common that Python
  # has a very powerful library called regular expressions that
  # handles many of these tasks quite elegantly
@@ -1192,6 +1218,13 @@ for line in hand:
 	line = line.rstrip()
 	if re.search('From:', line) :
 		print line
+
+		## Equivalent to 
+		hand = open('mbox-short.txt')
+		for line in hand:
+			line = line.rstrip()
+			if line.find('From:') >=0:
+				print line
 
 ## The caret character is used in regular expressions to match 
 	# “the beginning” of a line
@@ -1292,11 +1325,13 @@ hand = open('mbox-short.txt')
 
 # Remember that the “*” or “+” applies to the single character 
 	# immediately to the left of the plus or asterisk.
+	# And "*?" / "+?" are non-greedy forms of the same.
 
 
 #### Combining searching and extracting
 	
-## Match lines like:
+## If we want to find numbers on lines that 
+## start with the string “X-” such as::
 	# X-DSPAM-Confidence: 0.8475
 	# X-DSPAM-Probability: 0.0000
 
@@ -1307,24 +1342,391 @@ for line in hand:
 	if re.search('ˆX\S*: [0-9.]+', line) :
 		print line
 
-# we want lines that start with “X-”, followed by 
-# zero or more characters (“.*”), followed by 
-# a colon (“:”) and then a space. 
-# After the space we are looking for one or more 
-# characters that are either a digit (0-9)
-# or a period “[0-9.]+”. 
-
-# Note that inside the square brackets, the period matches an
-# actual period (ie. not a wildcard).
-
-
+	# we want lines that start with “X-”, followed by 
+	# zero or more characters (“.*”), followed by 
+	# a colon (“:”) and then a space. 
+	# After the space we are looking for one or more 
+	# characters that are either a digit (0-9)
+	# or a period “[0-9.]+”. 
+	
+	# Note that inside the square brackets, the period matches an
+	# actual period (ie. not a wildcard).
 
 
+	## Parentheses and findall() -- Extracting data
+
+## But now we have to extract the numbers.
+	# Parentheses are another special character in regular expressions
+
+import re
+hand = open('mbox-short.txt')
+	for line in hand:
+	line = line.rstrip()
+	x = re.findall('ˆX\S*: ([0-9.]+)', line)
+	if len(x) > 0 :
+		print x
+
+# The numbers are still in a list 
+# and need to be converted from strings to floating point, 
+# but we have used the power of regular expressions to 
+# both search and extract the information we found interesting.
+
+	## extract all of the revision numbers from lines like:
+		# Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
+
+import re
+hand = open('mbox-short.txt')
+for line in hand:
+	line = line.rstrip()
+	x = re.findall('ˆDetails:.*rev=([0-9]+)', line)
+	if len(x) > 0:
+		print x
+
+# Translating our regular expression, 
+# we are looking for lines that start with “Details:”, followed by 
+# any number of characters (“.*”), followed by 
+# “rev=”, and then by one or more digits. 
+# We want to find lines that match the entire expression but
+# we only want to extract the integer number at the end of the line, 
+# so we surround “[0-9]+” with parentheses.
+
+	## extract hour of day from lines like:
+		# From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008
+
+## My effort
+import re
+hand = open('mbox-short.txt','r')
+for line in hand:
+	line = line.strip() #strips extra \n when printing lines.
+	x = re.findall('^From.*?([0-9][0-9]):' , line)
+	if len(x) > 0:
+		print x
+
+## Correct Answer
+import re
+hand = open('mbox-short.txt','r')
+for line in hand:
+	line = line.strip() #strips extra \n when printing lines.
+	x = re.findall('^From .* ([0-9][0-9]):' , line)
+	if len(x) > 0:
+		print x
+
+## Escape character \
+
+	# We need a way to match the actual character.
+	# such as the character $.
+	# To do this we use the backslash character \.
+
+import re
+x = 'We have just received $10.00 for cookies.'
+y = re.findall('\$[0-9]+',x)
+z = re.findall('[$][0-9]+',x)
+print 'Are \$ and [$] equivalent?', y == z
+print 'Are \$ and [$] the same?', y in z
+
+
+## Unix
+
+# There is a command-line program built into Unix called 
+# grep(Generalized Regular Expression Parser) 
+# it does pretty much the same as the search() examples in this chapter
+
+
+#### Exercise 11  -- Chuck
+
+## Copy & Paste from mac.
+
+
+## Using List Comprehension:
+
+import re
+print sum([int(i) for i in re.findall('[0-9]+',open('regex_sum_234594.txt', 'r' ).read())])
+
+# Answer is 524320
+
+
+#### Exercise 11.1
+
+# Ask the user to enter a regular expression and count the number of
+# lines that matched the regular expression:
+	$ python grep.py
+	Enter a regular expression: ˆAuthor
+	mbox.txt had 1798 lines that matched ˆAuthor
+
+import re
+
+user_input = raw_input('Enter a regular expression:')
+fhand = open('mbox-short.txt', 'r')
+
+counter = 0
+for line in fhand:
+	line = line.strip()
+	x = re.findall(user_input, line)
+	if len(x) > 0:
+		counter = counter + 1
+
+print 'mbox.txt had ', counter, 'lines that matched', user_input
+
+
+#### Exercise 11.2
+
+# Write a program to look for lines of the form
+	New Revision: 39772
+
+# and extract the number from each of the lines 
+# using a regular expression and the findall() method. 
+# Compute the average of the numbers and print out the average.
+
+import re
+fhand = open('mbox-short.txt', 'r')
+
+numbers_list = list()
+counter = 0
+for line in fhand:
+	line = line.strip()
+	x = re.findall('^New Revision: ([0-9]+)', line)
+	for number in x:
+		numbers_list.append(number)
+		counter = counter + 1
+
+total = float(sum(int(i) for i in numbers_list))
+
+print float(total/ counter)
+
+
+#### 12 Networked Programs ####
+
+## In this chapter we will pretend to be a web browser 
+# and retrieve web pages using 
+# the HyperText Transport Protocol (HTTP). 
+# Then we will read through the web
+# page data and parse it.
+
+import socket
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('www.py4inf.com', 80))
+mysock.send('GET http://www.py4inf.com/code/romeo.txt HTTP/1.0\n\n')
+while True:
+	data = mysock.recv(512)
+	if ( len(data) < 1 ) :
+		break
+	print data
+mysock.close()
+
+# First the program makes a connection to port 80 
+# on the server www.py4inf.com.
+# Since our program is playing the role of the “web browser”, 
+# the HTTP protocol says we must send the GET command 
+# followed by a blank line.
+
+# Once we send that blank line, we write a loop 
+# that receives data in 512-character chunks 
+# from the socket and prints the data out
+# until there is no more data to read
+#(i.e., the recv() returns an empty string).
+
+# The output starts with headers which 
+# the web server sends to describe the document.
+
+# For example, the Content-Type header indicates 
+# that the document is a plain text document (text/plain).
+
+# After the server sends us the headers, 
+# it adds a blank line to indicate the end of the headers, 
+# and then sends the actual data of the file romeo.txt.
+
+
+#### 12.3 Retrieving an image over HTTP
+
+# In the above example, we retrieved a plain text file 
+# which had newlines in the file and we simply copied 
+# the data to the screen as the program ran.
+# We can use a similar program to retrieve an image 
+# across using HTTP. Instead of copying the data to the screen 
+# as the program runs, we accumulate the data in a string, trim off
+# the headers, and then save the image data to a file as follows:
+
+import socket
+import time
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('www.py4inf.com', 80))
+mysock.send('GET http://www.py4inf.com/cover.jpg HTTP/1.0\n\n')
+count = 0
+picture = ""; # picture equals empty string
+while True:
+	data = mysock.recv(5120)
+	if ( len(data) < 1 ) : break
+	# time.sleep(0.25) # Allows the server to get ahead of us in the data sending.
+	count = count + len(data)
+	print len(data),count
+	picture = picture + data
+mysock.close()
+
+# Look for the end of the header (2 CRLF)
+pos = picture.find("\r\n\r\n"); ## \r\n is newline for networks. \r is carriage return, \n is newline.
+print 'Header length',pos
+print picture[:pos]
+
+# Skip past the header and save the picture data
+picture = picture[pos+4:]
+fhand = open("Picture_from_web.jpg","wb")
+fhand.write(picture);
+fhand.close()
+
+
+#### 12.4 Retrieving web pages with urllib
+
+# Using urllib, you can treat a web page much like a file. 
+# You simply indicate which web page you would like to retrieve 
+# and urllib handles all of the HTTP protocol and header details.
+
+
+# The equivalent code to read the romeo.txt file 
+# from the web using urllib is as follows:
+import urllib
+fhand = urllib.urlopen('http://www.py4inf.com/code/romeo.txt')
+for line in fhand:
+	print line.strip()
+
+# As an example, we can write a program to retrieve the data for romeo.txt 
+# and compute the frequency of each word in the file as follows:
+import urllib
+counts = dict()
+fhand = urllib.urlopen('http://www.py4inf.com/code/romeo.txt')
+for line in fhand:
+	words = line.split()
+	for word in words:
+		counts[word] = counts.get(word,0) + 1
+print counts
+
+
+#### Parsing HTML and scraping the web
+
+# One of the common uses of the urllib capability 
+# in Python is to scrape the web.
+
+# Web scraping is when we write a program that 
+# pretends to be a web browser and retrieves pages, 
+# then examines the data in those pages looking for patterns.
+
+# As an example, a search engine such as Google will 
+# look at the source of one web page and extract 
+# the links to other pages and retrieve those pages, 
+# extracting links, and so on. 
+# Using this technique, Google spiders its way 
+# through nearly all of the pages on the web.
+# Google also uses the frequency of links from pages it finds 
+# to a particular page as one measure of how “important” 
+# a page is and how high the page should appear in its search results.
+
+
+#### Parsing HTML using regular expressions
+
+# One simple way to parse HTML is to use regular expressions 
+# to repeatedly search for and extract substrings that match 
+# a particular pattern.
+
+# Here is a simple web page:
+
+<h1>The First Page</h1>
+<p>
+If you like, you can switch to the
+<a href="http://www.dr-chuck.com/page2.htm">
+Second Page</a>.
+</p>
+
+# We can construct a well-formed regular expression
+# to match and extract the link values from the above text 
+# as follows:
+
+href="http://.+?"
+
+
+## Our regex:
+
+import urllib
+import re
+url = raw_input('Enter - ')
+html = urllib.urlopen(url).read()
+links = re.findall('href="(http://.*?)"', html)
+for link in links:
+	print link
+
+
+# Regular expressions work very nicely when your HTML 
+# is well formatted and predictable. 
+# But since there are a lot of “broken” HTML pages out there, 
+# a solution only using regular expressions might either 
+# miss some valid links or end up with bad data.
+# This can be solved by using a robust HTML parsing library.
+
+
+#### 12.7 Parsing HTML using BeautifulSoup
+
+# As an example, we will simply parse some HTML input 
+# and extract links using the BeautifulSoup library. 
+
+# You can download and install the BeautifulSoup code from:
+		# http://www.crummy.com/software/
+# You can download and “install” BeautifulSoup or 
+# you can simply place the BeautifulSoup.py file 
+# in the same folder as your application.
+
+# We will use urllib to read the page and then 
+# use BeautifulSoup to extract the
+# href attributes from the anchor (a) tags.
 
 
 
 
-#### 20160321: Readings -> 11   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### 20160407: Readings -> 12   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
 
  ###############################################
 ########        General Notes       ###########
