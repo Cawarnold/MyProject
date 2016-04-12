@@ -1493,6 +1493,7 @@ total = float(sum(int(i) for i in numbers_list))
 
 print float(total/ counter)
 
+################################################################
 
 #### 12 Networked Programs ####
 
@@ -1672,9 +1673,227 @@ for link in links:
 # you can simply place the BeautifulSoup.py file 
 # in the same folder as your application.
 
+## BeautifulSoup is now called bs4
+
 # We will use urllib to read the page and then 
 # use BeautifulSoup to extract the
 # href attributes from the anchor (a) tags.
+
+import urllib
+from bs4 import BeautifulSoup
+url = 'http://www.crummy.com/software/' #raw_input('Enter - ')
+html = urllib.urlopen(url).read()
+soup = BeautifulSoup(html)
+# Retrieve all of the anchor tags
+tags = soup('a') ## 'a' is an HTML tag <a linkstuff <\a>
+
+for tag in tags:
+	print tag.get('href', None) ## gets what is inside of the href
+
+
+# You can use BeautifulSoup to pull out various parts of each tag as follows:
+
+import urllib
+from BeautifulSoup import *
+url =  'http://www.dr-chuck.com/page2.htm' #raw_input('Enter - ')
+html = urllib.urlopen(url).read()
+soup = BeautifulSoup(html)
+# Retrieve all of the anchor tags
+tags = soup('a')
+for tag in tags:
+	# Look at the parts of a tag
+	print 'TAG:',tag
+	print 'URL:',tag.get('href', None)
+	print 'Content:',tag.contents[0]
+	print 'Attrs:',tag.attrs
+
+# These examples only begin to show the power of BeautifulSoup 
+# when it comes # to parsing HTML. 
+# See the documentation and samples at 
+# http://www.crummy.com/software/BeautifulSoup/ for more detail.
+
+
+#### 12.8 Reading binary files  using urllib
+
+# Sometimes you want to retrieve a non-text (or binary) file 
+# such as an image or  video file. 
+# The data in these files is generally not useful to print out, 
+# but you can easily make a copy of a URL to a local file 
+# on your hard disk using urllib.
+
+
+# The pattern is to open the URL and use read to download 
+# the entire contents of the document into a string variable (img) 
+# then write that information to a local file
+# as follows:
+img = urllib.urlopen('http://www.py4inf.com/cover.jpg').read()
+fhand = open('cover.jpg', 'w')
+fhand.write(img)
+fhand.close()
+
+# This program reads all of the data in at once across the network 
+# and stores it in the variable img in the main memory of your computer, 
+# then opens the file cover.jpg and writes the data out to your disk. 
+# This will work if the size of the file is less than 
+#  the size of the memory of your computer.
+
+# However if this is a large audio or video file, 
+# this program may crash or at least run extremely slowly 
+# when your computer runs out of memory. 
+# In order to avoid running out of memory, 
+# we retrieve the data in blocks (or buffers) and then write
+# each block to your disk before retrieving the next block. 
+# This way the program can read any size file 
+# without using up all of the memory you have in your computer.
+
+import urllib
+img = urllib.urlopen('http://www.py4inf.com/cover.jpg')
+fhand = open('cover.jpg', 'wb') 
+## open('cover.jpg', 'w') doeesn't work when trying to open the image
+size = 0
+while True:
+	info = img.read(100000)
+	if len(info) < 1 : break
+	size = size + len(info)
+	fhand.write(info)
+print size,'characters copied.'
+fhand.close()
+
+
+#### Exercises 12.1 
+	# Change the socket program socket1.py to prompt the user 
+	#	for the URL so it can read any web page. 
+	# You can use split(’/’) to break the URL into
+	# its component parts so you can extract the host 
+	# name for the socket connect call.
+	# Add error checking using try and except to handle the condition 
+	# where the user enters an improperly formatted or non-existent URL.
+
+
+import socket
+import re
+
+#url = 'http://www.py4inf.com/code/romeo.txt'
+url = raw_input( 'Enter url:')
+
+hostname = re.findall( '.*(www.+?)/',url)
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+try:
+	mysock.connect((hostname[0], 80))
+	mysock.send('GET ' + url + ' HTTP/1.0\n\n')
+except:
+	print 'Please enter valid url'
+	exit()
+
+while True:
+	data = mysock.recv(512)
+	if ( len(data) < 1 ) :
+		break
+	print data
+mysock.close()
+
+
+
+#### Exercises 12.2 
+	#Change your socket program so that it 
+	# counts the number of characters it has received and 
+	# stops displaying any text after it has shown 3000 characters.
+	# The program should retrieve the entire document and 
+	# count the total number of characters and display 
+	# the count of the number of characters at the end of the
+	# document. 
+
+import socket
+import re
+
+#url = 'http://www.py4inf.com/code/romeo.txt'
+url = 'http://www.py4inf.com/code/mbox-short.txt'
+#url = 'http://www.py4inf.com/code/mbox.txt'
+#url = raw_input( 'Enter url:')
+
+hostname = re.findall( '.*(www.+?)/',url)
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+try:
+	mysock.connect((hostname[0], 80))
+	mysock.send('GET ' + url + ' HTTP/1.0\n\n')
+except:
+	print 'Please enter valid url'
+	exit()
+
+count = 0
+text = ""
+while True:
+	data = mysock.recv(512)
+	if ( len(data) < 1 ) : break
+	#for char in data:
+	#	counter = counter + len(char)
+	count = count + len(data)
+	text = text + data
+
+print text[:3000]
+print 'Text above has', len(text[:3000]), 'characters.'
+print 'Entire document has', count, 'characters.'
+
+mysock.close()
+
+
+#### Exercises 12.3 
+	# Use urllib to replicate the previous exercise of 
+	# (1) retrieving the document from a URL, 
+	# (2) displaying up to 3000 characters, and 
+	# (3) counting the overall number of characters in the document. 
+	# Dont worry about the headers for this exercise, 
+	# simply show the first 3000 characters of the document contents.
+
+###########
+import urllib
+import re
+from bs4 import BeautifulSoup
+
+#url = 'http://www.py4inf.com/code/romeo.txt'
+url = 'http://www.py4inf.com/code/mbox-short.txt'
+#url = 'http://www.py4inf.com/code/mbox.txt'
+#url = raw_input( 'Enter url:')
+
+html = urllib.urlopen(url).read()
+
+print html[:3000]
+print 'Text above has', len(html[:3000]), 'characters.'
+print 'Entire document has', len(html), 'characters.'
+
+
+#### Exercises 12.4
+	# Change the urllinks.py program to extract 
+	# and count paragraph (p) tags from the retrieved 
+	# HTML document and display the count of the paragraphs
+	# as the output of your program. 
+	# Do not display the paragraph text, only count them. 
+	# Test your program on several small web pages 
+	# as well as some larger web pages
+
+import urllib
+import re
+from bs4 import BeautifulSoup
+
+#url = 'http://www.crummy.com/software/'
+url = 'http://www.pythonforbeginners.com/'
+url = 'https://en.wikipedia.org/wiki/Main_Page'
+#url = raw_input( 'Enter url:')
+
+html = urllib.urlopen(url).read()
+soup = BeautifulSoup(html)
+
+count = 0
+tags = soup('p')
+for tag in tags:
+	count = count + 1
+print count
+## Tested by going to wiki page, inspect element, search <p> -- total is 6. :)
+
+
+
 
 
 
