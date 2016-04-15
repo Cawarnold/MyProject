@@ -1894,11 +1894,60 @@ print count
 
 
 
+################################################################
+
+#### 13 Networked Programs ####
+
+
+# There are two common formats when exchanging data across the web.
+	# XML     --“eXtensible Markup Language
+					# for documents
+	# JSON    -- JavaScript Object Notation
+					# for data structures - lists, dicts,...
+
+
+#### XML  - similar to HTML, but more structured.
+	
+<person>
+  <name>Chuck</name>
+  <phone type="intl">
+    +1 734 303 4456
+  </phone>
+  <email hide="yes"/>
+</person>
+ 
+#Often it is helpful to think of an XML document as a tree structure 
+# where there is a top tag person and other tags 
+# such as phone are drawn as children of their parent nodes.
+
+
+## Parsing XML
+
+import xml.etree.ElementTree as ET
+data = '''
+<person>
+  <name>Chuck</name>
+  <phone type="intl">
+    +1 734 303 4456
+  </phone>
+  <email hide="yes"/>
+</person>'''
+
+tree = ET.fromstring(data)
+print 'Name:',tree.find('name').text
+print 'Attr:',tree.find('email').get('hide')
 
 
 
-
-
+# Calling fromstring converts the string representation 
+	# of the XML into a “tree” of XML nodes. 
+# When the XML is in a tree, we have a series of methods 
+	# we can call to extract portions of data from the XML.
+# The find function searches through the XML tree 
+	# and retrieves a node that matches the specified tag. 
+# Each node can have some text, some attributes (like hide), 
+	# and some “child” nodes. 
+# Each node can be the top of a tree of nodes.
 
 
 

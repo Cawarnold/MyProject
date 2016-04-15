@@ -1,33 +1,27 @@
 #!/usr/bin/env Env3_Python276_Django171_djangoextensions
 
 
-#### Exercises 12.5
+
+import xml.etree.ElementTree as ET
 
 
 
-import re
-import urllib
-import socket
-from bs4 import BeautifulSoup
 
-url = 'http://www.pythonlearn.com/code/intro-short.txt'
+data = '''
+<person>
+  <name>Chuck</name>
+  <phone type="intl">
+    +1 734 303 4456
+  </phone>
+  <email hide="yes"/>
+</person>'''
 
-html = urllib.urlopen(url).read()
-soup = BeautifulSoup(html)
+tree = ET.fromstring(data)
+print tree.find('name')
 
-hostname = re.findall( '.*(www.+?)/',url)
-mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print 'Name:',tree.find('name').text
+print 'Attr:',tree.find('email').get('hide')
 
-try:
-	mysock.connect((hostname[0], 80))
-	mysock.send('GET ' + url + ' HTTP/1.0\n\n')
-except:
-	print 'Please enter valid url'
-	exit()
 
-while True:
-	data = mysock.recv(512)
-	if ( len(data) < 1 ) :
-		break
-	print data
-mysock.close()
+
+
