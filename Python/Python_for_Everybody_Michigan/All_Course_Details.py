@@ -1893,6 +1893,82 @@ print count
 ## Tested by going to wiki page, inspect element, search <p> -- total is 6. :)
 
 
+#### Chuck Exercise -Scraping HTML data with Beautiful Soup
+
+# Note - this code must run in Python 2.x and you must download
+# http://www.pythonlearn.com/code/BeautifulSoup.py
+# Into the same folder as this program
+
+import urllib
+import re
+from bs4 import BeautifulSoup
+#from BeautifulSoup import *
+
+#url = 'http://python-data.dr-chuck.net/comments_42.html'
+url = 'http://python-data.dr-chuck.net/comments_234599.html'
+
+#print 'reading url: ', url
+html = urllib.urlopen(url).read()
+#print(type(html))
+
+soup = BeautifulSoup(html)
+#print type(soup)
+
+# Retrieve all of the anchor tags
+tags = soup('span')
+#print type(tags)
+
+sums = 0
+count = 0
+for tag in tags:
+    # Look at the parts of a tag
+    #print 'TAG:',tag
+    #print 'URL:',tag.get('href', None)
+    print 'Contents:',tag.contents[0]
+    #print 'Attrs:',tag.attrs
+    sums = sums + int(tag.contents[0])
+    count = count + 1
+
+print count
+print sums
+
+#### Chuck Exercise -Following links in HTML Using BeautifulSoup
+
+# The program will use urllib to read the HTML
+# from the data files below, 
+# extract the href= vaues from the anchor tags, 
+# scan for a tag that is in a particular position 
+# from the top and follow that link, 
+# repeat the process a number of times, 
+# and report the last name you find.
+
+# Note - this code must run in Python 2.x and you must download
+# http://www.pythonlearn.com/code/BeautifulSoup.py
+# Into the same folder as this program
+
+import urllib
+import re
+from bs4 import BeautifulSoup
+
+url = "http://python-data.dr-chuck.net/known_by_Fox.html"
+
+repeat = 0
+while repeat < 7:
+	print url
+	html = urllib.urlopen(url).read()
+	soup = BeautifulSoup(html, "html.parser")
+	tags = soup('a')
+	list_urls = []
+	for tag in tags:
+		list_urls.append(tag.get('href', None))
+	url = list_urls[17]
+	repeat = repeat + 1
+
+print "Last name in sequence:", re.findall("known_by_(.+).html",url)[0]
+
+
+
+
 
 ################################################################
 
@@ -1970,6 +2046,332 @@ print 'Attr:',tree.find('email').get('hide')
 
 
 
+#### 13.6 Application Programming Interfaces (API)
+
+# We now have the ability to exchange data between applications 
+# using HyperText Transport Protocol (HTTP) 
+# and a way to represent complex data that we are send- ing back and forth 
+# between these applications using eXtensible Markup Language (XML) 
+# or JavaScript Object Notation (JSON).
+
+# The next step is to begin to define and document “contracts” 
+# between applications using these techniques. 
+
+# The general name for these application-to-application contracts is 
+# Application Program Interfaces or APIs. 
+
+# When we use an API, generally one program makes a set of services available 
+# for use by other applications and publishes the APIs (i.e. the “rules”) 
+# that must be followed to access the services provided by the program.
+
+
+# When we begin to build our programs where the functionality of our program 
+# includes access to services provided by other programs, 
+# we call the approach a Service-Oriented Architecture or SOA. 
+
+# A SOA approach is one where our overall application 
+# makes use of the services of other applications. 
+# A non-SOA approach is where the application is a single stand-alone application 
+# which contains all of the code necessary to implement the application.
+
+# We see many examples of SOA when we use the web. 
+# We can go to a single web site and book air travel, hotels, 
+# and automobiles all from a single site. 
+# The data for hotels is not stored on the airline computers. 
+
+# Instead, the airline computers contact the services on the hotel computers 
+# and retrieve the hotel data and present it to the user. 
+# When the user agrees to make a hotel reservation using the airline site, 
+# the airline site uses another web service on the hotel systems to actually make the reservation. 
+# And when it comes to charge your credit card for the whole transaction, 
+# still other computers become involved in the process.
+
+# A Service-Oriented Architecture has many advantages including: 
+	# (1) we always maintain only one copy of data - 
+		# this is particularly important for things like hotel reservations 
+		# where we do not want to over-commit and 
+	# (2) the owners of the data can set the rules about the use of their data. 
+
+# With these advantages, a SOA system must be carefully designed to have good performance 
+# and meet the user’s needs.
+
+# When an application makes a set of services in its API available over the web, 
+# we call these web services.
+
+
+#### 13.7 Google geocoding web service
+
+# Google has an excellent web service that allows us to make use 
+# of their large database of geographic information. 
+# We can submit a geographical search string like “Ann Arbor, MI” 
+# to their geocoding API and have Google return its best guess 
+# as to where on a map we might find our search string 
+# and tells us about the landmarks nearby.
+
+# The geocoding service is free but rate limited 
+# so you cannot make unlimited use of the API in a commercial application. 
+# But if you have some survey data where￼an end-user has entered a location 
+# in a free-format input box, you can use this API to clean up your data quite nicely.
+
+# When you are using a free API like Google’s geocoding API, 
+# you need to be respectful in your use of these resources. 
+# If too many people abuse the service, Google might drop or significantly curtail its free service.
+
+
+# You can read the online documentation for this service, 
+# but it is quite simple and you can even test it using a browser 
+# by typing the following URL into your browser:
+
+	# http://maps.googleapis.com/maps/api/geocode/json?sensor=false& address=Ann+Arbor%2C+MI
+
+# Make sure to unwrap the URL and remove any spaces from the URL before pasting it into your browser.
+# The following is a simple application to prompt the user for a search string 
+# and call the Google geocoding API and extract information from the returned JSON.
+
+import urllib 
+import json
+
+serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
+
+while True:
+	address = raw_input('Enter location: ') 
+	if len(address) < 1 : break
+	
+	url = serviceurl + urllib.urlencode({'sensor':'false', 'address': address})
+	print 'Retrieving', url
+
+	uh = urllib.urlopen(url)
+	data = uh.read()
+	print 'Retrieved',len(data),'characters'
+
+	try: js = json.loads(str(data))
+	except: js = None
+	if 'status' not in js or js['status'] != 'OK':
+		print '==== Failure To Retrieve ====' 
+		print data
+		continue
+	print json.dumps(js, indent=4)
+	
+	lat = js["results"][0]["geometry"]["location"]["lat"] 
+	lng = js["results"][0]["geometry"]["location"]["lng"] 
+	print 'lat',lat,'lng',lng
+	location = js['results'][0]['formatted_address'] 
+	print location
+
+
+# The program takes the search string and constructs a URL with the search string 
+# as a properly encoded parameter and then uses urllib to retrieve the text 
+# from the Google geocoding API. 
+# Unlike a fixed web page, the data we get depends on the parameters we send 
+# and the geographical data stored in Google’s servers.
+
+# Once we retrieve the JSON data, we parse it with the json library 
+# and do a few checks to make sure that we received good data 
+# and then extract the information that we are looking for.
+
+
+#### 13.8 Security and API usage
+
+# It is quite common that you need some kind of “API key” 
+# to make use of a vendor’s API. 
+# The general idea is that they want to know who is using their services 
+# and how much each user is using. 
+# Perhaps they have free and pay tiers of their services 
+# or have a policy that limits the number of requests that a single individual 
+# can perform during a particular time period.
+
+# Sometimes once you get your API key, you simply include the key as part of POST data 
+# or perhaps as a parameter on the URL when calling the API.
+
+# Other times, the vendor wants increased assurance of the source of the requests 
+# and so they expect you to send cryptographically signed messages 
+# using shared keys and secrets. 
+# A very common technology that is used to sign requests over the Internet is called OAuth. 
+# You can read more about the OAuth protocol at http://www.oauth.net.
+
+# As the Twitter API became increasingly valuable, 
+# Twitter went from an open and public API 
+# to an API that required the use of OAuth signatures on each API request. 
+# Thankfully there are a number of convenient and free OAuth libraries
+# so you can avoid writing an OAuth implementation from scratch by reading the specification. 
+
+# These libraries are of varying complexity and have varying richness. 
+# The OAuth web site has information about various OAuth libraries.
+
+# For this next sample program we will download these files: 
+	# twurl.py, hidden.py, oauth.py, and twitter1.py 
+	# from www.py4inf.com/code 
+	# and put them all in a folder on your computer.
+
+# To make use of these programs you will need to have a Twitter account, 
+# and authorize your Python code as an application, 
+# set up a key, secret, token and token secret. 
+
+# You will edit the file hidden.py and put these 
+# four strings into the appropriate variables in the file:
+
+def auth() :
+	return { "consumer_key" : "h7L...GNg",
+			"consumer_secret" : "dNK...7Q",
+			"token_key" : "101...GI", 
+			"token_secret" : "H0yM...Bo" }
+
+# The Twitter web service are accessed using a URL like this:
+# https://api.twitter.com/1.1/statuses/user_timeline.json
+
+# But once all of the security information has been added, the URL will look more like:
+
+# https://api.twitter.com/1.1/statuses/user_timeline.json?count=2
+	# &oauth_version=1.0&oauth_token=101...SGI&screen_name=drchuck 
+	# &oauth_nonce=09239679&oauth_timestamp=1380395644
+	# &oauth_signature=rLK...BoD&oauth_consumer_key=h7Lu...GNg 
+	# &oauth_signature_method=HMAC-SHA1
+
+# You can read the OAuth specification if you want to know more about the meaning 
+# of the various parameters that are added to meet the security requirements of OAuth.
+ 
+# For the programs we run with Twitter, 
+# we hide all the complexity in the files oauth.py and twurl.py.
+# We simply set the secrets in hidden.py and then send the desired URL to 
+# the twurl.augment() function and the library code adds 
+# all the necessary parameters to the URL for us.
+
+# This program (twitter1.py) retrieves the timeline for 
+# a particular Twitter user and returns it to us in JSON format in a string. 
+# We simply print the first 250 characters of the string:
+
+import urllib 
+import twurl
+
+TWITTER_URL='https://api.twitter.com/1.1/statuses/user_timeline.json'
+
+while True: 
+	print ''
+	acct = raw_input('Enter Twitter Account:') 
+	if(len(acct)<1):break
+	url = twurl.augment(TWITTER_URL,
+	{'screen_name': acct, 'count': '2'} ) 
+	print 'Retrieving', url
+	connection = urllib.urlopen(url)
+	data = connection.read()
+	print data[:250]
+	headers = connection.info().dict
+	# print headers
+	print 'Remaining', headers['x-rate-limit-remaining']
+
+
+# Along with the returned timeline data,
+# Twitter also returns metadata about the request in the HTTP response headers. 
+# One header in particular, x-rate-limit-remaining 
+# informs us how many more requests we can make 
+# before we will be shut off for a short time period. 
+# You can see that our remaining retrievals drop by one 
+# each time we make a request to the API.
+
+# In the following example, we retrieve a user’s Twitter friends 
+# and parse the returned JSON and extract some of the information 
+# about the friends. 
+
+# We also dump the JSON after parsing and “pretty-print” it 
+# with an indent of four characters to allow us
+# to pore through the data when we want to extract more fields.
+
+import urllib 
+import twurl 
+import json
+
+TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
+while True: 
+	print ''
+	acct = raw_input('Enter Twitter Account:') 
+	if(len(acct)<1):break
+	url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '5'} ) 
+
+	print 'Retrieving', url
+	connection = urllib.urlopen(url)
+	data = connection.read()
+	headers = connection.info().dict
+	print 'Remaining', headers['x-rate-limit-remaining'] 
+	js = json.loads(data)
+	print json.dumps(js, indent=4)
+	for u in js['users'] : 
+		print u['screen_name'] s = u['status']['text'] 
+		print ' ',s[:50]
+
+# Since the JSON becomes a set of nested Python lists and dictionaries, 
+# we can use a combination of the index operation and for loops 
+# to wander through the returned data structures with very little Python code.
+
+# The last bit of the output is where we see the for loop reading 
+# the five most recent “friends” of the drchuck Twitter account 
+# and printing the most recent status for each friend. 
+
+# There is a great deal more data available in the returned JSON. 
+# Also if you look in the output of the program, 
+# you can see that the “find the friends” of a particular account 
+# has a different rate limitation than the number of timeline queries 
+# we are allowed to run per time period.
+# These secure API keys allow Twitter to have solid confidence 
+# that they know who is using their API and data and at what level. 
+# The rate limiting approach allows us to do simple, personal data retrievals 
+# but does not allow us to build a product that pulls data 
+# from their API millions of times per day.
+
+
+## REST: REpresentational State Transfer - 
+	# A style of Web Services that provide access to resources 
+	# within an application using the HTTP protocol.
+
+
+#### Exercise 13.1 
+
+## Change either the www.py4inf.com/code/geojson.py 
+## or www. py4inf.com/code/geoxml.py 
+## to print out the two-character country code from the retrieved data. 
+## Add error checking so your program does not traceback if the country code is not there. 
+## Once you have it working, search for -- Atlantic Ocean 
+## and make sure it can handle locations that are not in any country.
+
+import urllib 
+import json
+import re
+
+serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
+
+while True:
+	address = raw_input('Enter location: ') 
+	if len(address) < 1 : break
+	
+	url = serviceurl + urllib.urlencode({'sensor':'false', 'address': address})
+	print 'Retrieving', url
+
+	uh = urllib.urlopen(url)
+	data = uh.read()
+	print 'Retrieved',len(data),'characters'
+
+	try: js = json.loads(str(data))
+	except: js = None
+	if 'status' not in js or js['status'] != 'OK':
+		print '==== Failure To Retrieve ====' 
+		print data
+		continue
+	#print json.dumps(js, indent=4)
+	
+	lat = js["results"][0]["geometry"]["location"]["lat"] 
+	lng = js["results"][0]["geometry"]["location"]["lng"] 
+	#print 'lat',lat,'lng',lng
+	location = js['results'][0]['formatted_address'] 
+	#print location
+
+	print "new code"
+	print data
+	dicts = len(js["results"][0]["address_components"])
+	country_code = js["results"][0]["address_components"][dicts-1]["short_name"]
+
+	if len(re.findall('[A-Z][A-Z]',country_code))>0:
+		print country_code
+	else:
+		print "Please enter location with valid country code."
 
 
 
@@ -1992,9 +2394,7 @@ print 'Attr:',tree.find('email').get('hide')
 
 
 
-
-
-#### 20160407: Readings -> 12   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+#### 20160415: Readings -> 13   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
 
  ###############################################
 ########        General Notes       ###########
