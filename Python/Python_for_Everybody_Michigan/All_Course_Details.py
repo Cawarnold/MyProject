@@ -1950,25 +1950,127 @@ print 'Attr:',tree.find('email').get('hide')
 # Each node can be the top of a tree of nodes.
 
 
+## Looping through nodes
+
+# Often the XML has multiple nodes and we need to write 
+# a loop to process all of the nodes. 
+# In the following program, we loop through all of the user nodes:
+
+import xml.etree.ElementTree as ET
+
+input = '''
+<stuff>
+	<users>
+		<user x="2">
+			<id>001</id>
+			<name>Chuck</name>
+		</user>
+		<user x="7">
+			<id>009</id>
+			<name>Brent</name>
+		</user>
+	</users>
+</stuff>'''
+
+stuff = ET.fromstring(input)
+lst = stuff.findall('users/user')
+
+print 'User count:', len(lst)
+
+for item in lst:
+	print 'Name', item.find('name').text
+	print 'Id', item.find('id').text
+	print 'Attribute', item.get('x')
+
+
+# The findall method retrieves a Python list of subtrees 
+# that represent the user structures in the XML tree. 
+# Then we can write a for loop that looks at each of
+# the user nodes, and prints the name and id text elements 
+# as well as the x attribute from the user node
 
 
 
+#### JSON -- JavaScript Object Notation
+
+# The JSON format was inspired by the object and array format 
+# used in the JavaScript language. 
+# But since Python was invented before JavaScript, 
+# Python’s syntax for dictionaries and lists 
+# influenced the syntax of JSON. 
+# So the format of JSON is nearly identical to 
+# a combination of Python lists and dictionaries.
+
+# Here is a JSON encoding that is roughly equivalent 
+# to the sample XML from above:
+
+{
+	"name" : "Chuck",
+	"phone" : {
+		"type" : "intl",
+		"number" : "+1 734 303 4456"
+			},
+	"email" : {
+		"hide" : "yes"
+	}
+}
+
+# You will notice some differences. 
+# First, in XML, we can add attributes like “intl” to the “phone” tag. 
+# In JSON, we simply have key-value pairs. 
+# Also the XML “person” tag is gone, 
+# replaced by a set of outer curly braces.
+
+# In general, JSON structures are simpler than XML 
+# because JSON has fewer capabilities than XML. 
+# But JSON has the advantage that it maps directly to 
+# some combination of dictionaries and lists. 
+# And since nearly all programming languages have something 
+# equivalent to Python’s dictionaries and lists, 
+# JSON is a very natural format to have two cooperating programs exchange data.
+
+# JSON is quickly becoming the format of choice for nearly 
+# all data exchange between applications because of its 
+# relative simplicity compared to XML.
 
 
+## Parsing JSON
+
+# We construct our JSON by nesting dictionaries (objects) and lists as needed. 
+# In this example, we represent a list of users 
+# where each user is a set of key-value pairs (i.e., a dictionary). 
+# So we have a list of dictionaries.
+
+# In the following program, we use the built-in json library to parse the JSON 
+# and read through the data.
+# Compare this closely to the equivalent XML data and code above. 
+# The JSON has less detail, so we must know in advance 
+# that we are getting a list and that the list is of users 
+# and each user is a set of key-value pairs. 
+
+# The JSON is more succinct (an advantage) 
+# but also is less self-describing (a disadvantage).
 
 
+import json
+input = '''
+[
+	{ "id" : "001",
+		"x" : "2",
+		"name" : "Chuck"
+	} ,
+	{ "id" : "009",
+		"x" : "7",
+		"name" : "Brent"
+	}
+]'''
 
-
-
-
-
-
-
-
-
-
-
-
+info = json.loads(input)
+print 'User count:', len(info)
+for item in info:
+	print 'Name', item['name']
+	print 'Id', item['id']
+	print 'Attribute', item['x']
 
 
 
