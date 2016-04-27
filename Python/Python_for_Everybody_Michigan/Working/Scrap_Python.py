@@ -2,12 +2,6 @@
 
 ## http://www.pythonlearn.com/book_009.pdf
 
-
-
-count_manually = 100+99+86+85+84+82+82+81+78+78+78+77+76+68+67+67+65+65+63+63+61+58+54+53+51+50+50+48+47+42+41+38+38+35+34+33+32+26+24+24+15+14+13+13+11+10+7+7+4
-
-count_maually2 = 100+99+86+85+84+82+82+81+78+78+78+77+76+68+67+67+65+65+63+63+61+58+54+53+51+50+50+48+47+42+41+38+38+38+35+34+33+32+26+24+24+15+14+13+13+11+10+7+7+4
-
 import urllib
 import xml.etree.ElementTree as ET
 
@@ -39,7 +33,7 @@ for element in counts:
 
 print count
 print sums
-print count_manually
+
 print count_maually2
 
 ############
