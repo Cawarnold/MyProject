@@ -2637,6 +2637,18 @@ print 'done'
 
 
 
+##################################################################################################################################
+##################################################################################################################################
+##########################################       Using Databases with Python       ###############################################
+##################################################################################################################################
+##################################################################################################################################
+
+# This course will introduce students to the basics of the Structured Query Language (SQL) 
+# as well as basic database design for storing data 
+# as part of a multi-step data gathering, analysis, and processing effort.  
+# The course will use SQLite3 as its database.  
+# We will also build web crawlers and multi-step data gathering and visualization processes.  
+# We will use the D3.js library to do basic data visualization
 
 ###############################################################################################
 ###############################################################################################
@@ -2644,6 +2656,499 @@ print 'done'
 
 
 #### Chapter 14 : Using databases and Structured Query Language (SQL) ####
+
+
+## 14.1 What is a database?
+
+# A database is a file that is organized for storing data. Most databases are organized
+# like a dictionary in the sense that they map from keys to values. The biggest
+# difference is that the database is on disk (or other permanent storage), so it persists
+# after the program ends. Because a database is stored on permanent storage, it can
+# store far more data than a dictionary, which is limited to the size of the memory in
+# the computer.
+
+# Like a dictionary, database software is designed to keep the inserting and accessing
+# of data very fast, even for large amounts of data. Database software maintains its
+# performance by building indexes as data is added to the database to allow the
+# computer to jump quickly to a particular entry.
+
+# There are many different database systems which are used for a wide variety of
+# purposes including: Oracle, MySQL, Microsoft SQL Server, PostgreSQL, and
+# SQLite. We focus on SQLite in this book because it is a very common database
+# and is already built into Python. SQLite is designed to be embedded into other
+# applications to provide database support within the application. For example, the
+# Firefox browser also uses the SQLite database internally as do many other products.
+
+		# http://sqlite.org/
+
+# SQLite is well suited to some of the data manipulation problems that we see in Informatics
+# such as the Twitter spidering application that we describe in this chapter.
+
+
+## 14.2 Database concepts
+
+# When you first look at a database it looks like a spreadsheet with multiple sheets.
+# The primary data structures in a database are: tables, rows, and columns.
+
+# In technical descriptions of relational databases the concepts of table, row, and column
+# are more formally referred to as relation, tuple, and attribute, respectively.
+# We will use the less formal terms in this chapter.
+
+
+## 14.3 SQLite manager Firefox add-on
+
+# While this chapter will focus on using Python to work with data in SQLite database
+# files, many operations can be done more conveniently using a Firefox add-on
+# called the SQLite Database Manager which is freely available from:
+
+		# https://addons.mozilla.org/en-us/firefox/addon/sqlite-manager/
+
+# Using the browser you can easily create tables, insert data, edit data, or run simple
+# SQL queries on the data in the database.
+# In a sense, the database manager is similar to a text editor when working with text
+# files. When you want to do one or very few operations on a text file, you can just
+# open it in a text editor and make the changes you want. When you have many
+# changes that you need to do to a text file, often you will write a simple Python
+# program. You will find the same pattern when working with databases. You will
+# do simple operations in the database manager and more complex operations will
+# be most conveniently done in Python.
+
+
+## 14.4 Creating a database table
+
+# Databases require more defined structure than Python lists or dictionaries.
+# When we create a database table we must tell the database in advance the names
+# of each of the columns in the table and the type of data which we are planning to
+# store in each column. When the database software knows the type of data in each
+# column, it can choose the most efficient way to store and look up the data based
+# on the type of data.
+
+# You can look at the various data types supported by SQLite at the following url:
+		
+		# http://www.sqlite.org/datatypes.html
+
+# Defining structure for your data up front may seem inconvenient at the beginning,
+# but the payoff is fast access to your data even when the database contains a large
+# amount of data
+
+# The code to create a database file and a table named Tracks with two columns in
+# the database is as follows:
+
+import sqlite3
+conn = sqlite3.connect('music.sqlite3')
+cur = conn.cursor()
+cur.execute('DROP TABLE IF EXISTS Tracks ')
+cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
+conn.close()
+
+# The connect operation makes a “connection” to the database stored in the file
+# music.sqlite3 in the current directory. If the file does not exist, it will be created.
+# The reason this is called a “connection” is that sometimes the database is
+# stored on a separate “database server” from the server on which we are running
+# our application. In our simple examples the database will just be a local file in the
+#  same directory as the Python code we are running.
+
+
+# A cursor is like a file handle that we can use to perform operations on the data
+# stored in the database. Calling cursor() is very similar conceptually to calling
+# open() when dealing with text files.
+
+# Once we have the cursor, we can begin to execute commands on the contents of
+# the database using the execute() method.
+
+# Database commands are expressed in a special language that has been standardized
+# across many different database vendors to allow us to learn a single database
+# language. The database language is called Structured Query Language or SQL
+# for short.
+
+# As a convention, 
+# SQL keywords in uppercase 
+# and the parts of the command that we are adding in lowercase
+# (such as the table and column names)
+
+# The commands: 
+cur.execute('DROP TABLE IF EXISTS Tracks ')
+	# means drop the table - Tracks (no undo button on drop table)
+
+cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
+	# means createthe table tracks with two columns, text and plays.
+
+## INSERT
+# The SQL INSERT command indicates which table we are using and then defines a
+# new row by listing the fields we want to include (title, plays) followed by the
+# VALUES we want placed in the new row. We specify the values as question marks
+# (?, ?) to indicate that the actual values are passed in as a tuple ( ’My Way’,
+# 15 ) as the second parameter to the execute() call.
+
+import sqlite3
+conn = sqlite3.connect('music.sqlite3')
+cur = conn.cursor()
+cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )',( 'Thunderstruck', 20 ) )
+cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )',( 'My Way', 15 ) )
+conn.commit()
+
+print 'Tracks:'
+cur.execute('SELECT title, plays FROM Tracks')
+
+for row in cur :
+	print row
+
+cur.execute('DELETE FROM Tracks WHERE plays < 100')
+
+conn.commit()
+cur.close()
+
+
+# First we INSERT two rows into our table and use commit() to force the data to be
+# written to the database file.
+
+
+# Then we use the SELECT command to retrieve the rows we just inserted from
+# the table. On the SELECT command, we indicate which columns we would like
+# (title, plays) and indicate which table we want to retrieve the data from. After
+# we execute the SELECT statement, the cursor is something we can loop through in
+# a for statement. For efficiency, the cursor does not read all of the data from the
+# database when we execute the SELECT statement. Instead, the data is read on
+# demand as we loop through the rows in the for statement.
+
+
+# The output of the program is as follows:
+			Tracks:
+			(u'Thunderstruck', 20)
+			(u'My Way', 15)
+
+# The u’ is an indication that the strings are Unicode strings 
+# that are capable of storing non-Latin character sets
+
+# At the very end of the program, we execute an SQL command to DELETE the
+# rows we have just created so we can run the program over and over
+# After the DELETE is performed, we also call commit() to force 
+# the data to be removed from the database.
+
+
+## 14.5 Structured Query Language summary
+
+# So far, we have been using the Structured Query Language in our Python examples
+# and have covered many of the basics of the SQL commands. In this section, we
+# look at the SQL language in particular and give an overview of SQL syntax.
+# Since there are so many different database vendors, the Structured Query Language
+# (SQL) was standardized so we could communicate in a portable manner to
+# database systems from multiple vendors.
+# 174 Chapter 14. Using databases and Structured Query Language (SQL)
+# A relational database is made up of tables, rows, and columns. The columns
+# generally have a type such as text, numeric, or date data. When we create a table,
+# we indicate the names and types of the columns:
+# CREATE TABLE Tracks (title TEXT, plays INTEGER)
+# To insert a row into a table, we use the SQL INSERT command:
+# INSERT INTO Tracks (title, plays) VALUES ('My Way', 15)
+# The INSERT statement specifies the table name, then a list of the fields/columns
+# that you would like to set in the new row, and then the keyword VALUES and a list
+# of corresponding values for each of the fields.
+# The SQL SELECT command is used to retrieve rows and columns from a database.
+# The SELECT statement lets you specify which columns you would like to retrieve
+# as well as a WHERE clause to select which rows you would like to see. It also allows
+# an optional ORDER BY clause to control the sorting of the returned rows.
+# SELECT * FROM Tracks WHERE title = 'My Way'
+# Using * indicates that you want the database to return all of the columns for each
+# row that matches the WHERE clause.
+# Note, unlike in Python, in a SQL WHERE clause we use a single equal sign to
+# indicate a test for equality rather than a double equal sign. Other logical operations
+# allowed in a WHERE clause include <, >, <=, >=, !=, as well as AND and OR and
+# parentheses to build your logical expressions.
+# You can request that the returned rows be sorted by one of the fields as follows:
+# SELECT title,plays FROM Tracks ORDER BY title
+# To remove a row, you need a WHERE clause on an SQL DELETE statement. The
+# WHERE clause determines which rows are to be deleted:
+# DELETE FROM Tracks WHERE title = 'My Way'
+# It is possible to UPDATE a column or columns within one or more rows in a table
+# using the SQL UPDATE statement as follows:
+# UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
+# The UPDATE statement specifies a table and then a list of fields and values to change
+# after the SET keyword and then an optional WHERE clause to select the rows that are
+# to be updated. A single UPDATE statement will change all of the rows that match
+# the WHERE clause. If a WHERE clause is not specified, it performs the UPDATE on all
+# of the rows in the table.
+# These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE)
+# allow the four basic operations needed to create and maintain data.
+
+CREATE TABLE Tracks (title TEXT, plays INTEGER)
+INSERT INTO Tracks (title, plays) VALUES ('My Way', 15)
+SELECT title,plays FROM Tracks ORDER BY title
+DELETE FROM Tracks WHERE title = 'My Way'
+UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## 14.6 Spidering Twitter using a database
+
+# In this section, we will create a simple spidering program that will go through
+# Twitter accounts and build a database of them. Note: Be very careful when running
+# this program. You do not want to pull too much data or run the program for too
+# long and end up having your Twitter access shut off.
+
+# One of the problems of any kind of spidering program is that it needs to be able
+# to be stopped and restarted many times and you do not want to lose the data that
+# you have retrieved so far. You don’t want to always restart your data retrieval at
+# the very beginning so we want to store data as we retrieve it so our program can
+# start back up and pick up where it left off.
+
+# We will start by retrieving one person’s Twitter friends and their statuses, looping
+# through the list of friends, and adding each of the friends to a database to be
+# retrieved in the future. After we process one person’s Twitter friends, we check
+# in our database and retrieve one of the friends of the friend. We do this over and
+# over, picking an “unvisited” person, retrieving their friend list, and adding friends
+# we have not seen to our list for a future visit.
+
+# We also track how many times we have seen a particular friend in the database to
+# get some sense of their “popularity”.
+
+# By storing our list of known accounts and whether we have retrieved the account
+# or not, and how popular the account is in a database on the disk of the computer,
+# we can stop and restart our program as many times as we like.
+
+# This program is a bit complex. It is based on the code from the exercise earlier in
+# the book that uses the Twitter API.
+
+# Here is the source code for our Twitter spidering application:
+
+import urllib
+import twurl
+import json
+import sqlite3
+
+TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
+
+conn = sqlite3.connect('spider.sqlite3')
+cur = conn.cursor()
+
+cur.execute('''
+CREATE TABLE IF NOT EXISTS Twitter
+(name TEXT, retrieved INTEGER, friends INTEGER)''')
+
+while True:
+	acct = raw_input('Enter a Twitter account, or quit: ')
+	if ( acct == 'quit' ) : break
+	if ( len(acct) < 1 ) :
+		cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
+		try:
+			acct = cur.fetchone()[0]
+		except:
+			print 'No unretrieved Twitter accounts found'
+			continue
+	url = twurl.augment(TWITTER_URL,
+			{'screen_name': acct, 'count': '20'} )
+
+	print 'Retrieving', url
+	connection = urllib.urlopen(url)
+	data = connection.read()
+	headers = connection.info().dict
+	# print 'Remaining', headers['x-rate-limit-remaining']
+	js = json.loads(data)
+	# print json.dumps(js, indent=4)
+	
+	cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
+	
+	countnew = 0
+	countold = 0
+	for u in js['users'] :
+		friend = u['screen_name']
+		print friend
+	cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1',
+		(friend, ) )
+	try:
+		count = cur.fetchone()[0]
+		cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?',
+			(count+1, friend) )
+		countold = countold + 1
+	except:
+		cur.execute('''INSERT INTO Twitter (name, retrieved, friends)
+			VALUES ( ?, 0, 1 )''', ( friend, ) )
+		countnew = countnew + 1
+	print 'New accounts=',countnew,' revisited=',countold
+	conn.commit()
+
+cur.close()
+
+
+# Our database is stored in the file spider.sqlite3 and it has one table named
+# Twitter. Each row in the Twitter table has a column for the account name,
+# whether we have retrieved the friends of this account, and how many times this
+# account has been “friended”.
+
+# In the main loop of the program, we prompt the user for a Twitter account name
+# or “quit” to exit the program. If the user enters a Twitter account, we retrieve the
+# list of friends and statuses for that user and add each friend to the database if not
+# already in the database. If the friend is already in the list, we add 1 to the friends
+# field in the row in the database.
+
+# If the user presses enter, we look in the database for the next Twitter account that
+# we have not yet retrieved, retrieve the friends and statuses for that account, add
+# them to the database or update them, and increase their friends count.
+
+
+# Once we retrieve the list of friends and statuses, we loop through all of the user
+# items in the returned JSON and retrieve the screen_name for each user. Then
+# we use the SELECT statement to see if we already have stored this particular
+# screen_name in the database and retrieve the friend count (friends) if the record
+# exists.
+
+countnew = 0
+countold = 0
+	for u in js['users'] :
+		friend = u['screen_name']
+		print friend
+	cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1',
+		(friend, ) )
+	try:
+		count = cur.fetchone()[0]
+		cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?',
+			(count+1, friend) )
+		countold = countold + 1
+	except:
+		cur.execute('''INSERT INTO Twitter (name, retrieved, friends)
+			VALUES ( ?, 0, 1 )''', ( friend, ) )
+		countnew = countnew + 1
+	print 'New accounts=',countnew,' revisited=',countold
+	conn.commit()
+
+# Once the cursor executes the SELECT statement, we must retrieve the rows. We
+# could do this with a for statement, but since we are only retrieving one row (LIMIT
+# 1), we can use the fetchone() method to fetch the first (and only) row that is the
+# result of the SELECT operation. Since fetchone() returns the row as a tuple (even
+# though there is only one field), we take the first value from the tuple using [0] to
+# get the current friend count into the variable count.
+
+# If this retrieval is successful, we use the SQL UPDATE statement with a WHERE
+# clause to add 1 to the friends column for the row that matches the friend’s account.
+# Notice that there are two placeholders (i.e., question marks) in the SQL,
+# and the second parameter to the execute() is a two-element tuple that holds the
+# values to be substituted into the SQL in place of the question marks.
+
+# If the code in the try block fails, it is probably because no record matched the
+# WHERE name = ? clause on the SELECT statement. So in the except block, we
+# use the SQL INSERT statement to add the friend’s screen_name to the table with
+# an indication that we have not yet retrieved the screen_name and set the friend
+# count to zero.
+
+# So the first time the program runs and we enter a Twitter account, the program
+# runs as follows:
+	Enter a Twitter account, or quit: drchuck
+	Retrieving http://api.twitter.com/1.1/friends ...
+	New accounts= 20 revisited= 0
+	Enter a Twitter account, or quit: quit
+
+# Since this is the first time we have run the program, the database is empty and we
+# create the database in the file spider.sqlite3 and add a table named Twitter
+# to the database. Then we retrieve some friends and add them all to the database
+# since the database is empty.
+
+# At this point, we might want to write a simple database dumper to take a look at
+# what is in our spider.sqlite3 file:
+
+
+import sqlite3
+conn = sqlite3.connect('spider.sqlite3')
+cur = conn.cursor()
+cur.execute('SELECT * FROM Twitter')
+count = 0
+for row in cur :
+	print row
+	count = count + 1
+print count, 'rows.'
+cur.close()
+
+
+# This program simply opens the database and selects all of the columns of all of the
+# rows in the table Twitter, then loops through the rows and prints out each row.
+# If we run this program after the first execution of our Twitter spider above, its
+# output will be as follows:
+	(u'opencontent', 0, 1)
+	(u'lhawthorn', 0, 1)
+	(u'steve_coppin', 0, 1)
+	(u'davidkocher', 0, 1)
+	(u'hrheingold', 0, 1)
+	...
+	20 rows.
+
+
+# We see one row for each screen_name, that we have not retrieved the data for that
+# screen_name, and everyone in the database has one friend.
+# Now our database reflects the retrieval of the friends of our first Twitter account
+# (drchuck). We can run the program again and tell it to retrieve the friends of the
+# next “unprocessed” account by simply pressing enter instead of a Twitter account
+# as follows:
+	Enter a Twitter account, or quit:
+	Retrieving http://api.twitter.com/1.1/friends ...
+	New accounts= 18 revisited= 2
+	Enter a Twitter account, or quit:
+	Retrieving http://api.twitter.com/1.1/friends ...
+	New accounts= 17 revisited= 3
+	Enter a Twitter account, or quit: quit
+
+# Since we pressed enter (i.e., we did not specify a Twitter account), the following
+# code is executed:
+if ( len(acct) < 1 ) :
+	cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
+	try:
+		acct = cur.fetchone()[0]
+	except:
+		print 'No unretrieved twitter accounts found'
+		continue
+
+
+# We use the SQL SELECT statement to retrieve the name of the first (LIMIT 1) user
+# who still has their “have we retrieved this user” value set to zero. We also use the
+# fetchone()[0] pattern within a try/except block to either extract a screen_name
+# from the retrieved data or put out an error message and loop back up.
+# If we successfully retrieved an unprocessed screen_name, we retrieve their data
+# as follows:
+
+url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '20'} )
+print 'Retrieving', url
+connection = urllib.urlopen(url)
+data = connection.read()
+js = json.loads(data)
+cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
+
+# Once we retrieve the data successfully, we use the UPDATE statement to set the
+# retrieved column to 1 to indicate that we have completed the retrieval of the
+# friends of this account. This keeps us from retrieving the same data over and over
+# and keeps us progressing forward through the network of Twitter friends.
+# If we run the friend program and press enter twice to retrieve the next unvisited
+# friend’s friends, then run the dumping program, it will give us the following output:
+
+	(u'opencontent', 1, 1)
+	(u'lhawthorn', 1, 1)
+	(u'steve_coppin', 0, 1)
+	(u'davidkocher', 0, 1)
+	(u'hrheingold', 0, 1)
+	...
+	(u'cnxorg', 0, 2)
+	(u'knoop', 0, 1)
+	(u'kthanos', 0, 2)
+	(u'LectureTools', 0, 1)
+	...
+	55 rows.
+
+# We can see that we have properly recorded that we have visited lhawthorn
+# and opencontent. Also the accounts cnxorg and kthanos already have two
+# followers. Since we now have retrieved the friends of three people (drchuck,
+# opencontent, and lhawthorn) our table has 55 rows of friends to retrieve.
+
+# Each time we run the program and press enter it will pick the next unvisited account
+# (e.g., the next account will be steve_coppin), retrieve their friends, mark
+# them as retrieved, and for each of the friends of steve_coppin either add them
+# to the end of the database or update their friend count if they are already in the
+# database.
+
+# Since the program’s data is all stored on disk in a database, the spidering activity
+# can be suspended and resumed as many times as you like with no loss of data.
+
+
+
+
 
 
 
