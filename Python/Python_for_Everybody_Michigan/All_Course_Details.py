@@ -1170,17 +1170,25 @@ for val, key in list_of_tuples:
 # its the hour problem Exercise 10.2 copies directly in.
 
 
- #################################################################
- #################################################################
- ########        Using Python to Access Web Data       ###########
- #################################################################
- #################################################################
+
+##################################################################################################################################
+##################################################################################################################################
+########################################       Using Python to Access Web Data       #############################################
+##################################################################################################################################
+##################################################################################################################################
+
+
 
 ## Scrape, Parse and Read Web Data as well as access data using web APIs.
 	# Work with HTML, XML, JSON data formats in python.
 
 
-#### Regluar Expressions ####
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+#### Chapter 11 : Regular expressions ####
 
 ## CheatSheet
 
@@ -1493,9 +1501,15 @@ total = float(sum(int(i) for i in numbers_list))
 
 print float(total/ counter)
 
-################################################################
 
-#### 12 Networked Programs ####
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+
+#### Chapter 12 : Networked programs ####
+ 
 
 ## In this chapter we will pretend to be a web browser 
 # and retrieve web pages using 
@@ -1969,10 +1983,12 @@ print "Last name in sequence:", re.findall("known_by_(.+).html",url)[0]
 
 
 
+###############################################################################################
+###############################################################################################
+###############################################################################################
 
-################################################################
 
-#### 13 Networked Programs ####
+#### Chapter 13 : Using Web Services ####
 
 
 # There are two common formats when exchanging data across the web.
@@ -2543,6 +2559,91 @@ print count
 print sums
 
 
+#### Exercise Chuck -- Extracting data from JSON
+	# from a url
+
+# The program will prompt for a URL, read the JSON data from that URL using urllib 
+# and then parse and extract the comment counts from the JSON data, 
+# compute the sum of the numbers in the file.
+
+import urllib
+import json
+
+url = raw_input("Enter url:")
+
+#url = "http://python-data.dr-chuck.net/comments_42.json"
+#url = "http://python-data.dr-chuck.net/comments_234600.json"
+
+
+uh = urllib.urlopen(url)
+data = uh.read()
+print 'Retrieved',len(data),'characters'
+	
+js = json.loads(str(data))
+
+#print json.dumps(js, indent=4)
+#print type(js["comments"][0]["count"])
+
+sums = int(0)
+counts = int(0)
+for comment in js["comments"]:
+	sums = sums + int(comment["count"])
+	counts = counts + 1
+
+print counts
+print sums
+
+
+#### Exercise Chuck -- Using the GeoJSON API
+
+# The program will prompt for a location, contact a web service 
+# and retrieve JSON for the web service and parse that data, 
+# and retrieve the first place_id from the JSON. 
+
+# A place ID is a textual identifier that 
+# uniquely identifies a place as within Google Maps.
+
+import urllib 
+import json
+import re
+
+
+#serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
+serviceurl = 'http://python-data.dr-chuck.net/geojson?'
+
+while True:
+	address = raw_input('Enter location: ') 
+	if len(address) < 1 : break
+	
+	url = serviceurl + urllib.urlencode({'sensor':'false', 'address': address})
+	print 'Retrieving', url
+
+	uh = urllib.urlopen(url)
+	data = uh.read()
+	print 'Retrieved',len(data),'characters'
+
+	try: js = json.loads(str(data))
+	except: js = None
+
+#	print js
+	print json.dumps(js, indent=4)
+
+	print js["results"][0]["place_id"]
+
+print 'done'
+
+# Simon Fraser University
+# ChIJa8FTJPrzBFMR8dy-IfiXGMA
+
+
+
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+
+#### Chapter 14 : Using databases and Structured Query Language (SQL) ####
 
 
 
@@ -2560,7 +2661,12 @@ print sums
 
 
 
-#### 20160415: Readings -> 13   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+
+
+
+
+
+#### 20160428: Readings -> 14   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
 
  ###############################################
 ########        General Notes       ###########
