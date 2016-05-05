@@ -3148,6 +3148,381 @@ cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
 
 
 
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## 14.7 Basic data modeling
+
+# The real power of a relational database is when we create multiple tables and make
+# links between those tables. The act of deciding how to break up your application
+# data into multiple tables and establishing the relationships between the tables is
+# called data modeling. The design document that shows the tables and their relationships
+# is called a data model.
+
+# Data modeling is a relatively sophisticated skill and we will only introduce the
+# most basic concepts of relational data modeling in this section. For more detail on
+# data modeling you can start with:
+
+	# http://en.wikipedia.org/wiki/Relational_model
+
+# Let’s say for our Twitter spider application, instead of just counting a person’s
+# friends, we wanted to keep a list of all of the incoming relationships so we could
+# find a list of everyone who is following a particular account.
+
+# Since everyone will potentially have many accounts that follow them, we cannot
+# simply add a single column to our Twitter table. So we create a new table that
+# keeps track of pairs of friends. The following is a simple way of making such a
+# table:
+
+	# CREATE TABLE Pals (from_friend TEXT, to_friend TEXT)
+
+# Each time we encounter a person who drchuck is following, we would insert a
+# row of the form:
+
+	# INSERT INTO Pals (from_friend,to_friend) VALUES ('drchuck', 'lhawthorn')
+
+# As we are processing the 20 friends from the drchuck Twitter feed, we will insert
+# 20 records with “drchuck” as the first parameter so we will end up duplicating the
+# string many times in the database.
+
+# This duplication of string data violates one of the best practices for database normalization
+# which basically states that we should never put the same string data
+# in the database more than once. If we need the data more than once, we create a
+# numeric key for the data and reference the actual data using this key.
+
+# In practical terms, a string takes up a lot more space than an integer on the disk
+# and in the memory of our computer, and takes more processor time to compare
+# and sort. If we only have a few hundred entries, the storage and processor time
+# hardly matters. But if we have a million people in our database and a possibility
+# of 100 million friend links, it is important to be able to scan data as quickly as
+# possible.
+
+# We will store our Twitter accounts in a table named People instead of the Twitter
+# table used in the previous example. The People table has an additional column
+# to store the numeric key associated with the row for this Twitter user. SQLite has
+# a feature that automatically adds the key value for any row we insert into a table
+# using a special type of data column (INTEGER PRIMARY KEY).
+
+# We can create the People table with this additional id column as follows:
+
+	# CREATE TABLE People(id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)
+
+# Notice that we are no longer maintaining a friend count in each row of the People
+# table. When we select INTEGER PRIMARY KEY as the type of our id column,
+# we are indicating that we would like SQLite to manage this column and assign a
+# unique numeric key to each row we insert automatically. We also add the keyword
+# UNIQUE to indicate that we will not allow SQLite to insert two rows with the same
+# value for name.
+
+# Now instead of creating the table Pals above, we create a table called Follows
+# with two integer columns from_id and to_id and a constraint on the table that the
+# combination of from_id and to_id must be unique in this table (i.e., we cannot
+# insert duplicate rows) in our database.
+
+	# CREATE TABLE Follows(from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id) )
+
+# When we add UNIQUE clauses to our tables, we are communicating a set of rules
+# that we are asking the database to enforce when we attempt to insert records. We
+# are creating these rules as a convenience in our programs, as we will see in a
+# moment. The rules both keep us from making mistakes and make it simpler to
+# write some of our code.
+
+# In essence, in creating this Follows table, we are modelling a “relationship” where
+# one person “follows” someone else and representing it with a pair of numbers indicating
+# that (a) the people are connected and (b) the direction of the relationship.
+
+
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## 14.8 Programming with multiple tables
+
+# We will now redo the Twitter spider program using two tables, the primary keys,
+# and the key references as described above. Here is the code for the new version of
+# the program:
+
+import urllib
+import twurl
+import json
+import sqlite3
+
+TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
+conn = sqlite3.connect('friends.sqlitesqlite3')
+cur = conn.cursor()
+cur.execute('''CREATE TABLE IF NOT EXISTS People
+	(id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Follows
+	(from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+while True:
+	acct = raw_input('Enter a Twitter account, or quit: ')
+	if ( acct == 'quit' ) : break
+	if ( len(acct) < 1 ) :
+		cur.execute('''SELECT id, name FROM People WHERE retrieved = 0 LIMIT 1''')
+		try:
+			(id, acct) = cur.fetchone()
+			### cur.fetchone() is a tuple with two items
+		except:
+			print 'No unretrieved Twitter accounts found'
+			continue
+	else:
+		cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',(acct, ) )
+		try:
+			id = cur.fetchone()[0]
+			### cur.fetchone() is a tuple with one item
+			### id here will be the id for the input acct
+		except:
+			cur.execute('''INSERT OR IGNORE INTO People (name, retrieved)
+				VALUES ( ?, 0)''', ( acct, ) )
+			### insert or ignore can be used because of the unique name constraint in the table.
+			### but if the acct was already in there this code shouldn't run.
+			conn.commit()
+			if cur.rowcount != 1 :
+				print 'Error inserting account:',acct
+				continue
+			id = cur.lastrowid
+			print 'The new People id is:',id
+
+	url = twurl.augment(TWITTER_URL,{'screen_name': acct, 'count': '20'} )
+	print 'Retrieving account', acct
+	connection = urllib.urlopen(url)
+	data = connection.read() 
+	headers = connection.info().dict
+	print 'Remaining', headers['x-rate-limit-remaining']
+	js = json.loads(data)
+	# print json.dumps(js, indent=4)
+	cur.execute('UPDATE People SET retrieved=1 WHERE name = ?', (acct, ) )
+	countnew = 0
+	countold = 0
+	for u in js['users'] :
+		friend = u['screen_name']
+		print friend
+		cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',(friend, ) )
+		try:
+			friend_id = cur.fetchone()[0]
+			countold = countold + 1
+		except:
+			cur.execute('''INSERT OR IGNORE INTO People (name, retrieved)
+				VALUES ( ?, 0)''', ( friend, ) )
+			conn.commit()
+			if cur.rowcount != 1 :
+				print 'Error inserting account:',friend
+				continue
+			friend_id = cur.lastrowid
+			countnew = countnew + 1
+		cur.execute('''INSERT OR IGNORE INTO Follows (from_id, to_id)
+			VALUES (?, ?)''', (id, friend_id) )
+		print 'New accounts=',countnew,' revisited=',countold
+		conn.commit()
+cur.close()
+
+# This program is starting to get a bit complicated, but it illustrates the patterns that
+# we need to use when we are using integer keys to link tables. The basic patterns
+# are:
+	# 1. Create tables with primary keys and constraints.
+
+	# 2. When we have a logical key for a person (i.e., account name) and we need
+		# the id value for the person, depending on whether or not the person is already
+		# in the People table we either need to: (1) look up the person in the
+		# People table and retrieve the id value for the person or (2) add the person
+		# to the People table and get the id value for the newly added row.
+	
+	# 3. Insert the row that captures the “follows” relationship.
+		
+# We will cover each of these in turn.
+
+
+#############################################################
+#############################################################
+#############################################################
+
+## 14.8.1 Constraints in database tables
+
+# As we design our table structures, we can tell the database system that we would
+# like it to enforce a few rules on us. These rules help us from making mistakes and
+# introducing incorrect data into out tables. When we create our tables:
+
+cur.execute('''CREATE TABLE IF NOT EXISTS People
+	(id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Follows
+	(from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+
+# We indicate that the name column in the People table must be UNIQUE. We also
+# indicate that the combination of the two numbers in each row of the Follows table
+# must be unique. These constraints keep us from making mistakes such as adding
+# the same relationship more than once.
+# We can take advantage of these constraints in the following code:
+
+cur.execute('''INSERT OR IGNORE INTO People (name, retrieved)
+	VALUES ( ?, 0)''', ( friend, ) )
+
+# We add the OR IGNORE clause to our INSERT statement to indicate that if this particular
+# INSERT would cause a violation of the “name must be unique” rule, the
+# database system is allowed to ignore the INSERT. We are using the database constraint
+# as a safety net to make sure we don’t inadvertently do something incorrect.
+
+# Similarly, the following code ensures that we don’t add the exact same Follows
+# relationship twice.
+cur.execute('''INSERT OR IGNORE INTO Follows
+	(from_id, to_id) VALUES (?, ?)''', (id, friend_id) )
+
+# Again, we simply tell the database to ignore our attempted INSERT if it would
+# violate the uniqueness constraint that we specified for the Follows rows.
+
+
+#############################################################
+#############################################################
+#############################################################
+
+## 14.8.2 Retrieve and/or insert a record
+
+# When we prompt the user for a Twitter account, if the account exists, we must
+# look up its id value. If the account does not yet exist in the People table, we must
+# insert the record and get the id value from the inserted row.
+
+# This is a very common pattern and is done twice in the program above. This code
+# shows how we look up the id for a friend’s account when we have extracted a
+# screen_name from a user node in the retrieved Twitter JSON.
+
+# Since over time it will be increasingly likely that the account will already be in
+# the database, we first check to see if the People record exists using a SELECT
+# statement.
+
+# If all goes well (when we use 'if all goes well' that mean we should use a try/except)
+# inside the try section, we retrieve the record using fetchone()
+# and then retrieve the first (and only) element of the returned tuple and store it in
+# friend_id.
+# If the SELECT fails, the fetchone()[0] code will fail and control will transfer
+# into the except section.
+
+friend = u['screen_name']
+		print friend
+		cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',(friend, ) )
+		try:
+			friend_id = cur.fetchone()[0]
+			countold = countold + 1
+		except:
+			cur.execute('''INSERT OR IGNORE INTO People (name, retrieved)
+				VALUES ( ?, 0)''', ( friend, ) )
+			conn.commit()
+			if cur.rowcount != 1 :
+				print 'Error inserting account:',friend
+				continue
+			friend_id = cur.lastrowid
+			countnew = countnew + 1
+
+# If we end up in the except code, it simply means that the row was not found, so
+# we must insert the row. We use INSERT OR IGNORE just to avoid errors and then
+# call commit() to force the database to really be updated. After the write is done,
+# we can check the cur.rowcount to see how many rows were affected. Since we
+# are attempting to insert a single row, if the number of affected rows is something
+# other than 1, it is an error.
+
+# If the INSERT is successful, we can look at cur.lastrowid to find out what value
+# the database assigned to the id column in our newly created row.
+
+
+#############################################################
+#############################################################
+#############################################################
+
+## 14.8.3 Storing the friend relationship
+
+# Once we know the key value for both the Twitter user and the friend in the JSON,
+# it is a simple matter to insert the two numbers into the Follows table with the
+# following code:
+cur.execute('INSERT OR IGNORE INTO Follows (from_id, to_id) VALUES (?, ?)',
+	(id, friend_id) )
+
+# Notice that we let the database take care of keeping us from “double-inserting” a
+# relationship by creating the table with a uniqueness constraint and then adding OR
+# IGNORE to our INSERT statement.
+# Here is a sample execution of this program:
+
+	# Enter a Twitter account, or quit:
+	# No unretrieved Twitter accounts found
+	# Enter a Twitter account, or quit: drchuck
+	# Retrieving http://api.twitter.com/1.1/friends ...
+	# New accounts= 20 revisited= 0
+	# Enter a Twitter account, or quit:
+	# Retrieving http://api.twitter.com/1.1/friends ...
+	# New accounts= 17 revisited= 3
+	# Enter a Twitter account, or quit:
+	# Retrieving http://api.twitter.com/1.1/friends ...
+	# New accounts= 17 revisited= 3
+	# Enter a Twitter account, or quit: quit
+
+# We started with the drchuck account and then let the program automatically pick
+# the next two accounts to retrieve and add to our database.
+# The following is the first few rows in the People and Follows tables after this run
+# is completed:
+
+print 'People:'
+conn = sqlite3.connect('friends.sqlitesqlite3')
+cur = conn.cursor()
+cur.execute('''SELECT * FROM People''')
+count = 0
+for row in cur :
+	print row
+	count = count + 1
+print count, 'rows.'
+
+print 'Follows:'
+cur.execute('''SELECT * FROM Follows''')
+count = 0
+for row in cur :
+	print row
+	count = count + 1
+print count, 'rows.'
+
+cur.close()
+
+People:
+(1, u'drchuck', 1)
+(2, u'opencontent', 1)
+(3, u'lhawthorn', 1)
+(4, u'steve_coppin', 0)
+(5, u'davidkocher', 0)
+55 rows.
+Follows:
+(1, 2)
+(1, 3)
+(1, 4)
+(1, 5)
+(1, 6)
+60 rows.
+
+# You can see the id, name, and visited fields in the People table and you see
+# the numbers of both ends of the relationship in the Follows table. In the People
+# table, we can see that the first three people have been visited and their data has
+# been retrieved. The data in the Follows table indicates that drchuck (user 1) is a
+# friend to all of the people shown in the first five rows. This makes sense because
+# the first data we retrieved and stored was the Twitter friends of drchuck. If you
+# were to print more rows from the Follows table, you would see the friends of
+# users 2 and 3 as well.
+
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

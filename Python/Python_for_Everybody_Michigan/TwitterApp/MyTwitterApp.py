@@ -2,31 +2,33 @@
 
 ## https://apps.twitter.com
 
+## https://apps.twitter.com/app/12234901/keys
 
-import urllib 
-import twurl 
+import urllib
+import twurl
 import json
+import sqlite3
 
-TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
-
-while True: 
-	print ''
-	acct = raw_input('Enter Twitter Account:') 
-	if(len(acct)<1):break
-	url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '5'} ) 
-
-	print 'Retrieving', url
-	connection = urllib.urlopen(url)
-	data = connection.read()
-	headers = connection.info().dict
-	print 'Remaining', headers['x-rate-limit-remaining'] 
-	js = json.loads(data)
-	print json.dumps(js, indent=4)
-	for u in js['users'] : 
-		print u['screen_name'] 
-		s = u['status']['text'] 
-		print ' ',s[:100]
+print 'People'
 
 
+conn = sqlite3.connect('friends.sqlitesqlite3')
+cur = conn.cursor()
+cur.execute('''SELECT * FROM People''')
+count = 0
+for row in cur :
+	print row
+	count = count + 1
+print count, 'rows.'
 
+print 'Follows'
+
+cur.execute('''SELECT * FROM Follows''')
+count = 0
+for row in cur :
+	print row
+	count = count + 1
+print count, 'rows.'
+
+cur.close()
 
