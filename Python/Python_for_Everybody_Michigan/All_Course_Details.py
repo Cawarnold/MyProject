@@ -2041,12 +2041,12 @@ print 'Attr:',tree.find('email').get('hide')
 	# and some “child” nodes. 
 # Each node can be the top of a tree of nodes.
 
-
 ## Looping through nodes
 
 # Often the XML has multiple nodes and we need to write 
 # a loop to process all of the nodes. 
 # In the following program, we loop through all of the user nodes:
+
 
 import xml.etree.ElementTree as ET
 
