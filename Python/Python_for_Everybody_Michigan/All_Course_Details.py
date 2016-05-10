@@ -3508,13 +3508,35 @@ Follows:
 ###############################################################################################
 ###############################################################################################
 
-## 
+#### Execise Chuck -- Our First Database
 
+# Create a SQLITE database, then create a table in the database called "Ages"
 
+CREATE TABLE Ages ( 
+  name VARCHAR(128), 
+  age INTEGER
+)
 
+# Then make sure the table is empty by deleting any rows that you previously inserted, 
+# and insert these rows and only these rows with the following commands:
 
+DELETE FROM Ages;
+INSERT INTO Ages (name, age) VALUES ('Sol', 29);
+INSERT INTO Ages (name, age) VALUES ('Bayley', 35);
+INSERT INTO Ages (name, age) VALUES ('Torran', 17);
+INSERT INTO Ages (name, age) VALUES ('Shayla', 22);
+INSERT INTO Ages (name, age) VALUES ('Shuni', 26);
 
+# Once the inserts are done, run the following SQL command:
 
+SELECT hex(name || age) AS X FROM Ages ORDER BY X
+
+# Find the first row in the resulting record set 
+# and enter the long string that looks like 53656C696E613333.
+
+# This assignment must be done using SQLite - in particular, 
+# the SELECT query above will not work in any other database. 
+# So you cannot use MySQL or Oracle for this assignment.
 
 
 
