@@ -1,6 +1,6 @@
 Django_Mockups_Views_and_URLs_20150423
 
-http://pystar.github.io/pystar/badges/badge_djangoapp.html
+####  http://pystar.github.io/pystar/badges/badge_djangoapp.html
 
 
 This is a walk through of what is actually happening in the app.
@@ -202,6 +202,11 @@ To support these pages, you need these abstractions (models, objects):
 
 Polls
 Choices
+
+#########################################################################
+#########################################################################
+#########################################################################
+
 Part 2: Create your Django App
 
 Goal: Configure and explore a basic Django “out of the box app”.
@@ -247,11 +252,12 @@ $ ls
     urls.py
 These files are:
 
-__init__.py: An empty file that tells Python that this directory should be considered a Python module. Because of the __init__.py file, 
-        you can use import to import myproject.
+__init__.py: An empty file that tells Python that this directory should be considered a Python module. 
+        Because of the __init__.py file,  you can use import to import myproject.
 manage.py: A command-line utility that lets you interact with this Django project in various ways. 
         You can read all the details about manage.py in django-admin.py and manage.py.
-settings.py: Settings/configuration for this Django project. Django settings will tell you all about how settings work.
+settings.py: Settings/configuration for this Django project. 
+        Django settings will tell you all about how settings work.
 urls.py: The URL declarations for this Django project; a “table of contents” of your Django-powered site. 
         You can read more about URLs in URL dispatcher.
 Start the Development (Local) Server
@@ -303,6 +309,11 @@ and navigate to it using your browser [answer].
 Type python manage.py help. Speculate what some of these commands might do. 
 For reference: http://docs.djangoproject.com/en/dev/ref/django-admin/
 
+#########################################################################
+#########################################################################
+#########################################################################
+
+
 Part 3: Save your work!
 
 Before we do anything else, let’s save our work and start it with the world.
@@ -321,7 +332,8 @@ create a git repository in the project directory:
 # in myproject
 git init
 Create your project on GitHub. Go to http://github.com/ and create a new repository called “myproject”. 
-On the main dashboard page, click on “New Repository” fill out the necessary information. cf: http://help.github.com/create-a-repo/.
+On the main dashboard page, click on “New Repository” fill out the necessary information. 
+cf: http://help.github.com/create-a-repo/.
 
 Check the status of your files. At this point:
 
@@ -353,7 +365,8 @@ git commit to commit those files:
 git commit -m "Initial commit of django project from the PyStar workshop"
 Look at your changes with git log to see your history. Is your commit message there?
 
-Connect the remote github repo to your local one, and use git push to push those up to your Github repository 
+Connect the remote github repo to your local one, 
+and use git push to push those up to your Github repository 
 (putting your user name and project title in the appropriate slots):
 
 git remote add origin git@github.com:myusername/myproject.git
@@ -363,19 +376,24 @@ Go to your Github account in your browser. Find the myproject repository. Do you
 Remember:
 
 “commit your work” means “add and commit it to the local repository on your computer”
-“push your work” means “git push it to github” (if your computer explodes, there will still be a copy of your code on github!)
+“push your work” means “git push it to github” 
+(if your computer explodes, there will still be a copy of your code on github!)
 
+#########################################################################
+#########################################################################
+#########################################################################
 
 Part 4: Configure your Django Project
 
-Now that we have a the scaffolding for our project in place, we can get to work! It needs to be configured.
+Now that we have a the scaffolding for our project in place, 
+    we can get to work! It needs to be configured.
 
 Add yourself as an admin!
 
 Open settings.py in your editor. settings.py is a Python script that only contains variable definitions. 
 Django looks at the values of these variables when it runs your web app. 
-The scaffold we wrote for you and Django’s own ‘startproject’ command has specified some of these variables by default, 
-though not all of them.
+The scaffold we wrote for you and Django’s own ‘startproject’ command has specified 
+some of these variables by default, though not all of them.
 
 Find ADMINS and replace Your Name and your_email@example.com with your name and your email address.
 
@@ -387,7 +405,8 @@ git add settings.py
 git commit -m "made myself an admin"
 Fix security settings
 
-Right now, everyone in the workshop has the same “SECRET_KEY”. Since Django uses this key for various sensitive things, 
+Right now, everyone in the workshop has the same “SECRET_KEY”. 
+Since Django uses this key for various sensitive things, 
 you should change it.
 
 In settings.py, find the variable named SECRET_KEY and set it to whatever string you want.
@@ -406,7 +425,8 @@ git add settings.py
 git commit -m "changed SECRET_KEY"
 Set up the Database
 
-Keep looking at settings.py: The DATABASES variable is a dictionary (note the ‘{}’ characters) with one key: default.
+Keep looking at settings.py: 
+The DATABASES variable is a dictionary (note the ‘{}’ characters) with one key: default.
 
 DATABASES = {
     'default': {
@@ -418,7 +438,9 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-Notice that the value of default is itself another dictionary with information about the site’s default database. 
+Notice that the value of default is itself another dictionary with 
+information about the site’s default database. 
+
 We’ve set our app to use a sqlite database, in the ENGINE attribute. 
 Sqlite is great for development because is stores its data in one normal file on your system 
 and therefore is really simple to move around with your app.
@@ -428,13 +450,17 @@ Note
 In production, Sqlite has issues because only one process can write to it as a time. 
 Discuss the implications of this with your group. [answer]
 
-The NAME key tells the Django project to use a file called database.db to store information for this project.
+The NAME key tells the Django project to use a file called database.db 
+to store information for this project.
 
 Pop quiz: Does database.db exist right now? Find out! [answer]
 
 Notice the INSTALLED_APPS setting towards the bottom of the settings.py. 
-That variable (a tuple... note the ‘()’ symbols) holds the names of all Django applications that are activated in this Django instance. 
-Apps can be used in multiple projects, and you can package and distribute them for use by others in their projects.
+That variable (a tuple... note the ‘()’ symbols) holds the names of all Django applications 
+that are activated in this Django instance. 
+
+Apps can be used in multiple projects, and you can package and distribute them 
+for use by others in their projects.
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -448,17 +474,20 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
       'south',
 )
-What do you think these various apps do? Why does it make sense for them to come in a standard configuration? [answer]
+What do you think these various apps do? 
+Why does it make sense for them to come in a standard configuration? [answer]
 
 Each of these applications makes use of at least one database table, 
-so we need to create the tables in the database before we can use them. To do that, run the following command:
+so we need to create the tables in the database before we can use them. 
+To do that, run the following command:
 
 python manage.py syncdb
 The syncdb command looks at the INSTALLED_APPS setting 
 and creates any necessary database tables according to the database settings in your settings.py file. 
 You’ll see a message for each database table it creates.
 
-When prompted, you’ll get a prompt asking you if you’d like to create a superuser account for the authentication system. 
+When prompted, you’ll get a prompt asking you if you’d like to create 
+a superuser account for the authentication system. 
 Say yes! Use ‘super’ as your password:
 
 You just installed Django's auth system, which means you don't have any superusers defined.
@@ -493,6 +522,10 @@ git status
 #
 Drink some tea and take a stretch break. Then we can come back to STRETCHING OUR MINDS.
 
+#########################################################################
+#########################################################################
+#########################################################################
+
 Part 5: In Which You Save You From Yourself, Using Git.
 
 Your work is saved and committed (in git!) right?
@@ -501,7 +534,8 @@ Right? How do you know? [answer]
 
 Good. Because you got a case of the accidental deletes and you’ve deleted your settings.py file!
 
-No really. Go and delete settings.py. Throw it in the trash. Or the recycling bin. Or rm from the command line. 
+No really. Go and delete settings.py. Throw it in the trash. Or the recycling bin. 
+Or rm from the command line. 
 Make sure it’s really gone using ls.
 
 Try running your dev server. What happens? Why?
@@ -516,15 +550,22 @@ $ git checkout settings.py
 Look at your project folder again, using ls. Lo and behold, settings.py! Back from beyond the grave! 
 Cool, huh? Open it up, and verify it is exactly as you left it. Isn’t that magical? [answer].
 
-But what of settings.pyc? Start your dev server. It works, right? Stop your dev server and look at the files in your project. 
+But what of settings.pyc? Start your dev server. It works, right? 
+Stop your dev server and look at the files in your project. 
 Do you see settings.pyc? How did it get there? [answer]
+
+#########################################################################
+#########################################################################
+#########################################################################
 
 Part 6: Build The Polls Application
 
 Now that your environment – a “project” – is set up, you’re set to start building the poll application.
 
-Each application you write in Django consists of a Python package, somewhere on your Python path, that follows a certain convention. 
-Django comes with a utility that automatically generates the basic directory structure of an app (that Django expects), 
+Each application you write in Django consists of a Python package, 
+somewhere on your Python path, that follows a certain convention. 
+Django comes with a utility that automatically generates the basic directory structure of an app 
+(that Django expects), 
 so you can focus on writing code!.
 
 Projects and Apps
@@ -535,15 +576,25 @@ Here are the things to know:
 
 An app is component of a website that does something. 
 For example, the Django administration app is something you’ll see later in this tutorial. 
+<<<<<<< fc9272a640afd8c84bfe1cc4aeb8874f4c443dac
 So is our polls app. 
 An app is:
 
 single purpose - login, passwords, polls, forum, etc.
 orthonogal to / independent of other apps - polls shouldn’t have to know the inside details of authentication, for example.
+=======
+So is our polls app. An app is:
+
+single purpose - login, passwords, polls, forum, etc.
+orthonogal to / independent of other apps - polls shouldn’t have to know the inside 
+                                                details of authentication, for example.
+
+>>>>>>> CA_TR: messing with font face in sublime
 A project corresponds to a ‘website’: it contains a settings.py file, 
 and it may have corresponding databases or other data stores that the apps interact with.
 
-Django apps can live anywhere on the Python path. The python path is a list of paths where the python interpreter looks for modules.
+Django apps can live anywhere on the Python path. 
+The python path is a list of paths where the python interpreter looks for modules.
 
 $ python
 >>> import sys
@@ -554,6 +605,7 @@ $ python
 '/Users/gregg/mydir/pystar/lib/python2.6',
 '/Users/gregg/mydir/pystar/lib/python2.6/plat-darwin',
 '/Users/gregg/mydir/pystar/lib/python2.6/plat-mac' ... ]
+
 To be importable (seeable by Python), your Django app must be in one of the folders on your path.
 
 Experiment: look at your Python Path!
@@ -561,8 +613,14 @@ Experiment: look at your Python Path!
 Create The Poll App
 
 In this tutorial, we’ll create our poll app in the myproject directory for simplicity. 
+<<<<<<< fc9272a640afd8c84bfe1cc4aeb8874f4c443dac
 In the future, when you decide that the world needs to be able to use your poll app and plug it into their own projects, 
 and after you determine that your app plays nicely with other apps, you can publish that directory separately!
+=======
+In the future, when you decide that the world needs to be able to use your poll app 
+and plug it into their own projects, and after you determine that your app plays nicely 
+with other apps, you can publish that directory separately!
+>>>>>>> CA_TR: messing with font face in sublime
 
 open your terminal and navigate to myproject
 
@@ -575,7 +633,11 @@ Verify what is new.
 
 git status
 # should show 'polls/' in 'untracked'
+<<<<<<< fc9272a640afd8c84bfe1cc4aeb8874f4c443dac
 While we are here lets make git ignore ‘database.db’ by adding database.db to .git/info/exclude. 
+=======
+While were we are here lets make git ignore ‘database.db’ by adding database.db to .git/info/exclude. 
+>>>>>>> CA_TR: messing with font face in sublime
 Verify (using ‘git status’) that is it gone.
 
 Examine the layout of polls (we will do more of this in following sections).
