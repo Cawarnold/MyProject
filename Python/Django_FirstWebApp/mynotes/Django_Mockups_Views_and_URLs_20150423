@@ -576,6 +576,7 @@ Here are the things to know:
 
 An app is component of a website that does something. 
 For example, the Django administration app is something you’ll see later in this tutorial. 
+<<<<<<< HEAD
 <<<<<<< fc9272a640afd8c84bfe1cc4aeb8874f4c443dac
 So is our polls app. 
 An app is:
@@ -590,6 +591,14 @@ orthonogal to / independent of other apps - polls shouldn’t have to know the i
                                                 details of authentication, for example.
 
 >>>>>>> CA_TR: messing with font face in sublime
+=======
+So is our polls app. An app is:
+
+single purpose - login, passwords, polls, forum, etc.
+orthonogal to / independent of other apps - polls shouldn’t have to know the inside 
+                                                details of authentication, for example.
+
+>>>>>>> 58e3c9dd233fb0c8d610a1b1a7131b9c91acb470
 A project corresponds to a ‘website’: it contains a settings.py file, 
 and it may have corresponding databases or other data stores that the apps interact with.
 
@@ -613,6 +622,7 @@ Experiment: look at your Python Path!
 Create The Poll App
 
 In this tutorial, we’ll create our poll app in the myproject directory for simplicity. 
+<<<<<<< HEAD
 <<<<<<< fc9272a640afd8c84bfe1cc4aeb8874f4c443dac
 In the future, when you decide that the world needs to be able to use your poll app and plug it into their own projects, 
 and after you determine that your app plays nicely with other apps, you can publish that directory separately!
@@ -621,6 +631,11 @@ In the future, when you decide that the world needs to be able to use your poll 
 and plug it into their own projects, and after you determine that your app plays nicely 
 with other apps, you can publish that directory separately!
 >>>>>>> CA_TR: messing with font face in sublime
+=======
+In the future, when you decide that the world needs to be able to use your poll app 
+and plug it into their own projects, and after you determine that your app plays nicely 
+with other apps, you can publish that directory separately!
+>>>>>>> 58e3c9dd233fb0c8d610a1b1a7131b9c91acb470
 
 open your terminal and navigate to myproject
 
@@ -633,11 +648,15 @@ Verify what is new.
 
 git status
 # should show 'polls/' in 'untracked'
+<<<<<<< HEAD
 <<<<<<< fc9272a640afd8c84bfe1cc4aeb8874f4c443dac
 While we are here lets make git ignore ‘database.db’ by adding database.db to .git/info/exclude. 
 =======
 While were we are here lets make git ignore ‘database.db’ by adding database.db to .git/info/exclude. 
 >>>>>>> CA_TR: messing with font face in sublime
+=======
+While were we are here lets make git ignore ‘database.db’ by adding database.db to .git/info/exclude. 
+>>>>>>> 58e3c9dd233fb0c8d610a1b1a7131b9c91acb470
 Verify (using ‘git status’) that is it gone.
 
 Examine the layout of polls (we will do more of this in following sections).
