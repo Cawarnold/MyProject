@@ -23,10 +23,10 @@ cur = sqlite_conn.cursor()
 	#### Drop and Create the database
 
 cur.execute('''
-DROP TABLE IF EXISTS Domain_Counts''')
+DROP TABLE IF EXISTS Counts''')
 
 cur.execute('''
-CREATE TABLE Domain_Counts (domain TEXT, count INTEGER)''')
+CREATE TABLE Counts (org TEXT, count INTEGER)''')
 
 	#### Extract Domains and insert or update the database
 
@@ -35,18 +35,17 @@ for line in fhand:
 	if len(words) == 0: continue
 	if words[0] != 'From': continue
 	domain = words[1].split('@')[1]
-	print domain
-	cur.execute('SELECT count FROM Domain_Counts WHERE domain = ? ', (domain, ))
+	cur.execute('SELECT count FROM Counts WHERE org = ? ', (domain, ))
 	row = cur.fetchone() 
 	if row is None:
-		cur.execute('''INSERT INTO Domain_Counts (domain, count) 
+		cur.execute('''INSERT INTO Counts (org, count) 
 			VALUES ( ?, 1 )''', ( domain, ) )
 	else : 
-		cur.execute('UPDATE Domain_Counts SET count=count+1 WHERE domain = ?', (domain, ))
+		cur.execute('UPDATE Counts SET count=count+1 WHERE org = ?', (domain, ))
 	sqlite_conn.commit()
 
 
-sqlstr = 'SELECT domain, count FROM Domain_Counts ORDER BY count DESC'
+sqlstr = 'SELECT org, count FROM Counts ORDER BY count DESC'
 
 print
 print "Counts:"
