@@ -3508,7 +3508,7 @@ Follows:
 ###############################################################################################
 ###############################################################################################
 
-#### Execise Chuck -- Our First Database
+#### Exercise Chuck -- Our First Database
 
 # Create a SQLITE database, then create a table in the database called "Ages"
 
@@ -3538,6 +3538,156 @@ SELECT hex(name || age) AS X FROM Ages ORDER BY X
 # the SELECT query above will not work in any other database. 
 # So you cannot use MySQL or Oracle for this assignment.
 
+
+
+#### Exercise Chuck -- Counting Email in a Database
+
+## Counting Organizations
+
+# This application will read the mailbox data (mbox.txt) count up the number email messages per organization 
+# (i.e. domain name of the email address) using a database with the following schema to maintain the counts.
+
+# CREATE TABLE Counts (org TEXT, count INTEGER)
+
+# When you have run the program on mbox.txt upload the resulting database file above for grading.
+# If you run the program multiple times in testing or with dfferent files, 
+# make sure to empty out the data before each run.
+
+# You can use this code as a starting point for your application: 
+	# http://www.pythonlearn.com/code/emaildb.py.
+
+# The data file for this application is the same as in previous assignments: 
+	# http://www.pythonlearn.com/code/mbox.txt.
+
+# Because the sample code is using an UPDATE statement 
+# and committing the results to the database as each record is read in the loop, 
+# it might take as long as a few minutes to process all the data. 
+# The commit insists on completely writing all the data to disk every time it is called.
+
+# The program can be speeded up greatly by moving the commit operation outside of the loop. 
+# In any database program, there is a balance between the number of operations you execute between commits 
+# and the importance of not losing the results of operations that have not yet been committed.
+
+
+
+
+
+#### Original from http://www.pythonlearn.com/code/emaildb.py
+
+## Open connection to a sqlite database
+sqlite_conn = sqlite3.connect('emaildb.sqlite')
+## Then create a cursor through which you can talk to the db
+cur = sqlite_conn.cursor()
+
+cur.execute('''
+DROP TABLE IF EXISTS Counts''')
+
+cur.execute('''
+CREATE TABLE Counts (email TEXT, count INTEGER)''')
+
+cur.execute('''DROP TABLE IF EXISTS help''')
+cur.execute('''CREATE TABLE help (stuff TEXT)''')
+cur.execute('''INSERT INTO help (stuff) VALUES (?)''', ('abc', ) )
+
+fname = raw_input('Enter file name: ')
+if ( len(fname) < 1 ) : fname = 'mbox-short.txt'
+fh = open(fname)
+for line in fh:
+	if not line.startswith('From: ') : continue
+	pieces = line.split()
+	email = pieces[1]
+	print email
+	cur.execute('SELECT count FROM Counts WHERE email = ? ', (email, ))
+	row = cur.fetchone() 
+	if row is None:
+		cur.execute('''INSERT INTO Counts (email, count) 
+			VALUES ( ?, 1 )''', ( email, ) )
+	else : 
+		cur.execute('UPDATE Counts SET count=count+1 WHERE email = ?', (email, ))
+	sqlite_conn.commit()
+
+	# This statement commits outstanding changes to disk each 
+	# time through the loop - the program can be made faster 
+	# by moving the commit so it runs only after the loop completes
+
+	#### Chuck had a different version on his video
+	####try:
+	####	count = cur.fetchone()[0]
+	####	cur.execute('UPDATE Counts SET count=count+1 WHERE email = ?', (email, ))
+	####except:
+	####	cur.execute('''INSERT INTO Counts (email, count) 
+	####			VALUES ( ?, 1 )''', ( email, ) )
+	####conn.commit()
+
+# https://www.sqlite.org/lang_select.html
+sqlstr = 'SELECT email, count FROM Counts ORDER BY count DESC LIMIT 10'
+
+print
+print "Counts:"
+for row in cur.execute(sqlstr) :
+	print str(row[0]), row[1]
+
+cur.close()
+
+
+#### Exercise Chuck -- Counting Email in a Database
+	
+	#### 	MY WORKINGS		####
+
+#### http://www.pythonlearn.com/code/
+
+import urllib
+import sqlite3
+
+
+	#### URL Connection
+
+url = 'http://www.pythonlearn.com/code/mbox.txt'
+# url = 'http://www.pythonlearn.com/code/mbox-short.txt'
+
+fhand = urllib.urlopen(url)
+
+	#### SQLite connection
+
+## Open connection to a sqlite database domaindb
+sqlite_conn = sqlite3.connect('domaindb.sqlite')
+## Then create a cursor through which you can talk to the db
+cur = sqlite_conn.cursor()
+
+	#### Drop and Create the database
+
+cur.execute('''
+DROP TABLE IF EXISTS Domain_Counts''')
+
+cur.execute('''
+CREATE TABLE Domain_Counts (domain TEXT, count INTEGER)''')
+
+	#### Extract Domains and insert or update the database
+
+for line in fhand:
+	words = line.split()
+	if len(words) == 0: continue
+	if words[0] != 'From': continue
+	domain = words[1].split('@')[1]
+	print domain
+	cur.execute('SELECT count FROM Domain_Counts WHERE domain = ? ', (domain, ))
+	row = cur.fetchone() 
+	if row is None:
+		cur.execute('''INSERT INTO Domain_Counts (domain, count) 
+			VALUES ( ?, 1 )''', ( domain, ) )
+	else : 
+		cur.execute('UPDATE Domain_Counts SET count=count+1 WHERE domain = ?', (domain, ))
+	sqlite_conn.commit()
+
+
+sqlstr = 'SELECT domain, count FROM Domain_Counts ORDER BY count DESC'
+
+print
+print "Counts:"
+for row in cur.execute(sqlstr) :
+	print str(row[0]), row[1]
+
+cur.close()
 
 
 
