@@ -2636,12 +2636,15 @@ print 'done'
 # ChIJa8FTJPrzBFMR8dy-IfiXGMA
 
 
+########################################################################################################
+########################################################################################################
+########################################################################################################
+#############################       Using Databases with Python       ##################################
+########################################################################################################
+########################################################################################################
+########################################################################################################
 
-##################################################################################################################################
-##################################################################################################################################
-##########################################       Using Databases with Python       ###############################################
-##################################################################################################################################
-##################################################################################################################################
+
 
 # This course will introduce students to the basics of the Structured Query Language (SQL) 
 # as well as basic database design for storing data 
@@ -3508,6 +3511,202 @@ Follows:
 ###############################################################################################
 ###############################################################################################
 
+## 14.9 Three kinds of keys
+
+# Now that we have started building a data model putting our data into multiple
+# linked tables and linking the rows in those tables using keys, we need to look at
+# some terminology around keys. There are generally three kinds of keys used in a
+# database model.
+
+	## Logical key
+	
+# • A logical key is a key that the “real world” might use to look up a row. In
+# our example data model, the name field is a logical key. It is the screen name
+# for the user and we indeed look up a user’s row several times in the program
+# using the name field. You will often find that it makes sense to add a UNIQUE
+# constraint to a logical key. Since the logical key is how we look up a row
+# from the outside world, it makes little sense to allow multiple rows with the
+# same value in the table.
+
+	## Primary key
+
+# • A primary key is usually a number that is assigned automatically by the
+# database. It generally has no meaning outside the program and is only used
+# to link rows from different tables together. When we want to look up a row
+# in a table, usually searching for the row using the primary key is the fastest
+# way to find the row. Since primary keys are integer numbers, they take up
+# very little storage and can be compared or sorted very quickly. In our data
+# model, the id field is an example of a primary key
+
+	## Foreign key
+
+# • A foreign key is usually a number that points to the primary key of an
+# associated row in a different table. An example of a foreign key in our data
+# model is the from_id.
+
+# We are using a naming convention of always calling the primary key field name
+# id and appending the suffix _id to any field name that is a foreign key.
+
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## 14.10 Using JOIN to retrieve data
+
+# Now that we have followed the rules of database normalization and have data
+# separated into two tables, linked together using primary and foreign keys, we need
+# to be able to build a SELECT that reassembles the data across the tables.
+
+# SQL uses the JOIN clause to reconnect these tables. In the JOIN clause you specify
+# the fields that are used to reconnect the rows between the tables.
+
+# The following is an example of a SELECT with a JOIN clause:
+	SELECT * FROM Follows JOIN People
+		ON Follows.from_id = People.id 
+			WHERE People.id = 1
+
+# The JOIN clause indicates that the fields we are selecting cross both the Follows
+# and People tables. The ON clause indicates how the two tables are to be joined:
+# Take the rows from Follows and append the row from People where the field
+# from_id in Follows is the same the id value in the People table.
+
+
+# The result of the JOIN is to create extra-long “metarows” which have both the
+# fields from People and the matching fields from Follows. Where there is more
+# than one match between the id field from People and the from_id from People,
+# then JOIN creates a metarow for each of the matching pairs of rows, duplicating
+# data as needed.
+
+# The following code demonstrates the data that we will have in the database after
+# the multi-table Twitter spider program (above) has been run several times.
+
+
+import sqlite3
+conn = sqlite3.connect('spider.sqlite3')
+cur = conn.cursor()
+
+cur.execute('SELECT * FROM People')
+count = 0
+print 'People:'
+for row in cur :
+	if count < 5: print row
+	count = count + 1
+print count, 'rows.'
+
+cur.execute('SELECT * FROM Follows')
+count = 0
+print 'Follows:'
+for row in cur :
+	if count < 5: print row
+	count = count + 1
+	print count, 'rows.'
+
+cur.execute('''SELECT * FROM Follows JOIN People
+ON Follows.to_id = People.id WHERE Follows.from_id = 2''')
+count = 0
+print 'Connections for id=2:'
+for row in cur :
+	if count < 5: print row
+	count = count + 1
+print count, 'rows.'
+cur.close()
+
+# In this program, we first dump out the People and Follows and then dump out a
+# subset of the data in the tables joined together.
+
+# Here is the output of the program:
+
+python twjoin.py
+People:
+(1, u'drchuck', 1)
+(2, u'opencontent', 1)
+(3, u'lhawthorn', 1)
+(4, u'steve_coppin', 0)
+(5, u'davidkocher', 0)
+55 rows.
+
+Follows:
+(1, 2)
+(1, 3)
+(1, 4)
+(1, 5)
+(1, 6)
+60 rows.
+
+Connections for id=2:
+(2, 1, 1, u'drchuck', 1)
+(2, 28, 28, u'cnxorg', 0)
+(2, 30, 30, u'kthanos', 0)
+(2, 102, 102, u'SomethingGirl', 0)
+(2, 103, 103, u'ja_Pac', 0)
+20 rows.
+
+# You see the columns from the People and Follows tables and the last set of rows
+# is the result of the SELECT with the JOIN clause.
+
+# In the last select, we are looking for accounts that are friends of “opencontent”
+# (i.e., People.id=2).
+# In each of the “metarows” in the last select, the first two columns are from the
+# Follows table followed by columns three through five from the People table. You
+# can also see that the second column (Follows.to_id) matches the third column
+# (People.id) in each of the joined-up “metarows”.
+
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## 14.11 Summary
+
+# This chapter has covered a lot of ground to give you an overview of the basics
+# of using a database in Python. It is more complicated to write the code to use a
+# database to store data than Python dictionaries or flat files so there is little reason
+# to use a database unless your application truly needs the capabilities of a database.
+# The situations where a database can be quite useful are: (1) when your application
+# needs to make small many random updates within a large data set, (2) when your
+# data is so large it cannot fit in a dictionary and you need to look up information
+# repeatedly, or (3) when you have a long-running process that you want to be able
+# to stop and restart and retain the data from one run to the next.
+
+# You can build a simple database with a single table to suit many application needs,
+# but most problems will require several tables and links/relationships between rows
+# in different tables. When you start making links between tables, it is important to
+# do some thoughtful design and follow the rules of database normalization to make
+# the best use of the database’s capabilities. Since the primary motivation for using
+# a database is that you have a large amount of data to deal with, it is important to
+# model your data efficiently so your programs run as fast as possible.
+
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## 14.12 Debugging
+
+# One common pattern when you are developing a Python program to connect to an
+# SQLite database will be to run a Python program and check the results using the
+# SQLite Database Browser. The browser allows you to quickly check to see if your
+# program is working properly.
+
+# You must be careful because SQLite takes care to keep two programs from changing
+# the same data at the same time. For example, if you open a database in the
+# browser and make a change to the database and have not yet pressed the “save”
+# button in the browser, the browser “locks” the database file and keeps any other
+# program from accessing the file. In particular, your Python program will not be
+# able to access the file if it is locked.
+
+# So a solution is to make sure to either close the database browser or use the
+# File menu to close the database in the browser before you attempt to access the
+# database from Python to avoid the problem of your Python code failing because
+# the database is locked.
+
+
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
 #### Exercise Chuck -- Our First Database
 
 # Create a SQLITE database, then create a table in the database called "Ages"
@@ -3689,6 +3888,105 @@ for row in cur.execute(sqlstr) :
 
 cur.close()
 
+########################################################################################################
+########################################################################################################
+########################################################################################################
+#############################             ##################################
+########################################################################################################
+########################################################################################################
+########################################################################################################
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+#### Chapter 15 : Visualizing data ####
+
+# So far we have been learning the Python language and then learning how to use
+# Python, the network, and databases to manipulate data.
+# In this chapter, we take a look at three complete applications that bring all of these
+# things together to manage and visualize data. You might use these applications as
+# sample code to help get you started in solving a real-world problem.
+# Each of the applications is a ZIP file that you can download and extract onto your
+# computer and execute.
+
+## 15.1 Building a Google map from geocoded data
+
+# In this project, we are using the Google geocoding API to clean up some userentered
+# geographic locations of university names and then placing the data on a
+# Google map.
+
+# To get started, download the application from:
+# www.py4inf.com/code/geodata.zip
+
+# The first problem to solve is that the free Google geocoding API is rate-limited to
+# a certain number of requests per day. If you have a lot of data, you might need to
+# stop and restart the lookup process several times. So we break the problem into
+# two phases.
+
+# In the first phase we take our input “survey” data in the file where.data and read
+# it one line at a time, and retrieve the geocoded information from Google and store
+# it in a database geodata.sqlite. Before we use the geocoding API for each userentered
+# location, we simply check to see if we already have the data for that particular
+# line of input. The database is functioning as a local “cache” of our geocoding
+# data to make sure we never ask Google for the same data twice.
+
+# You can restart the process at any time by removing the file geodata.sqlite.
+
+# Run the geoload.py program. This program will read the input lines in
+# where.data and for each line check to see if it is already in the database. If we
+# don’t have the data for the location, it will call the geocoding API to retrieve the
+# data and store it in the database.
+
+# The first five locations are already in the database and so they are skipped. The
+# program scans to the point where it finds new locations and starts retrieving them.
+
+# The geoload.py program can be stopped at any time, and there is a counter that
+# you can use to limit the number of calls to the geocoding API for each run. Given
+# that the where.data only has a few hundred data items, you should not run into
+# the daily rate limit, but if you had more data it might take several runs over several
+# days to get your database to have all of the geocoded data for your input.
+
+# Once you have some data loaded into geodata.sqlite, you can visualize the data
+# using the geodump.py program. This program reads the database and writes the
+# file where.js with the location, latitude, and longitude in the form of executable
+# JavaScript code.
+
+
+# The file where.html consists of HTML and JavaScript to visualize a Google map.
+# It reads the most recent data in where.js to get the data to be visualized. Here is
+# the format of the where.js file:
+
+myData = [
+[42.3396998,-71.08975, 'Northeastern Uni ... Boston, MA 02115'],
+[40.6963857,-89.6160811, 'Bradley University, ... Peoria, IL 61625, USA'],
+[32.7775,35.0216667, 'Technion, Viazman 87, Kesalsaba, 32000, Israel'],
+...
+];
+
+# This is a JavaScript variable that contains a list of lists. The syntax for JavaScript
+# list constants is very similar to Python, so the syntax should be familiar to you.
+# Simply open where.html in a browser to see the locations. You can hover over
+# each map pin to find the location that the geocoding API returned for the userentered
+# input. If you cannot see any data when you open the where.html file, you
+# might want to check the JavaScript or developer console for your browser.
+
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## 15.2 Visualizing networks and interconnections
+
+# In this application, we will perform some of the functions of a search engine.
+# We will first spider a small subset of the web and run a simplified version of the
+# Google page rank algorithm to determine which pages are most highly connected,
+# and then visualize the page rank and connectivity of our small corner of the web.
+
+# We will use the D3 JavaScript visualization library http://d3js.org/ to produce
+# the visualization output.
+# You can download and extract this application from:
+# www.py4inf.com/code/pagerank.zip
 
 
 
@@ -3709,21 +4007,7 @@ cur.close()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#### 20160428: Readings -> 14   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+#### 20160512: Readings -> 15   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
 
  ###############################################
 ########        General Notes       ###########
