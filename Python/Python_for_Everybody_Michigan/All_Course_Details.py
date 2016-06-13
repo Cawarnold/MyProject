@@ -4738,6 +4738,125 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 
 
 
+###############################################
+###############################################
+###############################################
+
+
+#### Exercise Chuck -- Retrieving GEOData
+
+# Download the code from http://www.pythonlearn.com/code/geodata.zip - 
+# then unzip the file and edit where.data to add an address nearby where you live - 
+# don't reveal your actual location. Then run the geoload.py to lookup 
+# all of the entries in where.data (including the new one) and produce the geodata.sqlite. 
+# Then run geodump.py to read the database and produce where.js. 
+# Then open where.html to visualize the map. 
+# Take screen shots as described below.
+
+# This is a relatively simple assignment. 
+# Don't take off points for little mistakes. 
+# If they seem to have done the assignment give them full credit. 
+# Feel free to make suggestions if there are small mistakes. 
+# Please keep your comments positive and useful. 
+# If you do not take grading seriously, 
+# the instructors may delete your response and you will lose points.
+
+
+# Screen shot (JPG or PNG - Maximum 1MB) of the geoload.py program running
+# Screen shot (JPG or PNG - Maximum 1MB) of the geodump.py program running
+# Screen shot (JPG or PNG - Maximum 1MB) of the map zoomed into the location that you added.) of your home page.
+
+
+## First step run geoload.py
+
+## Second step run geodump.py
+
+## Third step open the where.html file.
+
+
+
+
+
+
+########################################################################################################
+########################################################################################################
+########################################################################################################
+#############################       Python for Everybody Capstone      #################################
+########################################################################################################
+########################################################################################################
+########################################################################################################
+
+
+
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+
+
+# Welcome to the Python for Everybody Capstone. 
+# We want the capstone to be a different experience than the rest of the courses. 
+# Since we are a much smaller course I want to make sure that there is lots of 
+# opportunity for student-to-student interactions. 
+# We understand that some of you will be in a hurry to finish and that 
+# others will want to spend time interacting with the instructional staff and other students. 
+# So we have designed the course with only three required peer-graded assignments 
+# (Weeks 2, 4, and 6) and three optional presentation-oriented assignments (Weeks 3, 5, and 7).
+
+# A goal of the Capstone is to set up structures to let you learn from each other 
+# instead of just making more lectures and assignments. We have done several things to make that work:
+
+# In this course you can paste any code into the forums that you want to discuss with other 
+# students about problems you are having. By now we assume you know how to code.
+# We have used a Wiki system provided by Coursera to allow you to edit pages 
+# and upload your information and share your information with other students. 
+# These Wiki pages are visible to other Coursera students, so do not post any personal information here.
+
+# We have built a private presentation system using a technology called WarpWire that allows you 
+# to upload presentation videos in a way that is 100% private - 
+# the videos can only be seen by those in the class.
+
+# All presentations are optional but everyone is welcome to review, rate, 
+# and interact with the presentations and add value to the class.
+
+# In the project/presentation side of the class it is perfectly fine for students 
+# to approach a problem as a team and use other technologies like Slack or Github to coordinate their work.
+
+# You can see that a big theme of this Capstone is to get you to contribute to the course. 
+# And of course since this is the first time we are using some of this technology and pedagogy, 
+# there will be plenty of room for improvement. We will be watching the forums closely and 
+# may adjust the course as it progresses based on your comments, issues, and suggestions.
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+# You won't be surprised to know that I have built new software for this course. 
+# We have a partnership with WarpWire that allows us to use their video for education platform. 
+# We have built a way for you to record and share presentations with your other students that are 
+# 100% private and can only be seen by your fellow students in this class. 
+# We think that this a great technology and will have lots of applications 
+# in other Coursera courses once we figure things out.
+
+# Since this is the first time we are using this software at scale, 
+# we have invited some of the technical support team at WarpWire to join the class 
+# so they can monitor the forums and work through any problems that we identify. 
+# Of course the errors might be in my gallery software - so we will just figure out 
+# which part is broken and get things fixed.
+
+# I made sure that the required parts of the class were using simple, well-proven technology 
+# and we will be using the advanced cool technology only in the optional parts of the class.
+
+# So if you have a problem - don't be shy - let us know in the forums.
+
+
+
+
+
+
+
+
 
 
 
