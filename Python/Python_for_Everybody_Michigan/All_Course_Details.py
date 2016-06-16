@@ -4737,7 +4737,76 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 
 
 
+########################################################################################################
+########################################################################################################
+########################################################################################################
+################### Capstone: Retrieving, Processing and visualizing Data       ########################
+########################################################################################################
+########################################################################################################
+########################################################################################################
 
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+
+
+# This week we will download and run a simple version of the Google PageRank Algorithm. 
+# Here is an early paper by Larry Page and Sergy Brin, the founders of Google, 
+# that describes their early thoughts about the algorithm:
+
+	# http://infolab.stanford.edu/~backrub/google.html
+
+# We will provide you with sample code and lectures that walk through the sample code:
+
+	# http://www.dr-chuck.net/pythonlearn/code/pagerank.zip
+
+# There is not a lot of new code to write - it is mostly looking at the code and making the code work. 
+# You will be able to spider some simple content that we provide and then play with the program 
+# to spider some other content. 
+# Part of the fun of this assignment is when things go wrong and 
+# you figure out how to solve a problem when the program wanders 
+# into some data that breaks its retrieval and parsing. 
+# So you will get used to starting over with a fresh database and running your web crawl.
+
+
+###############################################
+###############################################
+###############################################
+
+
+#### Exercise Chuck -- Peer Grade: Page Rank
+
+# First you will spider 100 pages from http://python-data.dr-chuck.net/ run the page rank algorithm 
+# and take some screen shots. 
+
+# Then you will reset the spider process and spider 100 pages from any other site on the Internet, 
+# run the page rank algorithm, and take some screen shots.
+
+# This course uses a third-party tool, Peer Grade: Page Rank, to enhance your learning experience. 
+# The tool will reference basic information like your name, email, and Coursera ID.
+
+# Don't take off points for little mistakes. 
+# If they seem to have done the assignment give them full credit. 
+# Feel free to make suggestions if there are small mistakes. 
+# Please keep your comments positive and useful. 
+
+# Sample solution: http://www.dr-chuck.net/pythonlearn/code/pagerank.zip
+
+############
+
+# Steps to run the pagerank project
+
+# Start with spider.py -- it spiders pages. goes to the page and takes all the url links.
+
+# Then use sprank.py -- it ranks the spidered pages. only ranks those which have links. 
+
+# Then use spdump.py -- it prints out the joined data of Pages and Lins.
+
+# Then run spjson.py -- it puts the data into spider.js ready for d3 visualisation.
+
+<<<<<<< Updated upstream
 ###############################################
 ###############################################
 ###############################################
@@ -4857,12 +4926,21 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 
 
 
+=======
+# Then open force.html from a brownser -- it will use d3 to open the visualisation.
+>>>>>>> Stashed changes
 
+############
 
+## Excersise
 
+# A screen shot of the spdump.py running after you have crawled 100 pages from python-data.dr-chuck.net
 
+# A screen shot of the top 25 pages according to page rank that you crawled from python-data.dr-chuck.net visualized using force.html
 
+# A screen shot of the spdump.py running after you have crawled 100 pages from another web site
 
+# A screen shot of the top 25 pages according to page rank that you crawled from the other web site visualized using force.html
 
 
 
