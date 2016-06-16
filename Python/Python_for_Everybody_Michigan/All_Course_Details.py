@@ -4920,27 +4920,32 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 # So if you have a problem - don't be shy - let us know in the forums.
 
 
+#################
 
 
 
 
 
 
-=======
+
+
 # Then open force.html from a brownser -- it will use d3 to open the visualisation.
->>>>>>> Stashed changes
 
 ############
 
 ## Excersise
 
-# A screen shot of the spdump.py running after you have crawled 100 pages from python-data.dr-chuck.net
+# A screen shot of the spdump.py running after you have 
+	# crawled 100 pages from python-data.dr-chuck.net
 
-# A screen shot of the top 25 pages according to page rank that you crawled from python-data.dr-chuck.net visualized using force.html
+# A screen shot of the top 25 pages according to page rank 
+	# that you crawled from python-data.dr-chuck.net visualized using force.html
 
-# A screen shot of the spdump.py running after you have crawled 100 pages from another web site
+# A screen shot of the spdump.py running after you have 
+	# crawled 100 pages from another web site
 
-# A screen shot of the top 25 pages according to page rank that you crawled from the other web site visualized using force.html
+# A screen shot of the top 25 pages according to page rank 
+	# that you crawled from the other web site visualized using force.html
 
 
 
