@@ -4964,7 +4964,7 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 
 
 
-#### 20160616: Readings -> 15   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+#### 20160626: Readings -> 15   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
 
  ###############################################
 ########        General Notes       ###########
