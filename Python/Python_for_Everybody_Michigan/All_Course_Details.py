@@ -4854,7 +4854,11 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 ###############################################################################################
 ###############################################################################################
 
-## Week 1
+## Week 1: Welcome to the Capstone
+
+	# Congratulations to everyone for making it this far. Before you begin, please read the Capstone Overview and Technology Notes, and watch the video demonstration of the presentation gallery. You can try out the software by uploading an introduction to your fellow students. The Course Resources section contains additional course-wide material that you may want to refer to in future weeks.
+
+#########
 
 # This week we will download and run a simple version of the Google PageRank Algorithm. 
 # Here is an early paper by Larry Page and Sergy Brin, the founders of Google, 
@@ -4935,7 +4939,109 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 
 # Then open force.html from a brownser -- it will use d3 to open the visualisation.
 
+#### Passed
 
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## Week 2: Exploring Data Sources (Project)
+
+	# The optional Capstone project is your opportunity to select, process, and visualize the data of your choice, and receive feedback from your peers. The project is not graded, and can be as simple or complex as you like. This week's assignment is to identify a data source and make a short presentation describing the data source and outlining some possible analysis that could be done with it. You will not be required to use the data source presented here for your actual analysis.
+
+##########
+
+# Identifying Your Data Source - Introduction
+
+# In this week, we want you to identify a data source and make a short presentation about it. 
+# We have provided a reading page with a great set of starting points to give you ideas 
+# about some data sources that might be interesting to you.
+
+# Once you identify and evaluate your data source, 
+# we want you to make a short presentation (about 5 minutes) describing the data source 
+# and outline some possible analysis that could be done with the data source. 
+# You should make the presentation to your fellow students 
+# as they might want to do a project using the data source you are presenting. 
+# You should think of yourself as a teacher in this presentation.
+
+
+# If you like, you can also make a page in the Coursera Wiki - here is a sample page I created.
+	# https://share.coursera.org/wiki/index.php/PythonlearnCapstone:Student-drchuck
+
+# And again, making a presentation is completely optional. 
+# If you do not want to make a presentation, you are still encouraged to review 
+# and comment on some of the presentations by other students.
+
+# In later weeks you will analyze and present your analysis of your data. 
+# We are happy for the analysis to be done by either an individual or a group. 
+# You can create threads in the forum to discuss your data project if you like.
+
+# And even if you make a presentation on one data source - 
+# you are not bound to do a project on that data source. 
+# You may see a presentation from another student that piques your interest 
+# and you may choose to join their effort 
+# or just do some data analysis on your own using their data source. 
+# We want this optional presentation track to give you as much flexibility 
+# as you need to learn as much as possible from the work.
+
+##########
+
+# List of Data Sources
+
+# This is a set of data sources curated by the instructional staff. 
+# Feel free to suggest new data sources in the forums. 
+# The initial list was provided by Kevyn Collins-Thomson from the University of Michigan School of Information.
+
+## Long general-purpose list of datasets:
+	# https://vincentarelbundock.github.io/Rdatasets/datasets.html
+
+# This website has dozens of public datasets - some fun, some a bit, well.. quirky. 
+# external link: 
+	# http://rs.io/2014/05/29/list-of-data-sets.html
+
+# The Academic Torrents site has a growing number of datasets, 
+# including a few text collections that might be of interest 
+# (Wikipedia, email, twitter, academic, etc.) for current or future projects.
+	# http://academictorrents.com/browse.php?cat=6
+
+# Google Books n-gram corpus
+
+	# external link: http://books.google.com/ngrams
+
+# Dataset: external link: 
+	# http://aws.amazon.com/datasets/8172056142375670
+
+
+# Common Crawl: • Currently 6 billion Web documents (81 Tb) • 
+# Amazon S3 Public Data Set 
+	# http://aws.amazon.com/datasets/41740
+	# https://commoncrawl.atlassian.net/wiki/display/CRWL/About+the+Data+Set
+
+
+# Award project using Common Crawl:
+	# http://norvigaward.github.io/entries.html
+
+# Python example: 
+	# http://www.freelancer.com/projects/Python-Data-Processing/Python-script-for-CommonCrawl.html
+
+# Business/commercial data Yelp external link: 
+	# http://www.yelp.com/developers/documentation/v2/search_api
+
+# Internet Archive (huge, ever-growing archive of the Web going back to 1990s) external link: 
+	# http://archive.org/help/json.php
+
+# WikiData: 
+	# https://www.wikidata.org/wiki/Wikidata:Main_Page
+
+
+####################
+		# My project options
+## TFL
+	# https://api-portal.tfl.gov.uk/docs
+## UK Postcodes
+	# http://postcodes.io/docs
+		# matches postcode to long / lat similar to google maps api.
+####################
 
 
 
