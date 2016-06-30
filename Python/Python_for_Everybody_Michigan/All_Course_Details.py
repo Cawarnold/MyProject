@@ -5097,7 +5097,9 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 	# Sample solution: http://www.dr-chuck.net/pythonlearn/code/gmane.zip
 	# content.sqlite : https://online.dr-chuck.com/files/sakai/email/content.sqlite.zip
 
-## Has github ignored the sqlite files?
+## Has github ignored the sqlite files? Had to delete the Github versions of them.
+## Now I've deleted them from Github and Local. (after local sync)
+## Try a commit with changes in notes and content.sqlite in local.
 
 
 
