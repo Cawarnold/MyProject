@@ -5097,6 +5097,7 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 	# Sample solution: http://www.dr-chuck.net/pythonlearn/code/gmane.zip
 	# content.sqlite : https://online.dr-chuck.com/files/sakai/email/content.sqlite.zip
 
+## Has github ignored the sqlite files?
 
 
 
