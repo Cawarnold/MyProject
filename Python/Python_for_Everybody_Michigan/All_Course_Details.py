@@ -5095,6 +5095,7 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 	# Please keep your comments positive and useful. 
 
 	# Sample solution: http://www.dr-chuck.net/pythonlearn/code/gmane.zip
+	# content.sqlite : https://online.dr-chuck.com/files/sakai/email/content.sqlite.zip
 
 
 
