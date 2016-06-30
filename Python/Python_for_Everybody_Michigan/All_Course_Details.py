@@ -5101,6 +5101,7 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 ## Now I've deleted them from Github and Local. (after local sync)
 ## Try a commit with changes in notes and content.sqlite (mini) in local. Worked.
 ## Now try with content.sqlite (max) in local.
+## Successfully ignored!
 
 
 
