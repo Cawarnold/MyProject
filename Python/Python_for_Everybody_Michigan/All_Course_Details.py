@@ -5099,7 +5099,8 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 
 ## Has github ignored the sqlite files? Had to delete the Github versions of them.
 ## Now I've deleted them from Github and Local. (after local sync)
-## Try a commit with changes in notes and content.sqlite in local.
+## Try a commit with changes in notes and content.sqlite (mini) in local. Worked.
+## Now try with content.sqlite (max) in local.
 
 
 
