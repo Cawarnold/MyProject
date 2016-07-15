@@ -12,8 +12,8 @@
 
 
 
-
-
+#### This is -- Internet History, Technology, and Security by Charles Severance	
+## http://academictorrents.com/details/d666bf4b83066bcf7401e9c155fcd1b1c01cfb11
 
 
 #####################################################################
@@ -5103,7 +5103,16 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 ## Now try with content.sqlite (max) in local.
 ## Successfully ignored!
 
+###############################################################################################
+###############################################################################################
+###############################################################################################
 
+## Week 4: Materials
+
+# The task for this week is to make a presentation that reflects the progress 
+# you have made to date in retrieving and cleaning up your data source 
+# so can perform your analysis. 
+# Feedback from other students is encouraged to help you refine the process.
 
 
 
@@ -5140,15 +5149,76 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 							,[CRS_SalesPerson_LastName]
 							,[CRS_SalesPerson_ID]
 
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## Week 5: Visualizing Email Data
+
+# In the final required assignment, we will do two visualizations of the email data 
+# you have retrieved and processed: a word cloud to visualize the frequency distribution 
+# and a timeline to show how the data is changing over time.
 
 
+# This week we visualize our retrieved mail data. 
+# We will do a word cloud visualization. While a word cloud might seem a little silly 
+# and over-used, it is actually a very engaging way to visualize a frequency distribution 
+# or histogram. The word cloud is really a nice continuation of frequency/counting 
+# assignments we have been doing throughout this specialization.
+
+# The second visualization will be to show how the data is changing over time. 
+# Since not all students will download all of the data, 
+# we must be remember that not all the visualizations will look the same when 
+# we are peer-grading other student submissions.
+
+# This is also a good time to remember to remind those with slow network 
+# connections or those who have connections that are charged for bandwidth - 
+# that they should avoid attempting to download all 1GB of the mail data 
+# before they attempt their visualization.
+
+#### Exercise: Mailing List Data - Part II
+
+# In this assignment you will visualize the mailing list data you have downloaded 
+# from http://mbox.dr-chuck.net/ and take some screen shots. 
+# Important: You do not have to download all of the data - 
+# it is completely acceptable to visualize a small subset of the data for this assignment.
+
+# Don't take off points for little mistakes. 
+# If they seem to have done the assignment give them full credit. 
+# Feel free to make suggestions if there are small mistakes. 
+# Please keep your comments positive and useful. 
+# Assignment specification: 
+# https://www.coursera.org/learn/python-capstone/supplement/vbQKX/visualizing-email-data 
+# Sample solution: http://www.dr-chuck.net/pythonlearn/code/gmane.zip
 
 
+# Please Upload Your Submission:
+
+# A screen shot of you running the gbasic.py program to compute basic histogram data 
+# on the messages you have retrieved. 
+
+# A screen shot of word cloud visualization for the messages you have retrieved.
+
+# A screen shot of time line visualization for the messages you have retrieved. 
+
+# Optional Challenge: Change the gline.py program to show the message 
+# count by month instead of by year and 
+# take a screen shot to the by month visualization. 
+# You can switch from a by-year to a by-month visualization 
+# by changing only a few lines in gline.js. 
+
+# The puzzle is to figure out the smallest change to accomplish the change. 
+# If you do not want to do this optional challenge - 
+# just upload the above image a second time.
 
 
+## Steps:
+# 1. Run gmane.py -- to get all emails 
+# 2. Run gmodel.py -- to put all emails into database
+# 3. Run gword.py -- to prepare gword.htm
+# 4. Run gline.py -- to prepare gline.htm
 
-
-
+# Then look at the htm files from a browser.
 
 
 
