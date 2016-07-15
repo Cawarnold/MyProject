@@ -5107,6 +5107,38 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 
 
 
+							,[DealStatus]
+							,[Logbook Note]
+							,[Assigned lead]
+							,[Call]
+							,[Email]
+							,[Sales_EmailAddress]
+							,[Trial]
+							,[NBE]
+							,[CRM_ORG_ID]
+							,[Entity_ID]
+							,[Entity_Name]
+							,[Contact_in_vMDB]
+							,[Contact_in_ContactDB]
+							,[Contact_in_newbusiness]
+							,[Contact_in_Workflow]
+							,[Contact_in_CRS]
+							,[PL_Products]
+							,[Practical_Law]
+							,[WLUK]
+							,[WLI]
+							,[WLN]
+							,[WLAO]
+							,[SOLCARA]
+							,[SERENGETI]
+							,[Lawtel]
+							,[UKIPrint]
+							,[ENTERPRISE_ID]
+							,[CONTRACT_ID]
+							,[PRODUCT_NAME]
+							,[CRS_SalesPerson_FirstName]
+							,[CRS_SalesPerson_LastName]
+							,[CRS_SalesPerson_ID]
 
 
 
