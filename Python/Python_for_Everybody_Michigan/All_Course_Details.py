@@ -5041,6 +5041,8 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 ## UK Postcodes
 	# http://postcodes.io/docs
 		# matches postcode to long / lat similar to google maps api.
+## UK gov Land Registry - transaction data
+	# https://data.gov.uk/dataset/monthly-land-registry-property-transaction-data
 ####################
 
 
