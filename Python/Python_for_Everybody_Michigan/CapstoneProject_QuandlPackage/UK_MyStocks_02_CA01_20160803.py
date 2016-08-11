@@ -4,31 +4,38 @@ import numpy as np
 import pandas as pd
 import sqlite3
 import Quandl
+from hidden import quandl_ticker_get_df 
+import datetime
+import sys
 
 # activate Env_Python34_Quandl289
 
 
-#### Create Database for stocks ####
+#### Connect to (or Create) Database for stocks ####
 
 conn = sqlite3.connect('my_lse_database.sqlite')
 conn.text_factory = str
 cur = conn.cursor()
-
-## Create Stock Price Table
-
-cur.execute('DROP TABLE IF EXISTS Stock_EOD_Prices ')
-
-cur.execute('''CREATE TABLE IF NOT EXISTS Stock_EOD_Prices
-	(Date date unique, Stock_Symbol TEXT UNIQUE, Price_EOD TEXT)''')
+####
 
 
+#### Create Stock Price Table ####
+
+## Drop tables if need to restart
+# cur.execute('DROP TABLE IF EXISTS Stock_EOD_Prices ')
 cur.execute('DROP TABLE IF EXISTS My_Current_Stocks ')
 
+## Create tables
+cur.execute('''CREATE TABLE IF NOT EXISTS Stock_EOD_Prices
+	(Date date, Stock_Symbol TEXT UNIQUE, Price_EOD TEXT)''')
+
 cur.execute('''CREATE TABLE IF NOT EXISTS My_Current_Stocks
-	(Stock_Symbol TEXT UNIQUE, Number_of_Shares int)''')
+	(Stock_Symbol TEXT, Number_of_Shares int)''')
+####
 
 
-## List of my current Stocks and Shares
+
+#### Import list of my current Stocks and Shares ####
 
 Example_Stocks_and_Shares = [
 	# in the format: ['Stocks', 'Shares'],
@@ -49,8 +56,6 @@ Example_Stocks_and_Shares = [
 ['WPG'	,'387'],
 ]
 
-
-
 for item in Example_Stocks_and_Shares:
 	# extract the stock and the number of shares
 	stock = item[0]
@@ -60,6 +65,21 @@ for item in Example_Stocks_and_Shares:
 	cur.execute('''INSERT OR IGNORE INTO My_Current_Stocks (Stock_Symbol, Number_of_Shares) 
 		VALUES ( ?, ? )''', ( stock, share, ) )
 	conn.commit()
+####
+
+
+#### Check if Stock Price table is up to date, if so exit program ####
+cur.execute('''select distinct Date from Stock_EOD_Prices''')
+dates = cur.fetchall()
+
+latest_stockprice_date = dates[0][0]
+yesterdays_date = datetime.datetime.strftime(datetime.datetime.now()-datetime.timedelta(1),'%Y-%m-%d')
+
+if latest_stockprice_date == yesterdays_date:
+	print("Yesterday's data already in table.")
+	print("Exitting before sending request to Quandl.")
+	sys.exit() 
+####
 
 
 # select distinct stock symbols from My_Current_Stocks database
@@ -67,11 +87,20 @@ cur.execute('''select distinct Stock_Symbol from My_Current_Stocks''')
 list_stocks = cur.fetchall()
 
 for item in list_stocks:
+	stock_df = pd.DataFrame()
+	if len(stock_df) == 0:
+		print('DataFrame is empty')
 	# get ticker for quandl input
 	quandl_ticker = "LSE/"+str(item[0])
+	print(quandl_ticker)
 
 	# get pandas dataframe of stock
-	stock_df = Quandl.get(quandl_ticker)
+	stock_df = quandl_ticker_get_df(quandl_ticker)
+
+	if stock_df.empty:
+		print('DataFrame is empty!')
+	else:
+		print('DataFrame is not empty.')
 
 	# get yesterday's date and stock price for each current stock
 	yesterday_date = stock_df.tail(1).index[0].date() 	## Gives the date of the price -- yesterdays date.
@@ -84,43 +113,3 @@ for item in list_stocks:
 
 cur.close()
 
-
-
-
-'''
-
-# Create function that gets data from Quandl
-
-My_Current_Stock_Symbols = [
-	'BARC' #Barclays
-	,'LLOY' #Lloyds
-	,'MONI' #Monitise
-	,'MONY' #Moneysupermarket
-	,'WPG' #World Pay Group
-	,'TED' #Ted Baker
-	,'TCM' #Telit Communications
-	,'RMV' #Rightmove
-	,'GLEN' #Glencore
-	,'TRIG' #Renewables Infrastructure Group
-	,'EMIS' #EMIS 	#Electronic Patient Record System
-	,'ABC' #Abcam 	#Anitbodies research and kits
-	,'SEPU' #Sepura 	#Critical radio communications
-	]
-
-# print(type(My_Current_Stock_Symbols))
-
-lloyd_stock = My_Current_Stock_Symbols[1]
-quandl_ticker = "LSE/"+str(lloyd_stock)
-lloyd_df = Quandl.get(quandl_ticker)
-
-
-#### Get last days Stock value and date
-
-	## print(lloyd_df.iloc[0,0]) #iloc[rows,cols]
-
-
-#print(lloyd_df['Price'])
-
-yesterday_date = lloyd_df.tail(1).index[0].date() 	## Gives the date of the price -- yesterdays date.
-yesterday_price = lloyd_df.tail(1).iloc[0,0] 	## Gives the yesterdays price
-'''
