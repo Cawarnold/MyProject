@@ -16,20 +16,34 @@ cur = conn.cursor()
 cur.execute('''select distinct Stock_Symbol from My_Current_Stocks''')
 list_stocks = cur.fetchall()
 
+print(list_stocks)
+
+count = 0
 for item in list_stocks:
-	# get ticker for quandl input
-	quandl_ticker = "LSE/"+str(item[0])
+	stock_df = pd.DataFrame()
+	if len(stock_df) == 0:
+		print('DataFrame is empty')
+	while count < 5:
+		# get ticker for quandl input
+		count = count + 1
+		quandl_ticker = "LSE/"+str(item[0])
+		print(quandl_ticker)
+	
+		# get pandas dataframe of stock
+		stock_df = Quandl.get(quandl_ticker)
+	
+		if stock_df.empty:
+			print('DataFrame is empty!')
+		else:
+			print('DataFrame is not empty.')
 
-	# get pandas dataframe of stock
-	stock_df = Quandl.get(quandl_ticker)
-
-	# get yesterday's date and stock price for each current stock
-	yesterday_date = stock_df.tail(1).index[0].date() 	## Gives the date of the price -- yesterdays date.
-	yesterday_price = stock_df.tail(1).iloc[0,0] 	## Gives the yesterdays price
-
-	# insert date, stock symbol and price into Stock_EOD_Prices database
-	cur.execute('''INSERT OR IGNORE INTO Stock_EOD_Prices (Date, Stock_Symbol, Price_EOD) 
-		VALUES ( ?, ?, ? )''', ( yesterday_date, item[0], yesterday_price, ) )
-	conn.commit()
+#	# get yesterday's date and stock price for each current stock
+#	yesterday_date = stock_df.tail(1).index[0].date() 	## Gives the date of the price -- yesterdays date.
+#	yesterday_price = stock_df.tail(1).iloc[0,0] 	## Gives the yesterdays price
+#
+#	# insert date, stock symbol and price into Stock_EOD_Prices database
+#	cur.execute('''INSERT OR IGNORE INTO Stock_EOD_Prices (Date, Stock_Symbol, Price_EOD) 
+#		VALUES ( ?, ?, ? )''', ( yesterday_date, item[0], yesterday_price, ) )
+#	conn.commit()
 
 cur.close()

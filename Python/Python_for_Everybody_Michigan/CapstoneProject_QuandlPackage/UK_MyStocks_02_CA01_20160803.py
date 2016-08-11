@@ -31,7 +31,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS My_Current_Stocks
 ## List of my current Stocks and Shares
 
 Example_Stocks_and_Shares = [
-['Stocks', 'Shares'],
+	# in the format: ['Stocks', 'Shares'],
 ['AGM'	,'314'],
 ['SEPU'	,'1184'],
 ['TED'	,'40'],

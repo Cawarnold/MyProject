@@ -1,6 +1,4 @@
-#!/usr/bin/env
-
-## Guide
+# Guide
 
 The project is a basic Stock database / tables / graphs for an imaginary account.
 
