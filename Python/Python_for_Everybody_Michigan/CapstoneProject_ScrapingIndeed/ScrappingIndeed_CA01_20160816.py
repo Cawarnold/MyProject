@@ -55,7 +55,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Job_Details
 
 
 
-
+s
 
 
 
