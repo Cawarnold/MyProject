@@ -56,6 +56,9 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Job_Details
 
 
 
+
+
+
 #### Always page 1, for now ####
 
 url = 'http://www.indeed.co.uk/jobs?q=data+scientist&l=London'
