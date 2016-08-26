@@ -74,10 +74,12 @@ for item in Example_Stocks_and_Shares:
 cur.execute('''select distinct Date from Stock_EOD_Prices''')
 dates = cur.fetchall()
 
-if len(dates) > 0:
-	latest_stockprice_date = dates[0][0]
-	yesterdays_date = datetime.datetime.strftime(datetime.datetime.now()-datetime.timedelta(1),'%Y-%m-%d')
 
+## Issue: need to account for Stock Exchange working days, mon to fri. not sat or sun.
+if len(dates) > 0:
+	latest_stockprice_date = dates[-1][0] # Need last element dates[-1]
+	yesterdays_date = datetime.datetime.strftime(datetime.datetime.now()-datetime.timedelta(1),'%Y-%m-%d')
+	
 	if latest_stockprice_date == yesterdays_date:
 		print("Yesterday's,",latest_stockprice_date,", data already in table.")
 		print("Exiting before sending request to Quandl.")
