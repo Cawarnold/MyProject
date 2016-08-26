@@ -10,6 +10,9 @@ Stock Exchange: LSE
 ## Process
 
 UK_MyStocks_01CheckEnv_CA01_20160630
+UK_MyStocks_02InsertDaily
+
+
 
 
 
