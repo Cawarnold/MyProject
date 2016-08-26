@@ -41,15 +41,16 @@ for message_row in cur :
     if dns not in orgs : continue
     year = message_row[2][:4]
     if year not in years : years.append(year)
-    key = (year, dns)
+    key = (year, dns)    ## can be used as a key in a dict because it is a tuple.
     counts[key] = counts.get(key,0) + 1
-    tkey = (year, 'total')
+    tkey = (year, 'total')    ## now the tuple is the key, 
     counts[tkey] = counts.get(tkey,0) + 1
     
 years.sort()
 print counts
 print years
 
+## Creates the array of array which builds the table for js
 fhand = open('gline.js','w')
 fhand.write("gline = [ ['Year'")
 for org in orgs:

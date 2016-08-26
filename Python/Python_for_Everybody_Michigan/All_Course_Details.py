@@ -12,8 +12,8 @@
 
 
 
-
-
+#### This is -- Internet History, Technology, and Security by Charles Severance	
+## http://academictorrents.com/details/d666bf4b83066bcf7401e9c155fcd1b1c01cfb11
 
 
 #####################################################################
@@ -4736,8 +4736,6 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 # some real data retrieval, cleaning, and visualization.
 
 
-
-
 ###############################################
 ###############################################
 ###############################################
@@ -4852,6 +4850,377 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 
 
 
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## Week 1: Welcome to the Capstone
+
+	# Congratulations to everyone for making it this far. Before you begin, please read the Capstone Overview and Technology Notes, and watch the video demonstration of the presentation gallery. You can try out the software by uploading an introduction to your fellow students. The Course Resources section contains additional course-wide material that you may want to refer to in future weeks.
+
+#########
+
+# This week we will download and run a simple version of the Google PageRank Algorithm. 
+# Here is an early paper by Larry Page and Sergy Brin, the founders of Google, 
+# that describes their early thoughts about the algorithm:
+
+	# http://infolab.stanford.edu/~backrub/google.html
+
+# We will provide you with sample code and lectures that walk through the sample code:
+
+	# http://www.dr-chuck.net/pythonlearn/code/pagerank.zip
+
+# There is not a lot of new code to write - it is mostly looking at the code and making the code work. 
+# You will be able to spider some simple content that we provide and then play with the program 
+# to spider some other content. 
+# Part of the fun of this assignment is when things go wrong and 
+# you figure out how to solve a problem when the program wanders 
+# into some data that breaks its retrieval and parsing. 
+# So you will get used to starting over with a fresh database and running your web crawl.
+
+
+###############################################
+###############################################
+###############################################
+
+
+#### Exercise Chuck -- Peer Grade: Page Rank
+
+# First you will spider 100 pages from http://python-data.dr-chuck.net/ run the page rank algorithm 
+# and take some screen shots. 
+
+# Then you will reset the spider process and spider 100 pages from any other site on the Internet, 
+# run the page rank algorithm, and take some screen shots.
+
+# This course uses a third-party tool, Peer Grade: Page Rank, to enhance your learning experience. 
+# The tool will reference basic information like your name, email, and Coursera ID.
+
+# Don't take off points for little mistakes. 
+# If they seem to have done the assignment give them full credit. 
+# Feel free to make suggestions if there are small mistakes. 
+# Please keep your comments positive and useful. 
+
+# Sample solution: http://www.dr-chuck.net/pythonlearn/code/pagerank.zip
+
+
+
+############
+
+## Excersise
+
+# A screen shot of the spdump.py running after you have 
+	# crawled 100 pages from python-data.dr-chuck.net
+
+# A screen shot of the top 25 pages according to page rank 
+	# that you crawled from python-data.dr-chuck.net visualized using force.html
+
+# A screen shot of the spdump.py running after you have 
+	# crawled 100 pages from another web site
+
+# A screen shot of the top 25 pages according to page rank 
+	# that you crawled from the other web site visualized using force.html
+
+
+
+############
+
+# Steps to run the pagerank project
+
+	# Spider and Rank is a Crawl.
+
+# Start with spider.py -- it spiders pages. goes to the page and takes all the url links.
+
+# Then use sprank.py -- it ranks the spidered pages. only ranks those which have links. 
+
+# Then use spdump.py -- it prints out the joined data of Pages and Lins.
+
+# Then run spjson.py -- it puts the data into spider.js ready for d3 visualisation.
+
+
+# Then open force.html from a brownser -- it will use d3 to open the visualisation.
+
+#### Passed
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## Week 2: Exploring Data Sources (Project)
+
+	# The optional Capstone project is your opportunity to select, process, and visualize the data of your choice, and receive feedback from your peers. The project is not graded, and can be as simple or complex as you like. This week's assignment is to identify a data source and make a short presentation describing the data source and outlining some possible analysis that could be done with it. You will not be required to use the data source presented here for your actual analysis.
+
+##########
+
+# Identifying Your Data Source - Introduction
+
+# In this week, we want you to identify a data source and make a short presentation about it. 
+# We have provided a reading page with a great set of starting points to give you ideas 
+# about some data sources that might be interesting to you.
+
+# Once you identify and evaluate your data source, 
+# we want you to make a short presentation (about 5 minutes) describing the data source 
+# and outline some possible analysis that could be done with the data source. 
+# You should make the presentation to your fellow students 
+# as they might want to do a project using the data source you are presenting. 
+# You should think of yourself as a teacher in this presentation.
+
+
+# If you like, you can also make a page in the Coursera Wiki - here is a sample page I created.
+	# https://share.coursera.org/wiki/index.php/PythonlearnCapstone:Student-drchuck
+
+# And again, making a presentation is completely optional. 
+# If you do not want to make a presentation, you are still encouraged to review 
+# and comment on some of the presentations by other students.
+
+# In later weeks you will analyze and present your analysis of your data. 
+# We are happy for the analysis to be done by either an individual or a group. 
+# You can create threads in the forum to discuss your data project if you like.
+
+# And even if you make a presentation on one data source - 
+# you are not bound to do a project on that data source. 
+# You may see a presentation from another student that piques your interest 
+# and you may choose to join their effort 
+# or just do some data analysis on your own using their data source. 
+# We want this optional presentation track to give you as much flexibility 
+# as you need to learn as much as possible from the work.
+
+##########
+
+# List of Data Sources
+
+# This is a set of data sources curated by the instructional staff. 
+# Feel free to suggest new data sources in the forums. 
+# The initial list was provided by Kevyn Collins-Thomson from the University of Michigan School of Information.
+
+## Long general-purpose list of datasets:
+	# https://vincentarelbundock.github.io/Rdatasets/datasets.html
+
+# This website has dozens of public datasets - some fun, some a bit, well.. quirky. 
+# external link: 
+	# http://rs.io/2014/05/29/list-of-data-sets.html
+
+# The Academic Torrents site has a growing number of datasets, 
+# including a few text collections that might be of interest 
+# (Wikipedia, email, twitter, academic, etc.) for current or future projects.
+	# http://academictorrents.com/browse.php?cat=6
+
+# Google Books n-gram corpus
+
+	# external link: http://books.google.com/ngrams
+
+# Dataset: external link: 
+	# http://aws.amazon.com/datasets/8172056142375670
+
+
+# Common Crawl: • Currently 6 billion Web documents (81 Tb) • 
+# Amazon S3 Public Data Set 
+	# http://aws.amazon.com/datasets/41740
+	# https://commoncrawl.atlassian.net/wiki/display/CRWL/About+the+Data+Set
+
+
+# Award project using Common Crawl:
+	# http://norvigaward.github.io/entries.html
+
+# Python example: 
+	# http://www.freelancer.com/projects/Python-Data-Processing/Python-script-for-CommonCrawl.html
+
+# Business/commercial data Yelp external link: 
+	# http://www.yelp.com/developers/documentation/v2/search_api
+
+# Internet Archive (huge, ever-growing archive of the Web going back to 1990s) external link: 
+	# http://archive.org/help/json.php
+
+# WikiData: 
+	# https://www.wikidata.org/wiki/Wikidata:Main_Page
+
+
+####################
+		# My project options
+## TFL
+	# https://api-portal.tfl.gov.uk/docs
+## UK Postcodes
+	# http://postcodes.io/docs
+		# matches postcode to long / lat similar to google maps api.
+## UK gov Land Registry - transaction data
+	# https://data.gov.uk/dataset/monthly-land-registry-property-transaction-data
+####################
+
+
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## Week 3: Spidering Modeling Email data
+
+# This week we do the first half of a project to download, process, and visualize 
+# an email corpus from the Sakai open source project from 2004-2011:
+
+	# http://mbox.dr-chuck.net/
+
+# This is a large amount of data and requires significant cleanup 
+# to make sense of the data before we visualize it.
+
+# Important: You do not have to download all of the data to complete this project. 
+# Depending on your Internet connection, downloading nearly a gigabyte of data might be impossible. 
+# All we want to do is to have you download a small subset of the data 
+# and run the steps to process the data.
+
+# Here is the software we will be using to retrieve and process the email data:
+
+	# http://www.dr-chuck.net/pythonlearn/code/gmane.zip
+
+# If you have a fast network connection with no bandwidth charge 
+# - you can download all the data. 
+# If you try to download all the data it may take well over 24 hours to pull the data. 
+# The good news is that because there are separate crawl, clean, model, and visualization steps, 
+# you can start and stop the crawl process as often as you like 
+# and run the other processes on the data which has been downloaded so far.
+
+
+#### Exercise: Loading and Modeling Mail Data
+
+# This assignment you will start the spidering of the email data 
+# and run the gmodel.py program and take some screen shots. 
+# You are welcome to look at the code and make modifications - 
+# but you can complete the assignment without making any code changes.
+
+	# Mailing List Data - Part I
+
+	# In this assignment you will download some of the mailing list data 
+	# from http://mbox.dr-chuck.net/ 
+	# and run the data cleaning / modeling process and take some screen shots.
+
+	# Don't take off points for little mistakes. 
+	# If they seem to have done the assignment give them full credit. 
+	# Feel free to make suggestions if there are small mistakes. 
+	# Please keep your comments positive and useful. 
+
+	# Sample solution: http://www.dr-chuck.net/pythonlearn/code/gmane.zip
+	# content.sqlite : https://online.dr-chuck.com/files/sakai/email/content.sqlite.zip
+
+## Has github ignored the sqlite files? Had to delete the Github versions of them.
+## Now I've deleted them from Github and Local. (after local sync)
+## Try a commit with changes in notes and content.sqlite (mini) in local. Worked.
+## Now try with content.sqlite (max) in local.
+## Successfully ignored!
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## Week 4: Materials
+
+# The task for this week is to make a presentation that reflects the progress 
+# you have made to date in retrieving and cleaning up your data source 
+# so can perform your analysis. 
+# Feedback from other students is encouraged to help you refine the process.
+
+
+
+							,[DealStatus]
+							,[Logbook Note]
+							,[Assigned lead]
+							,[Call]
+							,[Email]
+							,[Sales_EmailAddress]
+							,[Trial]
+							,[NBE]
+							,[CRM_ORG_ID]
+							,[Entity_ID]
+							,[Entity_Name]
+							,[Contact_in_vMDB]
+							,[Contact_in_ContactDB]
+							,[Contact_in_newbusiness]
+							,[Contact_in_Workflow]
+							,[Contact_in_CRS]
+							,[PL_Products]
+							,[Practical_Law]
+							,[WLUK]
+							,[WLI]
+							,[WLN]
+							,[WLAO]
+							,[SOLCARA]
+							,[SERENGETI]
+							,[Lawtel]
+							,[UKIPrint]
+							,[ENTERPRISE_ID]
+							,[CONTRACT_ID]
+							,[PRODUCT_NAME]
+							,[CRS_SalesPerson_FirstName]
+							,[CRS_SalesPerson_LastName]
+							,[CRS_SalesPerson_ID]
+
+###############################################################################################
+###############################################################################################
+###############################################################################################
+
+## Week 5: Visualizing Email Data
+
+# In the final required assignment, we will do two visualizations of the email data 
+# you have retrieved and processed: a word cloud to visualize the frequency distribution 
+# and a timeline to show how the data is changing over time.
+
+
+# This week we visualize our retrieved mail data. 
+# We will do a word cloud visualization. While a word cloud might seem a little silly 
+# and over-used, it is actually a very engaging way to visualize a frequency distribution 
+# or histogram. The word cloud is really a nice continuation of frequency/counting 
+# assignments we have been doing throughout this specialization.
+
+# The second visualization will be to show how the data is changing over time. 
+# Since not all students will download all of the data, 
+# we must be remember that not all the visualizations will look the same when 
+# we are peer-grading other student submissions.
+
+# This is also a good time to remember to remind those with slow network 
+# connections or those who have connections that are charged for bandwidth - 
+# that they should avoid attempting to download all 1GB of the mail data 
+# before they attempt their visualization.
+
+#### Exercise: Mailing List Data - Part II
+
+# In this assignment you will visualize the mailing list data you have downloaded 
+# from http://mbox.dr-chuck.net/ and take some screen shots. 
+# Important: You do not have to download all of the data - 
+# it is completely acceptable to visualize a small subset of the data for this assignment.
+
+# Don't take off points for little mistakes. 
+# If they seem to have done the assignment give them full credit. 
+# Feel free to make suggestions if there are small mistakes. 
+# Please keep your comments positive and useful. 
+# Assignment specification: 
+# https://www.coursera.org/learn/python-capstone/supplement/vbQKX/visualizing-email-data 
+# Sample solution: http://www.dr-chuck.net/pythonlearn/code/gmane.zip
+
+
+# Please Upload Your Submission:
+
+# A screen shot of you running the gbasic.py program to compute basic histogram data 
+# on the messages you have retrieved. 
+
+# A screen shot of word cloud visualization for the messages you have retrieved.
+
+# A screen shot of time line visualization for the messages you have retrieved. 
+
+# Optional Challenge: Change the gline.py program to show the message 
+# count by month instead of by year and 
+# take a screen shot to the by month visualization. 
+# You can switch from a by-year to a by-month visualization 
+# by changing only a few lines in gline.js. 
+
+# The puzzle is to figure out the smallest change to accomplish the change. 
+# If you do not want to do this optional challenge - 
+# just upload the above image a second time.
+
+
+## Steps:
+# 1. Run gmane.py -- to get all emails 
+# 2. Run gmodel.py -- to put all emails into database
+# 3. Run gword.py -- to prepare gword.htm
+# 4. Run gline.py -- to prepare gline.htm
+
+# Then look at the htm files from a browser.
 
 
 
@@ -4863,36 +5232,7 @@ arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#### 20160512: Readings -> 15   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
+#### 20160626: Readings -> 15   http://do1.dr-chuck.com/py4inf/EN-us/book.pdf
 
  ###############################################
 ########        General Notes       ###########
