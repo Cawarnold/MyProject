@@ -48,7 +48,7 @@ print 'finished dict', d
 x = { 'a' : 1, 'b' : 2, 'c': 3}
 list_of_tuples_stuff = x.items()
 print list_of_tuples_stuff
->>> [('a', 1), ('c', 3), ('b', 2)]
+>>> [('a', 1), ('c', 3), ('b', 2)] 
 
 #### Regex Cheatsheet
 	https://www.debuggex.com/cheatsheet/regex/python
