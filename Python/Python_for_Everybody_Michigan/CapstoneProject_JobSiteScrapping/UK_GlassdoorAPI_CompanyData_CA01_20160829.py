@@ -1,6 +1,7 @@
 #!/usr/bin/env
 
 from __future__ import unicode_literals
+import sys
 import numpy as np
 import pandas as pd
 import sqlite3
@@ -16,32 +17,24 @@ import hidden
 
 # activate Env_Python2712
 
-####
+
+
+
+
+
+
+
+#### GET Request to Glassdoor API ####
+
 # The Glassdoor API is a simple, lightweight REST API that responds 
 # to http requests with JSON (future support for XML is planned). 
 # Because it is a REST API, it is completely stateless. 
 # Requests are expected to be made in the form of a simple HTTP GET.
 
-def test_glassdoor_api():
-	x = 1
-
-
-
-#test_url = 'http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=89958&t.k=gBpvHITc7jO&action=employers&q=pharmaceuticals&userip=149.72.61.234&useragent=Mozilla/%2F4.0'
-
-#r = requests.get(test_url)
-#print(r)
-
-#data = json.load(urllib2.urlopen(test_url))
-#print(data)
-
-
-
+## base URL of API
 base_url = 'http://api.glassdoor.com/api/api.htm?'
 
-
-
-#### The parameters for the GET request ####
+## The parameters for the GET request ##
 payload = {
 	'v': '1'		# Version
 	, 'format': 'json'
@@ -55,20 +48,51 @@ payload = {
 	, 'country': 'UK'			# Country
 }
 
-#### Avoids API's mod_security by setting useragent to known browser ####
-#http://stackoverflow.com/questions/16627227/http-error-403-in-python-3-web-scraping
+## Avoids API's mod_security by setting useragent to known browser ##
+		#http://stackoverflow.com/questions/16627227/http-error-403-in-python-3-web-scraping
 url_headers = {
 	'User-Agent': 'Mozilla/5.0'
 }
 
 r = requests.get(base_url, params=payload, headers=url_headers)
-print(r.url)
+
+## Check request status
 if r.status_code == '200':
 	print(r.url)
-	print('Successful api call')
-json_data = r.json()
+	json_data = r.json()
 
-print(json_data['status'])
+## Exit script if json data status not OK ##
+if 'status' not in js or json_data['status'] != 'OK': 
+	sys.exit()
+else:
+	print('Successful api call')
+
+
+#### Connect to (or Create) Database ####
+
+conn = sqlite3.connect('my_lse_database.sqlite')
+conn.text_factory = str
+cur = conn.cursor()
+####
+
+
+#### Create Stock Price Table ####
+
+## Drop tables if need to restart
+#cur.execute('DROP TABLE IF EXISTS Stock_EOD_Prices ')
+cur.execute('DROP TABLE IF EXISTS My_Current_Stocks ')
+
+## Create tables
+cur.execute('''CREATE TABLE IF NOT EXISTS Stock_EOD_Prices
+	(Date DATE, Stock_Symbol TEXT, Price_EOD TEXT
+	, UNIQUE(Date, Stock_Symbol) ON CONFLICT REPLACE)''')
+
+cur.execute('''CREATE TABLE IF NOT EXISTS My_Current_Stocks
+	(Stock_Symbol TEXT, Number_of_Shares INT)''')
+####
+
+
+
 
 
 print(json_data['response']['currentPageNumber'])
@@ -76,6 +100,8 @@ print(json_data['response']['totalNumberOfPages'])
 print(json_data['response']['totalRecordCount'])
 
 
+
+while count < 10:
 
 print(json_data['response']['employers'][0]['id'])
 print(json_data['response']['employers'][0]['name'])
