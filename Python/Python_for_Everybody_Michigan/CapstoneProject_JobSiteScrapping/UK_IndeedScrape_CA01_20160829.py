@@ -55,8 +55,6 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Job_Details
 
 
 
-s
-
 
 
 #### Always page 1, for now ####

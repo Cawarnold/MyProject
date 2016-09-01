@@ -31,6 +31,9 @@ import hidden
 # Because it is a REST API, it is completely stateless. 
 # Requests are expected to be made in the form of a simple HTTP GET.
 
+## Example URL
+# http://api.glassdoor.com/api/api.htm?q=pharmaceutical&action=employers&t.p=89958&v=1&userip=159.220.75.4&useragent=Python&format=json&t.k=gBpvHITc7jO
+
 ## base URL of API
 base_url = 'http://api.glassdoor.com/api/api.htm?'
 
@@ -70,28 +73,28 @@ else:
 
 #### Connect to (or Create) Database ####
 
-conn = sqlite3.connect('my_lse_database.sqlite')
+conn = sqlite3.connect('glassdoor_database.sqlite')
 conn.text_factory = str
 cur = conn.cursor()
 ####
 
 
-#### Create Stock Price Table ####
+#### Create Employers Tables ####
 
 ## Drop tables if need to restart
-#cur.execute('DROP TABLE IF EXISTS Stock_EOD_Prices ')
+cur.execute('DROP TABLE IF EXISTS GD_Employers ')
 cur.execute('DROP TABLE IF EXISTS My_Current_Stocks ')
 
 ## Create tables
-cur.execute('''CREATE TABLE IF NOT EXISTS Stock_EOD_Prices
-	(Date DATE, Stock_Symbol TEXT, Price_EOD TEXT
-	, UNIQUE(Date, Stock_Symbol) ON CONFLICT REPLACE)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS GD_Employers
+	(gde_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+	, employer_id INTEGER, employer_name TEXT
+	, website TEXT, industry TEXT)''')
 
-cur.execute('''CREATE TABLE IF NOT EXISTS My_Current_Stocks
-	(Stock_Symbol TEXT, Number_of_Shares INT)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Employer_Rating
+	(employer_id INTEGER, numberOfRatings INT
+	, overallRating REAL, ratingDescription TEXT)''')
 ####
-
-
 
 
 
@@ -99,40 +102,27 @@ print(json_data['response']['currentPageNumber'])
 print(json_data['response']['totalNumberOfPages'])
 print(json_data['response']['totalRecordCount'])
 
-
-
-while count < 10:
-
 print(json_data['response']['employers'][0]['id'])
 print(json_data['response']['employers'][0]['name'])
 print(json_data['response']['employers'][0]['website'])
 print(json_data['response']['employers'][0]['industry'])
 
-
 print(json_data['response']['employers'][0]['numberOfRatings'])
 print(json_data['response']['employers'][0]['overallRating'])
 print(json_data['response']['employers'][0]['ratingDescription'])
 
-
-
-
-
-
-
-'''
 count = 0
 while count < 10:
-	try: js = json.loads(str(data))
-	except: js = None
-	if 'status' not in js or js['status'] != 'OK':
-		print '==== Failure To Retrieve ====' 
-		print data
-		continue
-	print json.dumps(js, indent=4)
+	employer_id = json_data['response']['employers'][count]['id']
+	employer_name = json_data['response']['employers'][count]['name']
+	website = json_data['response']['employers'][count]['website']
+	industry = json_data['response']['employers'][count]['industry']
+
+	numberOfRatings = json_data['response']['employers'][count]['numberOfRatings']
+	overallRating = json_data['response']['employers'][count]['overallRating']
+	ratingDescription = json_data['response']['employers'][count]['ratingDescription']
+
 	
-	lat = js["results"][0]["geometry"]["location"]["lat"] 
-	lng = js["results"][0]["geometry"]["location"]["lng"] 
-	print 'lat',lat,'lng',lng
-	location = js['results'][0]['formatted_address'] 
-	print location
-'''
+
+
+	
