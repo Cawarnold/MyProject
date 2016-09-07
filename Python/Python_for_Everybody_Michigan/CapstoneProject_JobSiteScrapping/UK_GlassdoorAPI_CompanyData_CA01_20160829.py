@@ -62,10 +62,11 @@ r = requests.get(base_url, params=payload, headers=url_headers)
 ## Check request status
 if r.status_code == '200':
 	print(r.url)
-	json_data = r.json()
+
+json_data = r.json()
 
 ## Exit script if json data status not OK ##
-if 'status' not in js or json_data['status'] != 'OK': 
+if 'status' not in json_data or json_data['status'] != 'OK': 
 	sys.exit()
 else:
 	print('Successful api call')
@@ -120,6 +121,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS GD_Employer_Seach_Query
 
 count = 0
 while count < 10:
+	count = count + 1
 	employer_id = json_data['response']['employers'][count]['id']
 	employer_name = json_data['response']['employers'][count]['name']
 	website = json_data['response']['employers'][count]['website']
