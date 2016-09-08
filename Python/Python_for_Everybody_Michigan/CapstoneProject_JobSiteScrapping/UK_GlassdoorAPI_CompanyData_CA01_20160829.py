@@ -46,7 +46,7 @@ payload = {
 	, 't.k': hidden.GlassdoorAPI()[1]
 	, 'userip': hidden.GlassdoorAPI()[2]
 	, 'action': 'employers'
-	, 'q': 'pharmaceutical'		# Query phrase
+	, 'q': 'analytic'		# Query phrase
 	, 'l': 'london'				# Location,  city, state, or country
 	, 'country': 'UK'			# Country
 }
@@ -86,9 +86,9 @@ cur = conn.cursor()
 #### Create Employers Tables ####
 
 ## Drop tables if need to restart
-cur.execute('DROP TABLE IF EXISTS GD_Employers')
-cur.execute('DROP TABLE IF EXISTS GD_Employer_Rating')
-cur.execute('DROP TABLE IF EXISTS GD_Employer_Seach_Query')
+#cur.execute('DROP TABLE IF EXISTS GD_Employers')
+#cur.execute('DROP TABLE IF EXISTS GD_Employer_Rating')
+#cur.execute('DROP TABLE IF EXISTS GD_Employer_Seach_Query')
 
 
 ## Create tables
@@ -120,7 +120,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS GD_Employer_Seach_Query
 #### Parse and Insert useful data from Glassdoor ####
 
 count = 0
-while count < 10:
+while count < 9:
 	count = count + 1
 	employer_id = json_data['response']['employers'][count]['id']
 	employer_name = json_data['response']['employers'][count]['name']
