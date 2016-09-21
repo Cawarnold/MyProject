@@ -59,6 +59,8 @@ cur.execute('''CREATE TABLE IF NOT EXISTS JobPost_HTML
 
 #### Use the base URL to get the actual job spec ####
 
+	## Job titles
+		# Python Data Engineer
 
 # go through each job on theguardian website using 6386547 plus 1
 # check the html text for keywords: sql python analyst
