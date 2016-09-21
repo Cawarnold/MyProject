@@ -79,7 +79,7 @@ while job_count < 10:
 	# guardian_job_id = 6377990 + 1	# starting job id, will become max job id from the database.
 	
 	cur.execute('SELECT max(guardian_job_id) FROM JobPost_URLs')
-	guardian_job_id = cur.fetchone()[0] + 1
+	guardian_job_id = cur.fetchone()[0] + 1 # Adds 1 to the max guardian job id
 	print(guardian_job_id)
 
 	url = base_url + str(guardian_job_id)
