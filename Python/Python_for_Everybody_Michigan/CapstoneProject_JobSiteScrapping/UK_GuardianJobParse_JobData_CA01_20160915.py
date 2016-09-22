@@ -68,14 +68,77 @@ cur = conn.cursor()
 cur.execute('SELECT HTML FROM JobPost_HTML WHERE jp_url_id = ? ', (1, ))
 html = cur.fetchone()[0]
 
-print(html[0:2000])
+#print(html[0:2000])
+
+
+soup = BeautifulSoup(html, "html.parser")
+
+#########################################
+#### Method for extracting Job Title ####
+
+#for item in soup.findAll('div', attrs={'class': 'grid'}):
+#	print(item.text)
+#	print(type(item.text))
+#	print(item)
+#	print(type(item))
+
+#### Gets Header -- Job Title
+#for item in soup.findAll('div', attrs={'class':'grid'}):
+#	print(item.h1.contents[0])
+#	print(type(item.h1.contents[0]))
+
+#for item in soup.findAll('div', attrs={'class':'grid'}):
+#	for h1 in item.findAll('h1', attrs={'itemprop':'title'}):
+#		job_title = str(h1.contents[0])
+#
+#print(job_title)
+
+#########################################
+#### Recruiter ####
+
+#recruiter = []
+#for item in soup.findAll('div', attrs={'class': 'grid'}):
+#	for span in item.findAll('span', attrs={'itemprop':'name'}):
+#		for line in span:
+#			recruiter.append(line)
+#print(recruiter[0])
+
+#########################################
+#### job_details ####
+
+dt_items = []
+dd_items = []
+for item in soup.findAll('div', attrs={'class': 'grid'}):
+	for dts in item.findAll("dt"):
+		dt_items.append(re.sub('[^A-Za-z0-9\-]+', '', dts.contents[0]))
+	for dds in item.findAll("dd"):
+		dd_items.append(re.sub('[^A-Za-z0-9\-]+', '', dds.contents[0]))
+
+#print(dt_items)
+#print(dd_items)
+
+## Location
+
+if dt_items[1] == 'Location':
+	job_location = dd_items[1]
+
+## Salary Range
+
+if dt_items[2] == 'Salary':
+	job_salary = dd_items[2]
+	if re.match('[0-9]+[\-][0-9]+[a-zA-Z]+',job_salary):
+		salary_high = (re.split('[\-](.*?)[a-zA-Z]+',job_salary))[1]
+		salary_low = (re.split('[\-](.*?)[a-zA-Z]+',job_salary))[0]
+
+
+print(salary_high)
+print(salary_low)
+
+job_salary = (int(salary_high) + int(salary_low))/2
 
 
 
 
+#print(job_location)
+print(job_salary)
 
-# soup = BeautifulSoup(html, "html.parser")
-# 
-# header = soup('h1')
-# 
-# print(header)['title']# 
