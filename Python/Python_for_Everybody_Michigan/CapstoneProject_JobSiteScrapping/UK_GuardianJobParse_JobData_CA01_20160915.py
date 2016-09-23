@@ -30,7 +30,7 @@ cur = conn.cursor()
 #### Create Tables ####
 
 ## Drop tables if need to restart
-# cur.execute('DROP TABLE IF EXISTS JobPost_Details ')
+#cur.execute('DROP TABLE IF EXISTS JobPost_Details ')
 
 
 ## Create tables JobPost_Parse_HTML 
@@ -42,6 +42,9 @@ cur.execute('''CREATE TABLE IF NOT EXISTS JobPost_Details
 	, job_location text
 	, job_salary text
 	, job_posted text
+	, job_closes text
+	, job_ref text
+	, job_industry text
 	, job_joblevel text
 	, job_hours text
 	, job_contract text
@@ -74,7 +77,18 @@ cur.execute('''CREATE TABLE IF NOT EXISTS JobPost_Details
 
 #### Scrape HTML
 
-jp_url_id = 3
+#count_jobs = 1
+#while count_jobs < 10:
+
+jp_url_id = 0
+cur.execute('SELECT h.jp_url_id FROM JobPost_HTML h LEFT OUTER JOIN JobPost_Details d ON h.jp_url_id = d.jp_url_id WHERE d.jp_url_id is null')
+jp_url_id = cur.fetchone()[0]
+print('Processing jp_url_id: ' + str(jp_url_id))
+
+if jp_url_id == 0:
+	print('Program Exiting ...') 
+	sys.exit()
+
 cur.execute('SELECT HTML FROM JobPost_HTML WHERE jp_url_id = ? ', (jp_url_id, ))
 html = cur.fetchone()[0]
 
@@ -148,9 +162,9 @@ while count_dt_items < 15:
 	if dt_items[count_dt_items] == 'Location': job_location 			= dd_items[count_dt_items] ## Location starts at [1]
 	if dt_items[count_dt_items] == 'Salary': job_salary 				= dd_items[count_dt_items]
 	if dt_items[count_dt_items] == 'Posted':	job_posted 				= dd_items[count_dt_items]
-	if dt_items[count_dt_items] == 'Closes': job_joblevel				= dd_items[count_dt_items]
+	if dt_items[count_dt_items] == 'Closes': job_closes					= dd_items[count_dt_items]
 	if dt_items[count_dt_items] == 'Ref': job_ref						= dd_items[count_dt_items]
-	if dt_items[count_dt_items] == 'Industry': job_ref					= dd_items[count_dt_items]
+	if dt_items[count_dt_items] == 'Industry': job_industry				= dd_items[count_dt_items]
 	if dt_items[count_dt_items] == 'JobLevel': job_joblevel				= dd_items[count_dt_items]
 	if dt_items[count_dt_items] == 'Hours': job_hours 					= dd_items[count_dt_items]
 	if dt_items[count_dt_items] == 'Contract': job_contract 			= dd_items[count_dt_items]	
@@ -162,6 +176,9 @@ while count_dt_items < 15:
 #print(job_location)
 #print(job_salary)
 #print(job_posted)
+#print(job_closes)
+#print(job_ref)
+#print(job_industry)
 #print(job_joblevel)
 #print(job_hours)
 #print(job_contract)
@@ -176,13 +193,16 @@ while count_dt_items < 15:
 
 cur.execute('''INSERT OR IGNORE INTO JobPost_Details 
 		(jp_url_id, job_title, recruiter, job_location
-			, job_salary, job_joblevel, job_hours
+			, job_salary, job_posted, job_closes, job_ref
+			, job_industry, job_joblevel, job_hours
 			, job_contract, job_listingtype) 
-		VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? )''', 
+		VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )''', 
 		( jp_url_id, job_title, recruiter, job_location
-			, job_salary, job_joblevel, job_hours
+			, job_salary, job_posted, job_closes, job_ref
+			, job_industry, job_joblevel, job_hours
 			, job_contract, job_listingtype , ) )
 
+print('Commiting Job details to database')
 conn.commit()
 
 

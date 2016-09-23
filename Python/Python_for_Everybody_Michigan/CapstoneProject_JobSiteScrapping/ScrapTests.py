@@ -19,22 +19,15 @@ import datetime
 # activate Env_Python2712
 
 
+#### Connect to (or Create) Database for the job postings from Indeed ####
 
-base_url = 'https://jobs.theguardian.com/job/'
-url_headers = { 'User-Agent': 'Mozilla/5.0' }
+conn = sqlite3.connect('guardiancrawl_database.sqlite')
+conn.text_factory = str
+cur = conn.cursor()
+####
 
-job_count = 0
-while job_count < 1:
-	job_count = job_count + 1
-	guardian_job_id = 6377990 	# starting job id, will become max job id from the database.
-	url = base_url + str(guardian_job_id + job_count)
-	r = requests.get(url, headers=url_headers)
-	print(r.url)
-	print(r.status_code)
-	html = r.content
-	#print(html[0:30000])
 
-	soup = BeautifulSoup(html, "html.parser")
-	
-	for item in soup.findAll('div', {'class': 'grid'}):
-		
+cur.execute('SELECT h.jp_url_id FROM JobPost_HTML h LEFT OUTER JOIN JobPost_Details d ON h.jp_url_id = d.jp_url_id WHERE d.jp_url_id is null')
+jp_url_id = cur.fetchone()[0]
+
+print(jp_url_id)
