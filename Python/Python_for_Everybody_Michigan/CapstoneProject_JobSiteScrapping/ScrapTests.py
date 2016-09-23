@@ -31,3 +31,7 @@ cur.execute('SELECT h.jp_url_id FROM JobPost_HTML h LEFT OUTER JOIN JobPost_Deta
 jp_url_id = cur.fetchone()[0]
 
 print(jp_url_id)
+
+cur.execute('SELECT u.guardian_job_id FROM JobPost_HTML h inner join JobPost_URLs u on h.jp_url_id = u.jp_url_id WHERE h.jp_url_id = ? ', (jp_url_id, ))
+guardian_job_id = cur.fetchone()[0]
+print(guardian_job_id)

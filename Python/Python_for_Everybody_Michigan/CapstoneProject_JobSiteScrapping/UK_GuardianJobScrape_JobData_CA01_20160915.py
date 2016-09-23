@@ -1,4 +1,5 @@
-#!/usr/bin/env 
+#!/usr/bin/env
+# -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
 import sys
