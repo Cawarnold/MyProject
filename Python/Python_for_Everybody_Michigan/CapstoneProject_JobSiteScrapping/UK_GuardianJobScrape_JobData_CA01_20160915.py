@@ -74,19 +74,32 @@ cur.execute('''CREATE TABLE IF NOT EXISTS JobPost_HTML
 base_url = 'https://jobs.theguardian.com/job/'
 url_headers = { 'User-Agent': 'Mozilla/5.0' }
 
+## Get maximum guardian_job_id
+
+cur.execute('SELECT max(guardian_job_id) FROM JobPost_URLs')
+guardian_job_id = cur.fetchone()[0]
+
+# If restarting database from scratch, then need starter guardian_job_id.
+if not guardian_job_id:
+	guardian_job_id = 6377990 	# guardian_job_id = 6377990 # starting job id, will become max job id from the database.
+
+print(guardian_job_id)
+
 job_count = 0
 while job_count < 10:
-	job_count = job_count + 1
-	# guardian_job_id = 6377990 + 1	# starting job id, will become max job id from the database.
-	
-	cur.execute('SELECT max(guardian_job_id) FROM JobPost_URLs')
-	guardian_job_id = cur.fetchone()[0] + 1 # Adds 1 to the max guardian job id
-	print(guardian_job_id)
+	job_count = job_count + 1	
+	guardian_job_id = int(guardian_job_id) + int(1)
 
 	url = base_url + str(guardian_job_id)
 	r = requests.get(url, headers=url_headers)
 	print(r.url)
-	print(r.status_code)
+
+	## Skip URLs where the status_code is not 200.
+	if r.status_code != 200:
+		print('URL Status :'+str(r.status_code))
+		print('URL skipped')
+		continue
+
 
 	cur.execute('''INSERT INTO JobPost_URLs (guardian_job_id, url_date, url, url_status) VALUES (?, ?, ?, ?)''', 
 		(guardian_job_id, datetime.datetime.now().strftime ("%Y%m%d"), r.url, r.status_code, ) )

@@ -81,18 +81,21 @@ count_jobs = 1
 while count_jobs < 10:
 	## Get jp_url_id which has not been processed yet.
 	jp_url_id = 0
-	cur.execute('SELECT h.jp_url_id FROM JobPost_HTML h LEFT OUTER JOIN JobPost_Details d ON h.jp_url_id = d.jp_url_id WHERE d.jp_url_id is null')
-	jp_url_id = cur.fetchone()[0]
+	cur.execute('SELECT h.jp_url_id FROM JobPost_HTML h INNER JOIN JobPost_URLs u ON h.jp_url_id = u.jp_url_id LEFT OUTER JOIN JobPost_Details d ON h.jp_url_id = d.jp_url_id WHERE d.jp_url_id is null and u.url_status = ?',('200',))
+	
+	# Exit program if no rows left to parse
+	if jp_url_id == 0:
+		print('Program Exiting ...')
+		cur.close()
+		sys.exit()
+	else:
+		jp_url_id = cur.fetchone()[0]
 	print('Processing jp_url_id: ' + str(jp_url_id))
 
 	cur.execute('SELECT u.guardian_job_id FROM JobPost_HTML h inner join JobPost_URLs u on h.jp_url_id = u.jp_url_id WHERE h.jp_url_id = ? ', (jp_url_id, ))
 	guardian_job_id = cur.fetchone()[0]
 	print('Printing guardian job url: https://jobs.theguardian.com/job/' + str(guardian_job_id))
 
-	if jp_url_id == 0:
-		print('Program Exiting ...')
-		cur.close()
-		sys.exit()
 
 	## Fetch the HTML for the jp_url_id
 	cur.execute('SELECT HTML FROM JobPost_HTML WHERE jp_url_id = ? ', (jp_url_id, ))
