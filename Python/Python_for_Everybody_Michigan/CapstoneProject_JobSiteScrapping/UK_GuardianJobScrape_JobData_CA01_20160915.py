@@ -83,7 +83,7 @@ guardian_job_id = cur.fetchone()[0]
 if not guardian_job_id:
 	guardian_job_id = 6377990 	# guardian_job_id = 6377990 # starting job id, will become max job id from the database.
 
-print(guardian_job_id)
+print('Current max guardian job id:' + str(guardian_job_id))
 
 job_count = 0
 while job_count < 10:
@@ -96,8 +96,7 @@ while job_count < 10:
 
 	## Skip URLs where the status_code is not 200.
 	if r.status_code != 200:
-		print('URL Status :'+str(r.status_code))
-		print('URL skipped')
+		print('     URL Status :'+str(r.status_code)+'  ...   URL skipped')
 		continue
 
 
@@ -115,3 +114,4 @@ while job_count < 10:
 		(jp_url_id, html) )
 
 	conn.commit()
+cur.close()

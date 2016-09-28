@@ -1,7 +1,7 @@
 #!/usr/bin/env 
 
 from __future__ import unicode_literals
-import sys
+import sys			# sys.exit()
 import numpy as np
 import pandas as pd
 import sqlite3
@@ -77,21 +77,23 @@ cur.execute('''CREATE TABLE IF NOT EXISTS JobPost_Details
 
 #### Scrape HTML
 
-count_jobs = 1
+count_jobs = 0
 while count_jobs < 10:
+	count_jobs = count_jobs + 1
 	## Get jp_url_id which has not been processed yet.
 	jp_url_id = 0
 	cur.execute('SELECT h.jp_url_id FROM JobPost_HTML h INNER JOIN JobPost_URLs u ON h.jp_url_id = u.jp_url_id LEFT OUTER JOIN JobPost_Details d ON h.jp_url_id = d.jp_url_id WHERE d.jp_url_id is null and u.url_status = ?',('200',))
 	
-	# Exit program if no rows left to parse
-	if jp_url_id == 0:
-		print('Program Exiting ...')
-		cur.close()
-		sys.exit()
-	else:
+	## Catch errors with try / except.
+	try:
 		jp_url_id = cur.fetchone()[0]
-	print('Processing jp_url_id: ' + str(jp_url_id))
 
+	except:
+		print('Program Exiting ...')
+		continue
+
+	print('Processing jp_url_id: ' + str(jp_url_id))
+	
 	cur.execute('SELECT u.guardian_job_id FROM JobPost_HTML h inner join JobPost_URLs u on h.jp_url_id = u.jp_url_id WHERE h.jp_url_id = ? ', (jp_url_id, ))
 	guardian_job_id = cur.fetchone()[0]
 	print('Printing guardian job url: https://jobs.theguardian.com/job/' + str(guardian_job_id))
