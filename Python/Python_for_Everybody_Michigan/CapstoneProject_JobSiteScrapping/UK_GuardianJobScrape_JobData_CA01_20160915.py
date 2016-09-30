@@ -83,7 +83,7 @@ guardian_job_id = cur.fetchone()[0]
 if not guardian_job_id:
 	guardian_job_id = 6377990 	# guardian_job_id = 6377990 # starting job id, will become max job id from the database.
 
-print('Current max guardian job id:' + str(guardian_job_id))
+print('Current max guardian job id:  ' + str(guardian_job_id))
 
 job_count = 0
 while job_count < 10:

@@ -93,7 +93,7 @@ while count_jobs < 10:
 		continue
 
 	print('Processing jp_url_id: ' + str(jp_url_id))
-	
+
 	cur.execute('SELECT u.guardian_job_id FROM JobPost_HTML h inner join JobPost_URLs u on h.jp_url_id = u.jp_url_id WHERE h.jp_url_id = ? ', (jp_url_id, ))
 	guardian_job_id = cur.fetchone()[0]
 	print('Printing guardian job url: https://jobs.theguardian.com/job/' + str(guardian_job_id))
@@ -138,10 +138,10 @@ while count_jobs < 10:
 			for line in span:
 				recruiter_list.append(line)
 
-	recruiter = ''
-	print(recruiter_list)
-	#if len(recruiter_list) :
-		#recruiter = recruiter_list[0]
+	if len(recruiter_list) > 1:
+		recruiter = recruiter_list[0]
+	else:
+		print(recruiter_list)
 
 #########################################
 #### job_details ####
@@ -177,7 +177,7 @@ while count_jobs < 10:
 		count_dt_items = count_dt_items + 1
 		if dt_items[count_dt_items] == 'Location': job_location 			= dd_items[count_dt_items] ## Location starts at [1]
 		if dt_items[count_dt_items] == 'Salary': job_salary 				= dd_items[count_dt_items]
-		if dt_items[count_dt_items] == 'Posted':	job_posted 				= dd_items[count_dt_items]
+		if dt_items[count_dt_items] == 'Posted': job_posted 				= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'Closes': job_closes					= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'Ref': job_ref						= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'Industry': job_industry				= dd_items[count_dt_items]
@@ -186,6 +186,15 @@ while count_jobs < 10:
 		if dt_items[count_dt_items] == 'Contract': job_contract 			= dd_items[count_dt_items]	
 		if dt_items[count_dt_items] == 'ListingType': job_listingtype		= dd_items[count_dt_items]
 
+
+## sometime Posted is in an HTML span:
+	span_items = []
+	for item in soup.findAll('div', attrs={'class': 'grid'}):
+		for dds in item.findAll("dd"):
+			for spans in dds.findAll("span"):
+				#print(spans.attrs['itemprop'])
+				#print(spans.contents[0])
+				if spans.attrs['itemprop'] == 'datePosted' and job_posted == '': job_posted = re.sub('[^A-Za-z0-9\-]+', '',spans.contents[0])
 
 #print(job_title)
 #print(recruiter)
