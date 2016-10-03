@@ -75,10 +75,12 @@ for item in soup.findAll('div', attrs={'class': 'grid'}):
 			if spans.attrs['itemprop'] == 'datePosted' and job_posted == '': job_posted = re.sub('[^A-Za-z0-9\-]+', '',spans.contents[0])
 
 
+###############################################################
+####### Category Lists #######
 
 #### Types of Job Industry ####
 
-types_Industry = [,'Arts & heritage','Charities','Construction','Design','Engineering','Environment'
+types_Industry = ['Arts & heritage','Charities','Construction','Design','Engineering','Environment'
 ,'Finance & Accounting','Further Education','General','Government & Politics','Health'
 ,'Higher Education','Hospitality','Housing','Legal','Leisure','Marketing & PR','Media'
 ,'Recruitment','Retail & FMCG','Schools','Science','Skilled Trade','Social care'
@@ -101,9 +103,15 @@ types_Job_Level = ['Apprenticeship', 'Entry Level', 'Graduate', 'Experienced (no
 types_Job_Contract = ['Permanent', 'Temp', 'Contract', 'Job share']
 
 
+#### Types of Job Hours ####
+
+types_Job_Hours = ['Full Time', 'Part Time']
+
+
 #### Types of Job Listing Type ####
 
 types_Job_ListingType = ['Job vacancy', 'Course', 'Graduate scheme', 'Internship']
+###############################################################
 
 
 
@@ -112,9 +120,16 @@ types_Job_ListingType = ['Job vacancy', 'Course', 'Graduate scheme', 'Internship
 for item in soup.findAll('div', attrs={'class': 'grid'}):
 	for dds in item.findAll("dd"):
 		for aas in dds.findAll("a"):
-			print(aas.attrs['href'])
-			print(aas.contents[0])
-			if aas.contents[0] in types_Job_Function: 
+			#print(aas.attrs['href'])
+			#print(aas.contents[0])
+			if aas.contents[0] in types_Industry: industry = aas.contents[0]
+			if aas.contents[0] in types_Job_Function: job_function = aas.contents[0]
+			if aas.contents[0] in types_Job_Level: job_level = aas.contents[0]
+			if aas.contents[0] in types_Job_Contract: job_contract = aas.contents[0]
+			if aas.contents[0] in types_Job_Hours: job_hours = aas.contents[0]
+			if aas.contents[0] in types_Job_ListingType: job_listingtype = aas.contents[0]
+
+
 
 
 

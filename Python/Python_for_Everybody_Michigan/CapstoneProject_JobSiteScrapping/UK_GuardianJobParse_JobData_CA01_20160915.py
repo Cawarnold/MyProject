@@ -180,8 +180,9 @@ while count_jobs < 10:
 		if dt_items[count_dt_items] == 'Posted': job_posted 				= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'Closes': job_closes					= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'Ref': job_ref						= dd_items[count_dt_items]
-		if dt_items[count_dt_items] == 'Industry': job_industry				= dd_items[count_dt_items]
-		if dt_items[count_dt_items] == 'JobLevel': job_joblevel				= dd_items[count_dt_items]
+		if dt_items[count_dt_items] == 'Industry': industry					= dd_items[count_dt_items]
+		if dt_items[count_dt_items] == 'JobFunction': job_function			= dd_items[count_dt_items]
+		if dt_items[count_dt_items] == 'JobLevel': job_level				= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'Hours': job_hours 					= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'Contract': job_contract 			= dd_items[count_dt_items]	
 		if dt_items[count_dt_items] == 'ListingType': job_listingtype		= dd_items[count_dt_items]
@@ -195,6 +196,62 @@ while count_jobs < 10:
 				#print(spans.attrs['itemprop'])
 				#print(spans.contents[0])
 				if spans.attrs['itemprop'] == 'datePosted' and job_posted == '': job_posted = re.sub('[^A-Za-z0-9\-]+', '',spans.contents[0])
+
+
+###############################################################
+####### Category Lists #######
+
+#### Types of Job Industry ####
+
+	types_Industry = ['Arts & heritage','Charities','Construction','Design','Engineering','Environment'
+		,'Finance & Accounting','Further Education','General','Government & Politics','Health'
+		,'Higher Education','Hospitality','Housing','Legal','Leisure','Marketing & PR','Media'
+		,'Recruitment','Retail & FMCG','Schools','Science','Skilled Trade','Social care'
+		,'Social Enterprise','Technology','Travel & transport']
+
+
+#### Types of Job Level ####
+
+	types_Job_Function = ['Administration', 'Consultant', 'Customer service', 'Finance', 'HR & Training'
+		, 'IT', 'Legal', 'Marketing/PR', 'Sales', 'Secretarial']
+
+
+#### Types of Job Level ####
+
+	types_Job_Level = ['Apprenticeship', 'Entry Level', 'Graduate', 'Experienced (non manager)', 'Management', 'Senior Executive']
+
+
+#### Types of Job Contract ####
+
+	types_Job_Contract = ['Permanent', 'Temp', 'Contract', 'Job share']
+
+
+#### Types of Job Hours ####
+
+	types_Job_Hours = ['Full Time', 'Part Time']
+
+
+#### Types of Job Listing Type ####
+
+	types_Job_ListingType = ['Job vacancy', 'Course', 'Graduate scheme', 'Internship']
+###############################################################
+
+
+
+#### Collect up all the href fields ####
+
+	for item in soup.findAll('div', attrs={'class': 'grid'}):
+		for dds in item.findAll("dd"):
+			for aas in dds.findAll("a"):
+				#print(aas.attrs['href'])
+				#print(aas.contents[0])
+				if aas.contents[0] in types_Industry: industry = aas.contents[0]		## will need some adjusting
+				if aas.contents[0] in types_Job_Function: job_function = aas.contents[0]
+				if aas.contents[0] in types_Job_Level: job_level = aas.contents[0]
+				if aas.contents[0] in types_Job_Hours: job_hours = aas.contents[0]
+				if aas.contents[0] in types_Job_Contract: job_contract = aas.contents[0]
+				if aas.contents[0] in types_Job_ListingType: job_listingtype = aas.contents[0]
+
 
 #print(job_title)
 #print(recruiter)
@@ -224,7 +281,7 @@ while count_jobs < 10:
 			VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )''', 
 			( jp_url_id, job_title, recruiter, job_location
 				, job_salary, job_posted, job_closes, job_ref
-				, job_industry, job_joblevel, job_hours
+				, job_industry, job_level, job_hours
 				, job_contract, job_listingtype , ) )
 
 	print('Commiting Job details to database')
