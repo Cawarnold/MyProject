@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-import sys
+import sys		# sys.exit()
 import numpy as np
 import pandas as pd
 import sqlite3
@@ -94,16 +94,44 @@ while job_count < 10:
 	r = requests.get(url, headers=url_headers)
 	print(r.url)
 
-	## Skip URLs where the status_code is not 200.
+#### Skip URLs where the status_code is not 200.
 	if r.status_code != 200:
 		print('     URL Status :'+str(r.status_code)+'  ...   URL skipped')
 		continue
 
+#### If Date Posted was yesterday stop running query
+
+	soup = BeautifulSoup(r.content, "html.parser")
+
+	dt_items = []
+	dd_items = []
+	for item in soup.findAll('div', attrs={'class': 'grid'}):
+		for dts in item.findAll("dt"):
+			dt_items.append(re.sub('[^A-Za-z0-9\-]+', '', dts.contents[0]))
+		for dds in item.findAll("dd"):
+			dd_items.append(re.sub('[^A-Za-z0-9\-]+', '', dds.contents[0]))
+
+	job_posted = ''
+
+	count_dt_items = 0
+	while count_dt_items < 15:
+		count_dt_items = count_dt_items + 1
+		if dt_items[count_dt_items] == 'Posted': job_posted 				= dd_items[count_dt_items]
+
+	yesterday = (datetime.datetime.today() - datetime.timedelta(days=1)).strftime('%d%b%Y') 
+
+	if job_posted in yesterday:
+		print('Job posts up to date: ' + str(yesterday))
+		print('Quitting program...')
+		sys.exit()
+
+
+#### Insert job ID and URLs into JobPost_URLs
 
 	cur.execute('''INSERT INTO JobPost_URLs (guardian_job_id, url_date, url, url_status) VALUES (?, ?, ?, ?)''', 
 		(guardian_job_id, datetime.datetime.now().strftime ("%Y%m%d"), r.url, r.status_code, ) )
 
-	#### Scrape HTML
+#### Scrape HTML
 
 	cur.execute('SELECT jp_url_id FROM JobPost_URLs WHERE guardian_job_id = ? ', (guardian_job_id, ))
 	jp_url_id = cur.fetchone()[0]
