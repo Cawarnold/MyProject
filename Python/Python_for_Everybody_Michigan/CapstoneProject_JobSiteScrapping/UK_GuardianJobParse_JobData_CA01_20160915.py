@@ -166,8 +166,8 @@ while count_jobs < 10:
 	job_posted = ''
 	job_closes = ''
 	job_ref = ''
-	job_industry = ''
-	job_joblevel = ''
+	industry = ''
+	job_level = ''
 	job_hours = ''
 	job_contract = ''
 	job_listingtype = ''
@@ -180,7 +180,6 @@ while count_jobs < 10:
 		if dt_items[count_dt_items] == 'Posted': job_posted 				= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'Closes': job_closes					= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'Ref': job_ref						= dd_items[count_dt_items]
-		if dt_items[count_dt_items] == 'Industry': industry					= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'JobFunction': job_function			= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'JobLevel': job_level				= dd_items[count_dt_items]
 		if dt_items[count_dt_items] == 'Hours': job_hours 					= dd_items[count_dt_items]
@@ -226,6 +225,7 @@ while count_jobs < 10:
 	types_Job_Contract = ['Permanent', 'Temp', 'Contract', 'Job share']
 
 
+
 #### Types of Job Hours ####
 
 	types_Job_Hours = ['Full Time', 'Part Time']
@@ -245,13 +245,37 @@ while count_jobs < 10:
 			for aas in dds.findAll("a"):
 				#print(aas.attrs['href'])
 				#print(aas.contents[0])
-				if aas.contents[0] in types_Industry: industry = aas.contents[0]		## will need some adjusting
 				if aas.contents[0] in types_Job_Function: job_function = aas.contents[0]
 				if aas.contents[0] in types_Job_Level: job_level = aas.contents[0]
 				if aas.contents[0] in types_Job_Hours: job_hours = aas.contents[0]
 				if aas.contents[0] in types_Job_Contract: job_contract = aas.contents[0]
 				if aas.contents[0] in types_Job_ListingType: job_listingtype = aas.contents[0]
 
+#### Getting the list of industries associated with the Organisation ####
+
+	## need to build out industries hierarchy
+	industry = []
+	for item in soup.findAll('div', attrs={'class': 'grid'}):
+		for dds in item.findAll("dd"):
+			for aas in dds.findAll("a"):
+				print(aas.contents[0])
+				if aas.contents[0] in types_Industry: industry.append(aas.contents[0])		## will need some adjusting
+	#print(industry)
+
+	#job_industry = ''
+	ind_counts = dict()
+	for ind in industry:
+		ind_counts[ind] = ind_counts.get(ind,0) + 1
+	#print(ind_counts)
+
+	job_industry = ''
+	for key in ind_counts:
+		if job_industry == '':
+			job_industry = job_industry + key
+		else:
+			job_industry = job_industry + ', ' + key
+
+	print(job_industry)
 
 #print(job_title)
 #print(recruiter)
@@ -285,6 +309,9 @@ while count_jobs < 10:
 				, job_contract, job_listingtype , ) )
 
 	print('Commiting Job details to database')
+	print('')
+	print('')
+	
 	conn.commit()
 
 
