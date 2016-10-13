@@ -22,7 +22,7 @@ import datetime
 
 #### Connect to (or Create) Database for the job postings from Indeed ####
 
-conn = sqlite3.connect('guardiancrawl_database.sqlite')
+conn = sqlite3.connect('harnhamcrawl_database.sqlite')
 conn.text_factory = str
 cur = conn.cursor()
 ####
@@ -38,7 +38,6 @@ cur = conn.cursor()
 ## Create tables JobPost_URL_Scrapped
 cur.execute('''CREATE TABLE IF NOT EXISTS JobPost_URLs
   (jp_url_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
-  , guardian_job_id int
   , url_date DATE
   , url TEXT UNIQUE
   , url_status int
@@ -69,6 +68,8 @@ cur.execute('''CREATE TABLE IF NOT EXISTS JobPost_HTML
 # dump html as text
 # add 1 
 # continue
+
+http://www.harnham.com/jobs/?s=1&o4=&q=python&o1=&matchany=0&o2=893&ij=0&ds=&e=&page=1&lang=&referral=0&sortdir=desc&st=0&o3=&sortby=WebsiteDate&pagesize=10
 
 
 base_url = 'https://jobs.theguardian.com/job/'

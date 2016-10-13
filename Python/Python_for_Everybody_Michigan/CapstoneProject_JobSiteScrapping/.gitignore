@@ -2,3 +2,4 @@ hidden.py
 indeed_job_postings.sqlite
 glassdoor_database.sqlite
 guardiancrawl_database.sqlite
+harnhamcrawl_database.sqlite
