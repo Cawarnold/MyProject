@@ -81,12 +81,12 @@ guardian_job_id = cur.fetchone()[0]
 
 # If restarting database from scratch, then need starter guardian_job_id.
 if not guardian_job_id:
-	guardian_job_id = 6377990 	# guardian_job_id = 6377990 # starting job id, will become max job id from the database.
+	guardian_job_id = 6401000 	# guardian_job_id = 6377990 # starting job id, will become max job id from the database.
 
 print('Current max guardian job id:  ' + str(guardian_job_id))
 
 job_count = 0
-while job_count < 10:
+while job_count < 10000:
 	job_count = job_count + 1	
 	guardian_job_id = int(guardian_job_id) + int(1)
 
@@ -98,6 +98,35 @@ while job_count < 10:
 	if r.status_code != 200:
 		print('     URL Status :'+str(r.status_code)+'  ...   URL skipped')
 		continue
+
+#### Skip Guardian job IDs which are already in table.
+
+	cur.execute('SELECT guardian_job_id FROM JobPost_URLs where guardian_job_id = ?', (guardian_job_id, ))
+	try:
+		print('The Guardian job ID' + str(cur.fetchone()[0]) + 'is already in table')
+		continue
+	except:
+		'continue with code'
+
+#### Skip URLs which are already in table.
+	# Issue, https://jobs.theguardian.com/job/6382952 and https://jobs.theguardian.com/job/6401020
+	# go to same job: https://jobs.theguardian.com/job/6401020/newspaper-ad-sales-specialist-print-and-online-/
+
+	cur.execute('SELECT URL FROM JobPost_URLs where url like ?', ('%'+str(guardian_job_id)+'%', ))
+	try:
+		print('The URL' + str(cur.fetchone()[0]) + 'is already in table')
+		continue
+	except:
+		'continue with code'
+
+	cur.execute('SELECT URL FROM JobPost_URLs where url = ?', (r.url, ))
+	try:
+		print('The URL' + str(cur.fetchone()[0]) + 'is already in table')
+		continue
+	except:
+		'continue with code'
+
+
 
 #### If Date Posted was yesterday stop running query
 
@@ -113,10 +142,13 @@ while job_count < 10:
 
 	job_posted = ''
 
-	count_dt_items = 0
-	while count_dt_items < 15:
-		count_dt_items = count_dt_items + 1
-		if dt_items[count_dt_items] == 'Posted': job_posted 				= dd_items[count_dt_items]
+	try:
+		count_dt_items = 0
+		while count_dt_items < 15:
+			count_dt_items = count_dt_items + 1
+			if dt_items[count_dt_items] == 'Posted': job_posted 				= dd_items[count_dt_items]
+	except:
+		print('job no longer available')
 
 	span_items = []
 	for item in soup.findAll('div', attrs={'class': 'grid'}):
@@ -129,8 +161,11 @@ while job_count < 10:
 
 	yesterday = (datetime.datetime.today() - datetime.timedelta(days=1)).strftime('%d%b%Y') 
 
-	print(job_posted)
-	print(yesterday)
+	try:
+		print(job_posted)
+		print(yesterday)
+	except:
+		print('job no longer available')
 
 	if job_posted == yesterday:
 		print('Job posts up to date: ' + str(yesterday))
