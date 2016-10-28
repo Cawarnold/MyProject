@@ -78,7 +78,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS JobPost_Details
 #### Scrape HTML
 
 count_jobs = 0
-while count_jobs < 10:
+while count_jobs < 0:
 	count_jobs = count_jobs + 1
 	## Get jp_url_id which has not been processed yet.
 	jp_url_id = 0

@@ -1,0 +1,449 @@
+
+/*** Begginers tutorial to using D3.js ***/
+
+
+#####################################
+#####################################
+#####################################
+
+https://square.github.io/intro-to-d3/
+
+############
+Web Standards
+############
+
+Sections:
+	HTML
+	CSS
+	The DOM
+	SVG
+
+D3 is built on top of several common web standards.
+Don’t worry if you don’t know all the nitty-gritty details of these standards, 
+you can pick this stuff up pretty quickly.
+
+// CA_20161027: Must go to page to see CSS in action.
+
+####
+	HTML
+####
+
+HTML (HyperText Markup Language) is a text format that most web pages are written in. HTML uses a standard set of tags to define the different structural components of a webpage: <h1>, <h2> tags define headers, <p> tags define paragraphs, <ol> and <ul> are ordered and unordered lists. Browsers have common ways to display these tags, so lists show up like lists, and headers like headers.
+
+The <div> and <span> tags are special because browers don’t apply default styles to them, so HTML authors can use them to define custom groups.
+
+The basic outline of an HTML page is something like this:
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TITLE GOES HERE</title>
+  </head>
+  <body>
+    MAIN CONTENT GOES HERE
+  </body>
+</html>
+
+
+####
+	CSS
+####
+
+CSS (Cascading Stylesheets) is a language for styling HTML pages.
+CSS styles (also known as selectors) are typically applied to HTML tags based on their name, class, or ID.
+
+Here are some simple CSS rules and how they apply.
+
+<div>
+  <p>Normal paragraph</p>
+
+  <p class="red">Red paragraph</p>
+</div>
+
+<ol>
+  <li id="some-id">Unique element</li>
+  <li>Another list element</li>
+  <li>
+    <p>Paragraph inside list element</p>
+    <p>Second paragraph</p>
+  </li>
+</ol>
+
+    
+/* Applied to all <p> tags */
+p {
+  color: blue;
+}
+
+/* Applied to all tags with the class "red" */
+.red {
+  background: red;
+}
+
+/* Applied to the tag with the id "some-id" */
+#some-id {
+  font-style: italic;
+}
+
+/* Applied only to <p> tags that are inside <li> tags */
+li p {
+  color: #0C0;
+}
+    
+
+####
+	The DOM
+####
+
+When a browser displays an HTML page, it creates an interactive object graph from the tag hierarchy. This object graph is called the Document Object Model, or DOM.
+
+The standard DOM API is somewhat verbose, so many libraries like jQuery and D3 provide some syntactic sugar that borrows from CSS notation.
+
+Here are some examples of accessing the DOM programatically.
+
+<div>
+  <p>Normal paragraph</p>
+
+  <p class="red">Red paragraph</p>
+</div>
+
+<ol>
+  <li id="some-id">Unique element</li>
+  <li>Another list element</li>
+  <li>
+    <p>Paragraph inside list element</p>
+    <p>Second paragraph</p>
+  </li>
+</ol>
+
+    
+// DOM API
+document.getElementById('some-id');
+// <li id="some-id">Unique element</li>
+document.getElementsByTagName('p').length;
+// 4
+var reds = document.getElementsByClassName('red');
+// [<p class="red">Red paragraph</p>]
+reds[0].innerText
+// "Red paragraph"
+    
+// D3 Selection API
+d3.select('p').size(); // select() only finds one
+// 1
+d3.selectAll('p').size(); // selectAll() finds all
+// 4
+var reds = d3.selectAll('.red');
+// [ > Array[1] ]
+reds.text();
+// "Red paragraph"
+    
+The DOM also handles tracking elements as they are rendered, as well as events like mouse movement. You can attach listeners to these events to add various levels of interactivity to your page.
+
+Here are some examples of adding listeners to the click, mouseover and mouseleave events. D3 has some nice helper methods for working with events as well.
+
+<h1 id="click-me">
+  Click on me!
+</h1>
+
+<p class="hover-me">
+  Hover over me!
+</p>
+
+<p class="hover-me">
+  OK now hover over here!
+</p>
+
+<p class="hover-me">
+  Hover here too!
+</p>
+    
+// DOM API
+var clickMe = document.getElementById('click-me');
+clickMe.onclick = function() {
+  if (this.style.backgroundColor) {
+    this.style.backgroundColor = '';
+  } else {
+    this.style.backgroundColor = 'red';
+  }
+}
+
+// D3 Selection API. Note: it attaches the
+// callbacks to each element in the selection
+d3.selectAll('.hover-me')
+  .on('mouseover', function() {
+    this.style.backgroundColor = 'yellow';
+  })
+  .on('mouseleave', function() {
+    this.style.backgroundColor = '';
+  });
+    
+
+Note: In the D3 examples, the methods on the selection can chain (that is, they return themselves, so we can group them visually).
+
+
+####
+	SVG
+####
+
+SVG (Scalable Vector Graphics) is an XML format used for drawing. You can think of SVG in a lot of the same terms as the DOM – there are elements with parents and children and attributes, and you can respond to the same mouse/touch events.
+
+Even CSS styles and selectors can apply to SVG elements. The CSS attribute names for SVG come from the SVG definition, so they are sometimes different from their HTML brethren. (For example, to change the background color of a div to red you would select it then set background-color: red but to get the same effect on an SVG rectangle you would instead use the attribute fill: red since an SVG rect doesn’t respond to background-color for styling.)
+
+SVG defines tags for lots of basic shapes, like <rect> and <circle> and <line>.
+
+<svg width="300" height="180">
+  <circle cx="30"  cy="50" r="25" />
+  <circle cx="90"  cy="50" r="25" class="red" />
+  <circle cx="150" cy="50" r="25" class="fancy" />
+
+  <rect x="10"  y="80" width="40" height="40"
+    fill="steelBlue" />
+  <rect x="70"  y="80" width="40" height="40"
+    style="fill: steelBlue" />
+  <rect x="130" y="80" width="40" height="40"
+    class="fancy" />
+</svg>
+    
+.red {
+  fill: red; /* not background-color! */
+}
+
+.fancy {
+  fill: none;
+  stroke: black; /* similar to border-color */
+  stroke-width: 3pt; /* similar to border-width */
+  stroke-dasharray: 3,5,10;
+}
+
+
+    
+
+Where HTML has the <div> and <span> tags, SVG has the <g> tag for an arbitrary group. You’ll see <g> a lot in D3 examples. They’re great for applying styles to a group (including re-positioning the groups).
+
+The <text> tag is good for simple labels. The <path> tag is powerful but complex, it can be used for either lines or arbitrary filled-in shapes depending on the styling.
+
+<svg width="300" height="180">
+  <g transform="translate(5, 15)">
+    <text x="0" y="0">Howdy!</text>
+  </g>
+
+  <g transform="translate(5, 55)">
+    <!-- M: move to (jump)
+         L: line to
+         Q: curve to (quadratic) -->
+    <path d="M0,50 L50,0 Q100,0 100,50"
+      fill="none" stroke-width="3" stroke="black" />
+  </g>
+
+  <g transform="translate(5, 105)">
+    <!-- C: curve to (cubic)
+         Z: close shape -->
+    <path d="M0,100 C0,0 25,0 125,100 Z" fill="black" />
+  </g>
+</svg>
+    
+
+############
+Parts of a Graph
+############
+
+https://square.github.io/intro-to-d3/parts-of-a-graph/
+
+Sections:
+	Example
+		The Scale
+		The Axes
+		The Data
+	Doing It The Hard Way
+	Doing It The D3 Way
+		Small Helpers
+		Scales
+		Axes
+		Data
+	
+####	
+Example
+####
+
+Let’s say you have a table in Excel and want to graph it. It’s easy! Just point it at your rows and columns, set a few colors, and boom! A graph.
+
+Date	Amount
+2014-01-01	$10
+2014-02-01	$20
+2014-03-01	$40
+2014-04-01	$80
+
+// CA_20161027: Excel graph here
+
+So now we want to make one of these in SVG to show it off on the interwebs. It’s going to be a bit more work. What do we need to make sure we get it right?
+
+##
+The Scale
+##
+
+This graph has to be “to scale”. It has to have a coordinate system!
+
+The x-axis goes from January 2014 to April 2014, and the y-axis goes from $0 to $80. However, the SVG is drawn in a box that’s about 200 by 300 pixels. Dates and pixels don’t map to one another on their own, so we have to specify a mapping somehow.
+
+Note that the y-axis flips! The SVG origin, (0, 0) is in the top left, but in this graph, the origin is the bottom left. We call the chart y-up and we call SVG y-down.
+The Axes
+
+We can actually read the Excel graph because it’s clearly labeled. Those same labels with “$20” and “February” have to get to our screen somehow. They also need to be formatted correctly for the data type.
+
+##
+The Data
+##
+
+Our graph is showing our data! Somehow, the 4 rows in our source table need to turn into 4 points on a line. On top of that, the points in the line need to fit into the coordinate system we’ve defined.
+
+We can kind of intuit this, but it’s critical to working with D3. We have data coming in, and we transform it to something visual.
+
+####
+Doing It The Hard Way
+####
+
+Let’s make a graph the hard way! As we’ve seen earlier, the SVG <path> tag is kind of complex, so we’ll swap out a line graph for a scatterplot.
+
+We’ll need to manually write out each point. Transform attributes are inherited by child elements, so we can use <g> tags to move entire groups, such as the axes, or even offset the entire graph by a margin.
+
+<svg width="350" height="160">
+  <!-- 60px x 10px margin -->
+  <g class="layer" transform="translate(60,10)">
+    <!-- cx = 270px * ($X / 3)
+                ^      ^   ^
+    width of graph  x-value max(x)
+
+          cy = 120px - (($Y / 80) * 120px)
+                 ^       ^     ^       ^
+      top of graph   y-value  max(y)  scale -->
+    <circle r="5" cx="0"   cy="105" />
+    <circle r="5" cx="90"  cy="90"  />
+    <circle r="5" cx="180" cy="60"  />
+    <circle r="5" cx="270" cy="0"   />
+
+    <g class="y axis">
+      <line x1="0" y1="0" x2="0" y2="120" />
+      <text x="-40" y="105" dy="5">$10</text>
+      <text x="-40" y="0"   dy="5">$80</text>
+    </g>
+    <g class="x axis" transform="translate(0, 120)">
+      <line x1="0" y1="0" x2="270" y2="0" />
+      <text x="-30"   y="20">January 2014</text>
+      <text x="240" y="20">April</text>
+    </g>
+  </g>
+</svg>
+    
+$10
+$80
+January 2014
+April
+Man! All that work for such a simple graph? SVG is a lot of work!
+
+####
+Doing It The D3 Way
+####
+
+Good news! D3 has pieces to help with each of the parts of a graph we listed above! However, D3 does this in the spirit of “automating the hard bits you already understand”, rather than making it all happen.
+
+##
+Small Helpers
+##
+
+There are a few operations that come up all the time, such as finding the minimum and maximum values of a data set (even both at the same time, the “extent”).
+
+In D3, our source data is always plain old Javascript objects (POJOs). Most often the data is homogenous arrays.
+
+var numbers = [ 5, 4, 10, 1 ],
+    data = [
+      { date: '2014-01-01', amount: 10 },
+      { date: '2014-02-01', amount: 20 },
+      { date: '2014-03-01', amount: 40 },
+      { date: '2014-04-01', amount: 80 }
+    ];
+
+d3.min(numbers);
+// 1
+    
+In D3 code, it’s common to pass callbacks that are used on all elements of a group. These callbacks are almost always called back with two arguments: the element and its index. It’s common to name these parameters d and i respectively.
+
+d3.max(data, function(d, i) { return d.amount });
+// 80
+
+d3.extent(numbers);
+// [1, 10]
+    
+Scales
+
+D3 has objects called scales that help map values across coordinate systems. There are different kinds of scales (linear, logarithmic, linear for time). Scales are configured with a domain and a range, they map from the data to the approprate part of the screen (screen space).
+
+Here is how we set up the y-scale for the above money example:
+
+var y = d3.scaleLinear()
+  .domain([0, 80]) // $0 to $80
+  .range([200, 0]); // Seems backwards because SVG is y-down
+    
+Or if we wanted to take advantage of the helper methods above:
+
+y.domain(d3.extent(data, function(d) { return d.amount }));
+    
+The domain is in the data space, so its units are your source units. The range is in screen space (pixels).
+
+This scale object is also a function! Calling the scale as a function is how we translate values from one coordinate to another.
+
+y(0);   // in: $0
+// 200  // out: 200px (bottom of graph)
+y(80);  // in: $80
+// 0    // out: 0px (top of graph)
+    
+We can even do the same things with dates!
+
+var x = d3.scaleTime()
+    .domain([
+      new Date(Date.parse('2014-01-01')),
+      new Date(Date.parse('2014-04-01'))
+    ])
+    .range([0, 300]);
+
+x(new Date(Date.parse('2014-02-01')));
+// 103.3811949976841
+    
+Scales are not just for linear transforms (continuous or quantitative scales), they can also be used for arbitrary transforms (discrete or ordinal scales). We’ll come across more scales later.
+
+Axes
+
+In our example, up top, we have these nice labels and tick marks. This is something D3 can do for us. We can build an axis, and apply it to a scale. We say, “hey, I want to build an axis that”.
+
+// x is the d3.scaleTime()
+var xAxis = d3.axisBottom(x)
+  .ticks(4); // specify the number of ticks
+
+var svg = d3.select('body')
+  .append('svg')        // create an <svg> element
+    .attr('width', 300) // set its dimentions
+    .attr('height', 150);
+
+svg.append('g')            // create a <g> element
+  .attr('class', 'x axis') // specify classes
+  .call(xAxis);            // let the axis do its thing
+
+
+    
+
+D3’s axes are really powerful! Notice how we built it using Date objects, and by default, it labeled the tick marks appopriately!
+
+Data
+
+The next thing to do is take our data and transform it into something visible. This is data binding, and it’s a big topic, so it gets its own section.
+
+
+
+
+
+#####################################
+#####################################
+#####################################
+
+
+
+
