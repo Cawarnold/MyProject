@@ -1004,10 +1004,102 @@ switch (groceryItem) {
 // If none of the cases are true, then this code will run.
 
 
+//// Instructions:
 
+// Let's illustrate this by converting our werewolf program to a switch statement. 
+// For now, let's also delete the foggyNight variable so it doesn't fog up this concept.
+
+// moonPhase will become the condition of the switch statement. 
+// Then, each moon phase will become each case that the switch statement checks for.
+
+// Start by writing a switch statement with moonPhase as its condition.
+
+var moonPhase = 'full';
+
+switch  (moonPhase) {
+  case 'full':
+    console.log('Howwwwlll!!');
+    break;
+  case 'mostly full':
+    console.log('Arms and legs are getting hairier');
+    break;
+  case 'mostly new':
+    console.log('Back on two feet');
+    break;
+  default:
+    console.log('Invalid moon phase');
+    break;    
+}
+
+// Then, write each else if condition as a case.
+
+// If moonPhase is 'full', then use console.log to print 'Howwwwlll!!'.
+
+// If moonPhase is 'mostly full', then use console.log to print 
+// 'Arms and legs are getting hairier'.
+
+// If moonPhase is 'mostly new', then use console.log to print 'Back on two feet'.
+
+// Remember to add a break after each console.log, 
+// like in the example in the instructions.
+
+// Now, add a default at the end of the switch that uses console.log to print 
+// 'Invalid moon phase', 
+// in the case that moonPhase does not equal one of our cases.
 
 //////////////
 ////// Lesson 8/8 Review Control Flow
 
+// Way to go! We just learned a lot of control flow concepts:
 
+// if/else statements make binary decisions 
+// and execute separate code based on a condition.
+// We can add extra conditions with to if/else statements with else if conditions.
+// switch statements make complicated if/else statements easier to read, 
+// however they achieve the same result as if/else statements.
+
+// Comparison operators, like <, >, <=, and >= can compare two variables. 
+// After they compare, they always return either true or false.
+
+// Logical Operators, like &&, ||, !==, and !, can compare two variables 
+// to see if a certain condition exists:
+	// && checks if both sides are true.
+	// || checks if either side is true.
+	// !== checks if both sides are not equal.
+	// ! changes a variable that is true to false, and vice versa.
+
+// In the next lesson, we'll learn about functions, 
+// and how to write blocks of code that are reusable.
+
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+//////////////
+// Functions
+//////////////
+
+// https://www.codecademy.com/en/courses/learn-javascript/lessons/functions/exercises/intro-to-functions?action=lesson_resume&link_content_target=interstitial_lesson
+
+//////////////
+////// Lesson 1/7 Introduction to Functions
+
+
+
+//////////////
+////// Lesson 2/7 Functions
+
+//////////////
+////// Lesson 3/7 Parameters
+
+//////////////
+////// Lesson 4/7 Parameters II
+
+//////////////
+////// Lesson 5/7 return
+
+//////////////
+////// Lesson 6/7 return II
+
+//////////////
+////// Lesson 1/7 Review Functions
 
