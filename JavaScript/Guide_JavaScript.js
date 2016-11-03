@@ -1,8 +1,16 @@
 // Guide
 
-///////////////////////////
-//        Codecademy
-///////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+//        								Codecademy
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+//////////////////////////////////////
+// Learn - JavaScript  
+// https://www.codecademy.com/learn/learn-javascript
+//////////////////////////////////////
 
 
 //////////////
@@ -1281,17 +1289,265 @@ getRemainder(365, 27);
 // Output: 14
 
 // The getRemainder function has two parameters: numberOne and numberTwo.
-When we call the getRemainder function on the last line, we include two numbers as the parameters, also separated by commas. This is referred to as passing in parameters to a function.
-In this case, we are telling the function to assign numberOne the value of 365 and numberTwo the value of 27. We are passing in 365 and 27 to the getRemainder function.
-When the getRemainder runs, the function knows what numberOne and numberTwo equal since we passed in two parameters when we called the function. Therefore it evaluates 365 % 27, which produces the result 14.
-By adding multiple parameters, we can build functions that are more flexible. Now the function has two variables that we can define when we call the function.
+// When we call the getRemainder function on the last line, 
+// we include two numbers as the parameters, also separated by commas. 
+// This is referred to as passing in parameters to a function.
+
+// In this case, we are telling the function to assign numberOne the value of 365 
+// and numberTwo the value of 27. We are passing in 365 and 27 to the getRemainder function.
+
+// When the getRemainder runs, the function knows what numberOne and numberTwo equal 
+// since we passed in two parameters when we called the function. 
+// Therefore it evaluates 365 % 27, which produces the result 14.
+
+// By adding multiple parameters, we can build functions that are more flexible. 
+// Now the function has two variables that we can define when we call the function.
+
+
+//// Instructions:
+
+// Let's add another parameter to the takeOrder function to make the order even more descriptive.
+// Add a parameter named crustType so that we can add this to the console output in the upcoming steps.
+
+function takeOrder(topping, crustType){
+  console.log('Order: ' + crustType + ' crust pizza' + ' topped with ' + topping);
+}
+
+// Inside the takeOrder function, interpolate the crustType parameter to construct a sentence like this:
+	// Order: thin crust pizza topped with bacon
+
+function takeOrder(topping, crustType){
+  console.log('Order: ' + crustType + ' crust pizza' + ' topped with ' + topping);
+}
+
+takeOrder('chorizo', 'thin');
+
+// Below the takeOrder function, call the function 3 times 
+// and pass in different arguments each time for topping and crustType.
+
+takeOrder('chorizo', 'thick');
+
+takeOrder('chorizo', 'cheesey');
+
 
 //////////////
 ////// Lesson 5/7 return
 
+// Using console.log as the result of a function isn't the best use of a function. 
+// The purpose of a function is to take some input, perform some task on that input, 
+// then return a result.
+
+// To return a result, we can use the return keyword. 
+// Take a look at our function from the last exercise, now re-written slightly:
+
+function getRemainder(numberOne, numberTwo) {
+  return numberOne % numberTwo;
+}
+
+console.log(getRemainder(365, 27));
+// Output: 14
+
+
+// Instead of using console.log inside the getRemainder function, we used the return keyword. 
+// return will take the result of the math operation and give it back to whatever calls it.
+
+// On the last line, we called the getRemainder function inside of a console.log statement, 
+// which outputted the result of 14.
+
+// This code achieved the same output as before, however now our code is better. 
+// Why? If we wanted to use the getRemainder function in another place in our program, 
+// we could without printing the result to the console. 
+// Using return is generally a best practice when writing functions, 
+// as it makes your code more maintainable and flexible.
+
+
+//// Instructions:
+
+// Now that we have the pizza orders, 
+// you want to add them up to find the cost of the pizzas for the check. 
+// Let's imagine that each pizza is $7.50, no matter the topping and crust type.
+
+// We will need to do three things to write this in JavaScript:
+
+// Create a variable to hold the number of pizzas ordered.
+// Whenever a pizza is ordered, add one to the number of pizzas ordered.
+// Take the total number of pizzas and multiply them by 7, since each pizza is $7.50.
+
+// Begin by creating a variable named orderCount set equal to 0 at the top of your code.
+
+var orderCount = 0;
+
+// Inside the takeOrder function, set orderCount equal to orderCount plus 1, 
+// so that each time the takeOrder function runs, 1 is added to the orderCount.
+
+function takeOrder(topping, crustType){
+  console.log('Order: ' + crustType + ' crust pizza' + ' topped with ' + topping);
+  orderCount = orderCount + 1;
+}
+
+// Now it's time to calculate the subtotal of the pizzas. 
+// This is the perfect job for a function.
+// Declare a function named getSubTotal that has one parameter named itemCount.
+
+function getSubTotal(itemCount) {
+  return itemCount*7.5;
+}
+
+// Inside the getSubTotal function's block, use return to output the itemCount multiplied by 7.5.
+
+function getSubTotal(itemCount) {
+  return itemCount*7.5;
+}
+
+// On the last line of your program, after the takeOrder function calls, 
+// call the getSubTotal function inside a console.log statement.
+
+// getSubTotal has a parameter that represents the amount of items ordered. 
+// Pass in the orderCount as an argument when making the function call.
+
+var orderCount = 0;
+
+function takeOrder(topping, crustType){
+  console.log('Order: ' + crustType + ' crust pizza' + ' topped with ' + topping);
+  orderCount = orderCount + 1;
+}
+
+function getSubTotal(itemCount) {
+  return itemCount*7.5;
+}
+
+takeOrder('chorizo', 'thin');
+takeOrder('chorizo', 'thick');
+takeOrder('chorizo', 'cheesey');
+
+console.log(getSubTotal(orderCount));
+
+//// OUPUT:
+
+	// Order: thin crust pizza topped with chorizo
+	// Order: thick crust pizza topped with chorizo
+	// Order: cheesey crust pizza topped with chorizo
+	// 22.5
+
+
 //////////////
 ////// Lesson 6/7 return II
 
+// In the last exercise, we pointed out that using return makes programs more maintainable and flexible, 
+// but how exactly?
+
+// When functions return their value, we can use them together and inside one another. 
+// If our calculator needed to have a Celsius to Fahrenheit operation, 
+// we could write it with two functions like so:
+
+function multiplyByNineFifths(celsius) {
+  return celsius * (9/5);
+}
+
+function getFahrenheit(celsius) {
+  return multiplyByNineFifths(celsius) + 32;
+}
+
+console.log('The temperature is ' + getFahrenheit(15) + '°F');
+// Output: The temperature is 59°F
+
+// Take a look at the getFahrenheit function. Inside of its block, we called multiplyByNineFifths and passed it the degrees in celsius. The multiplyByNineFifths function multiplied the celsius by (9/5). Then it returned its value so the getFahrenheit function could continue on to add 32 to it.
+
+// Finally, on the last line, we interpolated the function call within a console.log statement. 
+// This works because getFahrenheit returns it's value.
+
+// We can use functions to section off small bits of logic or tasks, 
+// then use them when we need to. 
+// Writing functions can help take large and difficult problems 
+// and break them into small and manageable problems.
+
+
+//// Instructions:
+
+// It's your job to calculate two more numbers for each order:
+
+// A sales tax of 6% needs to be calculated for every full order. 
+// This should be based on the subtotal.
+// The total, which is the subtotal plus tax, should also be computed.
+
+// Let's start with calculating the tax. 
+// Under the getSubTotal function, declare a function named getTax. It should take no parameters.
+
+function getTax() {
+  
+}
+
+// Inside the getTax function's block, multiply the subtotal times 6% (0.06). 
+// Make sure to return the result of this operation.
+
+function getTax() {
+  return getSubTotal(orderCount)*0.06;
+}
+
+// Nice work! Now that you calculated the tax, 
+// declare another function named getTotal beneath the getTax function. 
+// The getTotal function should have no parameters.
+
+// Inside the getTotal function's block, add the subtotal to the tax, then return the result.
+
+function getTax() {
+  return getSubTotal(orderCount)*0.06;
+}
+
+function getTotal() {
+  return getSubTotal(orderCount) + getTax();
+}
+
+// On the last line of the program, call the getTotal function inside of a console.log statement 
+// to view the result.
+
+var orderCount = 0;
+
+function takeOrder(topping, crustType){
+  console.log('Order: ' + crustType + ' crust pizza' + ' topped with ' + topping);
+  orderCount = orderCount + 1;
+}
+
+function getSubTotal(itemCount) {
+  return itemCount*7.5;
+}
+
+function getTax() {
+  return getSubTotal(orderCount)*0.06;
+}
+
+function getTotal() {
+  return getSubTotal(orderCount) + getTax();
+}
+
+
+takeOrder('chorizo', 'thin');
+takeOrder('chorizo', 'thick');
+takeOrder('chorizo', 'cheesey');
+
+console.log(getTotal());
+
+// Way to go! You wrote 4 functions from scratch, and even passed them into each other. 
+// That's incredible!
+
+
 //////////////
 ////// Lesson 1/7 Review Functions
+
+// This unit introduced you to functions.
+
+// Functions are written to perform a task.
+// Functions take data or variables, perform a set of tasks on them, and then return the result.
+// We can define parameters when calling the function.
+// When calling a function, we can pass in arguments, which will set the function's parameters.
+// We can use return to return the result of a function 
+// which allows us to call functions anywhere, even inside other functions.
+
+// Great work so far. 
+// Next up: Scope! Scope informs us where variables are accessible from within our programs.
+
+
+
+
+
 
