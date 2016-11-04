@@ -4,6 +4,9 @@
 //        								Codecademy
 ///////////////////////////////////////////////////////////////////////////////////////
 
+//// Resources:
+
+//  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 
 
 
@@ -1532,7 +1535,7 @@ console.log(getTotal());
 
 
 //////////////
-////// Lesson 1/7 Review Functions
+////// Lesson 7/7 Review Functions
 
 // This unit introduced you to functions.
 
@@ -1548,6 +1551,498 @@ console.log(getTotal());
 
 
 
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+//////////////
+// Scope
+//////////////
+
+// https://www.codecademy.com/en/courses/learn-javascript/lessons/scope/exercises/global-scope?action=lesson_resume&link_content_target=interstitial_lesson
+
+//////////////
+////// Lesson 1/4 Global Scope
+
+// Scope is a big idea in programming, so let's start at a high level.
+
+// Scope refers to where in a program a variable can be accessed. 
+// The idea is that some variables are unable to be accessed everywhere within a program.
+
+// Think of it like a an apartment building. 
+// Everyone who lives in the apartment building is under the global scope of the building and its manager. 
+// So, if there are rats in the shared laundry room, everyone has access to the laundry machines, 
+// and the rats.
+
+// If you write a variable outside of a function in JavaScript, 
+// it's in the global scope and can be used by any other part of the program, 
+// just like the laundry room can be used by everyone in an apartment.
+
+// Let's practice this by making some global variables.
+
+//// Instructions:
+
+// Write two variables, one named laundryRoom set equal to 'Basement', 
+// the other named mailRoom set equal to 'Room 1A'.
+
+var laundryRoom = 'Basement';
+var mailRoom = 'Room 1A';
+
+// Below these variables, use console.log to print both variables to the console, like this:
+
+console.log('Laundry: ' + laundryRoom +  ', Mail: ' + mailRoom);
+
+
+//////////////
+////// Lesson 2/4 Functional Scope
+
+// In our theoretical apartment building, you have your own apartment. 
+// It has stuff in it that is yours. 
+// Other people in the building can't access it. 
+// This is like functional scope. 
+// You have access to your stuff inside your apartment, and in the building 
+// – but not anyone else's apartment.
+
+// When we write variables inside a function, only that function has access to its own variables. 
+// Therefore, they are in the functional scope.
+
+// In addition to a function having access to its own variables, 
+// it also has access to variables in the global scope.
+
+// In the last exercise we created both variables in the global scope. 
+// That is, laundryRoom and mailRoom are accessible from anywhere in our program.
+
+// Now, let's make two variables within a functional scope.
+
+
+//// Instructions:
+
+// Write a function named myApartment before the console.logs from the last exercise.
+
+function myApartment(){}
+
+// Inside of the function, write a variable named mailBoxNumber and set it equal to Box 3.
+
+// Also, you're lucky enough to have in-unit laundry, 
+// so let's re-assign laundryRoom inside our function to: laundryRoom = 'In-unit'.
+
+function myApartment(){
+  var mailBoxNumber = 'Box 3';
+  var laundryRoom = 'In-unit';
+}
+
+// Inside the function, use console.log to print out both variables, 
+// like this:
+	console.log('Mail box: ' + mailBoxNumber + ', Laundry:' + laundryRoom);
+
+function myApartment(){
+  var mailBoxNumber = 'Box 3';
+  var laundryRoom = 'In-unit';
+  console.log('Mail box: ' + mailBoxNumber + ', Laundry:' + laundryRoom);
+}
+
+// Now, let's try to see the mailBoxNumber outside the function. On the last line of the program, 
+// write:
+	console.log(mailBoxNumber);
+
+var laundryRoom = 'Basement';
+var mailRoom = 'Room 1A';
+
+function myApartment(){
+  var mailBoxNumber = 'Box 3';
+  var laundryRoom = 'In-unit';
+  console.log('Mail box: ' + mailBoxNumber + ', Laundry:' + laundryRoom);
+}
+
+console.log(mailBoxNumber);
+
+console.log('Laundry: ' + laundryRoom +  ', Mail: ' + mailRoom);
+
+
+// Nothing showed up in the console! 
+// That's right, and it means that JavaScript does not have access to the variable, 
+// since it is hidden away in the myApartment function.
+
+// To see the hidden variables inside the function, 
+// delete the console.log on mailBoxNumber in the global scope, 
+// and call the myApartment function instead.
+
+var laundryRoom = 'Basement';
+var mailRoom = 'Room 1A';
+
+function myApartment(){
+  var mailBoxNumber = 'Box 3';
+  var laundryRoom = 'In-unit';
+  console.log('Mail box: ' + mailBoxNumber + ', Laundry:' + laundryRoom);
+}
+
+console.log(myApartment());
+
+
+//////////////
+////// Lesson 3/4 Scoping
+
+// Nice work! Now that we know how global and functional scope contain variables, 
+// let's organize some code to practice.
+
+// To the right, we provided you with incorrect sample code. 
+// If you try to run it as is, you will get an error because the console.log on line 20 
+// references variables that are within the functional scope of myApartment.
+
+// Let's fix our scoping issues!
+
+
+function myApartment() {
+	var myCoffeeMaker = 'Aeropress';
+	var buildingAddress = '150 E 14th St, New York, NY';
+	var myCloset = 'Extra coats in the back';
+	var buildingLaundryCode = 4927;
+	var myRefridgerator = 'Filled with veggies and dark chocolate.';
+	var myDog = 'Nikko';
+	var buildingPhone = '(481) 516-2342';
+}
+
+
+// Do not edit the code after this line
+console.log("**Apartment Building Information**");
+console.log("Laundry code: " + buildingLaundryCode + "\nPhone: " + buildingPhone + "\nMailing address: " + buildingAddress);
+
+
+//// Instructions:
+
+// Within the myApartment function, 
+// move the variables with apartment building information to the global scope, 
+// so that the console.log on line 20 can run.
+
+// Note: Do not edit the variables or their values.
+
+function myApartment() {
+	var myCoffeeMaker = 'Aeropress';
+	var buildingAddress = '150 E 14th St, New York, NY';
+	var myCloset = 'Extra coats in the back';
+	var buildingLaundryCode = 4927;
+	var myRefridgerator = 'Filled with veggies and dark chocolate.';
+	var myDog = 'Nikko';
+	var buildingPhone = '(481) 516-2342';
+}
+
+var buildingAddress = '150 E 14th St, New York, NY';
+
+var buildingLaundryCode = 4927;
+
+var buildingPhone = '(481) 516-2342';
+
+
+// Do not edit the code after this line
+console.log("**Apartment Building Information**");
+console.log("Laundry code: " + buildingLaundryCode + "\nPhone: " + buildingPhone + "\nMailing address: " + buildingAddress);
+
+
+//////////////
+////// Lesson 4/4 Review Scope
+
+// This unit introduced you to scope.
+
+// Scope is the idea in programming that some variables are acessible/inaccessible 
+// from other parts of the program.
+
+// Global Scope refers to variables that are accessible to every part of the program.
+// Functional Scope refers to variables created inside functions, 
+// which are not accessible outside of its block.
+
+// Keep up the awesome job in the next lesson where we'll learn how to make lists 
+// and how to program JavaScript to do repetitive tasks for us with loops!
+
+
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+//////////////
+// Arrays
+//////////////
+
+// https://www.codecademy.com/courses/learn-javascript/lessons/arrays/exercises/arrays?action=lesson_resume
+
+//////////////
+////// Lesson 1/7 Arrays
+
+// We’ve learned to do a number of interesting things with data using functions 
+// and using if/else statements. 
+// One thing that we haven't learned yet is how to organize and store data.
+
+// One way we organize data in real life is to make lists. 
+
+// Let's make one here:
+
+	// Bucket List:
+		// 0. Rappel into a cave
+		// 1. Take a falconry class
+		// 2. Learn to juggle
+
+// Let's now write this list in JavaScript, as an array:
+
+var bucketList = ['Rappel into a cave', 'Take a falconry class', 'Learn to juggle'];
+
+// Arrays are JavaScript's way of making lists. 
+// These lists can store different data types and they are ordered, 
+// meaning the position of each list item is numbered by JavaScript.
+
+
+//////////////
+////// Lesson 2/7 Create an array
+
+// Let's start by making an array and then seeing what it can do throughout the rest of this lesson.
+
+
+//// Instructions:
+
+// Make a variable named bucketList, and set it equal to an array with three strings inside of it.
+
+var bucketList = ['Fly a wingsuit', 'Sail around the world', 'Lose all my teeth'];
+
+// Use console.log to print bucketList to the screen.
+
+console.log(bucketList);
+
+
+//////////////
+////// Lesson 3/7 Property Access
+
+// Great work. Now, what if we want to select one item from an array?
+
+// Luckily, each item in an array has a numbered position. 
+// We can access an item using its number, just like we would in an ordinary list. 
+// There’s one catch though!
+
+// JavaScript counts starting from 0, not 1, so the first item in an array will be at position 0. 
+// This is because JavaScript is zero-indexed.
+
+// We can select the first item in an array like this:
+
+var bucketList = ['Rappel into a cave', 'Take a falconry class', 'Learn to juggle'];
+var listItem = bucketList[0];
+console.log(listItem);
+// Output: 'Rappel into a cave'
+
+
+// If we wanted the second item, we'd write:
+
+var bucketList = ['Rappel into a cave', 'Take a falconry class', 'Learn to juggle'];
+var listItem = bucketList[1];
+console.log(listItem);
+// Output: 'Take a falconry class'
+
+
+//// Instructions:
+
+// Create a variable named listItem and set it equal to the first item in your bucketList array.
+
+// Then use console.log to print the listItem variable to the console.
+
+var bucketList = ['Fly a wingsuit', 'Sail around the world', 'Lose all my teeth'];
+
+var listItem = bucketList[0];
+
+console.log(listItem);
+
+// Now, set the listItem variable to the third item in the bucketList array.
+
+var listItem = bucketList[2];
+
+// Try to log the item at position [3] to the console.
+
+var listItem = bucketList[3];
+
+// Notice that you get undefined when you try to print position 3. 
+// That's because the array does not have an item at position 3, which is the fourth slot.
+
+// Fun fact: You can also access each individual character in a string 
+// the same way you do with arrays. 
+
+//For instance, you can write:
+var hello = 'Hello World';
+console.log(hello[6]);
+// Output: W
+
+// 'W' will be the output since it's the character in the 6th position. 
+// This works because JavaScript internally stores strings in a similar way that it stores arrays.
+
+
+//////////////
+////// Lesson 4/7 length property
+
+// It is often convenient to know how many items are inside of an array.
+
+// nWe can find this out by using one of an array's built in properties, 
+// called .length. 
+// We can attach this to any variable holding an array and it will return the number of items inside.
+
+// As an example:
+
+var bucketList = ['Rappel into a cave', 'Take a falconry class'];
+
+console.log(bucketList.length);
+// Output: 2
+
+
+//// Instructions:
+
+// Find the .length of your bucketList array and log it to the console.
+
+var bucketList = ['Fly a wingsuit', 'Sail around the world', 'Lose all my teeth'];
+
+var listItem = bucketList.length;
+
+console.log(listItem);
+
+// Fun fact: .length is also a property for strings.
+
+// For instance, you can write 'Hello World'.length, 
+// and it will output 11 (the number of characters in "Hello World").
+
+
+//////////////
+////// Lesson 5/7 push Method
+
+// JavaScript has a surprise for us: 
+// it has built in functions for arrays that help us do common tasks! 
+// Let's learn two of them.
+
+// First, push() allows us to add items to the end of an array. 
+// Here is an example of how this is used:
+
+var bucketList = ['item 0', 'item 1', 'item 2'];
+
+bucketList.push('item 3', 'item 4');
+
+// The method push() would make the bucketList array look like:
+
+['item 0', 'item 1', 'item 2', 'item 3', 'item 4'];
+
+// Check out how push() works here:
+
+	// It connects to bucketList with a period.
+	// Then we call it like a function. 
+		// That's because push() is a function 
+		// and one that JavaScript allows us to use right on an array.
+
+// Connecting a function like this is common in JavaScript. 
+// Think: we've been connecting .log to console this whole time!
+
+
+//// Instructions:
+
+// Add two more items to your bucketList array using push.
+
+var bucketList = ['Fly a wingsuit', 'Sail around the world', 'Lose all my teeth'];
+
+var listItem = bucketList.length;
+console.log(listItem);
+
+bucketList.push('scientifically kill myself','burn a rose bush');
+
+var listItem = bucketList.length;
+console.log(listItem);
+
+// Now, use console.log to print your bucketList array. to make sure your items were added.
+
+console.log(bucketList);
+
+
+//////////////
+////// Lesson 6/7 pop Method
+
+// Now that we can push() items into an array, let's pop one off, using pop().
+
+// pop() is similar to push(), except that it deletes the last item of an array. 
+
+// Here's an example:
+
+var bucketList = ['item 0', 'item 1', 'item 2'];
+
+bucketList.pop();
+
+console.log(bucketList); 
+// Output: [ 'item 0', 'item 1' ]
+
+// Notice that 'item 2' was deleted from the end.
+
+
+//// Instructions:
+
+// Use the pop method to delete the last element from your array.
+
+var bucketList = ['Fly a wingsuit', 'Sail around the world', 'Lose all my teeth'];
+
+bucketList.push('scientifically kill myself','burn a rose bush');
+
+var listItem = bucketList.length;
+console.log(listItem);
+
+bucketList.pop();
+
+var listItem = bucketList.length;
+console.log(listItem);
+
+// Log bucketList to the console to make sure it worked.
+
+console.log(bucketList);
+
+// push and pop are just two of many methods we have for arrays. 
+// You can learn more array methods here.
+
+//  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+
+//////////////
+////// Lesson 7/7 Review Arrays
+
+// Nice work! In this lesson, we learned these concepts regarding arrays:
+
+// Arrays are lists and are a way to store data in JavaScript. 
+// Each item inside of an array is at a numbered position. 
+// Arrays are created with brackets [].
+
+// We can access one item in an array using it's numbered position, 
+// with syntax like: myArray[0].
+
+// Arrays have a length property, which allows you to see how many items are in an array.
+
+// Arrays also have their own methods, including push and pop, 
+// which add and subtract items from an array, respectively.
+
+// In the next lesson we'll learn how to loop over our arrays, which can bring our lists to life!
+
+
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+//////////////
+// Loops
+//////////////
+
+// https://www.codecademy.com/en/courses/learn-javascript/lessons/loops/exercises/loops
+
+//////////////
+////// Lesson 1/7 Loops
+
+
+//////////////
+////// Lesson 2/7 Loop by hand
+
+//////////////
+////// Lesson 3/7 for loops
+
+//////////////
+////// Lesson 4/7 for loop backwards
+
+//////////////
+////// Lesson 5/7 for loops inside of for loops
+
+//////////////
+////// Lesson 6/7 while loops
+
+//////////////
+////// Lesson 7/7 Review loops
 
 
 
