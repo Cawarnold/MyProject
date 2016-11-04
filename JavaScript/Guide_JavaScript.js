@@ -2025,24 +2025,641 @@ console.log(bucketList);
 //////////////
 ////// Lesson 1/7 Loops
 
+// One of a computer's greatest abilities is to repeat a task over and over 
+// so we don't have to. 
+// Loops let us tell the computer to loop over a block of code 
+// so that we don't have to write out the same process over and over.
+
+// Loops are especially helpful when we have an array 
+// where we'd like to do something to each item in the array, 
+// like logging each item to the console.
+
+// There are two kinds of loops we will learn in this lesson:
+
+	// for loops, which let us loop a block of code a known amount of times.
+	// while loops, which let us loop a block of code an unkown amount of times.
 
 //////////////
 ////// Lesson 2/7 Loop by hand
 
+// Before we jump into writing a loop, let's write the result of a loop, 
+// so that we can better understand how loops work.
+
+
+//// Instructions:
+
+// Write an array and set it equal to a variable named vacationSpots. 
+// Inside of this array, list three places you'd like to visit.
+
+var vacationSpots = ['Paris', 'New York', 'LA'];
+
+// Next, console.log each item in vacationSpots on a separate line. 
+// To do this, list out each item using property access.
+
+console.log(vacationSpots[0]);
+
+console.log(vacationSpots[1]);
+
+console.log(vacationSpots[2]);
+
+// Nice work, that wasn't too hard, but imagine if our vacation list had 100 places on it. 
+// This would be an extremely tedious task!
+
+// Let's make this easier with a for loop.
+
+
 //////////////
 ////// Lesson 3/7 for loops
+
+// Instead of writing out the same code over and over, 
+// let’s make the computer loop through our array for us. 
+// We can do this with for loops.
+
+// The syntax looks like this:
+
+var animals = ["Grizzly Bear", "Sloth", "Sea Lion"];
+
+for (var i = 0; i < animals.length; i++) {
+  console.log(animals[i]);
+}
+
+// Output:
+// Grizzly Bear
+// Sloth
+// Sea Lion
+
+// Since this syntax is a little complicated, let's break it into 4 parts:
+
+// Within the for loop's parentheses, 
+// the start condition is var i = 0, which means the loop will start counting at 0.
+// The stop condition is i < animals.length, 
+	// which means the loop will run as long as i is less than the length of the animals array. 
+// When i is greater than the length of the animals array, the loop will stop looping.
+// The iterator is i++. This means that each loop, i will have 1 added to it.
+// And finally, the code block is inside the { ... }. The block will run each loop, until the loop stops.
+
+// The secret to loops is that i, the variable we created inside the for loop's parentheses, 
+// is always equal to a number. 
+// To be more clear, the first loop, i will equal 0,
+//  the second loop, i will equal 1, and the third loop, i will equal 2.
+
+// This makes it possible to write animals[0], animals[1], animals[2] programmatically 
+// instead of by hand. We can write a for loop, and replace the hard coded number with the variable i, 
+// like this: animals[i].
+
+
+//// Instructions:
+
+// Let's replace your current code with a loop.
+
+// Write a for loop that loops through your vacationSpots array.
+
+// Inside the block of the for loop, use console.log to print each item in the vacationSpots array.
+
+var vacationSpots = ['Paris', 'New York', 'LA'];
+
+for (var i = 0;i < vacationSpots.length; i++){
+  console.log(vacationSpots[i]);
+}
+
+// Way to go! Now, add more to each item. Inside the code block, 
+// add some text to each item, like this:
+
+console.log('I would love to visit ' + vacationSpots[i]);
+
+var vacationSpots = ['Paris', 'New York', 'LA'];
+
+for (var i = 0;i < vacationSpots.length; i++){
+  console.log('I would love to visit ' + vacationSpots[i]);
+}
+
 
 //////////////
 ////// Lesson 4/7 for loop backwards
 
+// If we can make a for loop run forwards through an array, 
+// can we make it run backwards through it? Of course!
+
+// We can make out loop run backwards by modifying the start, stop, and iterator conditions.
+
+// To do this, we'll need to edit the code between the for loop's parentheses:
+
+// The start condition should set i to the length of the array.
+// The stop condition should end when i is 0.
+// The iterator should subtract 1 each time, which is done with i--.
+
+
+//// Instructions:
+
+// We need to make three changes to our for loop:
+
+// Edit the start condition (var i = 0), to set i equal to the length of the vacationSpots array.
+// Set the stop condition ( i < vacationSpots.length) to stop when i is greater than or equal to 0.
+// Change i++ to i-- to subtract 1 from i each loop.
+
+var vacationSpots = ['Paris', 'New York', 'LA'];
+
+for (var i = vacationSpots.length; i >= 0; i--){
+  console.log('I would love to visit ' + vacationSpots[i]);
+}
+
+// can't hit return inside ()
+
+// Nice work! Except we printed 'I would love to visit undefined'. 
+// Why did this happen?
+
+// It's because the length of vacationSpots is 3 
+// and vacationSpots has items in its array at positions 0, 1, and 2.
+
+// Since JavaScript starts from 0, 
+// make the start condition the length of the vacationSpots array, minus 1.
+
+var vacationSpots = ['Paris', 'New York', 'LA'];
+
+for (var i = vacationSpots.length -1; i >= 0; i--){
+  console.log('I would love to visit ' + vacationSpots[i]);
+}
+
+// Nice work! Remember, all for loops have three conditions, start, stop, and iterate, 
+// and we can edit all three!
+
+
 //////////////
 ////// Lesson 5/7 for loops inside of for loops
+
+// Let's say that you and a friend would like to go on vacation together. 
+// You've both made arrays of your favorite places 
+// and you want to compare to see if any places match. 
+// This is a job for loops!
+
+// The big idea is that we can run a for loop inside another for loop 
+// to compare the items in two arrays.
+
+// Every time the outter for loop runs once, 
+// the inner for loop will run completely.
+
+// With two for loops, we can check to see if any of the your vacation spots 
+// match your friend's spots.
+
+
+//// Instructions:
+
+// We are going to write this program from scratch. 
+// Start out by writing an variable named myPlaces and set it equal to an array 
+// with three places you'd like to visit.
+
+var myPlaces = ['paris', 'berlin', 'la'];
+
+// Now, make another variable named friendPlaces and set it equal to an array 
+// with three places a friend might like to go.
+
+// Make sure that at least one of the places is the same as in your myPlaces array.
+
+var friendPlaces = ['paris', 'Berlin', 'LA'];
+
+// Write a for loop that iterates through each item in myPlaces and logs out each place.
+
+var myPlaces = ['paris', 'berlin', 'la'];
+var friendPlaces = ['paris', 'Berlin', 'LA'];
+
+for (var i = 0; i < myPlaces.length; i++){
+  console.log(myPlaces[i]);
+}
+
+// You logged all of your places!
+
+// Now, inside of the existing for loop's block, 
+// write another for loop that loops over friendPlaces. 
+// This time, instead of using the i as the variable name, use j, 
+// so we don't overwrite any variables.
+
+var myPlaces = ['paris', 'berlin', 'la'];
+
+var friendPlaces = ['paris', 'Berlin', 'LA'];
+
+for (var i = 0; i < myPlaces.length; i++){
+  console.log(myPlaces[i]);
+  for (var j = 0; j < friendPlaces.length; j++){
+  	console.log(friendPlaces[j]);
+  }
+}
+
+// Look what printed to the console. 
+// Your first place printed, then all three of your friend's. 
+// Then your second place, then your friend's places again. 
+// And then one more time.
+
+// This is because the inner for loop runs completely every time 
+// the outer for loop runs once. 
+
+
+// The purpose of the program is to see what you and your friend have in common. 
+// Let's utilize the === comparison with an if/else statement.
+
+// Inside the second for loop's block, 
+// write an if/else statement that checks 
+// if myPlaces[i] is equal to friendPlaces[j]. 
+// If it is, log to the console the place you have in common.
+
+var myPlaces = ['paris', 'berlin', 'la'];
+var friendPlaces = ['paris', 'Berlin', 'LA'];
+
+for (var i = 0; i < myPlaces.length; i++){
+  for (var j = 0; j < friendPlaces.length; j++){
+  	if (myPlaces[i] === friendPlaces[j]){
+  		console.log(friendPlaces[j]);
+  	}
+  }
+}
+
 
 //////////////
 ////// Lesson 6/7 while loops
 
+// Awesome job! for loops are great, but they have a limitation: 
+// you have to know how many times you want the loop to run. 
+// What if you want a loop to run an unknown or variable number of times instead?
+
+// For example, if we have a deck of cards and we want to flip cards 
+// (loop a card flipping function) until we get a 'Spade',
+// how could we write that in JavaScript?
+
+// That's the purpose of the while loop. It looks like similar to a for loop. 
+// Check it out:
+
+while (condition) {
+  // code block that loops until condition is false
+}
+
+// The loop begins with the keyword while
+// Inside the parentheses, we can insert a condition. 
+// As long as the variable evaluates to true the block of code will loop.
+// Inside the code block we can write any code we'd like to loop.
+
+
+//// Instructions:
+
+// Let's write a program that flips cards until we get a 'Spade.' 
+// Start by creating a variable named cards and set it equal to this array:
+
+	// ['Diamond', 'Spade', 'Heart', 'Club']
+
+var cards = ['Diamond', 'Spade', 'Heart', 'Club'];
+
+
+// Right under the array create a variable named currentCard and set it equal to 'Heart'.
+
+// This variable will hold the name of the card we just flipped. 
+// We are using 'Heart' as the first card.
+
+var currentCard = 'Heart';
+
+// Let's utilize a while loop to do two things:
+
+// If the currentCard is not a 'Spade', 
+// then add a console.log to print the value of currentCard.
+
+// Then, create a random number between 0 and 3 and put it in a variable named randomNumber.
+// Then use the randomNumber to reassign currentCard to a new card from the cards array.
+
+// The while loop could like this:
+
+while (currentCard !== 'Spade') {
+  console.log(currentCard);
+  var randomNumber = Math.floor(Math.random() * 4);
+  currentCard = cards[randomNumber];
+}
+
+// Outside the while loop, on the last line of the program, 
+// use console.log to log that the program found a spade.
+
+// Run the code a few times to see the output changing. 
+// You can see the while loop guessing a card, then seeing if it is a Spade, 
+// over and over, until it finds one.
+
+var cards = ['Diamond', 'Spade', 'Heart', 'Club'];
+var currentCard = 'Heart';
+
+while (currentCard !== 'Spade') {
+  console.log(currentCard);
+  var randomNumber = Math.floor(Math.random() * 4);
+  currentCard = cards[randomNumber];
+}
+
+console.log('Found a Spade!');
+
+
 //////////////
 ////// Lesson 7/7 Review loops
+
+// Great job! 
+// In this unit we learned how to write less repetitive code with loops.
+
+// for loops allow us to repeat a block of code a known amount of times.
+// We can use a for loop inside another for loop to compare two lists.
+// while loops are for looping over a code block an unknown amount of times.
+
+// At this point, you've learned the foundational concepts of JavaScript. 
+// Now we are going to apply them to the web with a JavaScript library called jQuery.
+
+
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+//////////////
+// JavaScript and the DOM
+//////////////
+
+// https://www.codecademy.com/en/courses/learn-javascript/lessons/javascript-dom/exercises/javascript-with-html-css
+
+//////////////
+////// Lesson 1/16 JavaScript with HTML and CSS
+
+// At the beginning of this course we mentioned that JavaScript is 
+// the most widely used language on the web. 
+// So how can we use JavaScript on a website?
+
+// So far, we've only used JavaScript in isolation – not alongside other technologies. 
+// Javascript typically gets included with HTML and CSS 
+// (which structure and style web pages). 
+
+//  All modern browsers know how to run JavaScript if we include it in an HTML and CSS project.
+
+// JavaScript also has some special functions to help us access the code inside HTML and CSS 
+// so that we can write JavaScript to make that output interactive and dynamic.
+
+// In this lesson, we will use the concepts we've learned throughout the course 
+// to make an HTML and CSS website dynamic.
+
+
+//// Instructions:
+
+// If you're unfamiliar with HTML and CSS, 
+// you can follow along with this lesson regardless. 
+// If you'd like to get a primer before continuing, try our HTML and CSS course here.
+
+	// https://www.codecademy.com/learn/web
+
+
+//////////////
+////// Lesson 2/16 Linking JavaScript
+
+// We can link a JavaScript file to HTML by including it as the src of a <script> tag 
+// inside of an HTML file, like this:
+
+	// <script src='js/main.js'></script>
+
+// This line of code will link the file located at js/main.js. 
+// You can find this file in the file navigator by clicking the 
+// file button located at the top left of the code editor. 
+// Within the navigator, there's a folder named js, 
+// and within that folder is the main.js file.
+
+// By linking js/main.js in the index.html file, 
+// we are asking the browser to run our JavaScript code each time index.html loads.
+
+// We've provided you with a sample website (and the corresponding HTML and CSS code). 
+// Our goal: use JavaScript to make this page more dynamic. 
+// We will add interactive features to it as we go through the lesson.
+
+// In the code editor, we've loaded the files for a static HTML and CSS website. 
+// If you've never seen HTML before, don't worry, we'll walk through 
+// how JavaScript is added to an existing HTML and CSS project in this lesson. 
+// This lesson won't require you to greatly modify the HTML and CSS code itself. 
+// (For a deeper dive, see our HTML & CSS course here.)
+
+
+//// Instructions:
+
+// Let's start by writing some JavaScript that we will soon link to our HTML document.
+
+// Click the folder icon attached to the code editor, 
+// and navigate inside the js folder and open main.js.
+
+// Inside main.js, write:
+
+alert('Hello JavaScript!');
+
+// Note: alert is a JavaScript function that will create a pop-up window 
+// with text inside it. 
+// When we link the main.js file to the HTML file, 
+// we will see a pop-up window that was generated by this code. 
+// alert is not used by JavaScript developers in practice, 
+// however it is useful here to demonstrate linking these two files. 
+// We will use it over the next few exercises for demonstration purposes.
+
+
+/// main.js
+alert('Hello JavaScript!');
+
+
+// Navigate back to index.html. 
+// Before the closing </body> tag, 
+// create a link to the main.js file using a <script> tag.
+
+// Once you've add it, click 'Run'.
+
+/// index.html
+	// <script src='js/main.js'></script>
+	// </body>
+	// </html>
+
+// Nice alert pop-up! We just connected JavaScript to an HTML file. 
+// When the HTML document loaded, it ran the code inside main.js, 
+// which created the alert pop-up.
+
+// Now let's take this a step further.
+
+
+//////////////
+////// Lesson 3/16 Document Object Model
+
+// The Document Object Model, commonly referred to as the DOM', 
+// is the term for elements in an HTML file. 
+// Elements are any HTML code denoted by HTML tags, like <div>, <a>, or <p>. 
+// Let's use JavaScript to interact with the DOM.
+
+// We can select an HTML element with JavaScript by selecting its class attribute,
+// like this:
+
+var header = document.getElementsByClassName('example-class-name');
+
+// This would find an element like this in the HTML:
+
+	// <div class='example-class-name'> ... </div>
+
+
+//// Instructions:
+
+// Let's see how JavaScript can select an HTML element.
+
+// Inside index.html, 
+// notice there's an <div> element with a class of skillset on line 10. 
+// Let's select this element with JavaScript.
+
+// Click on the folder icon to navigate to js/main.js.
+
+// Inside main.js, delete the alert you wrote in the last exercise. 
+// Then, create a variable named skillset and set it equal to 
+// the HTML element with the class skillset.
+
+/// main.js
+var header = document.getElementsByClassName('skillset');
+
+
+// Under the skillset variable, 
+// use an alert to make the skillset variable's value into a pop-up.
+
+alert(skillset);
+
+// Way to go! 
+// The pop up showed that you selected an [object HTMLCollection].
+
+// This confirms that JavaScript can select HTML elements. 
+// Since we can select HTML elements, we can manipulate them.
+
+// Selecting and modifying HTML elements with plain JavaScript can be tricky. 
+// Luckily, there's an easier way. Click 'Next' to learn more.
+
+
+//////////////
+////// Lesson 4/16 jQuery
+
+// We've just covered how to select HTML elements using the syntax: 
+// document.getElementsByClassName. 
+// This is verbose and clunky, however. 
+// If we were to select a lot of elements this way, 
+// our code would get dense and difficult to read.
+
+// Wouldn't it be nice if there was a simpler way to select DOM elements? 
+// As you might have guessed, there is!
+
+// To better interact with DOM elements, we can use a library. 
+// A library is a set of code that contains useful pre-written functions 
+// that help with certain tasks.
+
+// A great library for interacting with the DOM is jQuery.
+
+// jQuery is a library written in JavaScript. 
+// The syntax and functions it contains will help us interact with DOM efficiently. 
+// We'll walk through a few examples in the following exercises.
+
+// In order to use jQuery, we need to:
+
+// Include jQuery in our project. 
+// jQuery is a library, which means it is a set of code in a file, 
+// therefore we will need to link that file in our HTML in order to access it.
+
+// Once we link it in our HTML file, 
+// we can use its functions and syntax in our js/main.js file.
+// Once linked, we'll need to make sure our HTML is loaded before we run our jQuery 
+// and JavaScript code.
+
+// This will prevent our jQuery and JavaScript code from running before 
+// the elements they select are rendered.
+
+
+//// Instructions:
+
+// Since jQuery is a library of code, we need to include a link to it 
+// in our index.html file before we can use it. 
+// Before the closing </body> tag, right above your current <script> tag, 
+
+// include this code:
+	// <script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+
+// The link to jQuery needs to be above the link to the js/main.js file, 
+// which will give main.js access to the jQuery library.
+
+// Note: If you're curious, you can see all the code that makes up jQuery here. 
+// You'll notice that jQuery is just JavaScript!
+
+/// index.html
+	// <script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+	// <script src='js/main.js'></script>
+	// </body>
+	// </html>
+
+
+// Now that we've included jQuery, let's get it ready to run.
+
+// Navigate to js/main.js.
+
+// Delete or comment out your existing code in js/main.js. 
+// Then, write a function named main. 
+// The function should take no parameters and should have an empty block.
+
+// main.js
+function main(){}
+
+// jQuery has a built in function to check if the page is ready before 
+// it will run our code. 
+
+// After the main function, write this code:
+$(document).ready(main);
+
+// Notice that we put main inside the parentheses of ready. 
+// main here is a callback, which means that our code will wait until the document 
+// (in other words, the DOM) is loaded, or ready.
+// When it is, then it will execute the main function. 
+// jQuery calls back to the main function, therefore it's a callback.
+
+// In the event that our HTML and CSS took 5 minutes to load, 
+// this code would wait until it loaded completely before running
+
+// main.js
+function main(){}
+
+$(document).ready(main);
+
+
+// Nice work! We are now ready to start using jQuery. Let's try in the next exercise.
+
+
+//////////////
+////// Lesson 5/16 jQuery Selectors
+
+
+
+
+
+//////////////
+////// Lesson 6/16 hide
+
+//////////////
+////// Lesson 7/16 fadeIn
+
+//////////////
+////// Lesson 8/16 click
+
+//////////////
+////// Lesson 9/16 show
+
+//////////////
+////// Lesson 10/16 toggle
+
+//////////////
+////// Lesson 11/16 toggleClass
+
+//////////////
+////// Lesson 12/16 this
+
+//////////////
+////// Lesson 13/16 next
+
+//////////////
+////// Lesson 14/16 text
+
+//////////////
+////// Lesson 15/16 slideToggle
+
+//////////////
+////// Lesson 16/16 Review jQuery
+
+
+
+
+
 
 
 
