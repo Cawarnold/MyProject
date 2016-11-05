@@ -1,4 +1,3 @@
-#### Python for Everybody Specialization ####
 
 
 ## Getting Started with Python
