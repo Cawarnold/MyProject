@@ -60,17 +60,29 @@
 // to make button only toggle specific element colour change
 	// $(this).toggleClass('active')
 
+
+// to select the element after the one selected use .next()
+	// $(this).next().toggle();
+
+
+// to permanently change the text of an element use .text()
+	// $(this).text('Projects Viewed');
+
+
+// to slide toggle, that animates elements entrance and exit.
+    // $(this).next().slideToggle(400);
+
 function main() {
   $('.skillset').hide();
   $('.skillset').fadeIn(1000);
   $('.projects').hide();
   $('.projects-button').on('click', function() {
-  	$('.projects').toggle();
-	$(this).toggleClass('active')
+  	// $(this).next().toggle();
+    $(this).next().slideToggle(400);
+    $(this).toggleClass('active');
+    $(this).text('Projects Viewed');
   });
 }
-
-
 
 
 

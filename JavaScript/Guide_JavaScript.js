@@ -3057,25 +3057,255 @@ $('.item-one').next().hide();
 
 //// Instructions:
 
-Inside the click function, let's modify this line:
+// Inside the click function, let's modify this line:
 
 $('.projects').toggle();
-Instead of selecting all the projects elements, use $(this) and next to select the projects, then attach toggle on the end to toggle the projects on the page.
+
+// Instead of selecting all the projects elements, 
+// use $(this) and next to select the projects, 
+// then attach toggle on the end to toggle the projects on the page.
+
+function main() {
+  $('.skillset').hide();
+  $('.skillset').fadeIn(1000);
+  $('.projects').hide();
+  $('.projects-button').on('click', function() {
+  	$(this).next().toggle();
+    $(this).toggleClass('active');
+  });
+}
+
+// When you click on the 'Recent Projects' buttons now, 
+// only that section's buttons projects toggle.
+
+// Nice work, this page is really coming together.
+
+// Let's add two more features.
 
 
 //////////////
 ////// Lesson 14/16 text
 
+// Since we have a few areas to click on, 
+// it may be helpful to show users which sections they have viewed 
+// by changing the text inside the 'Recent Projects' buttons.
+
+// When a user clicks on a button, we will permanently change the text 
+// of the button to 'Projects Viewed'.
+
+// We can change the text of an element with the jQuery function text. 
+// It's syntax looks like this:
+
+$('.my-selector').text('Hello world!');
+
+// text attaches directly to a jQuery selector.
+// Inside of text's parentheses, we can provide text that will become 
+// the text of our DOM element. 
+// The text we supply will replace any existing text, 
+// and if the element has no pre-existing text, text will add it.
+
+
+//// Instructions:
+
+// Within the projects-button click function, under the toggleClass line, 
+// write jQuery to change the text of the button that was clicked 
+// to say 'Projects Viewed'.
+
+function main() {
+  $('.skillset').hide();
+  $('.skillset').fadeIn(1000);
+  $('.projects').hide();
+  $('.projects-button').on('click', function() {
+  	$(this).next().toggle();
+    $(this).toggleClass('active');
+    $(this).text('Projects Viewed');
+  });
+}
+
+// Now click on the 'Recent Project' buttons 
+// and notice that they now turn to 'Projects Viewed' after each click. 
+// Very nice!
+
+
 //////////////
 ////// Lesson 15/16 slideToggle
+
+// The last feature we'd like to add is an aesthetic one. 
+// Right now when we click the 'Recent Projects' buttons, 
+// the projects appear instantly.
+
+// Let's instead make the projects slide onto the page 
+// when we click the 'Recent Projects' button and 
+// then slide off the page when we click the button again.
+
+// jQuery provides a method named slideToggle 
+// that can animate an element's entrance and exit. 
+
+// The syntax looks like this:
+$('.example-class').slideToggle(400);
+
+// slideToggle can be called directly on a jQuery selector.
+// slideToggle also takes a parameter of milliseconds 
+// that the animation should last. 
+// The default is 400 milliseconds, or 0.4 seconds.
+
+
+//// Instructions:
+
+// Let's make our projects slide in and out when we click 
+// on the 'Recent Projects' button.
+
+// Inside the click function, delete or comment out 
+// this line in your code:
+$(this).next().toggle();
+
+// This line can prevent the slideToggle from working properly, 
+// since it is also affecting the showing and hiding behavior
+// of the projects element.
+
+// Then, select the projects element of the button that is clicked. 
+// Use slideToggle on the selector to animate its appearance 
+// and exit on the page. 
+// The animation should last 400 milliseconds.
+
+function main() {
+  $('.skillset').hide();
+  $('.skillset').fadeIn(1000);
+  $('.projects').hide();
+  $('.projects-button').on('click', function() {
+  	// $(this).next().toggle();
+    $(this).next().slideToggle(400);
+    $(this).toggleClass('active');
+    $(this).text('Projects Viewed');
+  });
+}
+
+// Now the projects slide in and out of the page when 
+// we click the 'Recent Projects' buttons.
+
+// By using jQuery, we've made this page much better 
+// by adding interactive elements.
+
 
 //////////////
 ////// Lesson 16/16 Review jQuery
 
+// Nice work!
+// jQuery is a complete library, and we've only covered the basics. 
+
+// If you're interested in adding animations to websites 
+// and creating more dynamic elements, take our jQuery course here.
+
+
+
+// In this lesson we learned:
+
+// How to link a JavaScript file to an HTML file using a <script> tag.
+
+// jQuery is a library to help JavaScript interact with HTML elements.
+
+// We can make sure our page is ready to go with $(document).ready(). 
+// Then, we can pass in a function to ready that will execute when the page is loaded.
+
+// jQuery uses the same selector names as CSS.
+
+// We can hide elements with hide, and show them with show.
+
+// We can make elements appear with fadeIn.
+
+// on('click') functions allow us to make HTML elements clickable. 
+// When an element is clicked, the click function will execute the function we provide. 
+// It's full sytnax looks like:
+$('.example-class').on('click', function() {
+  // Execute when .example-class is clicked
+});
+
+// toggle will toggle an element on and off the page.
+
+// $(this) will select the specific element that was clicked 
+// if placed inside a click function.
+
+// toggleClass can toggle a class on and off.
+
+// We can select elements next to each other with next.
+
+// text will replace a DOM element's text with text we specify.
+
+// slideToggle will make an element slide into and out of the page 
+// with an animation.
+
+
+// Impressive work on completing Learn JavaScript!
+
+// The next Javascript course, Intermediate JavaScript, is coming soon! 
+// In the course you'll learn how to write full-fledged programs in JavaScript.
+
+// Until then, try out our jQuery course to make websites more dynamic, 
+// or start building applications with JavaScript 
+// with our AngularJS course and our React course. 
+
+// AngularJS and React are two application frameworks written in JavaScript. 
+// With them, you'll be able to create web applications.
+
+// Congrats again on your progress in completing Learn JavaScript!  
 
 
 
 
 
+
+//////////////////////////////////////
+// JavaScript  
+// https://www.codecademy.com/learn/javascript
+//////////////////////////////////////
+
+
+//////////////
+// Getting Started with Programming
+//////////////
+
+
+//////////////
+////// Lesson 7/28 What am I learning?
+
+// This is JavaScript (JS), a programming language. 
+// There are many languages, but JS has many uses and is easy to learn.
+
+// What can we use JavaScript for?
+
+ // make websites respond to user interaction
+ // build apps and games (e.g. blackjack)
+ // access information on the Internet (e.g. find out the top trending words on Twitter)
+ // organize and present data (e.g. automate spreadsheet work; data visualization)
+
+// Example of how JS can be interactive
+confirm('This is an example of using JS to create some interaction on a website. Click OK to continue!');
+
+
+//////////////
+////// Lesson 7/28 What am I learning?
+
+
+
+//// Instructions:
+
+
+//////////////
+////// Lesson 7/28 What am I learning?
+
+//////////////
+////// Lesson 7/28 What am I learning?
+
+//////////////
+////// Lesson 7/28 What am I learning?
+
+//////////////
+////// Lesson 7/28 What am I learning?
+
+//////////////
+////// Lesson 7/28 What am I learning?
+
+//////////////
+////// Lesson 7/28 What am I learning?
 
 
