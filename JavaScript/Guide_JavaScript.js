@@ -2613,39 +2613,455 @@ function main(){}
 $(document).ready(main);
 
 
-// Nice work! We are now ready to start using jQuery. Let's try in the next exercise.
+// Nice work! We are now ready to start using jQuery. 
+// Let's try in the next exercise.
 
 
 //////////////
 ////// Lesson 5/16 jQuery Selectors
 
+// With plain JavaScript we selected an HTML element with this code:
+
+document.getElementsByClassName('skillset');
+
+// With jQuery we can select the same element with:
+
+$('.skillset');
+
+// We can wrap any CSS selector, like class, id, or tag, with 
+// $('.example-class') to select it with jQuery.
+
+// The selectors jQuery uses are the exact same as CSS selectors. 
+// For instance, if there's an element with a class of supporting-text, 
+// you could select it with $('.supporting-text'). 
+// Another example, if an element had an id of 'header', 
+// you could select it with $('#header').
 
 
+//// Instructions:
 
+// Let's select the element with the class of skillset, 
+// but this time with jQuery.
+
+// In js/main.js, inside the main function, 
+// write a variable named $skillset. 
+
+// Set $skillset equal to a jQuery selector for the skillset class.
+
+// Note: It is a common convention to name variables 
+// that hold jQuery selectors with a dollar sign $.
+
+function main(){
+  var $skillset = $('.skillset');
+}
+
+$(document).ready(main);
+
+// On the line below the jQuery selector for skillset, 
+// write an alert on $skillset.
+
+function main(){
+  var $skillset = $('.skillset');
+}
+
+alert($skillset);
+
+$(document).ready(main);
+
+// The alert shows [object Object]. 
+// This is right and means that we successfully selected 
+// the same HTML element as before, but this time using jQuery.
+
+// Now let's see what we can do once we've selected an DOM element.
 
 //////////////
 ////// Lesson 6/16 hide
 
+// Now that we can select an element with jQuery, 
+// we can use built-in jQuery functions to modify it. 
+// From here on, we will start building features into our skills website.
+
+// First off, it would be nice to make the page fade in when loaded.
+
+// To make a page fade in, it must first be hidden. 
+// We can hide elements with jQuery with a function named hide.
+
+// We can hide elements with jQuery, like this:
+
+$('.my-selector').hide();
+
+// We attached the hide function directly to the jQuery selector.
+
+// The hide function will add the CSS property 
+// "display: none" 
+// to the DOM element from the page, which will hide it.
+
+
+//// Instructions:
+
+// We want all of our skills to fade in, 
+// so we need to hide the skills first. 
+
+// In index.html, the element around all of our skills has the class skillset.
+
+// Inside the main function, delete the $skillset variable and the alert 
+// you wrote in the last exercise. 
+// Then use jQuery to hide the skillset element. 
+// Do this by writing a selector for skillset, 
+// then attaching hide() to it with a period.
+
+function main(){
+	$('.skillset').hide();
+}
+
+$(document).ready(main);
+
+// Notice that the skills have been hidden. 
+// hide added a CSS property of 
+// "display: none" to .skillset element, which hid the elements.
+
+// Now, let's learn how to fade in the skillset when the page loads. 
+
+
 //////////////
 ////// Lesson 7/16 fadeIn
+
+// In order to fade in the skillset element, 
+// we can use a the jQuery function named fadeIn.
+
+// True to its name, fadeIn will fade an element in 
+// over a period of time in milliseconds. It looks like this:
+
+$('.example-class').fadeIn(400);
+
+// We must start with an element that is not currently displayed on the page.
+// Just like before, we can attach fadeIn directly to a jQuery selector.
+// Within fadeIn's parentheses, we can specify how long we want the fade 
+// to last in milliseconds. 400 is the default.
+// The example code will fade in the '.example-class' element over 0.4 seconds.
+
+
+//// Instructions:
+
+// Under the line that hides the skillset element, 
+// write another jQuery selector for skillset.
+
+// Then, attach fadeIn to it. 
+// Your fadeIn should last for 1 second/1000 milliseconds.
+
+function main() {
+  $('.skillset').hide();
+  $('.skillset').fadeIn(1000);
+}
+
+$(document).ready(main);
+
+// Now the whole page fades in when the page loads. Nice work!
+
 
 //////////////
 ////// Lesson 8/16 click
 
+// The next feature we'd like to build is making the '
+// Recent Projects' clickable. 
+// When clicked, the button should show the individual projects, 
+// and when clicked again, it should hide the projects.
+
+// In order to make an element clickable, 
+// we need to write jQuery that listens to an element for a click event. 
+// jQuery can do this with an event listener function named on('click').
+
+// This function will wait for a click event, and when one occurs, 
+// it will execute a provided function. 
+
+// The syntax looks like this:
+
+$('.example-class').on('click', function() {
+  // execute the code here when .example-class is clicked.
+});
+
+// $('.example-class') selects an HTML element with the class example-class.
+// .on('click', function() { ... }) adds a click listener to the selector. 
+// When it's clicked the function will execute the code within its block.
+
+
+//// Instructions:
+
+// Our goal is to show our HTML projects when the 'Recent Projects' 
+// button in each section is clicked, 
+// and to hide them when we click it again.
+
+// Let's start by hiding the projects that are currently there.
+
+// Under your existing code in the main function, 
+// use jQuery to hide the elements with a class of projects.
+
+function main() {
+  $('.skillset').hide();
+  $('.skillset').fadeIn(1000);
+  $('.projects').hide();
+}
+
+// Our elements are now hidden. 
+// The next step is to make the 'Recent Projects' button clickable.
+
+// Under the hide you just wrote, 
+// write a jQuery selector for the 'Recent Projects' button. 
+// Its class is .projects-button.
+
+// Then, attach on('click'), 
+// and provide it an empty function as the second parameter to on.
+
+function main() {
+  $('.skillset').hide();
+  $('.skillset').fadeIn(1000);
+  $('.projects').hide();
+  $('.projects-button').on('click', function() {});
+}
+
+// Now that the click listener is set up on the 'Recent Projects' buttons, 
+// let's make the projects appear when we click them.
+
 //////////////
 ////// Lesson 9/16 show
+
+// To make our projects visible when the 'Recent Projects' button is clicked, 
+// jQuery provides a function named show, which is the opposite of hide.
+
+// To show an element, the syntax looks as such:
+
+$('.example-class').show();
+
+// show is attached directly to the jQuery selector.
+// show will change the CSS attribute 
+// "display: none"
+// to a visible display property, therefore showing the element.
+
+
+//// Instructions:
+
+// Inside the click function you wrote in the last exercise, 
+// write a selector for the projects class.
+
+// Then, call the show function on it.
+
+function main() {
+  $('.skillset').hide();
+  $('.skillset').fadeIn(1000);
+  $('.projects').hide();
+  $('.projects-button').on('click', function() {
+  	$('.projects').show();
+  });
+}
+
+// Click on the 'Recent Projects' buttons, 
+// and notice that the projects now show when clicked.
+
+// Notice that there are some problems though:
+
+// The projects don't hide again when you click the button again.
+// When you click one button, all the projects show in each section.
+
+// It would also be nice if the button we clicked looked selected, 
+// or changed appearance when clicked.
+
+// We will solve these problems in the upcoming exercises.
+
 
 //////////////
 ////// Lesson 10/16 toggle
 
+// When we click on a 'Recent Projects' button, the projects show. 
+// Next, let's hide the projects if we click the '
+// Recent Projects' button again.
+
+// jQuery provides a function named toggle that is helpful in this situation. 
+// toggle will hide or show an element, each time it is triggered. 
+
+// The syntax looks like this:
+
+$('example-class').toggle();
+
+// toggle can be called directly on an jQuery selector.
+// When toggle is executed, 
+// it will hide or show the element that the selector points to. 
+// If the element is currently hidden, toggle will show the element, 
+// and vice versa.
+
+
+//// Instructions:
+
+// Inside the click function, we wrote a selector for the projects class 
+// and we called show on it.
+
+// Replace the show function with toggle.
+
+// Then 'Run' your code and click on the 'Recent Projects' buttons multiple times.
+
+function main() {
+  $('.skillset').hide();
+  $('.skillset').fadeIn(1000);
+  $('.projects').hide();
+  $('.projects-button').on('click', function() {
+  	$('.projects').toggle();
+  });
+}
+
+// Making progress!
+// Now the projects toggle in and out when we click.
+// Next, let's make our button change appearance when it is clicked.
+
+
 //////////////
 ////// Lesson 11/16 toggleClass
+
+// Let's add one more feature: 
+// when we click the 'Recent Projects' button the background color 
+// and text color should change.
+
+// We can toggle a CSS class with a jQuery function named toggleClass. 
+// The syntax looks like this:
+
+$('.example-class').toggleClass('active')
+
+// .toggleClass is a function that will toggle a CSS class 
+// on the jQuery selector it's connected to. 
+// If the element has the class applied to it, 
+// toggleClass will remove it, and if the element does not have the class, 
+// it will add it.
+
+// 'active' is the class that we will toggle on and off. 
+// Notice that toggleClass does not require us to include the period 
+// before 'active' since it's already expecting a CSS class.
+
+
+//// Instructions:
+
+// In css/styles.css, there is this class:
+
+// .active {
+  background-color: #333333;
+  color: whitesmoke;
+}
+
+// Inside the click function, 
+// toggle this class on the elements with the projects-button class.
+
+// The .active class will make the projects-button's background dark 
+// and its text light.
+
+function main() {
+  $('.skillset').hide();
+  $('.skillset').fadeIn(1000);
+  $('.projects').hide();
+  $('.projects-button').on('click', function() {
+  	$('.projects').toggle();
+	$('.projects-button').toggleClass('active')
+  });
+}
+
+// Click on the 'Recent Projects' buttons. 
+// Now they change color when clicked, 
+// and change back to their original state when clicked again.
+
+// There's still one big issue: 
+// we only want the element we clicked on to toggle its projects and class.
+
+// Let's solve it in the next exercise. 
+
 
 //////////////
 ////// Lesson 12/16 this
 
+// In the last exercise, we were toggling every 'Recent Projects' button 
+// instead of only the one we clicked on.
+
+// We can select the specific element we clicked on 
+// with the jQuery selector $(this).
+
+// The syntax looks like this:
+
+$('.example-class').on('click', function() {
+  $(this).toggleClass('active');
+});
+
+// $(this) selects the clicked element. 
+// If there are multiple elements with a class of .example-class, 
+// this will only toggle the class of the one that is clicked on.
+
+// Notice that $(this) does not require quotes around it, 
+// since it is not a CSS class. 
+// Instead, this is a JavaScript keyword.
+
+// $(this) behaves just like our other selectors. 
+// We can attach toggleClass or toggle to it in the same way.
+
+
+//// Instructions:
+
+// Let's begin by only changing the class of the element we clicked.
+
+// Modify the toggleClass we wrote in the last exercise to use 
+// $(this) as its selector.
+
+function main() {
+  $('.skillset').hide();
+  $('.skillset').fadeIn(1000);
+  $('.projects').hide();
+  $('.projects-button').on('click', function() {
+  	$('.projects').toggle();
+    $(this).toggleClass('active');
+  });
+}
+
+// Now click on the 'Recent Project' buttons within each section 
+// and see that only the button you click on will toggle its class.
+
+// Next up, let's toggle the projects in the section we clicked on, 
+// instead of toggling them all.
+
+
 //////////////
 ////// Lesson 13/16 next
+
+// In order to toggle the projects in each section, 
+// we will need to use $(this) to select the button we clicked on. 
+// The issue is that $(this) refers to the projects-button in our current code, 
+// and not the projects themselves.
+
+// We need a way to select the projects elements next to the button that we clicked.
+
+// Luckily, jQuery can select elements logically. 
+// In index.html, notice that the projects-button element 
+// is directly followed by the projects list. 
+// Therefore the projects element is next after it.
+
+// jQuery has a function named next to help us select elements 
+// that are next to another element. 
+
+// If we have this in our HTML:
+	// <div class='item-one'> ... </div>
+	// <div class='item-two'> ... </div>
+
+// If we wanted to hide item-two, we could write:
+
+$('.item-one').next().hide();
+
+// We can attach next to any jQuery selector 
+// to select the next direct element.
+
+// Then, we can attach any jQuery function to next(). 
+// In this case, we attached hide, 
+// which would hide the next element after the $('.item-one') element.
+
+
+//// Instructions:
+
+Inside the click function, let's modify this line:
+
+$('.projects').toggle();
+Instead of selecting all the projects elements, use $(this) and next to select the projects, then attach toggle on the end to toggle the projects on the page.
+
 
 //////////////
 ////// Lesson 14/16 text
