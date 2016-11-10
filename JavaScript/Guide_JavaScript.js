@@ -4129,3 +4129,300 @@ else{
 
 // We want to keep learning ways to instruct the computer to perform repeatable tasks efficiently.
 
+
+//// Instructions:
+
+// Let's briefly review! 
+// Use an if / else to check how fast you're driving.
+
+// If speed is greater than 80, 
+// use console.log to print "Slow down"
+// Otherwise (else), use console.log to print "Drive safe"
+
+var speed = 65;
+
+// Complete the condition in the ()s on line 4
+if (speed > 80) {
+	// Use console.log() to print "Slow down"
+	console.log("Slow down")
+} 
+else {
+	// Use console.log() to print "Drive safe"
+    console.log("Drive safe")
+
+}
+
+
+//////////////
+////// Lesson 2/13 Introducing Functions
+
+// Programming is similar to baking cakes. 
+// Seriously! 
+// Imagine you are trying to teach your friend Jane 
+// how to bake many different types of cakes.
+
+// Each cake takes in different ingredients (ie. inputs). 
+// But the 'bake' instructions are always the same. 
+
+// For example:
+	// Pre-heat the oven at 300 degrees
+	// Mix all the ingredients in a bowl
+	// Put contents into oven for 30 mins
+
+// And the output will be a different cake each time.
+
+// It is tedious to have to repeat to Jane the same 'bake' 
+// instructions every time. 
+// What if we could just say 'bake' 
+// and Jane would know to execute those three steps? 
+// That is exactly what a function is!
+
+
+//// Instructions:
+
+// Line 3 declares the function and gives it a name.
+
+// Focus on line 4 and line 5. 
+// The code within the curly brackets { } is the code 
+// we want to use again and again. (i.e. the 'bake' instructions)
+
+// Line 4 declares a variable called val. 
+// Line 5 prints the value of that variable.
+
+// On line 8-11, we explain what calling a function means.
+
+// On line 12, replace the 6 with any number and press Save & Submit Code. 
+// Do this a few times to see the beauty of functions!
+
+// This is what a function looks like:
+
+var divideByThree = function (number) {
+    var val = number / 3;
+    console.log(val);
+};
+
+// On line 12, we call the function by name
+// Here, it is called 'dividebythree'
+// We tell the computer what the number input is (i.e. 6)
+// The computer then runs the code inside the function!
+divideByThree(6);
+
+
+//////////////
+////// Lesson 3/13 Function syntax
+
+// A function takes in inputs, does something with them, 
+// and produces an output.
+
+// Here's an example of a function:
+
+var sayHello = function(name) {
+    console.log('Hello ' + name);
+};
+
+// First we declare a function using var, 
+// and then give it a name sayHello. 
+// The name should begin with a lowercase letter 
+// and the convention is to use lowerCamelCase 
+// where each word (except the first) begins with a capital letter.
+
+// Then we use the function keyword to tell the computer 
+// that you are making a function
+
+// The code in the parentheses is called a parameter. 
+// It's a placeholder word that we give a specific 
+// value when we call the function. 
+// Click "Stuck? Get a hint!" for more.
+// Then write your block of reusable code between { }. 
+// Every line of code in this block must end with a ;.
+
+// You can run this code by "calling" the function, like this:
+
+sayHello("Emily");
+
+// Calling this function will print out Hello Emily.
+
+
+//// Instructions:
+
+// On line 11, call the greeting function 
+// and put in a name that you want the greeting function to include.
+
+// Press "Save & Submit Code" and see the function get into action! 
+// Saves you so much time.
+
+// Below is the greeting function!
+// See line 7
+// We can join strings together using the plus sign (+)
+// See the hint for more details about how this works.
+
+var greeting = function (name) {
+    console.log("Great to see you," + " " + name);
+};
+
+// On line 11, call the greeting function!
+greeting("Emily")
+
+
+//////////////
+////// Lesson 4/13 How does a function work?
+
+// Let's break down exactly how a computer thinks 
+// when it sees the code for a function.
+
+var functionName = function( ) {
+    // code code code
+    // code code code
+    // (more lines of code)
+};
+
+// The var keyword declares a variable named functionName.
+
+// The keyword function tells the computer that 
+// functionName is a function and not something else.
+
+// Parameters go in the parentheses. 
+// The computer will look out for it in the code block.
+
+// The code block is the reusable code that is between 
+// the curly brackets { }. 
+// Each line of code inside { } must end with a semi-colon.
+
+// The entire function ends with a semi-colon.
+
+// To use the function, we call the function by just typing 
+// the function's name, and putting a parameter value inside 
+// parentheses after it. 
+// The computer will run the reusable code with the specific 
+// parameter value substituted into the code.
+
+
+//// Instructions:
+
+// Let's make a function that tells the world what you want to eat.
+
+// Declare your function and call it foodDemand.
+
+// You can call the parameter anything you like. 
+// But we'll call it food because that is the thing that is going 
+// to change each time we call the function.
+
+// Your reusable block of code follow this. 
+// Surround it with the right brackets. 
+// The code you want to repeat is: console.log("I want to eat" + " " + food);
+
+// Call the function and put in a specific food you want!
+
+
+// Write your foodDemand function below.
+// Last hint: In your reusable block of code, end each line
+// with a semicolon (;)
+
+var foodDemand = function(food){
+    console.log("I want to eat" + " " + food);
+}
+
+foodDemand("Cheese")
+
+//////////////
+////// Lesson 5/13 Tying it all together
+
+// Why is the code organized like it is on lines 2-5?
+
+// The computer can understand the code without such spacing. 
+// But it makes editing a lot easier and is best practice.
+
+// Do I have to put a semi-colon at the end of each line 
+// of code in the reusable block? 
+// And at the end of the entire function?
+// Yes. At the end of each line of code (within the { }) 
+// and after the entire function (after the { }), 
+// please put a semi-colon. 
+// The semi-colon acts like a period in a sentence. 
+// It helps the computer know where there are stopping points 
+// in the code.
+
+
+//// Instructions:
+
+// A big part of programming is debugging. 
+// That just means figuring out what the heck went wrong
+// with your code. Why didn't it run?
+
+// Look at line 9. It has many syntax errors. 
+// See how lack of spacing makes debugging hard?
+
+// Fix the function on line 9. Make sure the syntax is right. 
+// Make sure it looks nice.
+// all the greeting function once it is fixed!
+//  Don't forget to pass in a specific name.
+
+
+// Nicely written function:
+var calculate = function (number) {
+    var val = number * 10;
+    console.log(val);
+};
+
+// Badly written function with syntax errors!
+
+var greeting = function(name){
+    console.log(name);
+};
+
+greeting("Clare")
+
+
+//////////////
+////// Lesson 6/13 Don't Repeat Yourself (D.R.Y)
+
+// The D.R.Y. principle is really important in programming. 
+// No repeating!
+
+// Any time you find yourself typing the same thing, 
+// but modifying only one small part, 
+// you can probably use a function.
+
+// The 'small part' that you find yourself modifying 
+// will be the parameter. 
+// And the part that you keep repeating will be the code 
+// in the reusable block - the code inside { }.
+
+
+//// Instructions:
+
+// You are a creature of habit. 
+// Every week you buy 5 oranges. 
+// But orange prices keep changing!
+
+// You want to declare a function that calculates the cost 
+// of buying 5 oranges.
+
+// You then want to calculate the cost of the 5 all together.
+
+// Write a function that does this called orangeCost().
+
+//  It should take a parameter that is the cost of an orange, 
+// and multiply it by 5.
+
+// It should log the result of the multiplication to the console.
+
+// Call the function where oranges each cost 5 dollars.
+ 
+var orangeCost = function(price){
+    total = price * 5;
+    console.log(total);
+};
+orangeCost(5)
+
+
+//////////////
+////// Lesson 7/13 Return keyword
+
+Nice job! Now, when we call a function, we don't always want to just print stuff. Sometimes, we just want it to return a value. We can then use that value (ie. the output from the function) in other code. Let's learn about the return keyword, then we'll see how to use functions with an if / else statement in the next exercise!
+
+The return keyword simply gives the programmer back the value that comes out of the function. So the function runs, and when the return keyword is used, the function will immediately stop running and return the value.
+
+
+
+
