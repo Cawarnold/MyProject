@@ -4419,10 +4419,269 @@ orangeCost(5)
 //////////////
 ////// Lesson 7/13 Return keyword
 
-Nice job! Now, when we call a function, we don't always want to just print stuff. Sometimes, we just want it to return a value. We can then use that value (ie. the output from the function) in other code. Let's learn about the return keyword, then we'll see how to use functions with an if / else statement in the next exercise!
+// Nice job! Now, when we call a function, 
+// we don't always want to just print stuff. 
+// Sometimes, we just want it to return a value. 
+// We can then use that value (ie. the output from the function) 
+// in other code. 
 
-The return keyword simply gives the programmer back the value that comes out of the function. So the function runs, and when the return keyword is used, the function will immediately stop running and return the value.
+// Let's learn about the return keyword, 
+// then we'll see how to use functions with an 
+// if / else statement in the next exercise!
+
+// The return keyword simply gives the programmer back the value 
+// that comes out of the function. 
+// So the function runs, and when the return keyword is used, 
+// the function will immediately stop running and return the value.
+
+
+//// Instructions:
+
+// In our example we have a function called timesTwo() 
+// that takes in a number and returns the number multiplied by two.
+
+// On line 7, after the equals sign, 
+// call the function timesTwo with any parameter you want
+// Line 8 prints out newNumber. 
+// Notice how the value we return from timesTwo() 
+// is automatically assigned into newNumber.
+
+// Parameter is a number, and we do math with that parameter
+
+var timesTwo = function(number) {
+    return number * 2;
+};
+
+// Call timesTwo here!
+var newNumber = timesTwo(234)
+console.log(newNumber);
+
+
+//////////////
+////// Lesson 8/13 Functions, return and if / else
+
+// When we call a function, its return value is 
+// just the result from running the function. 
+// That value can then be used just like any other value in JavaScript!
+
+// Look at the if statement starting on line 7. 
+// The if statement is checking whether the result of calling 
+// the function named quarter is divisible by 3.
+
+
+//// Instructions:
+
+//  Define a function called quarter which has a parameter called number.
+
+// This function returns a value equal to one quarter of the parameter. 
+// (i.e. number / 4;)
+
+// Call the function inside the if statement's condition 
+// (and put in a parameter value!) such that 
+// "The statement is true" is printed to the console.
+
+// Define quarter here.
+var quarter = function(number) {
+    return number / 4;
+};
+
+if (quarter(12) % 3 === 0 ) {
+  console.log("The statement is true");
+} else {
+  console.log("The statement is false");
+}
 
 
 
+//////////////
+////// Lesson 9/13 Functions, Functions with two parameters
 
+// So far we've only looked at functions with one parameter. 
+// But often it is useful to write functions with more than one parameter. 
+
+// For example, we can have the following function:
+
+var areaBox = function(length, width) {
+    return length * width;
+};
+
+// With more than one parameter, we can create more useful functions
+
+// To call a function with more than one parameter, 
+// just enter a value for each parameter in the parentheses. 
+// For example, areaBox(3,9); would return the area of a box 
+// with a length of 3 and a width of 9.
+
+
+//// Instructions:
+
+// Write a function called perimeterBox that returns the 
+// perimeter of a rectangle.
+
+// It should have two parameters.
+
+// One formula for perimeter is length + length + width + width;
+
+// Call the function and pass in any value for length and width you like.
+
+var perimeterBox = function(length, width) {
+	return length + length + width + width;
+};
+
+console.log(perimeterBox(4,5))
+
+
+//////////////
+////// Lesson 10/13 Global vs Local Variables
+
+// Let's talk about an important concept: scope. 
+// Scope can be global or local.
+
+// Variables defined outside a function are accessible anywhere 
+// once they have been declared. 
+// They are called global variables and their scope is global.
+
+// For example:
+
+var globalVar = "hello";
+
+var foo = function() {
+    console.log(globalVar);  // prints "hello"
+}
+
+// The variable globalVar can be accessed anywhere, 
+// even inside the function foo.
+
+// Variables defined inside a function are local variables. 
+// They cannot be accessed outside of that function.
+
+// For example:
+
+var bar = function() {
+    var localVar = "howdy";
+}
+
+console.log(localVar);  // error
+T
+// The variable localVar only exists inside the function bar. 
+// Trying to print localVar outside the function gives a error.
+
+// Check out the code in the editor. 
+// Until now you've been using the var keyword without really understanding why. 
+// The var keyword creates a new variable in the current scope. 
+// That means if var is used outside a function, 
+// that variable has a global scope. 
+// If var is used inside a function, that variable has a local scope.
+
+// On line 4 we have not used the var keyword, 
+// so when we log my_number to the console outside of the function, 
+// it will be 14.
+
+
+//// Instructions:
+
+// Change line 4 to use the var keyword. 
+// Notice that the value of my_number in the function is now 14 
+// and outside the function is 7.
+
+// Using my_number without the var keyword refers to the global variable 
+// that has already been declared outside the function in line 1. 
+// However, if you use the var keyword inside a function, 
+// it declares a new local variable that only exists within that function.
+
+var my_number = 7; //this has global scope
+
+var timesTwo = function(number) {
+    var my_number = number * 2;
+    console.log("Inside the function my_number is: ");
+    console.log(my_number);
+}; 
+
+timesTwo(7);
+
+console.log("Outside the function my_number is: ")
+console.log(my_number);
+
+// Inside the function my_number is: 
+// 14
+// Outside the function my_number is: 
+// 7
+
+
+var my_number = 7; //this has global scope
+
+var timesTwo = function(number) {
+    my_number = number * 2;
+    console.log("Inside the function my_number is: ");
+    console.log(my_number);
+}; 
+
+timesTwo(7);
+
+console.log("Outside the function my_number is: ")
+console.log(my_number);
+
+// Inside the function my_number is: 
+// 14
+// Outside the function my_number is: 
+// 14
+
+
+//////////////
+////// Lesson 11/13 Functions recap
+
+// Okay let's review. 
+// You have learned a lot about functions today. 
+// We better not forget it all!
+
+// We first discovered how to use functions 
+// to perform the same piece of logic repeatedly, 
+// without having to type the same code again. 
+// This saves you time!
+
+
+//// Instructions:
+
+// Write a function called nameString()
+// It should take name as a parameter.
+// The function returns a string equal to "Hi, I am" + " " + name.
+// Call nameString() by passing it your name, 
+// and use console.log to print the output.
+
+
+var nameString = function(name) {
+	return "Hi, I am" + " " + name;
+};
+
+console.log(nameString("chris"))
+
+
+//////////////
+////// Lesson 12/13 Functions & if / else
+
+// An especially useful application of reusable code is if/else statements. 
+// These can be very wordy, and a pain to type repeatedly.
+
+// We are going to write a function that checks 
+// how many hours of sleep a night you're getting. 
+// Inside the function will be an if/else statement. 
+// We want the function to check many different numbers of hours 
+// to see whether a person is getting enough sleep.
+
+
+//// Instructions:
+
+// Write a function named sleepCheck that takes the parameter numHours
+// Inside the function, write an if statement 
+// where if the number of hours of sleep is greater than or equal to 8, 
+// the computer will return 
+// "You're getting plenty of sleep! Maybe even too much!";.
+
+// Otherwise (else) if the number of hours of sleep is less than 8, 
+// have the computer return "Get some more shut eye!";
+
+// Then call the function with different hours of sleep
+
+Call the function with 10 hours of sleep, like this: sleepCheck(10);
+Call the function with 5 hours of sleep.
+Call the function with 8 hours of sleep.
