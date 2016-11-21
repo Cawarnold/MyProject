@@ -4682,6 +4682,11 @@ console.log(nameString("chris"))
 
 // Then call the function with different hours of sleep
 
-Call the function with 10 hours of sleep, like this: sleepCheck(10);
-Call the function with 5 hours of sleep.
-Call the function with 8 hours of sleep.
+// Call the function with 10 hours of sleep, like this: sleepCheck(10);
+// Call the function with 5 hours of sleep.
+// Call the function with 8 hours of sleep.
+
+
+
+
+
