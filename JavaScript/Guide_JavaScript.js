@@ -4127,7 +4127,8 @@ else{
 
 // In Getting Started, we learned about if / else statements.
 
-// We want to keep learning ways to instruct the computer to perform repeatable tasks efficiently.
+// We want to keep learning ways to instruct the computer to perform 
+// repeatable tasks efficiently.
 
 
 //// Instructions:
@@ -4685,6 +4686,336 @@ console.log(nameString("chris"))
 // Call the function with 10 hours of sleep, like this: sleepCheck(10);
 // Call the function with 5 hours of sleep.
 // Call the function with 8 hours of sleep.
+
+
+var sleepCheck = function(numHours) {
+	if (numHours >= 8) {
+		return "You're getting plenty of sleep! Maybe even too much!";
+	} 
+	else {
+		return "Get some more shut eye!";
+	}
+};
+
+sleepCheck(10);
+sleepCheck(5);
+sleepCheck(8);
+
+
+
+//////////////
+////// Lesson 13/13 Conclusion
+
+// Congratulations on finishing this functions course! 
+// Hopefully you can see how powerful functions are, 
+// and how they can be used in so many contexts.
+
+
+///////////////////////////////////
+///////////////////////////////////
+
+//////////////
+// Build "Rock, Paper, Scissors"
+//////////////
+
+
+//////////////
+////// Lesson 1/13 The Game
+
+
+
+
+
+
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+
+
+///////////////////////////////////
+///////////////////////////////////
+// 'FOR' Loops in JavaScipt
+///////////////////////////////////
+///////////////////////////////////
+
+
+//////////////
+// Introduction to 'For' Loops in JS
+//////////////
+
+
+//////////////	For loops: The Basics
+////// Lesson 1/13 Why use for loops?
+
+// We are learning how to program because we don't want to 
+// do boring, repetitive work! The computer should do that.
+
+// This first exercise is a good example of exactly why you want to learn for loops.
+
+
+//// Instructions:
+
+// Use five console.log statements to print out the numbers 1 to 5.
+// Try not getting angry at me for this annoying exercise.
+// Head over to the next exercise to see how we can 
+// use for loops to do this task more efficiently.
+
+console.log("1")
+console.log("2")
+console.log("3")
+console.log("4")
+console.log("5")
+
+
+//////////////
+////// Lesson 2/13 Fist for loop
+
+// Instead of manually typing in console.log five times, 
+// we can use a for loop to do this. 
+// The aim of this exercise is just to show you how a for loop looks, 
+// and demonstrate how useful it is. 
+
+// Subsequent exercises will
+// a. walk you through the syntax bit by bit
+// b. explain how the computer thinks as it executes a for loop.
+
+// We initially focus on using for loops just to count numbers to keep things simple. 
+// But by section 3, we will show you how to do more fancy things!
+
+
+//// Instructions:
+
+// The for loop in the code will print out 1 to 5 
+// and use far less code than you used in the previous exercise.
+
+// Change the 6 to 11 and press Save & Submit Code. 
+// This will see the computer print out 1 to 10!
+
+for (var counter = 1; counter < 11; counter++) {
+	console.log(counter);
+}
+
+
+
+//////////////
+////// Lesson 3/13 Starting the for loop
+
+// Congratulations! You've just run your first for loop. 
+// But what you're probably really keen to do is write your own for loop. 
+// Below is the general syntax of the for loop. 
+// We want to focus on the first line in the next few exercises.
+
+// Syntax
+
+for (var i = 1; i < 11; i = i + 1) {
+    /* your code here */;
+}
+
+// Every for loop makes use of a counting variable. 
+// Here, our variable is called i (but it can have any name). 
+// The variable has many roles. 
+
+// The first part of the for loop tells the computer 
+// to start with a value of 1 for i. 
+// It does this by declaring the variable called i and giving it a value of 1.
+
+// When the for loop executes the code in the code block—the bit between { }—
+// it does so by starting off where i = 1.
+
+
+//// Instructions:
+
+// This for loop starts off at 1 and will end at 10.
+// Change the for loop such that it will start off at 5!
+
+for (var i = 5; i < 11; i = i + 1){
+	console.log(i);
+}
+
+
+
+//////////////
+////// Lesson 4/13 Ending the for loop
+
+// We know how to control where the for loop starts. 
+// How do we control where it ends? 
+// Well, the second part of the for loop determines that.
+
+// Syntax
+
+    for (var i = 1; i < 11; i = i + 1) {
+        code code code; 
+    }
+
+// Here, this for loop will keep running until i = 10 
+// ( i.e. while i < 11). 
+// So when i = 2, or i = 9, the for loop will run. 
+// But once i is no longer less than 11, the loop will stop.
+
+
+//// Instructions:
+
+// We know this for loop counts from 1 to 10.
+// Change this for loop such that it starts at 4.
+// Change this for loop such that it counts up to and including 23. 
+// ( i.e. we do NOT want 24 to be printed out!)
+// Run your for loop and see it count from 4 to 23!
+
+for (var i = 4; i < 24; i = i + 1) {
+	console.log(i);
+}
+
+
+
+//////////////
+////// Lesson 5/13 Controlling the for loop
+
+// We can now control where the for loop starts and ends. 
+// What about controlling what happens in between?
+
+// The examples we've looked at have used i = i + 1. 
+//  This has meant we have incremented (increased) 
+// the variable i by 1 each time.
+
+// Rules to learn
+
+// a. A more efficient way to code to increment up by 1 is to write i++.
+// b. We decrement down by 1 by writing i--.
+// c. We can increment up by any value by writing i += x, 
+	// where x is how much we want to increment up by. 
+	// e.g., i += 3 counts up by 3s.
+// d. We can decrement down by any value by writing i -= x.
+// e. Be very careful with your syntax—
+	// if you write a loop that can't properly end, 
+	// it's called an infinite loop.
+	// It will crash your browser!
+
+
+//// Instructions:
+
+// This code counts every number from 0 to 35.
+// Make it start counting from 5. Please!
+// Stop the counting when it prints out 50.
+// Only count every fifth number. So we want to increment i by 5.
+
+for (var i = 5; i < 51; i = i + 5) {
+	console.log(i);
+}
+
+
+////////////// Practicing loops
+////// Lesson 6/13 How does it work?
+
+// We've gone through the three bits of syntax for a for loop. 
+// But how exactly does it work? 
+// Let's imagine the steps the computer takes to run the for loop on the right.
+
+for (var i = 2 ; i < 13; i++) {
+	console.log(i);
+}
+
+// 1. It starts off with i = 2
+// 2. It then asks: Is i currently less than 13? 
+	// Because i = 2, this is true and we continue.
+// 3. We do NOT increment now. 
+	// Instead, if the condition is met, we run the code block.
+// 4. Here, the code block prints out the value of i. 
+	// It is currently 2 so 2 will be printed out.
+// 5. Once the code block is finished, the for loop then increments / decrements. 
+	// Here, we add 1.
+// 6. Now i = 3. We check if it is less than 13. 
+	// If it is true, we run the code block.
+// 7. The code block runs, and then we increment.
+// 8. We repeat these steps until the condition i < 13 is no longer true.
+
+
+//// Instructions:
+
+// Make the computer start counting at 8.
+// Keep counting while i < 120.
+// Count up by increments of 12.
+
+for (var i = 8 ; i < 120; i=i+12) {
+	console.log(i);
+}
+
+
+////////////// 
+////// Lesson 7/13 Practice counting down
+
+// for loops only run when the condition is true.
+
+// It is important that there is a way for the for loop to end. 
+// If the for loop is always going to be true, 
+// then you will be stuck in an infinite loop 
+// and your browser will crash! 
+// Look at the code. It is bad.
+
+for (var i = 1; i >= 1; i++) {
+	console.log(i);
+}
+
+// a. It begins at i = 1. 
+// b. It will keep going as long as i >= 1.
+// c. Because now i = 1, the code will run.
+// d. We increment i by 1 and now i = 2. 
+	// This satisfies the condition. We run the code. 
+// e. Increment i by 1 and now i = 3. 
+	// This satisfies the condition that i >= 1. We run the code.
+// f. We will keep incrementing the code up by 1. 
+	// It will always satisfy the condition. 
+	// The loop NEVER ends. 
+	// This will crash your computer!
+
+
+//// Instructions:
+
+// Change this code such that it starts counting from 10.
+// We want it to stop once it gets to 0.
+// We want it to count down by 1.
+// In the end, the numbers 10..0 inclusive, should be printed.
+
+for (var i = 10; i >= 0; i--) {
+	console.log(i);
+}
+
+
+////////////// 
+////// Lesson 8/13 Last practice for loop
+
+// You have a great handle on for loops now! 
+// This will be the last practice one before we look at cool ways to use them.
+
+// The next exercise introduces you to arrays. 
+// So instead of just counting numbers up and down, 
+// we can make the computer do many more interesting things with loops.
+
+
+//// Instructions:
+// Once more, for practice: write a for loop that gets the computer 
+// to count down from 100 until 0 by 5. 
+// This time, make sure not to print 0.
+
+for (var i = 100; i >= 0; i=i-5){
+    if (i > 0){
+        console.log(i);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
