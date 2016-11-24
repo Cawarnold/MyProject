@@ -5005,6 +5005,426 @@ for (var i = 100; i >= 0; i=i-5){
 }
 
 
+//////////////  Arrays and Loops
+////// Lesson 9/13 Meet arrays
+
+// Variables can store numbers or strings. 
+// But so far, we've only been able to store ONE number or ONE string. 
+// Good thing we have arrays. 
+
+// Arrays:
+	// a. store lists of data
+	// b. can store different data types at the same time
+	// c. are ordered so the position of each piece of data is fixed
+
+// Example:
+var names = ["Mao","Gandhi","Mandela"];
+
+var sizes = [4, 6, 3, 2, 1, 9];
+
+var mixed = [34, "candy", "blue", 11];
+Syntax:
+
+var arrayName = [data, data, data];
+
+// Any time you see data surrounded by [ ], it is an array.
+
+//// Instructions:
+
+// Make your own array called junk. 
+// Put 4 bits of data in it (first 2 strings, then 2 numbers).
+
+// Declare it using var.
+// Put [ ] around your data.
+// Separate each bit of data with a comma.
+// End it with a semi-colon.
+// Use console.log to print out jun
+
+var junk = ["shoes", "gloves", 2, 16];
+
+console.log(junk)
+
+
+////////////// 
+////// Lesson 10/13 Array positions
+
+// It's nice that we can put a list of data into an array. 
+// But now we need to learn how to get access to the data inside the array.
+
+// The position of things in arrays is fixed. 
+// So we just need to know the array name (here, it is junkData), 
+// and the position of the data we want, and we're done.
+
+var junkData = ["Eddie Murphy", 49, "peanuts", 31];
+
+// Small complication: 
+// the position (or the index) of each bit of data is counted starting from 0, not 1.
+
+// First element in the array: junkData[0]
+// Third element in the array: junkData[2]
+
+// Arrays have 0-based indexing, so we start counting the positions from 0.
+
+//// Instructions:
+
+// Print out the fourth element of the array.
+
+// Start with figuring out how to express what the fourth element in the array is.
+// Then use console.log() to print things out!
+
+console.log(junkData[3])
+
+
+////////////// 
+////// Lesson 11/13 Loops and arrays I
+
+// Awesome job! 
+// You've now learned about arrays, and how to access one element of the array. 
+// But what if there were 100 elements in the array?
+
+// For arrays, a useful way to systematically access every element 
+// in the array is to use a for loop!
+
+var cities = ["Melbourne", "Amman", "Helsinki", "NYC"];
+
+for (var i = 0; i < cities.length; i++) {
+    console.log("I would like to visit " + cities[i]);
+}
+
+// How does it work?
+	// 1. the var name = [] declares the array. It has 4 elements.
+	// 2. We then start the for loop on line 5.
+	// 3. We see i starts off at value 0.
+	// 4. The for loop runs until i < 4 (because cities.length equals 4. 
+		// The array cities has 4 elements in it; see the Hint for more.)
+	// 5. We will increment i by 1 each time we loop over.
+	// 6. We print out cities[0], which is "Melbourne".
+	// 7. We then start the loop again. Except now i = 1.
+	// 8. It will print out cities[1], which is "Amman".
+	// 9. This continues until i is no longer less than cities.length.
+
+
+//// Instructions:
+
+// Change the elements in the cities array. 
+// You can put in as many elements as you like.
+// Run the for loop and see them all printed out!
+
+var cities = ["Melbourne", "Amman", "Helsinki", "NYC", "Brysbane", "The Moon", "Atlantis", 6];
+
+for (var i = 0; i < cities.length; i++) {
+    console.log("I would like to visit " + cities[i]);
+}
+
+
+
+////////////// 
+////// Lesson 12/13 Loops and arrays II
+
+// It's time for you to write your own array and loop over the array. 
+
+// Remember to:
+	// Put commas between each element in the array.
+	// Put semi-colons between each bit of the for loop.
+	// We suggest you use i as the iterator.
+	// Beware of infinite loops!
+	// Enjoy yourself while smashing through this coding!
+
+
+//// Instructions:
+
+// Create an array called names filled with 5 names.
+// Write a for loop that prints "I know someone called " followed by names[i]. 
+// Make sure there's a space between "called" and the name!
+// Run your code and the five sentences should print out.
+
+var names = ["A","B","C","D","E"];
+
+for (var i = 0; i <names.length; i++) {
+    console.log("I know someone called " + names[i]);
+};
+
+
+////////////// 
+////// Lesson 13/13 Conclusion
+
+// You've done an awesome job! 
+// Loops are always a little tricky when you first meet them. 
+// But they are worth learning because they are really useful.
+
+// What now? You have so many useful tricks up your sleeve:
+	// a. if / else statements
+	// b. functions
+	// c. for loops
+	// d. booleans, arrays, variables, etc.
+
+//// Instructions:
+
+// The best way to get better at programming 
+// is to use what you have learned to build something! 
+// Click Save & Submit Code to finish.
+
+
+///////////////////////////////////
+///////////////////////////////////
+
+//////////////
+// Build a Name finder
+//////////////
+
+
+//////////////
+////// Lesson 1/13 The Game
+
+
+
+
+
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+
+
+///////////////////////////////////
+///////////////////////////////////
+// 'While' Loops in JavaScript
+///////////////////////////////////
+///////////////////////////////////
+
+
+//////////////
+// Introduction to 'While' Loops in JS
+//////////////
+
+
+//////////////	While loops: The Basics
+////// Lesson 1/11 While we're at it
+
+// Great work with for loops! 
+// As a reminder, for loop syntax looks like this:
+
+for (var i = start; i < end; i++) {
+  // do something
+}
+
+// The counter variable i starts at "start", and stops looping when it reaches "end."
+
+// But what if you didn't know ahead of time when to stop looping? 
+// Say, for example, 
+// you wanted to keep choosing playing cards from a deck until you get a spade. 
+// You don't know how many cards you'll need to choose, so a for loop won't work.
+
+// In situations like these where you don't know in advance when to stop looping,
+// we can use a while loop.
+
+
+//// Instructions:
+
+// Check out the while loop in the editor. 
+// Can you guess what it will do? 
+// Hit "Save & Submit Code" when you think you know! (The answer is in the Hint.)
+
+var coinFace = Math.floor(Math.random() * 2);
+
+while(coinFace === 0){
+	console.log("Heads! Flipping again...");
+	var coinFace = Math.floor(Math.random() * 2);
+}
+console.log("Tails! Done flipping.");
+
+// Don't worry about the Math.floor bit for now—we'll explain it soon!
+
+// The code in the editor keeps flipping a coin until it is tails. 
+
+// Here's how it works:
+
+// 1. In line 1, we create a variable named coinFace, 
+	// which is a random number that is either 0 (heads) or 1 (tails).
+
+// 2. Then in lines 3-5 we keep flipping the coin as long as the coin turns up heads. 
+	// If coinFace is 0 (heads), then the condition in the while loop will evaluate to true, 
+	// and we flip the coin again.
+
+// 3. If coinFace is 1 (tails), then the condition will be false, 
+	// so we break out of the while loop and print Tails! Done flipping.
+
+
+
+//////////////
+////// Lesson 2/11 While syntax
+
+// The while loop is ideal when you want to use a loop, 
+// but you don't know how many times you'll have to execute that loop.
+
+// In the example you just saw, 
+// the computer was randomly flipping a coin: 
+// while the coin came up heads (when coinFace equalled 0), 
+// it would flip again, 
+// and it would stop flipping once it got tails (when coinFace was 1). 
+// Since the flip was random, we didn't know ahead of time how many loops we'd need.
+
+// The syntax looks like this:
+
+while(condition){
+    // Do something!
+}
+
+// As long as the condition evaluates to true, 
+// the loop will continue to run. 
+// As soon as it's false, it'll stop. 
+// (When you use a number in a condition, as we did earlier, 
+// JavaScript understands 1 to mean true and 0 to mean false.)
+
+// Since you've already mastered for loops, 
+// this simpler syntax should be a breeze for you.
+
+
+//// Instructions:
+
+// Try it yourself—complete the while loop in the editor 
+// so it will print out "I'm learning while loops!". 
+// Do this by adding the condition between the parentheses—don't change line 5, 
+// or you could get an infinite loop!
+
+var understand = true;
+
+while( understand === true ){
+	console.log("I'm learning while loops!");
+	understand = false;
+}
+
+
+
+//////////////
+////// Lesson 3/11 A fellow of infinite loops
+
+// Great work!
+
+// We mentioned infinite loops in the previous exercise. 
+// If you give a while loop a condition that is true 
+// and you don't build in a way for that condition to possibly become false, 
+// the loop will go on forever and your program will crash. 
+// No good!
+
+// To prevent this from happening, 
+// you always need a way to ensure the condition between your while parentheses can change.
+
+// You'll see the same code from the last exercise in the editor to the right, 
+// only we've taken out the part that changes the loop's condition.
+
+
+//// Instructions:
+
+// DON'T run the code the way it is—you'll have to reload the window 
+// to stop the infinite loop! 
+// Instead, change the value of understand to something other than true (such as false) 
+// on line 6 so the loop will exit.
+
+
+understand = true;
+
+while(understand){
+	console.log("I'm learning while loops!");
+	//Change the value of 'understand' here!
+	understand = false
+}
+
+
+
+//////////////
+////// Lesson 4/11 Brevity is the soul of programming
+
+// You may have noticed that when we give a variable the boolean value true, 
+// we check that variable directly—we don't bother with ===. 
+
+// For instance,
+
+var bool = true;
+while(bool){
+    //Do something
+}
+// is the same thing as
+
+var bool = true;
+while(bool === true){
+    //Do something
+}
+// but the first one is faster to type. 
+// Get in the habit of typing exactly as much as you need to, and no more!
+
+// If you happen to be using numbers, as we did earlier, you could even do:
+
+var myNumber = 1;
+while(myNumber) {
+    // Do something!
+}
+
+//// Instructions:
+
+// We've written the less succinct version in the editor. 
+
+var bool = true;
+
+while(bool === true){
+    console.log("Less is more!");
+    bool = false;
+}
+
+// Correct it to the more elegant version!
+
+var bool = true;
+
+while(bool){
+    console.log("Less is more!");
+    bool = false;
+}
+
+
+//////////////
+////// Lesson 5/11 Practice makes perfect
+
+// Okay. Time for you to create a while loop from scratch!
+
+// We've set up a function, loop, for you to write your while loop in, 
+// as well as created the empty loop.
+
+// Remember to set up the condition you're checking outside the loop—
+// if you do it in the loop, 
+// it will keep resetting and the loop could go on forever!
+
+
+//// Instructions:
+
+// Write a while loop that logs "I'm looping!" to the console three times. 
+// You can do this however you like, but NOT with three console.log calls. 
+// Check the Hint if you need help!
+
+
+var loop = function(){
+    var i = 0
+	while(i < 3){
+		//Your code goes here!
+		console.log("I'm looping!")
+		i = i + 1
+	}
+};
+
+loop();
+
+
+//////////////
+////// Lesson 6/11 Solo flight
+
+Great work! Let's try another. This time, no help at all! (Well, some help—check the Hint if you get stuck.)
+
+
+
+
+
+
+
 
 
 
