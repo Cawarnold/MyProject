@@ -5406,8 +5406,8 @@ var loop = function(){
     var i = 0
 	while(i < 3){
 		//Your code goes here!
-		console.log("I'm looping!")
-		i = i + 1
+		console.log("I'm looping!");
+		i = i + 1;
 	}
 };
 
@@ -5417,7 +5417,190 @@ loop();
 //////////////
 ////// Lesson 6/11 Solo flight
 
-Great work! Let's try another. This time, no help at all! (Well, some help—check the Hint if you get stuck.)
+// Great work! Let's try another. 
+// This time, no help at all! (Well, some help—check the Hint if you get stuck.)
+
+
+//// Instructions:
+
+// Inside the soloLoop function, 
+// write a while loop that takes an initial condition that's true. 
+
+// Your loop should log "Looped once!" to the console, 
+// then change that initial condition to false.
+
+// MAKE SURE to set your condition to false in the body of your loop. 
+// Otherwise, you'll loop forever!
+
+//Remember to make your condition true outside the loop!
+
+var soloLoop = function(){
+  //Your code goes here!
+  var i = true
+  while(i){
+      console.log("Looped once!");
+      i=false;
+  }
+};
+
+soloLoop();
+
+
+//////////////
+////// Lesson 7/11 Mid-lesson breather
+
+// Great work so far! You've learned:
+	// What while loops are
+	// while loop syntax
+	// How to avoid infinite loops
+
+// Next up, we'll cover the do/while loop, 
+// when to use while and when to use for, 
+// and then put it all together in a loop-the-loop review.
+
+
+//////////////
+////// Lesson 8/11 When to 'while' and when to 'for'
+
+// As we mentioned, for loops are great for doing the same task 
+// over and over when you know ahead of time how many times 
+// you'll have to repeat the loop. 
+
+// On the other hand, while loops are ideal when you have to loop, 
+// but you don't know ahead of time how many times you'll need to loop.
+
+// As you saw, however, you can combine a while loop with a counter variable 
+// to do the same kind of work a for loop does. 
+// In these cases, it's often a matter of preference.
+
+
+//// Instructions:
+
+// Write two loops in the editor: 
+// one while, one for. 
+
+// No restrictions on this one; 
+// just make sure your loops are syntactically correct, 
+// and be careful to avoid infinite loops!
+
+var i = 0
+while(i < 10){
+    console.log("stuff");
+    i=i+1;
+}
+
+for(var i = 0; i < 10; i++){
+	console.log("stuff");
+}
+
+
+//////////////
+////// Lesson 9/11 The 'do' / 'while' loop
+
+// Sometimes you want to make sure your loop runs at least one time no matter what. 
+// When this is the case, you want a modified while loop called a do/while loop.
+
+// This loop says: "Hey! Do this thing one time, 
+// then check the condition to see if we should keep looping." 
+
+// After that, it's just like a normal while: the loop will continue 
+// so long as the condition being evaluated is true.
+
+//// Instructions:
+
+// Click Save & Submit Code to see the loop in action. 
+// It runs once because do tells it to, 
+// but then never again because loopCondition is false!
+
+
+var loopCondition = false;
+
+do {
+	console.log("I'm gonna stop looping 'cause my condition is " + loopCondition + "!");	
+} while (loopCondition);
+
+
+//////////////
+////// Lesson 10/11 To learn it, you gotta 'do' it
+
+// Your turn! Now that you've seen how do/while loops work, 
+// you can easily write your own. 
+// (Check the Hint if you need a syntax refresher!)
+
+// Your loop should print a string of your choice to the editor one time. 
+// Remember: make sure you give your while condition a way to become false, 
+// or it'll loop forever!
+
+
+//// Instructions:
+
+// Write a do/while loop inside the function we've created for you, getToDaChoppa. 
+// The function should log a string of your choice to the console. do it now!
+
+var getToDaChoppa = function(){
+  // Write your do/while loop here!
+  var i = true;
+  do {
+      console.log("hi");
+      i = false;
+  } while (i);
+};
+
+getToDaChoppa();
+
+
+//////////////
+////// Lesson 11/11 Review
+
+// Awesome work! 
+// You've now learned about all the loops there are: for, while, and do.
+
+
+//// Instructions:
+
+// To finish up and prove your loop mastery, 
+// write three syntactically correct loops in the editor: 
+// one for, 
+// one while, 
+// and one do. 
+
+// Beware of infinite loops!
+
+
+for (var i=0;i<10,i++) {
+	console.log("stuff");
+};
+
+var i = true;
+while (i) {
+	console.log("stuff");
+	i=false;
+};
+
+var j = false;
+do {
+	console.log("stuff");
+} while (j);
+
+////// OR
+
+var i = false;
+do {
+      console.log("hi");
+} while (i);
+
+
+var i = 0;
+while(i < 10){
+    console.log("stuff");
+    i=i+1;
+}
+
+for(var i = 0; i < 10; i++){
+	console.log("stuff");
+}
+
+/////
 
 
 
