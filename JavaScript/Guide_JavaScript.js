@@ -5566,7 +5566,7 @@ getToDaChoppa();
 
 // Beware of infinite loops!
 
-
+// comma where a semi colon should be
 for (var i=0;i<10,i++) {
 	console.log("stuff");
 };
@@ -5601,6 +5601,679 @@ for(var i = 0; i < 10; i++){
 }
 
 /////
+
+
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+
+
+///////////////////////////////////
+///////////////////////////////////
+// Control Flow
+///////////////////////////////////
+///////////////////////////////////
+
+
+//////////////
+// More on Control Flow in JS
+//////////////
+
+
+//////////////	The Story So Far: If, Else, and Loops
+////// Lesson 1/14 If / else
+
+// If / else
+// You've learned about if and else, and how they control what your program does. 
+// Here's a quick refresher on the syntax:
+
+if (/* Some condition */) {
+    // Do something
+} else if (/* Some other condition */) {
+    // Do something else
+} else {    // Otherwise
+    // Do a third thing
+}
+
+
+//// Instructions:
+
+// Write an if / else statement inside the isEven function. 
+// It should return true; if the number it receives is evenly divisible by 2. 
+// Otherwise (else), it should return false;.
+
+// Make sure to return - don't use console.log()!
+
+var isEven = function(number) {
+  // Your code goes here!
+  if (number%2 === 0) {
+      return true;
+  } else {
+      return false;
+  }
+};
+
+console.log(isEven(10))
+
+
+//////////////
+////// Lesson 2/14 If / else if / else
+
+// Good! Let's also get some practice in with else if, 
+// as well as learn about a fancy new function: isNaN.
+
+// If you call isNaN on something, it checks to see if that thing is not a number. 
+
+// So:
+isNaN('berry'); // => true
+isNaN(NaN); // => true
+isNaN(undefined); // => true
+isNaN(42);  // => false
+
+// Be careful: if you call isNaN on a string that looks like a number,
+// like '42', JavaScript will try to help by automatically converting the string '42' 
+// to the number 42 and return false (since 42 is a number).
+
+// Note that you can't just do
+isNaN(unicorns);
+
+// unless you've already defined the variable unicorns. 
+// You can, however, do
+isNaN("unicorns"); // => true
+
+
+//// Instructions:
+
+// Add an else if branch to your existing if/else statement. 
+// If the number put into the function is not a number at all, 
+// instead of return true; or return false;, 
+// the function should return a string that tells the user that their input isn't a number. 
+// (This string can say whatever you like.)
+
+var isEven = function(number) {
+  // Your code goes here!
+  if (number%2 === 0) {
+      return true;
+  } else if (isNaN(number)) {
+  	  return 'number is a NaN';
+  } else {
+      return false;
+  }
+};
+
+console.log(isEven(10))
+console.log(isEven('1th'))
+
+
+//////////////
+////// Lesson 3/14 For or while
+
+// Great! Just one more bit of review and we'll move on to the new stuff.
+
+
+//// Instructions:
+
+// Create a for or while loop in the editor. 
+// It can do anything you like! 
+// (Just be careful—if you accidentally create an infinite loop, you'll crash your browser.) 
+// Check the Hint if you need a syntax review.
+
+for(var i = 0; i < 10; i++){
+	console.log("stuff");
+}
+
+
+
+//////////////
+////// Lesson 4/14 Sneak preview: the switch statement
+
+// As you might imagine, 
+// if you have a lot of choices you want to cover in a program, 
+// it might be annoying to type else if () ten times. 
+// That's why JavaScript has the switch statement!
+
+// switch allows you to preset a number of options (called cases), 
+// then check an expression to see if it matches any of them. 
+// If there's a match, the program will perform the action for the matching case; 
+// if there's no match, it can execute a default option.
+
+var lunch = prompt("What do you want for lunch?","Type your lunch choice here");
+
+switch(lunch){
+  case 'sandwich':
+    console.log("Sure thing! One sandwich, coming up.");
+    break;
+  case 'soup':
+    console.log("Got it! Tomato's my favorite.");
+    break;
+  case 'salad':
+    console.log("Sounds good! How about a caesar salad?");
+    break;
+  case 'pie':
+    console.log("Pie's not a meal!");
+    break;
+  default:
+    console.log("Huh! I'm not sure what " + lunch + " is. How does a sandwich sound?");
+}
+
+
+//// Instructions:
+
+// Take a look at the code in the editor. 
+// Can you see how the switch statement works?
+
+// Prompts the user for a lunch choice.
+// Returns a reply based on that choice.
+
+
+
+////////////// Introducing the Switch statement
+////// Lesson 5/14 Adding to an existing switch
+
+// The switch statement is put together like this:
+
+switch (/*Some expression*/) {
+    case 'option1':
+        // Do something
+        break;
+    case 'option2':
+        // Do something else
+        break;
+    case 'option3':
+        // Do a third thing
+        break;
+    default:
+       // Do yet another thing
+}
+
+// JavaScript will try to match the expression between the switch() parentheses to each case. 
+// It will run the code below each case if it finds a match, 
+// and will execute the default code if no match is found.
+
+
+//// Instructions:
+
+// Our switch statement needs a case for 'yellow'. 
+// Add it in and make it log a string of your choice to the console 
+// (it should be different from the default string).
+
+// Don't forget to end your case with a break statement—otherwise, 
+// it will go on and execute the code for default, too! 
+// We don't want that.
+
+var color = prompt("What's your favorite primary color?","Type your favorite color here");
+
+switch(color) {
+  case 'red':
+    console.log("Red's a good color!");
+    break;
+  case 'blue':
+    console.log("That's my favorite color, too!");
+    break;
+  //Add your case here!
+  case 'yellow':
+  	console.log("That's the color of the sun.");
+  	break;
+  default:
+    console.log("I don't think that's a primary color!");
+}
+
+
+//////////////
+////// Lesson 6/14 Practice with switch
+
+// Now that you've added cases to an existing switch, 
+// let's practice adding a default block.
+
+
+//// Instructions:
+
+// Add the default block at the bottom of the switch statement, 
+// then run the code a few times with different inputs. 
+// switch: super useful!
+
+var candy = prompt("What's your favorite candy?","Type your favorite candy here.");
+
+switch(candy) {
+  case 'licorice':
+    console.log("Gross!");
+    break;
+  case 'gum':
+    console.log("I like gum!");
+    break;
+  case 'beets':
+    console.log("...is that even a candy?");
+    break;
+  // Add your code here!
+  default:
+  	console.log("that is not a candy");
+}
+
+
+//////////////
+////// Lesson 7/14 More practice with switch
+
+// You know what they say: practice makes perfect!
+
+
+//// Instructions:
+
+// We've given you the empty skeleton of a switch statement. 
+// Complete the existing case, then add at least one additional case 
+// and a default behavior with whatever console.log() calls you like.
+
+var answer = prompt("Add your question here!");
+
+switch(answer) {
+  case '':
+    console.log();
+    break;
+  // Add your code here!
+  case 'What is this?':
+  	console.log("Good question.");
+  	break;
+  case 'who are you?':
+  	console.log("Good question.");
+  	break;
+  default:
+  	console.log("That is not a question.");
+}
+
+
+//////////////
+////// Lesson 8/14 All on your own
+
+// Great work! 
+// Now it's time to put a switch statement together all on your lonesome.
+
+
+//// Instructions:
+
+// Create your own switch statement in the editor. 
+// It can do anything you like! 
+// Make sure to include at least three cases and a default.
+
+var answer = prompt("Stuff please");
+
+switch(answer) {
+	case 'Hello!':
+		console.log(answer);
+		break;
+	case 'Good Bye!':
+		console.log("I'm not done yet, sit down!");
+		break;
+	case 'letters':
+		console.log("Don't know about them");
+		break;
+	default:
+		console.log("End");
+}
+
+
+
+//////////////
+////// Lesson 9/14 Mid-lesson breather
+
+// Well done! Even though we've been focusing on switch, we've covered a lot so far. 
+
+// You've:
+	// Reviewed if/else if/else
+	// Reviewed for and while
+	// Learned about the switch statement and how to use it instead of multiple if/elses
+	// Covered switch syntax
+	// Written your own switch!
+
+
+//// Instructions:
+
+// When you're ready, click Save & Submit Code to move on to the last section 
+// of this lesson: logical operators like 'and', 'or', and 'not'.
+
+
+
+
+////////////// Logical Operators
+////// Lesson 10/14 Overview
+
+// So far we've seen how to control our programs given a single condition: 
+// whether one variable is equal to a certain value, for instance. 
+// But what if we want to check more than one variable?
+
+// For this, we'll need logical operators. 
+// JavaScript has three: 
+	// and (&&), 
+	// or (||), 
+	// and not (!).
+
+// Using these, we can check several variables at once! 
+// Check out the code in the editor.
+
+// Complete lines 3 and 4!
+
+var iLoveJavaScript = ;
+var iLoveLearning = ;
+
+if(iLoveJavaScript && iLoveLearning) {
+  // if iLoveJavaScript AND iLoveLearning:
+  console.log("Awesome! Let's keep learning!");
+} else if(!(iLoveJavaScript || iLoveLearning)) {
+  // if NOT iLoveJavaScript OR iLoveLearning:
+  console.log("Let's see if we can change your mind.");
+} else {
+  console.log("You only like one but not the other? We'll work on it.");
+}
+
+
+//// Instructions:
+
+// Starting to make sense? 
+// Set both variables in the editor to true and hit Save & Submit Code to see what happens!
+
+var iLoveJavaScript = true;
+var iLoveLearning = true;
+
+
+
+////////////// Logical Operators
+////// Lesson 11/14 AND
+
+// The logical operator 'and' is written in JavaScript like this: &&. 
+// It evaluates to true when both expressions are true; 
+// if they're not, it evaluates to false.
+
+true && true;    // => true
+true && false;   // => false
+false && true;   // => false
+false && false;  // => false
+
+
+//// Instructions:
+
+// Create two variables, hungry and foodHere, 
+// and set them both equal to true. 
+// Inside the eat function, 
+// create an if statement that returns true only if both hungry and foodHere are true, 
+// and false otherwise. 
+// The function eat should take no input and hungry and foodHere should both be globals.
+
+
+// Declare your variables here!
+var hungry = true;
+var foodHere = true;
+
+var eat = function() {
+  // Add your if/else statement here!
+  if(hungry && foodHere){
+  	return true;
+  } else {
+  	return false;
+  }
+};
+console.log(eat());
+
+
+////////////// Logical Operators
+////// Lesson 12/14 Or
+
+// The logical operator or is written in JavaScript like this: ||. 
+// It evaluates to true when one or the other or both expressions are true; 
+// if they're not, it evaluates to false.
+
+true || true;     // => true
+true || false;    // => true
+false || true;    // => true
+false || false;   // => false
+
+// The or operator is written with two vertical bars ||. 
+// The vertical bar character is located right above the Enter key on your keyboard.
+
+
+//// Instructions:
+
+// Create two variables, 'tired' and 'bored', and set one equal to true and the other equal to false. 
+// (It doesn't matter which is which.) 
+// Inside the nap function, 
+// create an if statement that returns true if either tired or bored (or both!) are true, 
+// and false otherwise.
+
+// Declare your variables here!
+var tired = true;
+var bored = false;
+
+var nap = function() {
+  // Add your if/else statement here!
+  if (tired || bored){
+      return true
+  } else {
+      return flase
+  }
+};
+
+
+////////////// Logical Operators
+////// Lesson 13/14 Not
+
+// The logical operator not is written in JavaScript like this: !. 
+// It makes true expressions false, and vice-versa.
+
+!true;   // => false
+!false;  // => true
+
+
+//// Instructions:
+
+// Declare a variable called 'programming' and set it to false. 
+// Then, write an if/else statement inside happy so that happy returns true 
+// if programming is false and false otherwise.
+
+
+// Declare your variables here!
+var programming = false;
+
+var happy = function() {
+  // Add your if/else statement here!
+  if(!programming){
+  	return true;
+  } else {
+  	return false;
+  }
+};
+
+console.log(happy());
+
+
+//////////////
+////// Lesson 14/14 Review
+
+// Well done! That last one was particularly tricky.
+
+// In this lesson you:
+
+// Reviewed control flow syntax
+// Learned about the switch statement
+// Learned about the logical operators and (&&), or (||), and not (!)
+
+
+//// Instructions:
+
+// When you're ready, click Save & Submit Code to finish this lesson 
+// and move onto the next JavaScript project!
+
+
+
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+
+
+///////////////////////////////////
+///////////////////////////////////
+// Data Structures
+///////////////////////////////////
+///////////////////////////////////
+
+
+//////////////
+// Arrays and Objects in JS
+//////////////
+
+
+//////////////	Reviewing Arrays
+////// Lesson 1/17 You know this!
+
+// You know this!
+// You already know about arrays, so we won't spend a lot of time going over them. 
+// Go ahead and check out the past exercises on arrays if you need a refresher.
+
+
+//// Instructions:
+
+// Create an array called list in the editor. 
+// It can contain any data you want! 
+// Make sure it has at least three elements.
+
+var list = ['1','2','3','4'];
+console.log(typeof list)
+
+	// object
+
+
+
+//////////////	Reviewing Arrays
+////// Lesson 2/17 Access by offset
+
+// Good! Do you remember how to access an element of an array by offset 
+// (with the [] notation)? Check the Hint if you need help.
+
+
+//// Instructions:
+
+// Log the third element of the languages array to the console. 
+// Make sure to do this by accessing the third element's index.
+
+var languages = ["HTML", "CSS", "JavaScript", "Python", "Ruby"];
+
+console.log(languages[2])
+
+
+//////////////	Reviewing Arrays
+////// Lesson 3/17 Array properties
+
+// Good work! 
+// If you remember, arrays have a property in common with strings: they can both use .length. 
+// When you call .length on an array, it returns the number of elements that array has.
+
+//// Instructions:
+
+// Under your existing code, log the number of elements in languages to the console.
+
+var languages = ["HTML", "CSS", "JavaScript", "Python", "Ruby"];
+
+console.log(languages[2])
+console.log(languages.length)
+
+
+//////////////	Reviewing Arrays
+////// Lesson 4/17 Iterating over an array
+
+// By combining all these ideas with a for loop, 
+// you can iterate over the languages array and print out each element in turn!
+
+//// Instructions:
+
+// Go ahead and use a for loop to log each element of the languages array to the console.
+
+var languages = ["HTML", "CSS", "JavaScript", "Python", "Ruby"];
+
+for(var i=0;i<languages.length;i++){
+	console.log(languages[i]);
+};
+
+
+//////////////	More with Arrays
+////// Lesson 5/17 Heterogeneous arrays
+
+// Now that we've reviewed some array basics, it's time to cover a little new ground.
+
+// First, it's not necessary for you to put the same type of data in an array! 
+// For instance, you don't have to have
+
+var pronouns = ["I", "you", "we"];
+var numbers = [1, 2, 3];
+
+// You can have a heterogeneous array, which means a mixture of data types, like so:
+
+var mix = [42, true, "towel"];
+
+
+//// Instructions:
+
+// Create a heterogeneous array called myArray with at least three elements. 
+// The first element should be a number, 
+// the second should be a boolean (true or false), 
+// and the third should be a string. 
+// Feel free to add more elements of any type if you like!
+
+var myArray = [1,true,'a','abc',123,true,'def',456,false];
+
+
+//////////////	More with Arrays
+////// Lesson 6/17 Arrays of arrays
+
+// Good! The next thing to know is that not only can you put a mixture of types in an array, 
+// you can even put other arrays inside arrays. 
+// You can make a two-dimensional array by nesting arrays one layer deep, 
+
+// like so:
+
+var twoDimensional = [[1, 1], [1, 1]];
+
+// This array is two-dimensional because it has two rows that each contain two items. 
+// If you were to put a new line between the two rows, 
+// you could log a 2D object—a square—to the console, 
+// like so:
+[1, 1]
+[1, 1]
+
+
+//// Instructions:
+
+// Create a two-dimensional array called newArray in the editor. 
+// It should have three rows and three columns containing any data you like.
+
+var newArray = [[1,1,1],[1,1,2],[1,2,3]];
+
+
+//////////////	More with Arrays
+////// Lesson 6/17 Jagged arrays
+
+// Great work! That's a fine-looking multidimensional array you've got there. 
+// (Yours is nested once, so it's a two-dimensional array, 
+// but if you really wanted, 
+// you could put arrays inside arrays inside arrays for even more dimensions.)
+
+// Sometimes you want arrays that aren't as nice and even as your 3 x 3 two-dimensional array: 
+// you may have three elements in the first row, 
+// one element in the second row, 
+// and two elements in the third row. 
+// JavaScript allows those, and they're called jagged arrays.
+
+
+//// Instructions:
+
+// Create a jagged array called jagged. 
+// You can place whatever you like in it! 
+// The only requirement is that it have at least two rows 
+// (that is, the first two elements need to be arrays), 
+// and those rows cannot be the same length.
+
+
+
+
 
 
 
