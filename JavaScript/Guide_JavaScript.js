@@ -6249,7 +6249,7 @@ var newArray = [[1,1,1],[1,1,2],[1,2,3]];
 
 
 //////////////	More with Arrays
-////// Lesson 6/17 Jagged arrays
+////// Lesson 7/17 Jagged arrays
 
 // Great work! That's a fine-looking multidimensional array you've got there. 
 // (Yours is nested once, so it's a two-dimensional array, 
@@ -6270,6 +6270,835 @@ var newArray = [[1,1,1],[1,1,2],[1,2,3]];
 // The only requirement is that it have at least two rows 
 // (that is, the first two elements need to be arrays), 
 // and those rows cannot be the same length.
+
+var jagged = [[1,2,3,4,5],['hello','good bye'],[true,false]];
+
+
+//////////////	More with Arrays
+////// Lesson 8/17 Mid-lesson breather
+
+// Well done! So far you've:
+
+	// Reviewed arrays, how to access an array by offset, array properties, and iterating over arrays
+	// Learned about heterogenous arrays
+	// Learned about multidimensional arrays
+	// Learned about jagged arrays
+
+
+//// Instructions:
+
+// Take a minute to reflect on what we've done so far. 
+// Then, when you're ready, click Save & Submit Code to learn about our last 
+// (and most powerful) data type: objects!
+
+
+//////////////	Introduction to Objects
+////// Lesson 9/17 Nouns and verbs together
+
+// Let's go back to the analogy of computer languages being like regular spoken languages. 
+// In English, you have nouns (which you can think of as "things") 
+// and verbs (which you can think of as "actions"). 
+// Until now, our nouns (data, such as numbers, strings, or variables) 
+// and verbs (functions) have been separate.
+
+// No longer!
+
+// Using objects, we can put our information 
+// and the functions that use that information in the same place.
+
+// You can also think of objects as combinations of key-value pairs (like arrays), 
+// only their keys don't have to be numbers like 0, 1, or 2: 
+// they can be strings and variables.
+
+//// Instructions:
+
+// We've put an example of how objects can be used in the editor. 
+// Click Save & Submit Code to see objects in action!
+
+var phonebookEntry = {};
+
+phonebookEntry.name = 'Oxnard Montalvo';
+phonebookEntry.number = '(555) 555-5555';
+phonebookEntry.phone = function() {
+  console.log('Calling ' + this.name + ' at ' + this.number + '...');
+};
+
+phonebookEntry.phone();
+
+
+//////////////	Introduction to Objects
+////// Lesson 10/17 Object syntax
+
+// Did you see that? 
+// The phonebookEntry object handled data (a name and a telephone number) 
+// as well as a procedure (the function that printed who it was calling).
+
+// In that example, 
+// we gave the key name the value 'Oxnard Montalvo' 
+// and the key number the value '(555) 555-5555'. 
+
+// An object is like an array in this way, 
+// except its keys can be variables and strings, not just numbers.
+
+// Objects are just collections of information (keys and values) between curly braces, 
+// like this:
+
+var myObject = {
+    key: value,
+    key: value,
+    key: value
+};
+
+//// Instructions:
+
+// Using the above syntax as a guide, create an object, me, in the editor. 
+// It should have a name key with the value of your name (as a string) 
+// and an age key with the value of your age (as a number).
+
+
+var me = {
+    name: 'christian',
+    age: 28
+};
+
+console.log('hello ' + me.name + '. You are '+ me.age + '!');
+
+
+
+//////////////	Introduction to Objects
+////// Lesson 11/17 Creating a new object
+
+// Great work! You just created your very first object.
+
+// There are two ways to create an object: 
+	// using object literal notation (which is what you just did) 
+	// and using the object constructor.
+
+// Literal notation is just creating an object with curly braces, like this:
+
+var myObj = {
+    type: 'fancy',
+    disposition: 'sunny'
+};
+
+var emptyObj = {};
+
+// When you use the constructor, the syntax looks like this:
+
+var myObj = new Object();
+
+// This tells JavaScript: 
+// "I want you to make me a new thing, and I want that thing to be an Object.
+
+// You can add keys to your object after you've created it in two ways:
+
+myObj["name"] = "Charlie";
+myObj.name = "Charlie";
+
+// Both are correct, and the second is shorthand for the first. 
+// See how this is sort of similar to arrays?
+
+//// Instructions:
+
+// Recreate your me object in the editor, but this time, use the object constructor.
+// Once you make it, use either the [] notation or the . notation to give it a name property 
+// with a string value (your name) 
+// and an age property with a number value (your age).
+
+var me = new Object();
+
+me["name"] = "christian";
+me.age = 28;
+
+console.log('hello ' + me.name + '. You are '+ me.age + '!');
+
+
+//////////////	Introduction to Objects
+////// Lesson 12/17 Practice makes perfect
+
+// Great work! Let's make a few more objects, just for practice.
+
+//// Instructions:
+
+// Create three objects called object1, object2, and object3 in the editor. 
+// Use either literal notation or the object constructor, 
+// and give your objects any properties you like!
+
+
+var object1 = {
+	name:'ca',
+	age:28,
+	height:184,
+	mood:'grumpy'
+};
+
+var object2 = {
+	name:'jf',
+	age:60,
+	height:180,
+	mood:'happy'
+};
+
+var object3 = new Object();
+
+object3["name"] = 'pw';
+object3["age"] = '43';
+object3.height = 174;
+object3.mood = 'helpful';
+
+
+console.log('hello ' + object1.name + '. You are '+ object1.age + '!');
+console.log('I am ' + object1.height + '. I feel'+ object1.mood + '!');
+
+console.log('hello ' + object2.name + '. You are '+ object2.age + '!');
+console.log('I am ' + object2.height + '. I feel'+ object2.mood + '!');
+
+console.log('hello ' + object3.name + '. You are '+ object3.age + '!');
+console.log('I am ' + object3.height + '. I feel'+ object3.mood + '!');
+
+// > hello ca. You are 28!
+// > I am 184. I feelgrumpy!
+// > hello jf. You are 60!
+// > I am 180. I feelhappy!
+// > hello pw. You are 43!
+// > I am 174. I feelhelpful!
+
+
+//////////////	Introduction to Objects
+////// Lesson 13/17 Review
+
+// Awesome! We've thrown a lot at you, but now you know:
+
+	// What objects are
+	// Object syntax
+	// How to create your own objects
+
+
+//////////////	Review
+////// Lesson 14/17 Heterogeneous arrays
+
+// Let's warm up with some arrays! 
+// Let's make an array that's a veritable potpourri of data types.
+
+//// Instructions:
+
+// Create an array, myArray. 
+// Its first element should be a number, 
+// its second should be a boolean, 
+// its third should be a string, 
+// and its fourth should be... an object! 
+// You can add as many elements of any type as you like after these first four.
+
+var object = {
+	name:'jf',
+	age:60,
+	height:180,
+	mood:'happy'
+};
+
+var myArray = [132, true, 'wtf', object]
+
+
+
+//////////////	Review
+////// Lesson 15/17 Multidimensional arrays
+
+// Good! Now let's create a 2D array. 
+// Not only that, but a 2D array that's jagged. 
+// Remember, that means it's an array of arrays, 
+// and its nested arrays aren't all the same length! 
+
+// For example:
+
+var aList = [ [1, 4, 2], [7] ];
+
+//// Instructions:
+
+// Make an array called newArray. 
+// It should be 2D (that is, it should contain two elements that, in turn, are arrays) 
+// and jagged (those two arrays should be of different lengths, like in the example above).
+// Make sure at least one of the elements in one of your rows is an object.
+
+var object = {
+	name:'jf',
+	age:60,
+	height:180,
+	mood:'happy'
+};
+
+var newArray = [[1,2], [object]]
+
+
+//////////////	Review
+////// Lesson 16/17 Editing an existing object
+
+// Nice work! Now let's do a little work with objects. 
+// We'll start by modifying an existing one.
+
+//// Instructions:
+
+// Add a key called interests to myObject. 
+// Give this key an array value (the array can contain whatever you like).
+
+var myObject = {
+  name: 'Eduardo',
+  type: 'Most excellent',
+  // Add your code here!
+  interests: ['football',1234,true,this.name]
+};
+
+console.log(myObject.interests)
+// > [ 'football', 1234, true, '' ]
+
+
+//////////////	Review
+////// Lesson 17/17 Creating your own objects
+
+// You're almost there! 
+// Last step: forge your very own object in the fires of Mount JavaScript.
+
+//// Instructions:
+
+// Create your own object called myOwnObject.
+// Give it whatever properties you like! 
+// (Be sure to give it at least one.) 
+// You can use either literal notation or the object constructor.
+
+var myOwnObject = {
+    name:'ca',
+    runs:10,
+    sees:100
+};
+myOwnObject.swims = 5;
+myOwnObject["flies"] = 13000;
+
+console.log(myOwnObject.flies);
+
+
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+
+
+///////////////////////////////////
+///////////////////////////////////
+// Objects I
+///////////////////////////////////
+///////////////////////////////////
+
+
+//////////////
+// Introduction to Objects I
+//////////////
+
+
+//////////////	Review: The story so far...
+////// Lesson 1/33 We've come a long, long...
+
+// If yellow triangle warnings appear in the editor next to any code 
+// we provide in any exercise, it is fine to ignore them.
+
+// The very basic building block of JavaScript are primitive data types. 
+// We know of three primitives:
+
+strings (e.g. "dogs go woof!")
+numbers (e.g. 4, 10)
+booleans (e.g. false, 5 > 4)
+
+// We learned about the use of comparators (eg. >, <=, !==, etc.). 
+// One really important thing to note is that any time comparisons are made, 
+// a Boolean value is returned.
+
+
+//// Instructions:
+
+// There is a long and ugly expression in the editor. 
+// Overall, it evaluates to a Boolean 
+// (i.e., either the entire statement is true, or it is false).
+
+// What does this expression in the editor evaluate to?
+
+(((3 * 90) === 270) || !(false && (!false)) || "bex".toUpperCase() === "BEX");
+
+// Declare a variable named answer. 
+// Assign to it the Boolean value that the expression evaluates to. 
+// Delete the default code in the editor and run your code.
+
+// (3 * 90) === 270) is true and the rest are OR Logical Operators so it must be true.
+
+var answer = true;
+
+
+//////////////	Review: The story so far...
+////// Lesson 2/33 Through the hard times...
+
+// We know two ways of storing data types. 
+// We can use variables or arrays. 
+// We use variables to store data (like strings or numbers) that we’d later want to access.
+
+// An array is exactly the same as a variable in that it stores data. 
+// The difference is that an array can store many more values while a variable can only store one.
+
+// To access arrays, we use bracket notation and remember that arrays use 0-based indexing 
+// (i.e., the first value in an array is at position 0).
+
+
+//// Instructions:
+
+// Look at the array multiplesOfEight, and find the one that doesn't fit.
+
+// Replace X in line 6 such that the variable answer is assigned the Boolean value of true.
+
+
+// Here is an array of multiples of 8. But is it correct?
+var multiplesOfEight = [8,16,24,32,40,58];
+
+// Test to see if a number from the array is NOT a true
+// multiple of eight. Real multiples will return false.
+var answer = multiplesOfEight[5] % 8 !== 0;
+
+
+//////////////	Review: The story so far...
+////// Lesson 3/33 ...And the good!
+
+// We're going to play a game of FizzBuzz. 
+// The rules are simple. 
+// We want to count from 1 to 20. 
+// But if the number is divisible by 3, we're going to print "Fizz". 
+// And if the number is divisible by 5 we're going to print "Buzz".
+
+// What will we print if the number is divisible by 3 AND 5? 
+// That's right! "FizzBuzz"!
+
+// There are many ways to do this, 
+// but we'd like you to use a nested conditional in this exercise.
+
+//// Instructions:
+
+// 1. Print out the numbers from 1 - 20.
+// 2. The rules:
+	// For numbers divisible by 3, print out "Fizz".
+	// For numbers divisible by 5, print out "Buzz".
+	// For numbers divisible by both 3 and 5, print out "FizzBuzz" in the console.
+	// Otherwise, just print out the number.
+
+for(var i = 1; i < 21 ; i++){
+    if((i%3===0)&&(i%5===0)){
+    	console.log("FizzBuzz");
+    } else if ((i%3===0)&&(i%5!==0)){
+    	console.log("Fizz");
+    } else if ((i%3!==0)&&(i%5===0)){
+    	console.log("Buzz");
+    } else {
+    	console.log(i);
+    };
+};
+
+
+//////////////	Review: The story so far...
+////// Lesson 4/33 I have to celebrate you baby
+
+// This exercise has lots of movies and reviews to type in. 
+// You might wonder, "Is this teaching coding or typing?!"
+
+// But there's a reason why there are so many cases to deal with. 
+// We want to show that if we used if-else statements, it would be inefficient. 
+// What alternative to if / else can we use?
+
+//// Instructions:
+
+// Imagine you have a movie collection, 
+// and you want to write code that returns your review for each one. 
+
+// Here are the movies and your reviews:
+
+"Toy Story 2" - "Great story. Mean prospector."
+"Finding Nemo" - "Cool animation, and funny turtles."
+"The Lion King" - "Great songs."
+
+// Write a function named getReview that takes in a movie name 
+// and returns its review based on the information above. 
+// If given a movie name not found just return "I don't know!". 
+// Use a structure learned in an earlier lesson (NOT if/else statements) to write this function.
+
+var getReview = function (movie) {
+	switch (movie){
+		case "Toy Story 2":
+			return ("Great story. Mean prospector.");
+			break;
+		case "Finding Nemo":
+			return ("Cool animation, and funny turtles.");
+			break;
+		case "The Lion King":
+			return ("Great songs.");
+			break;	
+		default:
+			return ("I don't know!");
+	};
+};
+
+console.log(getReview("The Lion King"));
+
+
+//////////////	Review: The story so far...
+////// Lesson 5/33 I have to praise you like I should!
+
+// Congratulations for making it this far! 
+// We hope you're enjoying the courses and feel more comfortable programming in JavaScript.
+
+// We have a number of exciting things in store for you and can't wait to roll them out!
+
+//// Instructions:
+
+// If you're ready to start learning about objects, print in the console: "I'm ready for Objects!"
+
+console.log("I'm ready for Objects!")
+
+
+//////////////	What's an Object
+////// Lesson 6/33 Intro
+
+// We have discussed four data types: numbers, strings, booleans and arrays.
+
+// In this lesson, we focus on a fifth data type: objects. 
+// This data type is a little bit more complex. 
+// Objects allow us to represent in code real world things and entities 
+// (such as a person or bank account). 
+// We do this by storing all relevant information in one place—an object.
+
+// How do we create an object? 
+// Like declaring a variable, or defining a function, we use var, 
+// followed by the name of the object and an equals sign. 
+// Each object then:
+	// starts with {
+	// has information inside
+	// ends with };
+
+//// Instructions:
+
+// Create an object called bob that has no information inside the brackets.
+
+var bob = {
+    // no info
+};
+
+//////////////	What's an Object
+////// Lesson 7/33 Properties
+
+// Let's review what we previously covered. 
+// Each piece of information we include in an object is known as a property. 
+// Think of a property like a category label that belongs to some object. 
+// When creating an object, each property has a name, 
+// followed by : and then the value of that property.
+// For example, if we want Bob's object to show he is 34, we'd type in age: 34.
+
+// age is the property, and 34 is the value of this property. 
+// When we have more than one property, they are separated by commas. 
+// The last property does not end with a comma.
+
+//// Instructions:
+
+// See the console for the object I have created about myself. 
+// Can you create an object called me that describes your age and which country you live in?
+
+var Spencer = {
+  age: 22,
+  country: "United States"
+};
+
+// make your own object here called me
+
+var me = {
+	age: 28,
+	country: "UK"
+};
+
+//////////////	What's an Object
+////// Lesson 8/33 Accessing Properties
+
+// Now that we know how to make objects with properties, 
+// let's look at how we actually use them!
+
+// Notice our example objects bob and susan. 
+// In this case both bob and susan each have two properties, name and age.
+
+var bob = {
+  name: "Bob Smith",
+  age: 30
+};
+var susan = {
+  name: "Susan Jordan",
+  age: 25
+};
+// here we save Bob's information
+var name1 = bob.name;
+var age1 = bob.age;
+// finish this code by saving Susan's information
+var name2 =
+var age2 =
+
+// After creating our objects we have added code to access these properties. 
+// Notice that we save bob's name, "Bob Smith", into the global variable name1. 
+
+//// Instructions:
+
+// Finish the exercise by filling in the code to access the name and age for susan 
+// and save those into the given global variables.
+
+var name2 = susan.name;
+var age2 = susan.age;
+
+
+//////////////	What's an Object
+////// Lesson 9/33 Accessing Properties, Part 2
+
+// In the last exercise, we accessed properties using what is known as dot notation. 
+// Good name, right? 
+// So to access a property, we use ObjectName.PropertyName (e.g., bob.name)
+
+// In addition to dot notation, we can also access properties using bracket notation. 
+// In this case we use ObjectName["PropertyName"] to access the desired property. 
+// Note, we need " " around the property's name.
+
+// Take a look at our next example object called dog. 
+// Notice how we save the dog's species into a variable by accessing the species 
+// property of dog using bracket notation.
+
+// Take a look at our next example object, a dog
+var dog = {
+  species: "greyhound",
+  weight: 60,
+  age: 4
+};
+
+var species = dog["species"];
+// fill in the code to save the weight and age using bracket notation
+var weight =
+var age =
+
+//// Instructions:
+
+// Use bracket notation to save the dog's weight and age into variables as well.
+
+var weight = dog["weight"]
+var age = dog["age"]
+
+
+//////////////	What's an Object
+////// Lesson 10/33 Another Way to Create
+
+// The method we've used to create objects uses object literal notation—that is, 
+// creating a new object with { } and defining properties within the brackets.
+
+// Another way of creating objects without using the curly brackets { } 
+// is to use the keyword new. 
+// This is known as creating an object using a constructor.
+
+// The new keyword creates an empty object when followed by Object(). 
+// The general syntax is: 
+
+var objectName = new Object();
+
+// We then have to fill this object with properties and labels. 
+// How do we do that? 
+// Check out the creation of the object bob to see what we do. 
+// We create the name property for the object bob by using bob.name 
+// and assigning that to a value. 
+
+// Contrast this to how we define properties for the susan1 object.
+
+// Our bob object again, but made using a constructor this time 
+var bob = new Object();
+bob.name = "Bob Smith";
+bob.age = 30;
+// Here is susan1, in literal notation
+var susan1 = {
+  name: "Susan Jordan",
+  age: 24
+};
+// Make a new susan2 object, using a constructor instead
+
+//// Instructions:
+
+// Inspect the susan1 object carefully 
+// and note the use of object literal notation.
+
+// Use constructor notation to create susan2, 
+// which should have the same properties and values as susan1.
+
+var susan2 = new Object();
+susan2.name = "Susan Jordan";
+susan2.age = 24;
+
+
+//////////////	What's an Object
+////// Lesson 11/33 Putting it all together
+
+// We've learned how to make objects in two different ways. 
+// Both are valid, and you can use which one you prefer.
+
+// Let's practice how to use both one more time.
+
+//// Instructions:
+
+// Use literal notation to finish the snoopy object. 
+// Remember literal notation is the one where we fill in { } with separate properties 
+// and values with colons. 
+// Each property is separated by a comma.
+
+// snoopy should have two properties, a species of "beagle" and age of 10.
+
+// Then make buddy, a 5 year-old golden retriever, using constructor notation.
+// This notation involves using the key word new to create an empty object. 
+// Then we fill it in using dot notation.
+
+// help us make snoopy using literal notation
+// Remember snoopy is a "beagle" and is 10 years old.
+var snoopy = {
+	species: "beagle",
+	age: 10
+};
+
+// help make buddy using constructor notation
+// buddy is a "golden retriever" and is 5 years old
+var buddy = Object();
+buddy.species = "golden retriever";
+buddy.age = 5;
+
+
+//////////////	What's an Object
+////// Lesson 12/33 More Practice Making Objects
+
+// Nice job! 
+// Let's do one more example to get the hang of making objects with desired properties.
+
+//// Instructions:
+
+// Create an object named 'bicycle' that has 3 properties:
+
+	// a speed of 0
+	// a gear of 1
+	// a frame_material of "carbon fiber"
+
+var bicycle = Object();
+bicycle.speed = 0;
+bicycle["gear"] = 1;
+bicycle.frame_material = "carbon fiber";
+
+
+//////////////	A Method to the Madness
+////// Lesson 13/33 Function Review
+
+// In this lesson we are going to focus on methods. 
+// Methods are an important part of object oriented programming (OOP). 
+// OOP is an important part of programming which we'll dive into later.
+
+// Methods are similar to functions. 
+// To prepare for methods, let's do a quick refresher on functions.
+// Functions are defined using the function keyword followed by:
+
+// A pair of parentheses ( ) with optional parameters inside.
+// A pair of curly braces with the function's code inside { }.
+// A semicolon ;.
+// And when we call the function, we can put inputs (arguments) for the parameters.
+
+// For example, the square function takes x as its parameter 
+// and returns that parameter squared.
+
+// Accepts a number x as input and returns its square
+var square = function (x) {
+  return x * x;
+};
+
+//// Instructions:
+
+// Define the function multiply. 
+// It should take two parameters, x and y, and return the product.
+// Then call your function, passing in any two arguments.
+
+var multiply = function(x,y) {
+	return x * y;
+};
+
+console.log(multiply(3,4))
+
+
+//////////////	A Method to the Madness
+////// Lesson 14/33 So What's a Method?
+
+// In the last section, we discussed properties. 
+// We can think of properties as variables associated with an object. 
+// Similarly, a method is just like a function associated with an object.
+
+// Let's look at bob, our same person object from the last lesson. 
+// Instead of just having the properties name and age, 
+// bob also has a method called setAge. 
+// As you can probably guess, 
+// this method sets bob's age to whatever argument you give it.
+
+// here is bob again, with his usual properties
+var bob = new Object();
+bob.name = "Bob Smith";
+bob.age = 30;
+// this time we have added a method, setAge
+bob.setAge = function (newAge){
+  bob.age = newAge;
+};
+// here we set bob's age to 40
+bob.setAge(40);
+// bob's feeling old.  Use our method to set bob's age to 20
+
+// Notice how we define setAge kind of like we define a property. 
+// The big difference is that we put in a function after the equals sign 
+// instead of a string or number.
+
+// We call a method like a function, but we use ObjectName.methodName(). 
+// Look at where we use the method to change bob's age to 40. 
+// We did this by calling bob.setAge(40);.
+
+//// Instructions:
+
+// Try it yourself! Use the method setAge to set bob's age to 20.
+
+bob.setAge(20);
+
+
+//////////////	A Method to the Madness
+////// Lesson 15/33 Why Are Methods Important?
+
+// Methods serve several important purposes when it comes to objects.
+
+// They can be used to change object property values. 
+// The method setAge allows us to update bob.age.
+
+// They can be used to make calculations based on object properties. 
+// Functions can only use parameters as an input, 
+// but methods can make calculations with object properties. 
+// For example, we can calculate the year bob was born based on his age 
+// with our getYearOfBirth method .
+
+var bob = new Object();
+bob.age = 17;
+// this time we have added a method, setAge
+bob.setAge = function (newAge){
+  bob.age = newAge;
+};
+
+bob.getYearOfBirth = function () {
+  return 2016 - bob.age;
+};
+console.log(bob.getYearOfBirth());
+
+//// Instructions:
+
+// Click Save & Submit Code to find out what year bob was born in 
+// and move onto the next exercise, 
+// where we will learn more about how to make methods.
+
+
+
 
 
 
