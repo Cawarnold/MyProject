@@ -25,7 +25,7 @@ https://ide.c9.io
 https://c9.io/site/blog/2013/08/django-workspace-type/?utm_source=facebook&utm_medium=post&utm_campaign=django_ws
 
 https://ecostuff-cawarnold.c9.io
-Next, start your first app by running 
+Next, start your first app by running  (create new app)
 	$ python manage.py startapp [app_label]
 
 
