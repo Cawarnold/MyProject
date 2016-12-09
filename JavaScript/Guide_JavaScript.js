@@ -7077,7 +7077,7 @@ bob.setAge(20);
 // Functions can only use parameters as an input, 
 // but methods can make calculations with object properties. 
 // For example, we can calculate the year bob was born based on his age 
-// with our getYearOfBirth method .
+// with our getYearOfBirth method.
 
 var bob = new Object();
 bob.age = 17;
@@ -7098,18 +7098,966 @@ console.log(bob.getYearOfBirth());
 // where we will learn more about how to make methods.
 
 
+//////////////	A Method to the Madness
+////// Lesson 16/33 The "this" Keyword
+
+// Our setAge method works great for bob because it updates bob.age, 
+// but what if we want to use it for other people?
+
+// It turns out we can make a method work for many objects using a new keyword, 
+// 'this'. 
+// The keyword 'this' acts as a placeholder, 
+// and will refer to whichever object called that method when the method is actually used.
+
+// Let's look at the method setAge to see how 'this' works. 
+// By using the keyword 'this', setAge will change the age property of any object that calls it. 
+// Previously, we had a specific object bob instead of the keyword 'this'. 
+// But that limited the use of the method to just bob.
+
+// Then when we say bob.setAge = setAge;, 
+// it means whenever we type bob.setAge( ), 
+// this.age in the setAge method will refer to bob.age.
+
+// here we define our method using "this", before we even introduce bob
+var setAge = function (newAge) {
+  this.age = newAge;
+};
+// now we make bob
+var bob = new Object();
+bob.age = 30;
+// and down here we just use the method we already made
+bob.setAge = setAge;
+
+//// Instructions:
+
+// To show this way of making setAge works just like the one in exercise 2, 
+// use bob's setAge method to change his age to 50.
+
+// change bob's age to 50 here
+bob.setAge(50);
+
+//////////////	A Method to the Madness
+////// Lesson 17/33 "This" Works for Everyone
+
+// Great! Now we can take advantage of the fact that the method setAge 
+// is not limited to a single object bob—
+// we can reuse the same method for different objects! 
+// This allows us to avoid typing out a custom method each time. 
+// All because we used the placeholder 'this'.
+
+// In the editor, we have the same code as last time, 
+// where we define setAge using 'this'. 
+// We then set bob.setAge = setAge;. 
+// But this time we will reuse the setAge method for susan as well.
+
+// here we define our method using "this", before we even introduce bob
+var setAge = function (newAge) {
+  this.age = newAge;
+};
+// now we make bob
+var bob = new Object();
+bob.age = 30;
+bob.setAge = setAge;
+
+//// Instructions:
+
+// Make susan who should initially have an age of 25 and a susan.setAge method 
+// also equal to setAge.
+
+// Then use susan.setAge(35); to set susan's age to 35.
+
+// make susan here, and first give her an age of 25
+var susan = new Object();
+susan.age = 25;
+susan.setAge = setAge;
+
+
+// here, update Susan's age to 35 using the method
+susan.setAge(35);
+
+
+//////////////	A Method to the Madness
+////// Lesson 18/33 Make Your Own Method
+
+// Let's look at a new example and get practice writing methods.
+
+// Here we have defined an object rectangle. 
+// It has two properties, height and width, 
+// which represents the height and width of the shape.
+
+// We have written a setHeight method which will update 
+// rectangle's height to the given parameter. 
+// This is very similar to setAge from our person example.
+
+var rectangle = new Object();
+rectangle.height = 3;
+rectangle.width = 4;
+// here is our method to set the height
+rectangle.setHeight = function (newHeight) {
+  this.height = newHeight;
+};
+
+// Note we have used the keyword 'this'. 
+// 'this' is still a placeholder, 
+// but in this scenario, 
+// 'this' can only ever refer to rectangle because we defined setHeight 
+// to be explicitly part of rectangle by defining it as rectangle.setHeight.
+
+//// Instructions:
+
+// Finish the method setWidth. 
+// It should take a parameter newWidth. 
+// It will change the property width to the given parameter.
+
+// Then use the two methods setHeight and setWidth 
+// to change rectangle's height to 6 and width to 8.
+
+// help by finishing this method
+rectangle.setWidth = function (newWidth) {
+	this.width = newWidth;
+};
+  
+// here change the width to 8 and height to 6 using our new methods
+rectangle.setWidth(8);
+rectangle.setHeight(6);
+
+//////////////	A Method to the Madness
+////// Lesson 19/33 More Kinds of Methods
+
+// Let's look at another method that calculates useful information about an object.
+
+// Here we have an object 'square' with a sideLength property to represent the length 
+// of the square's side. This time, we have added a new method, calcPerimeter, 
+// which computes the perimeter of the square. 
+// Notice we make use of the keyword 'return' (in the same way we use it in functions!).
+
+var square = new Object();
+square.sideLength = 6;
+square.calcPerimeter = function() {
+  return this.sideLength * 4;
+};
+
+//// Instructions:
+
+// Add another method called calcArea, 
+// which returns the area of square in terms of sideLength. 
+// Use the calcPerimeter function as a guide.
+
+// help us define an area method here
+
+square.calcArea = function() {
+	return this.sideLength * this.sideLength;
+};
+
+var p = square.calcPerimeter();
+var a = square.calcArea();
+
+console.log(p)
+console.log(a)
+
+//////////////	Construction Junction
+////// Lesson 20/33 The Object Constructor
+
+// We mentioned the term constructor back in section one, 
+// when we talked about making an object using the keyword new. 
+// A constructor is a way to create an object.
+
+// When we write bob = new Object( ); we are using a built-in constructor called Object. 
+// This constructor is already defined by the JavaScript language 
+// and just makes an object with no properties or methods.
+
+// This means we have to add our properties one at a time, 
+// just like we've been doing. 
+// To review,
+// we've created bob using the constructor and defined the name property for you.
+
+// here we make bob using the Object constructor
+var bob = new Object();
+bob.name = "Bob Smith";
+
+//// Instructions:
+
+// Finish making bob by defining the age property and setting it equal to 20
+
+// add bob's age here and set it equal to 20
+bob.age = 20;
+
+
+//////////////	Construction Junction
+////// Lesson 21/33 Custom Constructors
+
+// But this approach of adding in properties one at a time for every object is tedious! 
+// Instead of always using the boring Object constructor, we can make our own constructors.
+
+// This way we can set the properties for an object right when it is created. 
+// So instead of using the Object constructor which is empty and has no properties, 
+// we can make our own constructors which have properties.
+
+// To see how this works, look at our Person constructor. 
+// This constructor is used to make Person objects. 
+// Notice it uses the keyword this to define the name and age properties 
+// and set them equal to the parameters given.
+
+function Person(name,age) {
+  this.name = name;
+  this.age = age;
+}
+
+// Let's make bob and susan again, using our constructor
+var bob = new Person("Bob Smith", 30);
+var susan = new Person("Susan Jordan", 25);
+
+// Now we can use this constructor to make our good friends 
+// bob and susan in only one line each! 
+// Once we have the constructor, it's way easier to make people 
+// because we can include their name and age as arguments 
+// to their respective constructors.
+
+//// Instructions:
+
+// Practice using the constructor to make a new Person called george, 
+// whose full name is "George Washington" and age is 275.
+
+var george = new Person("George Washington", 275);
+
+
+//////////////	Construction Junction
+////// Lesson 22/33 Try it Out!
+
+// Let's look at another example and practice coding constructors. 
+// Here we have made a Cat constructor for you, with age and color properties.
+
+// Why is this Cat constructor so cool? 
+// It means if we have many cats and wanted to create an object for each cat, 
+// we could just use this constructor with the properties already defined.
+
+// This is much better than using the Object constructor 
+// which just gives us an empty object 
+// and needs us to define every property 
+// and value for each cat object we would create.
+
+function Cat(age, color) {
+  this.age = age;
+  this.color = color;
+}
+
+//// Instructions:
+
+// Finish the Dog constructor we have started. 
+// You can include whatever parameters and properties you want 
+// (age, name, breed, whatever you can think of!) 
+// Use the Cat constructor as an example.
+
+// make a Dog constructor here
+function Dog(age, breed, name) {
+	this.name = name;
+	this.age = age;
+	this.breed = breed;
+};
+
+//////////////	Construction Junction
+////// Lesson 23/33 More Options
+
+// In a constructor, we don't have to define all the properties using parameters. 
+// Look at our new Person example, and see how we set the species 
+// to be "Homo Sapiens". 
+// This means that when we create any Person, their species will be "Homo Sapiens". 
+// In this way, the values associated with name and age are not yet assigned, 
+// but species will always have the same value.
+
+// In this case, both sally and holden will have the same species of "Homo Sapiens", 
+// which makes sense because that is the same across all people.
+
+function Person(name,age) {
+  this.name = name;
+  this.age = age;
+  this.species = "Homo Sapiens";
+}
+
+//// Instructions:
+
+// Create a new object called sally using the Person constructor. 
+// Her name is "Sally Bowles" and she is 39. 
+// Create another object called holden. His name is "Holden Caulfield" and he is 16.
+
+// Edit the sentence printed out such that it includes 
+// the age of sally and holden respectively.
+
+var sally = new Person("Sally Bowles", 39);
+var holden = new Person("Holden Caulfield", 16);
+
+console.log("sally's species is " + sally.species + " and she is " + sally.age);
+console.log("holden's species is " + holden.species + " and he is " + holden.age);
+
+
+//////////////	Construction Junction
+////// Lesson 24/33 Constructors With Methods
+
+// In addition to setting properties, constructors can also define methods. 
+// This way, as soon as the object is created it will have its own methods as well.
+
+// Here we have a Rectangle constructor, 
+// which sets the height and width properties equal to the arguments, 
+// just like our Person did with name and age.
+
+// Notice we have added a calcArea method. 
+// This calculates the area of the rectangle in terms of its height and width.
+
+function Rectangle(height, width) {
+  this.height = height;
+  this.width = width;
+  this.calcArea = function() {
+      return this.height * this.width;
+  };
+
+// the following line creates a new object rex which makes use of the constructor. 
+var rex = new Rectangle(7,3);
+var area = rex.calcArea();
+var perimeter = rex.calcPerimeter();
+// You can see how rex calls the calcArea method and saves the result in a variable, area.
+
+//// Instructions:
+
+// Define a new method on line 8, calcPerimeter, 
+// which calculates and returns the perimeter for a Rectangle in terms of height and width.
+function Rectangle(height, width) {
+  this.height = height;
+  this.width = width;
+  this.calcArea = function() {
+      return this.height * this.width;
+  };
+  // put our perimeter function here!
+  this.calcPerimeter = function() {
+	return this.height * 2 + this.width * 2;
+  };
+}
+
+var rex = new Rectangle(7,3);
+var area = rex.calcArea();
+var perimeter = rex.calcPerimeter();
+console.log(perimeter);
+
+
+//////////////	Construction Junction
+////// Lesson 25/33 Constructors in Review
+
+// Constructors are a way to make objects with the keyword new.
+// The most basic constructor is the Object constructor, 
+// which will make an object with no methods or properties.
+
+// For more complicated objects we can make our own constructors 
+// and put in whatever properties and methods we want.
+
+// Check out our example to the right to see objects in action. 
+// Our Rabbit constructor defines an adjective property and a describeMyself method.
+
+// Recall how these kind of custom constructors are important 
+// because they allow us to easily make many similar objects.
+
+function Rabbit(adjective) {
+    this.adjective = adjective;
+    this.describeMyself = function() {
+        console.log("I am a " + this.adjective + " rabbit");
+    };
+}
+
+//// Instructions:
+
+// Create a new object rabbit1 with the adjective "fluffy", 
+// a new object rabbit2 with the adjective "happy", 
+// and a new object rabbit3 with the adjective "sleepy".
+
+// Use the method describeMyself to print out in the console a sentence 
+// about each object you just created!
+
+var rabbit1 = new Rabbit("fluffy");
+var rabbit2 = new Rabbit("happy");
+var rabbit3 = new Rabbit("sleepy");
+
+rabbit1.describeMyself()
+rabbit2.describeMyself()
+rabbit3.describeMyself()
+
+
+//////////////	Combining Objects with Our Other Tools
+////// Lesson 26/33 Arrays of Objects
+
+// Remember that an object is just another type, 
+// like a string or number but more complex. 
+// This means that just as we can make arrays of numbers and strings, 
+// we can also make arrays of objects.
+
+// Here we have our Person constructor which should look familiar. 
+// We can use this constructor to make an array of Person objects, 
+// similar to how we might make an array of numbers but filling in people instead.
+
+// Our person constructor
+function Person (name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+// Now we can make an array of people
+var family = new Array();
+family[0] = new Person("alice", 40);
+family[1] = new Person("bob", 42);
+family[2] = new Person("michelle", 8);
+// add the last family member, "timmy", who is 6 years old
+
+//// Instructions:
+
+// Add one more Person to the family array, "timmy", who is 6 years old.
+
+family[3] = new Person("timmy",6);
+
+
+//////////////	Combining Objects with Our Other Tools
+////// Lesson 27/33 Loop the loop
+
+// Arrays filled with objects will work just like arrays filled with numbers and strings.
+
+// In the same way we may loop through an array of numbers to print them out 
+// or calculate a sum, we can loop through an array of objects 
+// and access properties or methods.
+
+//// Instructions:
+
+// Write a person constructor called Person that has two properties (name and age).
+// Create an empty array called family.
+// There will be four objects in the array. 
+// Using your Person constructor, 
+// create the four objects and put them in the array. 
+// The order of the objects are:
+
+	// "alice" who is 40
+	// "bob" who is 42
+	// "michelle" who is 8
+	// "timmy" who is 6
+
+// Create a for-loop that loops through the family array 
+// and prints out the name property for each family member 
+// in order of creation.
+
+// Our Person constructor
+function Person (name, age) {
+	this.name = name;
+	this.age = age;
+};
+
+// Now we can make an array of people
+var family = new Array();
+family[0] = new Person("alice", 40);
+family[1] = new Person("bob", 42);
+family[2] = new Person("michelle", 8);
+family[3] = new Person("timmy", 6);
+
+// loop through our new array
+for(var i = 0; i < family.length; i++){
+	console.log(family[i]);
+};
+
+
+//////////////	Combining Objects with Our Other Tools
+////// Lesson 28/33 Passing Objects into Functions
+
+// In addition to making arrays of Objects, 
+// we can use objects as parameters for functions as well. 
+// That way, these functions can take advantage of the methods  
+// and properties that a certain object type provides.
+
+// To see an example, take a look at the console. 
+// In addition to our Person constructor we have introduced a new function, ageDifference. 
+// This function takes two Person objects as parameters, 
+// and returns the difference in age between the two people.
+
+// Notice we would be in trouble here if we tried to call ageDifference 
+// and passed in strings instead of people, because strings don't have an age property. 
+// But because we know from our constructor that all Person objects will have an age property, 
+// we can pass any Person into ageDifference. 
+// We must be careful not to pass anything but Person objects into ageDifference.
+
+// Our person constructor
+function Person (name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+// We can make a function which takes persons as arguments
+// This one computes the difference in ages between two people
+var ageDifference = function(person1, person2) {
+    return person1.age - person2.age;
+}
+
+var alice = new Person("Alice", 30);
+var billy = new Person("Billy", 25);
+
+//// Instructions:
+
+// We have created two example people, alice and billy. 
+// Complete line 17 by calling ageDifference 
+// and saving the result in our global diff variable.
+
+// get the difference in age between alice and billy using our function
+var diff = ageDifference(alice, billy)
+console.log(diff)
+
+
+//////////////	Combining Objects with Our Other Tools
+////// Lesson 29/33 Try it Out!
+
+// This time try making your own function that takes objects as parameters!
+
+// Here we have given you the Person constructor again, 
+// along with the ageDifference function as an example.
+
+// Now create a new function, olderAge. 
+// It should take two Person objects as parameters, 
+// and return the age of whatever Person is older. 
+
+// For example, with 30 year-old alice and 25 year-old bob, olderAge(alice, bob); 
+// should return 30, because that is alice's age and she is older than bob. 
+// If the two people have the same age then you can return that age.
+
+// Our person constructor
+function Person (name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+// We can make a function which takes persons as arguments
+// This one computes the difference in ages between two people
+var ageDifference = function(person1, person2) {
+    return person1.age - person2.age;
+};
+
+// Make a new function, olderAge, to return the age of
+// the older of two people
+
+
+// Let's bring back alice and billy to test our new function
+var alice = new Person("Alice", 30);
+var billy = new Person("Billy", 25);
+
+console.log("The older person is " + olderAge(alice, billy));
+
+
+//// Instructions:
+
+// Define a function called olderAge. 
+// We want the function to return the age of the person who is older.
+
+// Our person constructor
+function Person (name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+// We can make a function which takes persons as arguments
+// This one computes the difference in ages between two people
+var ageDifference = function(person1, person2) {
+    return person1.age - person2.age;
+};
+
+// Make a new function, olderAge, to return the age of
+// the older of two people
+var olderAge = function(person1, person2) {
+	if (person1.age > person2.age) {
+		return person1.age;
+	} else if (person1.age < person2.age) {
+		return person2.age;
+	} else {
+		return person2.age;
+	};
+};
+
+
+// Let's bring back alice and billy to test our new function
+var alice = new Person("Alice", 30);
+var billy = new Person("Billy", 25);
+
+console.log("The older person is " + olderAge(alice, billy));
 
 
 
+//////////////	Objects in Review
+////// Lesson 30/33 What Are Objects For?
+
+// Objects provide us with a way to represent real-world or virtual things. 
+// We can do this by storing information inside the object's properties. 
+// There are two basic ways to make objects:
+
+// Literal Notation, where we use - var Name = { };
+
+// Constructor Notation, where we use the keyword - 'new'.
+
+// We've given an example in literal notation to refresh your memory.
+
+var spencer = {
+  age: 22,
+  country: "United States"
+};
+
+//// Instructions:
+
+// Make a new object, spencer2, with the same properties 
+// but using constructor notation and the Object constructor.
+
+var spencer2 = new Object();
+spencer2.age = 22;
+spencer2["country"] = "United States";
+
+
+//////////////	Objects in Review
+////// Lesson 31/33 Properties
+
+// Properties are like variables that belong to an object, 
+// and are used to hold pieces of information. 
+
+// Properties can be accessed in two ways:
+	// Dot notation, with ObjectName.PropertyName
+	// Bracket notation, with ObjectName["PropertyName"] (don't forget the quotes!)
+
+// In the editor, we have brought back our snoopy object, with a species and age property.
+
+//// Instructions:
+
+// Set the global variable species to be snoopy's species 
+// and the variable age to be snoopy's age. 
+// For one use dot notation and the other use bracket notation!
+
+var snoopy = new Object();
+snoopy.species = "beagle";
+snoopy.age = 10;
+
+// save Snoopy's age and species into variables
+// use dot notation for snoopy's species
+var species = snoopy.species
+    
+// use bracket notation for snoopy's age
+var age = snoopy["age"]
 
 
 
+//////////////	Objects in Review
+////// Lesson 32/33 Customizing Constructors
+
+// In addition to the basic Object constructor, 
+// we can define our own custom constructors. 
+
+// These are helpful for two reasons:
+	// 1. We can assign our objects properties through parameters 
+		// we pass in when the object is created.
+	// 2. We can give our objects methods automatically.
+
+// These both work to save us time and lines of code when we make objects.
+
+//// Instructions:
+
+// Notice that without the constructor, it takes us 3 lines of code to make harry_potter, 
+// an object that represents Harry Potter book 1.
+
+// Then in line 7 we introduce a constructor for a Book object, 
+// where we pass in the pages and author properties as parameters.
+
+// Use this constructor to make the_hobbit, a book with 320 pages by "J.R.R. Tolkien". 
+// Notice by using the constructor you can do this in only one line instead of three!
+
+// 3 lines required to make harry_potter
+var harry_potter = new Object();
+harry_potter.pages = 350;
+harry_potter.author = "J.K. Rowling";
+
+// A custom constructor for book
+function Book (pages, author) {
+    this.pages = pages;
+    this.author = author;
+}
+
+// Use our new constructor to make the_hobbit in one line
+var the_hobbit = new Book(320, "J.R.R. Tolkien")
+
+
+//////////////	Objects in Review
+////// Lesson 33/33 Methods
+
+// Methods are like functions that are associated with a particular object.
+
+// They are especially helpful when you want to either:
+	// Update the object properties
+	// Calculate something based on an object's properties.
+
+// Here, we have included a Circle object, 
+// with a radius property representing the circle's radius. 
+// We have implemented an area function which calculates the circle's area. 
+// Notice we have used Math.PI to get the π value.
+
+//// Instructions:
+
+// Define a method perimeter that calculates the perimeter of a circle.
+
+function Circle (radius) {
+    this.radius = radius;
+    this.area = function () {
+        return Math.PI * this.radius * this.radius;
+        
+    };
+    // define a perimeter method here
+    this.perimeter = function () {
+    	return 2 * Math.PI * this.radius;
+    };
+};
+
+var rad_5 = new Circle(5);
+console.log(rad_5.perimeter())
 
 
 
+///////////////////////////////////
+///////////////////////////////////
+// Objects II
+///////////////////////////////////
+///////////////////////////////////
 
 
+//////////////
+// Introduction to Objects II
+//////////////
 
+
+//////////////	Review: The story so far...
+////// Lesson 1/30 An Objective Review
+
+// Let's review the basics of objects covered in our previous lesson on objects. 
+// Recall we can create objects using either literal notation or constructor notation.
+
+// Literal notation 
+	// creates a single object. 
+	// Literal notation uses curly brackets { } 
+	// and the object's default properties are defined 
+	// within the brackets using property:value notation.
+
+// Constructor notation 
+	// involves defining an object constructor. 
+	// And like defining a function, we use the function keyword. 
+	// You can think of this constructor as a "template" 
+	// from which you can create multiple objects. 
+	// To create a new object from a constructor, we use the 'new' keyword.
+
+//// Instructions:
+
+// Finish the james object by adding properties to it. 
+// His job should be "programmer" and should have a married property set to false.
+
+// Create a new gabby object using the Person constructor. 
+// She should have a job of "student" and her married property should be true.
+
+
+var james = {
+    // add properties to this object!
+    job: "programmer",
+    married: false
+};
+
+function Person(job, married) {
+    this.job = job;
+    this.married = married;
+}
+
+// create a "gabby" object using the Person constructor!
+gabby = new Person("student", true);
+
+
+//////////////	Review: The story so far...
+////// Lesson 2/30 Fun with Functions
+
+// Recall that we can add methods 
+// (i.e., functions associated with objects) to a constructor:
+
+function someObject() {
+  this.someMethod = function() {
+  };
+}
+
+// Suppose we said var someObj = new someObject();. 
+// When we call someObj.someMethod(), 
+// the code between the curly brackets { } above will run.
+
+//// Instructions:
+
+// Add a speak method to the Person constructor. 
+// Whenever speak is called, it should print "Hello!" to the console.
+
+function Person(job, married) {
+    this.job = job;
+    this.married = married;
+    // add a "speak" method to Person!
+	this.speak = function() {
+		console.log("Hello!");
+	}    
+}
+
+var user = new Person("Codecademy Student",false);
+user.speak();
+
+
+//////////////	Review: The story so far...
+////// Lesson 3/30 Literally Speaking
+
+// In the last exercise, we added methods to objects via constructor notation. 
+// We can also add methods to objects in literal notation:
+
+var someObj = {
+	aProperty: value,
+	someMethod: function(some, params) { }
+};
+
+// When we call someObj.someMethod(some, values);, 
+// the code between the curly brackets { } will run.
+
+// Note here we see a method that takes parameters. 
+// Methods defined in both constructors and literal notation can take parameters, 
+// just like normal functions.
+
+//// Instructions:
+
+// Take a look at the partially-defined james object. 
+// Complete the speak method such that the last two lines in the editor 
+// will cause "Hello, I am feeling great" and "Hello, I am feeling just okay" 
+// to be printed to the console.
+
+var james = {
+    job: "programmer",
+    married: false,
+    speak: function(mood) {
+        if (mood === "great") {
+        	console.log("Hello, I am feeling great");
+        } else if (mood === "just okay") {
+        	console.log("Hello, I am feeling just okay");
+        } else {
+        	console.log("not in any mood")
+        }
+    }
+};
+
+james.speak("great");
+james.speak("just okay");
+
+
+//////////////	Review: The story so far...
+////// Lesson 4/30 Can I See Your References?
+
+// Remember when defining a method for an object, 
+// it's easy to reference other properties in that object: 
+// just use this.propertyName!
+
+// When that method is called, this.propertyName will always 
+// refer to the most recent value of propertyName.
+
+//// Instructions:
+
+// Take a look at the james object. 
+// Complete the sayJob method so that it will print to the console 
+// "Hi, I work as a [job]", where [job] is the value of the job property.
+
+// Then in line 14, change the job for james to "super programmer". 
+// Although the method calls in lines 11 and 17 are exactly the same, 
+// their output should be different because James' job changed!
+
+var james = {
+    job: "programmer",
+    married: false,
+    sayJob: function() {
+        // complete this method
+        console.log("Hi, I work as a " + this.job);
+    }
+};
+
+// james' first job
+james.sayJob();
+
+// change james' job to "super programmer" here
+james.job = "super programmer";
+
+// james' second job
+james.sayJob();
+
+
+//////////////	Review: The story so far...
+////// Lesson 4/30 Who's in Your Bracket?
+
+// And finally, let's go over retrieving property values. 
+// Throughout this section, we've been using dot notation 
+// to get the value of an object's property:
+someObj.propName;
+
+// However, remember that we can also use bracket notation:
+someObj["propName"];
+
+// An advantage of bracket notation is that we are not restricted 
+// to just using strings in the brackets. 
+// We can also use variables whose values are property names:
+var someObj = {propName: someValue};
+var myProperty = "propName";
+someObj[myProperty];
+
+// The last line is exactly the same as using someObj["propName"];.
+
+//// Instructions:
+
+// Take advantage of the ability to use variables with bracket notation.
+
+// In line 7, set aProperty to a string of the first property in james 
+// (ie. the job property).
+
+// Then print james's job using bracket notation and aProperty.
+
+var james = {
+    job: "programmer",
+    married: false
+};
+
+// set to the first property name of "james"
+var aProperty = "job";
+
+// print the value of the first property of "james" 
+// using the variable "aProperty"
+console.log(james[aProperty]);
+
+
+//////////////	Objects, Objects Everywhere
+////// Lesson 6/30 I.D., Please
+
+// Alright! Let's get our hands dirty and start exploring some really cool stuff 
+// about objects in JavaScript. 
+// But before we can do that, how can we even tell if something is an object 
+// (as opposed to, say, a number or string)?
+// It would be great if we could tell what type something is in JavaScript. 
+// Good thing there's a handy built-in operator to do this!
+
+// Say we have a variable thing and we don't know what type thing is.
+// We can call typeof thing to figure this out. 
+// Generally, the most useful types are 
+// "number," "string," "function," and of course, "object."
+
+// As an example, the following example will print "object":
+
+var someObject = {someProperty: someValue};
+console.log( typeof someObject );
+
+//// Instructions:
+
+// In lines 3-6, we have an object, a number, and a string (in that order). 
+// Complete lines 7-9 so they will print the appropriate types of these variables.
+
+// complete these definitions so that they will have
+// the appropriate types
+var anObj = { job: "I'm an object!" };
+var aNumber = 42;
+var aString = "I'm a string!";
+
+console.log( typeof anObj ); // should print "object"
+console.log( typeof aNumber ); // should print "number"
+console.log( typeof aString ); // should print "string"
 
 
 
