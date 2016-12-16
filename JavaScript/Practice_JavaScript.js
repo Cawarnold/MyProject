@@ -410,18 +410,435 @@ list();
 
 ///////////////////////////////////
 ///////////////////////////////////
-// Objects I
+// Objects II
 ///////////////////////////////////
 ///////////////////////////////////
 
 
 //////////////
-// Building an Address Book
+// Building a cash register
 //////////////
 
 
-//////////////	Objects in address books are fun!
-////// Lesson 1/6 Digitizing People
+//////////////	Cha Ching!
+////// Lesson 1/7 Shut the Shop!
+
+// You are working for a large supermarket and the cash register 
+// has just failed.
+// The boss is not happy as he can't make any money.
+
+// To save the day it happens that you let slip to your boss 
+// that you know JavaScript and can build a quick virtual 
+// cash register until head office sends support staff.
+
+// Your boss is over the moon and wants you to get started right away.
+
+//// Instructions:
+
+// Create a new object called cashRegister with the property 
+// total initialized to 0.
+
+var cashRegister = {
+	total: 0
+};
+
+console.log(cashRegister.total);
+
+// Then change the property total to 2.99 using dot notation.
+
+cashRegister.total = 2.99;
+console.log(cashRegister.total);
+
+//////////////	Cha Ching!
+////// Lesson 2/7 Manually Add It Up?
+
+// Great! The bossman can see that you can tell the cash register the total. 
+// But we need the cash register to do more.
+
+// Your boss wants a way to manually add the cost of each item. 
+// We have written the add method for you. 
+// There are two things we should note.
+
+// We are using literal notation to include the method add.
+// We've used the += operator. 
+	// This is a shorthand way of saying
+	// this.total = this.total + itemCost;
+
+// In general, a += b; means "add b to a and put the result 
+// of that addition back into a. 
+// This is also available for the other basic arithmetic functions: 
+// -=, *=, and /= do what you expect.
+
+var cashRegister = {
+    total:0,
+    add: function(itemCost){
+        this.total += itemCost;
+    }
+};
+
+//call the add method for our items
+
+//Show the total bill
+console.log('Your bill is '+cashRegister.total);
+
+
+//// Instructions:
+
+// Use the add method to sum up the cost of the following four items.
+
+	// Eggs 0.98
+	// Milk 1.23
+	// Magazine 4.99
+	// Chocolate 0.45
+
+// If we only call the method once, it will just add the first item. 
+// So to add up the cost of four items, 
+// how many times will we have to call the method?
+
+cashRegister.add(0.98)
+cashRegister.add(1.23)
+cashRegister.add(4.99)
+cashRegister.add(0.45)
+
+
+
+//////////////	Cha Ching!
+////// Lesson 3/7 Short-Term Memory
+
+// But this method only works as long as you can remember the cost 
+// of every item in the store. 
+// We need something like a bar code scanner where just knowing 
+// the item name will automatically add the cost of that item to the total.
+
+// So we create a method called scan. 
+// This method takes some 'item' parameter, 
+// and adds the cost of this 'item' to the total. 
+// 'item' is a string.
+
+// We also use a switch statement. 
+// Previously, we would have probably used multiple if-else statements. 
+// Here, things work in a similar way.
+
+// For example, if the item is "eggs" (line 8), 
+// we then call the add method, passing through 0.98 as the itemCost. 
+// This will add 0.98 to cashRegister.total. 
+
+// If instead the item is "milk" or "chocolate" or "magazine", 
+// the relevant itemCost is added. Note no default case is needed 
+// for this switch statement.
+
+//// Instructions:
+
+// Write the add method which has a single parameter, itemCost. 
+// It will add the itemCost to the total.
+
+// We have partially written the scan method for you and started a switch statement.
+// Add the following 2 items to the switch statement:
+	// "magazine", 4.99
+	// "chocolate", 0.45
+
+// Finally, use the scan method to buy "eggs" twice and a "magazine" three times.
+
+var cashRegister = {
+    total: 0,
+//insert the add method here    
+    add: function (itemCost) {
+    	this.total += itemCost;
+    	return this.total;
+    },
+    
+    scan: function (item) {
+        switch (item) { 
+        case "eggs": 
+            this.add(0.98); 
+            break;
+        
+        case "milk": 
+            this.add(1.23); 
+            break;
+        
+        //Add other 2 items here
+        case "magazine":
+        	this.add(4.99);
+        	break;
+        case "chocolate":
+        	this.add(0.45);
+        	break;        
+        }
+        return true;
+    }
+};
+
+//Scan 2 eggs and 3 magazines
+cashRegister.scan("eggs");
+cashRegister.scan("eggs");
+cashRegister.scan("magazine");
+cashRegister.scan("magazine");
+cashRegister.scan("magazine");
+
+//Show the total bill
+console.log('Your bill is '+ cashRegister.total);
+
+//// CA: NOTICE how each part of the object is separated by commas.
+
+// We know add and scan are both methods because they use the keyword function 
+// and are found inside an object.
+// In the scan method, we make use of the add method. 
+// We call it with this so that add refers to its own defined method.
+// Comma! don't forget that a comma (,) will be needed after closing the new add method.
+
+
+
+//////////////	Cha Ching!
+////// Lesson 4/7 I Have to Scan It More Than Once?
+
+// Is that a smile on the boss's face? 
+// Well, there was one until he realized that your system requires every item 
+// to be scanned individually. 
+// He finds this pretty inefficient and you probably agree. 
+// Let's get real—it was pretty annoying having to call the scan method 
+// five times in the previous exercise!
+
+// What can we do? What is the limitation of the scan method? 
+// Well, it has just one parameter, item, 
+// and you can't specify anything related to quantity.
+
+//// Instructions:
+
+// Modify the scan method such that if we tell it the quantity of each item, 
+// it will be able to add the right amount to the total. 
+// Since you currently tell scan nothing about quantity, 
+// it may be useful to create another parameter.
+
+// Scan 4 of each item using your improved scan method. 
+// Previously we would have needed to call scan 16 times! Now it is down to 4.
+
+var cashRegister = {
+    total:0,
+
+    add: function(itemCost){
+        this.total += itemCost;
+    },
+    // function(item,count=1) -- count=1 mean 1 is the default value of count.
+    scan: function(item,count=1) {
+        switch (item) {
+        case "eggs": this.add(0.98*count); break;
+        case "milk": this.add(1.23*count); break;
+        case "magazine": this.add(4.99*count); break;
+        case "chocolate": this.add(0.45*count); break;
+        }
+    }
+};
+
+// scan each item 4 times
+//cashRegister.scan("eggs");
+cashRegister.scan("eggs",4);
+cashRegister.scan("milk",4);
+cashRegister.scan("magazine",4);
+cashRegister.scan("chocolate",4);
+
+//Show the total bill
+console.log('Your bill is '+cashRegister.total);
+
+//// Hint:
+// Modify the scan method to have a second parameter, quantity. 
+// Now, we must call it using something like cashRegister.scan("chocolate", 1);
+// In the scan method, we currently only add 0.45 when "chocolate" is passed. 
+// How can we improve this? 
+// Let's multiply this by the quantity parameter. 
+// And we need to do this for each item.
+
+// This means, for "chocolate", we need the code to be :
+this.add(0.45 * quantity);
+// Unit Test Our test expects the second parameter to be quantity as the examples above.
+
+
+//////////////	Cha Ching!
+////// Lesson 5/7 Bleep Bleep
+
+// The boss looks down at his pager to see Register 8 needs assistance. 
+// They have scanned an item too many times and need to void the last transaction.
+
+// So he turns to you and says: "Okay JavaScript Ninja! What do we do now?!"
+
+//// Instructions:
+
+// We need to keep track of how much the last transaction was. 
+// Modify the add method to keep track of the amount of the last transaction. 
+// This should be tracked in a new property, lastTransactionAmount.
+
+// Add a method called voidLastTransaction that subtracts 
+// the last amount transacted from total.
+
+// Then use the new method to void the last item we scanned. 
+// Finally, scan only 3 of the same item instead.
+
+var cashRegister = {
+    total:0,
+    lastTransactionAmount:0,
+    //Dont forget to add your property
+    add: function(itemCost) {
+        this.total +=  itemCost;
+        this.lastTransactionAmount = itemCost;
+    },
+    scan: function(item,quantity) {
+        switch (item) {
+        case "eggs": this.add(0.98 * quantity); break;
+        case "milk": this.add(1.23 * quantity); break;
+        case "magazine": this.add(4.99 * quantity); break;
+        case "chocolate": this.add(0.45 * quantity); break;
+        }
+        return true;
+    },
+    //Add the voidLastTransaction Method here
+    voidLastTransaction: function() {
+    	this.total -= this.lastTransactionAmount;
+    }
+    
+};
+
+cashRegister.scan('eggs',1);
+cashRegister.scan('milk',1);
+cashRegister.scan('magazine',1);
+cashRegister.scan('chocolate',4);
+
+//Void the last transaction and then add 3 instead
+console.log('Your bill is '+cashRegister.total);
+cashRegister.voidLastTransaction();
+cashRegister.scan('chocolate',3);
+
+//Show the total bill
+console.log('Your bill is '+cashRegister.total);
+
+
+//////////////	Cha Ching!
+////// Lesson 6/7 Over the Moon
+
+// Great! The store is ticking along making money again. 
+// The boss is so happy you have just been given a bonus staff discount 
+// to the value of 20%.
+
+// However the current system doesn't know how to apply the different 
+// levels of staff discount that apply. 
+// Now the rest of the staff is not happy and demanding you make improvements!
+
+// Let's sort it out so that staff can get their well deserved discount.
+
+
+//// Instructions:
+
+// Create an object constructor called StaffMember which takes two parameters—name 
+// and discountPercent. 
+// And then have the (public) properties name and discountPercent equal the parameters.
+
+// To help, we have already created two employees using this constructor. 
+// Sally and Bob already have their staff discount set up: Sally getting 5% off 
+// and Bob getting 10%.
+
+// Create a new instance of the object for yourself called me with your massive staff 
+// discount bonus of 20%.
+
+
+// create a constructor for the StaffMember class
+function StaffMember(name,discountPercent) {
+	this.name = name;
+	this.discountPercent = discountPercent;
+}
+
+
+var sally = new StaffMember("Sally",5);
+var bob = new StaffMember("Bob",10);
+
+//Create a StaffMember for yourself called me
+var me = new StaffMember("CA",20);
+
+
+
+//////////////	Cha Ching!
+////// Lesson 7/7 You Deserved It!
+
+// Whew! It's been a long day fixing cash registers and now let's actually apply 
+// our well-earned discount. 
+// Now that we have our objects representing the staff, 
+// let's update our cash register to actually apply the discount.
+
+//// Instructions:
+
+// On line 10 create a new object called me of type StaffMember 
+// for yourself with a staff discount of 20%
+
+// Create a new method called applyStaffDiscount in the cashRegister object 
+// which accepts a parameter employee. When this method is called, 
+// cashRegister should apply the staff member's discountPercent to total.
+
+// Under the comment, 'Apply your staff discount by passing the me object, 
+// call your new applyStaffDiscount and pass the object me.
+
+
+function StaffMember(name,discountPercent){
+    this.name = name;
+    this.discountPercent = discountPercent;
+}
+
+var sally = new StaffMember("Sally",5);
+var bob = new StaffMember("Bob",10);
+
+// Create yourself again as 'me' with a staff discount of 20%
+var me = new StaffMember("CA",20);
+
+var cashRegister = {
+    total:0,
+    lastTransactionAmount: 0,
+    add: function(itemCost){
+        this.total += (itemCost || 0);
+        this.lastTransactionAmount = itemCost;
+    },
+    scan: function(item,quantity){
+        switch (item){
+        case "eggs": this.add(0.98 * quantity); break;
+        case "milk": this.add(1.23 * quantity); break;
+        case "magazine": this.add(4.99 * quantity); break;
+        case "chocolate": this.add(0.45 * quantity); break;
+        }
+        return true;
+    },
+    voidLastTransaction: function(){
+        this.total -= this.lastTransactionAmount;
+        this.lastTransactionAmount = 0;
+    },
+    // Create a new method applyStaffDiscount here
+    applyStaffDiscount: function(employee){
+    	StaffMember.employee
+    }
+    
+};
+
+cashRegister.scan('eggs',1);
+cashRegister.scan('milk',1);
+cashRegister.scan('magazine',3);
+// Apply your staff discount by passing the 'me' object 
+// to applyStaffDiscount
+
+
+// Show the total bill
+console.log('Your bill is '+cashRegister.total.toFixed(2));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

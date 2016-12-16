@@ -3,6 +3,42 @@
 
 ///////////// Summary notes /////////////
 
+//// Run JavaScript from your cmd ////
+// install node.js
+// update PATH: C:\Users\U6030064\AppData\Roaming\npm;C:\Program Files\nodejs
+// go to terminal, navigagte to file, run:
+// node filename.js
+
+
+//// Basics ////
+
+
+
+
+// Find type of object & hasOwnProperty
+console.log(typeof Object.prototype);
+console.log(Object.prototype.hasOwnProperty("hasOwnProperty"));
+
+// Accessing the key / value of an object
+
+// create object
+var languages = {
+    english: "Hello!",
+    french: "Bonjour!",
+    notALanguage: 4
+};
+
+// access key / value pari of object
+console.log(typeof languages);
+for (var key in languages) {
+	var value = languages[key];
+	if (typeof value === "string") {
+		console.log(value);
+	};
+};
+
+
+
 //// OOP - object-oriented programming ////
 
 // A class can be thought of as a type, or a category of objects—kind of like how Number 
@@ -8969,43 +9005,207 @@ function Person(first,last,age) {
 var john = new Person('John','Smith',30);
 /* the variable myBalance should access askTeller()
    with a password as an argument  */
+john.askTeller(1234);
+
+
+//////////////	Objects in Review Are Closer Than They Appear
+////// Lesson 27/30 Looks For-In To Me
+
+// Objects aren't so foreign if you really think about it!
+
+// Remember you can figure out the type of a variable 
+// by using typeof myVariable;. 
+// Types we are concerned with for now are "object", "string", and "number".
+
+// Recall the for-in loop:
+
+for(var x in obj) {
+executeSomething();
+}
+
+// This will go through all the properties of obj one by one 
+// and assign the property name to x on each run of the loop.
+
+// Let's combine our knowledge of these two concepts.
+
+var languages = {
+    english: "Hello!",
+    french: "Bonjour!",
+    notALanguage: 4,
+    spanish: "Hola!"
+};
+
+// print hello in the 3 different languages
+
+
+//// Instructions:
+
+// Examine the languages object. 
+// Three properties are strings, whereas one is a number.
+
+// Use a for-in loop to print out the three ways to say hello. 
+// In the loop, you should check to see if the property value 
+// is a string so you don't accidentally print a number.
+
+for (var key in languages) {
+	var value = languages[key];
+	if (typeof value === "string") {
+		console.log(value);
+	};
+};
+
+
+//////////////	Objects in Review Are Closer Than They Appear
+////// Lesson 28/30 Hello? Yes, This is Dog
+
+// We should all know by now what's so cool about 
+// using prototype: we can define a method for a class, 
+// and any instance of the class 
+// (i.e., object created using that class's constructor) 
+// can use that method.
+
+// Remember that classes and the prototype are important to OOP!
+
+
+//// Instructions:
+
+// Add the sayHello method to the Dog class by extending its prototype.
+
+// sayHello should print to the console: 
+// "Hello this is a [breed] dog"
+// , where [breed] is the dog's breed.
+
+function Dog (breed) {
+    this.breed = breed;
+};
+
+// add the sayHello method to the Dog class 
+// so all dogs now can say hello
+
+Dog.prototype.sayHello = function() {
+	console.log("Hello this is a " + this.breed + " dog");
+}
+
+
+var yourDog = new Dog("golden retriever");
+yourDog.sayHello();
+
+var myDog = new Dog("dachshund");
+myDog.sayHello();
+
+
+
+
+//////////////	Objects in Review Are Closer Than They Appear
+////// Lesson 29/30 So Meta I Can't Take It!
+
+// Do you remember how we said every JavaScript object 
+// has some baggage associated with it? 
+// Part of this baggage was the hasOwnProperty 
+// method available to all objects. 
+// Now let's see where this came from...
+
+// If we have just a plain object 
+// (i.e., not created from a class constructor), 
+// recall that it automatically inherits from Object.prototype. 
+// Could this be where we get hasOwnProperty from? How can we check?
+
+
+//// Instructions:
+
+// Let's first see what type Object.prototype is. 
+// Do this in line 2 and save it into prototypeType.
+
+// If all goes well, you should realize that Object.prototype itself is an object! 
+// And since all objects have the hasOwnProperty method, 
+// it's pretty easy to check if hasOwnProperty comes from Object.prototype. 
+// Do this in line 6 and the result may be surprising.
+
+// what is this "Object.prototype" anyway...?
+var prototypeType = typeof Object.prototype
+console.log(prototypeType);
+
+// now let's examine it!
+var hasOwn = Object.prototype.hasOwnProperty("hasOwnProperty");
+console.log(hasOwn);
+
+
+
+//////////////	Objects in Review Are Closer Than They Appear
+////// Lesson 29/30 Private Eye
+
+// Recall that:
+
+// Public properties can be accessed from outside the class
+// Private properties can only be accessed from within the class
+
+// Using constructor notation, a property declared as 
+this.property = "someValue;" 
+// will be public, 
+// whereas a property declared with 
+var property = "hiddenValue;" 
+// will be private.
+
+// In this exercise, hit run and you'll see that all your grades are exposed! 
+// You really just want people to know your overall GPA.
+
+//// Instructions:
+
+// Modify the StudentReport class so that no grades will be printed 
+// to the console in the for-in loop.
+
+// However, getGPA should still function properly in the last line.
+
+function StudentReport() {
+    this.grade1 = 4;
+    this.grade2 = 2;
+    this.grade3 = 1;
+    this.getGPA = function() {
+        return (this.grade1 + this.grade2 + this.grade3) / 3;
+    };
+}
+
+var myStudentReport = new StudentReport();
+
+for(var x in myStudentReport) {
+    if(typeof myStudentReport[x] !== "function") {
+        console.log("Muahaha! " + myStudentReport[x]);
+    }
+}
+
+console.log("Your overall GPA is " + myStudentReport.getGPA());
+
+
+// to:
+
+function StudentReport() {
+    var grade1 = 4;
+    var grade2 = 2;
+    var grade3 = 1;
+    this.getGPA = function() {
+        return (grade1 + grade2 + grade3) / 3;
+    };
+}
 
 
 
 
 
 
+///////////////////////////////////
+///////////////////////////////////
+// Objects II
+///////////////////////////////////
+///////////////////////////////////
 
 
+//////////////
+// Introduction to Objects II
+//////////////
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//////////////	Review: The story so far...
+////// Lesson 1/30 An Objective Review
 
 
 
