@@ -114,7 +114,7 @@ while job_count < 10000:
 
 	cur.execute('SELECT URL FROM JobPost_URLs where url like ?', ('%'+str(guardian_job_id)+'%', ))
 	try:
-		print('The URL' + str(cur.fetchone()[0]) + 'is already in table')
+		print('The URL' + str(cur.fetchone()[0]) + ' is already in table')
 		continue
 	except:
 		'continue with code'
