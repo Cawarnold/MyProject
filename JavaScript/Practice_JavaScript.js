@@ -774,21 +774,23 @@ var me = new StaffMember("CA",20);
 // Under the comment, 'Apply your staff discount by passing the me object, 
 // call your new applyStaffDiscount and pass the object me.
 
-
+// CA: A Class called StaffMember
 function StaffMember(name,discountPercent){
     this.name = name;
     this.discountPercent = discountPercent;
 }
 
+// CA: Instances of that Class StaffMember called sally,bob and me.
 var sally = new StaffMember("Sally",5);
 var bob = new StaffMember("Bob",10);
 
 // Create yourself again as 'me' with a staff discount of 20%
 var me = new StaffMember("CA",20);
 
+// CA: an object with variables and methods.
 var cashRegister = {
     total:0,
-    lastTransactionAmount: 0,
+    lastTransactionAmount:0,
     add: function(itemCost){
         this.total += (itemCost || 0);
         this.lastTransactionAmount = itemCost;
@@ -808,21 +810,29 @@ var cashRegister = {
     },
     // Create a new method applyStaffDiscount here
     applyStaffDiscount: function(employee){
-    	StaffMember.employee
+        this.total = this.total * (1 - employee.discountPercent / 100);
     }
     
 };
 
+// calling the object 'cashRegister' and performing the method 'scan'
 cashRegister.scan('eggs',1);
 cashRegister.scan('milk',1);
 cashRegister.scan('magazine',3);
 // Apply your staff discount by passing the 'me' object 
 // to applyStaffDiscount
 
+//// Trying to build the applyStaffDiscount method:
+//console.log(me.discountPercent);
+//console.log(cashRegister.total);
+//console.log(cashRegister.total * 0.8);
+//console.log(cashRegister.total * (1 - me.discountPercent / 100));
+
+// calling the object 'cashRegister' and performing the method 'applyStaffDiscount'
+cashRegister.applyStaffDiscount(me);
 
 // Show the total bill
 console.log('Your bill is '+cashRegister.total.toFixed(2));
-
 
 
 

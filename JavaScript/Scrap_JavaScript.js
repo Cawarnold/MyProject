@@ -1,13 +1,24 @@
+
+function StaffMember(name,discountPercent){
+    this.name = name;
+    this.discountPercent = discountPercent;
+}
+
+var sally = new StaffMember("Sally",5);
+var bob = new StaffMember("Bob",10);
+
+// Create yourself again as 'me' with a staff discount of 20%
+var me = new StaffMember("CA",20);
+
 var cashRegister = {
     total:0,
-    lastTransactionAmount:0,
-    //Dont forget to add your property
-    add: function(itemCost) {
-        this.total +=  itemCost;
+    lastTransactionAmount: 0,
+    add: function(itemCost){
+        this.total += (itemCost || 0);
         this.lastTransactionAmount = itemCost;
     },
-    scan: function(item,quantity) {
-        switch (item) {
+    scan: function(item,quantity){
+        switch (item){
         case "eggs": this.add(0.98 * quantity); break;
         case "milk": this.add(1.23 * quantity); break;
         case "magazine": this.add(4.99 * quantity); break;
@@ -15,25 +26,30 @@ var cashRegister = {
         }
         return true;
     },
-    //Add the voidLastTransaction Method here
-    voidLastTransaction: function() {
-    	this.total -= this.lastTransactionAmount;
+    voidLastTransaction: function(){
+        this.total -= this.lastTransactionAmount;
+        this.lastTransactionAmount = 0;
+    },
+    // Create a new method applyStaffDiscount here
+    applyStaffDiscount: function(employee){
+        this.total = this.total * (1 - employee.discountPercent / 100);
     }
     
 };
 
 cashRegister.scan('eggs',1);
 cashRegister.scan('milk',1);
-cashRegister.scan('magazine',1);
-cashRegister.scan('chocolate',4);
+cashRegister.scan('magazine',3);
+// Apply your staff discount by passing the 'me' object 
+// to applyStaffDiscount
 
-console.log('Your bill is '+cashRegister.total);
-cashRegister.voidLastTransaction();
-cashRegister.scan('chocolate',3);
+//// Trying to build the applyStaffDiscount method:
+//console.log(me.discountPercent);
+//console.log(cashRegister.total);
+//console.log(cashRegister.total * 0.8);
+//console.log(cashRegister.total * (1 - me.discountPercent / 100));
 
+cashRegister.applyStaffDiscount(me);
 
-//Void the last transaction and then add 3 instead
-
-
-//Show the total bill
-console.log('Your bill is '+cashRegister.total);
+// Show the total bill
+console.log('Your bill is '+cashRegister.total.toFixed(2));
