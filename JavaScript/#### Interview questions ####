@@ -5,12 +5,16 @@
 ## Programming
 # OOP
 # Compile time / runtime
-
+# Python type system is both strong and dynamic
 
 
 ## Maths
 # Calculate palendrome
 # Write a function to compute the fibonnacci series
+
+######################################
+######################################
+######################################
 
 
 #### OOP - Object Oriented Programming ####
@@ -27,6 +31,69 @@
 ## Polymorphism
 
 
+#######
+
+## Encapsulation
+
+It describes the ability to restrict access to an objects components. 
+Objects which contain data, methods / functions.
+
+'Encapsulation can be used to hide data members and members function'
+
+
+## Abstraction
+
+It works by establishing a level of complexity on which a person interacts with the system, 
+suppressing the more complex details below the current level
+
+# Control Abstraction (DRY - Don't Repeat Yourself)
+Control abstraction involves the use of subroutines and control flow abstractions. For example an object can abstract away irrelevant complexities.
+
+# Data Abstraction
+Data abstraction allows handling pieces of data in meaningful ways. For example, it is the basic motivation behind the datatype.
+
+For example, a programmer writing code that involves numerical operations may not be interested 
+in the way numbers are represented in the underlying hardware (e.g. whether they're 16 bit or 32 bit integers), 
+and where those details have been suppressed it can be said that they were abstracted away, 
+leaving simply numbers with which the programmer can work.
+
+
+## Inheritance
+
+In object-oriented programming, inheritance is when an object or class is based on another object (prototypal inheritance) or class (class-based inheritance)
+
+# Prototypal Inheritance
+Prototypal Inheritance is the reuse of objects by other objects via a hierarchy.
+
+# Class-based inheritance (class-orientation)
+Class-based inheritance is achieved by defining classes of objects, as opposed to the objects themselves (prototype inheritance).
+
+For example, an Animal object (parent) and a Mammal object (child) have a hierarchy.
+All mammals are animals, not all animals are mammals.
+
+
+## Polymorphism
+
+Polymorphism means 'many forms'. 
+We want to describe an action regardless of the type of objects.
+
+A real world analogy for polymorphism is a button. 
+Everyone knows how to use a button: you simply apply pressure to it. 
+What a button “does,” however, depends on what it is connected to and the context in which it is used — 
+but the result does not affect how it is used. If your boss tells you to press a button, 
+you already have all the information needed to perform the task.
+
+######################################
+######################################
+
+# Python type system is both strong and dynamic
+
+type system is strong because everything has a well-defined type that you can check with the type() built-in function
+type system is dynamic since the type of a variable is not explicitly declared, but changes with the content
+
+######################################
+######################################
+
 
 #### Compile time / runtime ####
 # http://stackoverflow.com/questions/846103/runtime-vs-compile-time
@@ -34,3 +101,5 @@
 
 
 
+######################################
+######################################

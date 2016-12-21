@@ -81,7 +81,7 @@ guardian_job_id = cur.fetchone()[0]
 
 # If restarting database from scratch, then need starter guardian_job_id.
 #if not guardian_job_id:
-guardian_job_id = 6408311	# guardian_job_id = 6377990 # starting job id, will become max job id from the database.
+guardian_job_id = 6410064	# guardian_job_id = 6377990 # starting job id, will become max job id from the database.
 
 print('Current max guardian job id:  ' + str(guardian_job_id))
 
