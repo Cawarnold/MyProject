@@ -83,6 +83,7 @@ What a button “does,” however, depends on what it is connected to and the co
 but the result does not affect how it is used. If your boss tells you to press a button, 
 you already have all the information needed to perform the task.
 
+
 ######################################
 ######################################
 
@@ -90,6 +91,9 @@ you already have all the information needed to perform the task.
 
 type system is strong because everything has a well-defined type that you can check with the type() built-in function
 type system is dynamic since the type of a variable is not explicitly declared, but changes with the content
+
+A variable is actually an address to some stored data. 
+type() goes to the address and assumes this is what you you want to know the type of.
 
 ######################################
 ######################################
