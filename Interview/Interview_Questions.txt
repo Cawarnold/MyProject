@@ -2,6 +2,12 @@
 
 # Key improvements
 
+## General knowledge
+# People in Finance
+# Types of institutions
+# Key financial points
+
+
 ## Programming
 # OOP
 # Compile time / runtime
@@ -11,6 +17,27 @@
 ## Maths
 # Calculate palendrome
 # Write a function to compute the fibonnacci series
+
+
+######################################
+######################################
+######################################
+
+#### General Knowledge ####
+
+Central Bank of the UK == Bank of England
+Governor of Bank of England == Mark Carney (since 2012)
+	-- Responsible for setting interest rates.
+	--
+
+Chancellor of the Exchequer == Phillip Hammond (since 2016)
+	-- Most powerful office after the Prime Minister
+	-- Essentially it is the head of the treasury for the govenment.
+"The Chancellor of the Exchequer is a man whose duties make him more or less of a taxing machine. He is entrusted with a certain amount of misery which it is his duty to distribute as fairly as he can"
+	-- Sets the inflation rate which the Bank of England must set interest rates to meet.
+
+
+
 
 ######################################
 ######################################
