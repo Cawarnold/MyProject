@@ -1,7 +1,8 @@
 ## Setup New Windows:
 
-#### TR setup 20150601 ####
 
+
+#### TR setup 20150601 ####
 
 Sublime Text 3
 Github
@@ -28,6 +29,23 @@ Freemind
 Chrome
 Opera (for MyApp Development)
 Firefox (for Eloqua)
+
+
+## Managing PATH
+install anaconda - include in Environment Variables PATH.
+	C:\Users\U6030064\AppData\Local\Continuum\Anaconda;C:\Users\U6030064\AppData\Local\Continuum\Anaconda\Scripts;C:\Users\U6030064\AppData\Local\Continuum\Anaconda\Library\bin;
+
+install cygwin64 - include in Environment Variables PATH.
+	C:\cygwin64\bin;
+
+install dos2unix - include in cygwin packages.
+	C:\cygwin64\bin -- so in this directory paste the dos2unix.exe, this will allow you to use the package from anywhere.
+
+install javascript - include in Environment Variables PATH.
+	C:\Users\U6030064\AppData\Roaming\npm;C:\Program Files\nodejs
+
+
+
 
 
 #### GLOW setup 20131004 - 20150525 ####
