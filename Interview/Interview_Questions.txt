@@ -8,10 +8,12 @@
 # Key financial points
 
 
-## Programming
+## Programmingc
 # OOP
 # Compile time / runtime
 # Python type system is both strong and dynamic
+# Code Questions - programming questions with algorithmic solutions
+# Language Questions - 
 
 
 ## Maths
@@ -23,7 +25,12 @@
 ######################################
 ######################################
 
-#### General Knowledge ####
+#######################
+## General Knowledge
+#######################
+
+
+#### People in Finance ####
 
 Central Bank of the UK == Bank of England
 Governor of Bank of England == Mark Carney (since 2012)
@@ -39,9 +46,14 @@ Chancellor of the Exchequer == Phillip Hammond (since 2016)
 
 
 
+
 ######################################
 ######################################
 ######################################
+
+#######################
+## Programming
+#######################
 
 
 #### OOP - Object Oriented Programming ####
@@ -114,7 +126,7 @@ you already have all the information needed to perform the task.
 ######################################
 ######################################
 
-# Python type system is both strong and dynamic
+#### Python type system is both strong and dynamic ####
 
 type system is strong because everything has a well-defined type that you can check with the type() built-in function
 type system is dynamic since the type of a variable is not explicitly declared, but changes with the content
@@ -134,3 +146,33 @@ type() goes to the address and assumes this is what you you want to know the typ
 
 ######################################
 ######################################
+
+#### Code Questions ####
+	# http://www.practicepython.org/
+
+# Question: Write a program to reverse a linked list
+
+# Answer: Iterative Method:
+	Iterate trough the linked list. 
+	In loop, change next to prev, prev to current and current to next.
+
+# Answer: Recursive Method:
+   1) Divide the list in two parts - first node and rest of the linked list.
+   2) Call reverse for the rest of the linked list.
+   3) Link rest to first.
+   4) Fix head pointer
+
+
+
+######################################
+######################################
+
+#### Language Questions ####
+
+# Question: When is a virtual destructor necessary?
+
+# Answer: ?
+
+
+
+
