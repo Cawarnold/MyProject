@@ -1,0 +1,178 @@
+#### Raspberry Pi GUI ####
+
+
+#############
+
+## Quick Guide - display raspberry pi interface from mac.
+
+# To run tightvnsserver run:
+tightvncserver
+
+## then cmd-k and enter:
+	# nc://192.168.2.2:5901
+# pwd: m..
+
+#############
+
+## Copying files to your raspberry pi
+
+scp source pi@192.168.1.3:destination
+
+# scp - secure copy
+# source - path to files/directories
+# pi@192.168.1.3 - your pi at IP address
+
+scp /Users/christianarnold/Documents/Github/MyProject/RaspberryPi/Flask_App/app.py pi@192.168.2.2:Projects/Flask_App
+
+# then enter pi password.
+
+#############
+
+## Change password
+
+# after loggin in enter:
+passwd
+
+# change other user's password:
+sudo passwd bob
+
+
+#############
+
+## Set up Wifi
+
+# Open the wpa-supplicant configuration file in nano:
+
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+# Go to the bottom of the file and add the following:
+
+network={
+    ssid="Your_Wifi_SSID"
+    psk="Your_wifi_password"
+}
+
+
+
+
+
+
+############################################
+
+#### Display Raspberry Pi's desktop from a Mac ####
+
+
+
+# https://smittytone.wordpress.com/2016/03/02/mac_remote_desktop_pi/
+
+# The Raspberry Pi Foundation recommends a specific VNC server, tightvncserver, 
+# written by TightVNC Software. You can install in the usual way:
+
+sudo apt-get install tightvncserver
+
+# When the software has downloaded and installed, it’s ready to run:
+
+tightvncserver
+
+# pwd: m..
+
+# Apple has long provided Apple Remote Desktop (ARD), 
+# a tool for remotely accessing Mac desktops. 
+# Over the years, it has gained support for a variety of remote access technologies, 
+# including VNC.
+
+# ARD doesn’t live in the Applications folder — it’s actually buried deep in the System folder — 
+# but it can be launched via finder: 
+# just hit Command-K to invoke the standard Mac ‘Connect to Server’ dialog.
+
+# Here, enter
+
+	# vnc://pi.local:5901
+
+		#CA_20170203: Enter instead vnc://192.168.2.2:5901
+
+# and click on ‘Connect’. 
+
+# The ‘vnc’ at the start sets the protocol you’ll use to connect to your remote Pi, 
+# which is identified here by its Bonjour (mDNS) name: 
+# its hostname (typically set using raspi-config followed by .local). 
+# The number after the colon is the port through which the communication takes place. 
+# tightvncserver defaults to VNC port 1. 5900 is the base VNC port, hence 5901.
+
+# All going well, you’ll now see your Pi’s X desktop appear in a window 
+# provided by an ARD app called Screen Sharing. 
+# Depending on your Pi (the faster the better) and the quality of your network connection (ditto), 
+# the desktop is quite useable. 
+# You might not want to do all of your Pi work this way, but it’s acceptable for occasional use.
+
+# When you’re done, you can open shut down your Pi (using the Terminal or the Pi menu) 
+# or select ‘Close’ from Screen Sharing’s Connection menu.
+
+# By default tightvncserver establishes an 800 x 400 desktop, 
+# but you can change that using the -geometry switch. 
+# You can set the colour depth using the -depth switch too. For example:
+
+tightvncserver -geometry 1920x1080 -depth 24
+
+# Of course, the bigger the desktop and the higher the colour depth, 
+# the more data that needs to be sent to Pi to Mac, 
+# and the slower and less responsive the remote system will feel. 
+# Experiment to find the size you prefer. I usually stick with the default. 
+# I also set my Pis to boot to the command line and not to auto log in, 
+# so they don’t run separate X sessions in the background.
+
+
+#############
+
+## Change password, creating users
+
+# https://www.raspberrypi.org/documentation/linux/usage/users.md
+
+# after loggin in enter:
+passwd
+
+# create new user with adduser:
+sudo adduser bob
+
+# change other user's password:
+sudo passwd bob
+
+
+
+
+############################################
+
+#### Set up wifi ####
+
+# http://www.makeuseof.com/tag/setup-wi-fi-bluetooth-raspberry-pi-3/
+
+# Open the wpa-supplicant configuration file in nano:
+
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+# Go to the bottom of the file and add the following:
+
+network={
+    ssid="Your_Wifi_SSID"
+    psk="Your_wifi_password"
+}
+
+# press ctrl + x to exit, and save with y+enter.
+# wireless whould start immediately, otherwise:
+
+sudo ifdown wlan0
+sudo ifup wlan0
+
+# to restart wireless
+# or reboot
+
+sudo reboot
+
+
+
+
+
+
+
+
+
