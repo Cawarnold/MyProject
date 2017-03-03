@@ -626,11 +626,72 @@ app.directive('appInfo', function() {
 //////////////
 ////// Lesson 3/8 Directives III
 
-Why is creating your own directives useful?
+// Why is creating your own directives useful?
 
-Readability. Directives let you write expressive HTML. Looking at index.html you can understand the app's behavior just by reading the HTML.
-Reusability. Directives let you create self-contained units of functionality. We could easily plug in this directive into another AngularJS app and avoid writing a lot of repetitive HTML.
+// Readability. 
+// Directives let you write expressive HTML. Looking at index.html you can understand the app's behavior just by reading the HTML.
 
+// Reusability. 
+// Directives let you create self-contained units of functionality. 
+// We could easily plug in this directive into another AngularJS app and avoid writing a lot of repetitive HTML.
+
+
+//// Instructions:
+
+// In the controller, there is a new property $scope.forecast. 
+// Display this property in the view by creating another <div class="card"> element containing an <app-info> element.
+
+
+// In MainController.js
+
+  $scope.forecast = {
+    icon: 'img/forecast.jpg',
+    title: 'Forecast',
+    developer: 'Forecast',
+    price: 1.99
+ 
+// So in index.html it needs a corresponding view:
+
+        //<div class="card"> 
+        //  <app-info info="forecast"></app-info> 
+        //</div>
+
+
+//////////////
+////// Lesson 4/8 Built-in and Custom Directives
+
+// We know that AngularJS comes with a few built-in directives like ng-repeat and ng-click.
+
+// We've seen that AngularJS makes it possible to create your own custom directives, such as <app-info>.
+
+// We can use Angular's built-in directives together with custom directives to create more readable apps.
+
+// For reference, here's how to use ng-repeat:
+
+		//<div ng-repeat="product in products">
+		//  <img ng-src="{{ product.cover }}">
+		//  <p class="title">{{ product.name }}</p>
+		//</div>
+
+//// Instructions:
+
+//// 1.
+// In the controller, create a new property $scope.apps. Set it equal to an array of objects:
+
+[ 
+  { 
+    icon: 'img/move.jpg', 
+    title: 'MOVE', 
+    developer: 'MOVE, Inc.', 
+    price: 0.99 
+  }, 
+  { 
+    icon: 'img/shutterbugg.jpg', 
+    title: 'Shutterbugg', 
+    developer: 'Chico Dusty', 
+    price: 2.99 
+  } 
+]
 
 
 ///////////////////////////////////
