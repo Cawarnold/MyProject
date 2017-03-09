@@ -5,11 +5,14 @@
 
 ## Quick Guide - display raspberry pi interface from mac.
 
+# Connect to raspberry pi with ethernet, go to terminal:
+ssh pi@192.168.2.2
+
 # To run tightvnsserver run:
 tightvncserver
 
-## then cmd-k and enter:
-	# nc://192.168.2.2:5901
+## Go to Finder, then cmd-k and enter:
+	# vnc://192.168.2.2:5901
 # pwd: m..
 
 #############

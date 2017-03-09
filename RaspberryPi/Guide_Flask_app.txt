@@ -1,2 +1,8 @@
 #### Guide Flask ####
 
+
+
+
+# conda create --name Env_Python342 python=3.4.2
+
+# activate Env_Python342
