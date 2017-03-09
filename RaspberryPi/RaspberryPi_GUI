@@ -29,6 +29,14 @@ scp /Users/christianarnold/Documents/Github/MyProject/RaspberryPi/Flask_App/app.
 
 # then enter pi password.
 
+
+#############
+
+## connecting to the pi once it's running the app
+
+http://192.168.2.2:5000/
+
+
 #############
 
 ## Change password

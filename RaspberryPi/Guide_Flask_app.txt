@@ -1,8 +1,51 @@
 #### Guide Flask ####
 
+## http://mattrichardson.com/Raspberry-Pi-Flask/
+
+#### Create Flask App
+
+# Create a new file called hello-flask.py with the code from below.
+
+hello-flask.py
+
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=80, debug=True)
+
+
+## Here's a breakdown of each line of code:
+
+from flask import Flask
+
+# Load the Flask module into your Python script
+
+app = Flask(__name__)
+
+# Create a Flask object called app
+
+@app.route("/")
+    def hello():
+
+# Run the code below this function when someone accesses the root URL of the server
+
+return "Hello World!"
+
+# Send the text "Hello World!" to the client's web browser
+
+if __name__ == "__main__":
+# If this script was run directly from the command line
+
+app.run(host='0.0.0.0', port=80, debug=True)
+
+# Have the server listen on port 80 and report any errors.
 
 
 
-# conda create --name Env_Python342 python=3.4.2
 
-# activate Env_Python342
+
