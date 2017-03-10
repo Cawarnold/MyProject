@@ -15,6 +15,10 @@ tightvncserver
 	# vnc://192.168.2.2:5901
 # pwd: m..
 
+## connect to raspberry using local domain
+# ssh pi@raspberrypi.local
+
+
 #############
 
 ## Copying files to your raspberry pi
@@ -180,10 +184,22 @@ sudo ifup wlan0
 sudo reboot
 
 
+############################################
+
+## connect to raspberry using local domain
+
+https://www.howtogeek.com/167190/how-and-why-to-assign-the-.local-domain-to-your-raspberry-pi/
 
 
+The first order of business is to either pull up the terminal on your Pi or connect into the remote terminal (if you have a headless machine) via SSH. Once at the terminal, take a moment to update and upgrade apt-get. (Note: if you’ve just recently done this as part of another one of our Raspberry Pi tutorials, feel free to skip this step.)
 
+sudo apt-get update
 
+sudo apt-get upgrade
+
+After the update/upgrade process is complete, it’s time to install Avahi–a fantastic little open source mDNS implementation. Enter the following command at the prompt:
+
+sudo apt-get install avahi-daemon
 
 
 
