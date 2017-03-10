@@ -2,7 +2,36 @@
 
 ## http://mattrichardson.com/Raspberry-Pi-Flask/
 
-#### Create Flask App
+
+#### Notes ####
+
+# to view go to raspberrypi, go to dir with flask app.
+	# run: sudo python flask_app.py
+	# then go to http://raspberrypi.local:80
+
+
+
+
+####################################
+####################################
+####################################
+
+#### Create Flask App ####
+
+
+####################################
+
+#### Flask Basics
+
+We're going to use a Python web framework called Flask to turn the Raspberry Pi into a dynamic web server. While there's a lot you can do with Flask "out of the box," it also supports many different extensions for doing things such as user authentication, generating forms, and using databases. You also have access to the wide variety of standard Python libraries that are available to you.
+
+In order to install Flask, you'll need to have pip installed. If you haven't already installed pip, it's easy to do:
+
+pi@raspberrypi ~ $ sudo apt-get install python-pip
+After pip is installed, you can use it to install Flask and its dependencies:
+
+pi@raspberrypi ~ $ sudo pip install flask
+To test the installation, create a new file called hello-flask.py with the code from below.
 
 # Create a new file called hello-flask.py with the code from below.
 
@@ -44,6 +73,29 @@ if __name__ == "__main__":
 app.run(host='0.0.0.0', port=80, debug=True)
 
 # Have the server listen on port 80 and report any errors.
+
+NOTE: Before you run the script, you need to know your Raspberry Pi's IP address. You can run ifconfig to find it. An alternative is to install avahi-daemon (run sudo apt-get install avahi-daemon from the command line). This lets you access the Pi on your local network through the address http://raspberrypi.local. If you're accessing the Raspberry Pi web server from a Windows machine, you may need to put Bonjour Services on it for this to work.
+
+Now you're ready to run the server, which you'll have to do as root:
+
+pi@raspberrypi ~ $ sudo python hello-flask.py
+ * Running on http://0.0.0.0:80/
+ * Restarting with reloader
+From another computer on the same network as the Raspberry Pi, type your Raspberry Pi's IP address into a web browser. If your browser displays "Hello World!", you know you've got it configured correctly. You may also notice that a few lines appear in the terminal of the Raspberry Pi:
+
+10.0.1.100 - - [19/Nov/2012 00:31:31] "GET / HTTP/1.1" 200 -
+10.0.1.100 - - [19/Nov/2012 00:31:31] "GET /favicon.ico HTTP/1.1" 404 -
+The first line shows that the web browser requested the root URL and our server returned HTTP status code 200 for "OK." The second line is a request that many web browsers send automatically to get a small icon called a favicon to display next to the URL in the browser's address bar. Our server doesn't have a favicon.ico file, so it returned HTTP status code 404 to indicate that the URL was not found.
+
+####################################
+
+#### Templates
+
+If you want to send the browser a site formatted in proper HTML, it doesn't make a lot of sense to put all the HTML into your Python script. Flask uses a template engine called Jinja2 so that you can use separate HTML files with placeholders for spots where you want dynamic data to be inserted.
+
+If you've still got hello-flask.py running, press Control-C to kill it.
+
+To make a template, create a new file called hello-template.py with the code from below. In the same directory with hello-template.py, create a subdirectory called templates. In the templates subdirectory, create a file called main.html and insert the code from below. Anything in double curly braces within the HTML template is interpreted as a variable that would be passed to it from the Python script via the render_template function.
 
 
 
