@@ -97,6 +97,76 @@ If you've still got hello-flask.py running, press Control-C to kill it.
 
 To make a template, create a new file called hello-template.py with the code from below. In the same directory with hello-template.py, create a subdirectory called templates. In the templates subdirectory, create a file called main.html and insert the code from below. Anything in double curly braces within the HTML template is interpreted as a variable that would be passed to it from the Python script via the render_template function.
 
+hello-template.py
+
+from flask import Flask, render_template
+import datetime
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+   now = datetime.datetime.now()
+   timeString = now.strftime("%Y-%m-%d %H:%M")
+   templateData = {
+      'title' : 'HELLO!',
+      'time': timeString
+      }
+   return render_template('main.html', **templateData)
+
+if __name__ == "__main__":
+   app.run(host='0.0.0.0', port=80, debug=True)
+#Let's take a look at some of the important lines of code.
+
+now = datetime.datetime.now()
+# Get the current time and store it in the object now
+
+timeString = now.strftime("%Y-%m-%d %H:%M")
+# Create a formatted string using the date and time from the now object
+
+templateData = {
+   'title' : 'HELLO!',
+   'time': timeString
+   }
+# Create a dictionary of variables (a set of keys, such as title that are associated with values, such as HELLO!) to pass into the template
+
+return render_template('main.html', **templateData)
+# Return the main.html template to the web browser using the variables in the templateData dictionary
+
+main.html
+
+<!DOCTYPE html>
+   <head>
+      <title>{{ title }}</title>
+   </head>
+
+   <body>
+      <h1>Hello, World!</h1>
+      <h2>The date and time on the server is: {{ time }}</h2>
+   </body>
+</html>
+
+# In main.html, any time you see a word within double curly braces, it'll be replaced with the matching key's value from the templateData dictionary in hello-template.py.
+
+#Now, when you run hello-template.py (as before, you need to use sudo to run it) and pull up your Raspberry Pi's address in your web browser, you should see a formatted HTML page with the title "HELLO!" and the Raspberry Pi's current date and time.
+
+#NOTE: While it's dependent on how your network is set up, it's unlikely that this page is accessible from outside your local network via the Internet. If you'd like to make the page available from outside your local network, you'll need to configure your router for port forwarding. Refer to your router's documentation for more information about how to do this.
+
+
+
+####################################
+####################################
+####################################
+
+#### Port Forwarding
+
+# https://pimylifeup.com/raspberry-pi-port-forwarding/
+
+## for BT HomeHub5
+# http://bt.custhelp.com/app/answers/detail/a_id/8790/~/how-do-i-set-up-port-forwarding-on-my-bt-hub%3F
+
+#### Setting Up Raspberry Pi Port Forwarding
+
+# follow steps on the bt site.
 
 
 

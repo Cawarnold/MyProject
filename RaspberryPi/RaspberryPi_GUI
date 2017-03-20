@@ -67,8 +67,18 @@ network={
     psk="Your_wifi_password"
 }
 
+#############
 
+## Change username and password
 
+##  Get Groups that your user(pi) is in:
+# groups
+# adm dialout cdrom sudo audio video plugdev games users input netdev gpio i2c spi
+
+## create new user with these groups
+# sudo useradd -m -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi USERNAME
+
+# sudo passwd USERNAME
 
 
 
