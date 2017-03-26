@@ -78,7 +78,7 @@ It describes the ability to restrict access to an objects components.
 Objects which contain data, methods / functions.
 
 'Encapsulation can be used to hide data members and members function'
-
+'The ability to group similar functions and variables together is called encapsulation'
 
 ## Abstraction
 
