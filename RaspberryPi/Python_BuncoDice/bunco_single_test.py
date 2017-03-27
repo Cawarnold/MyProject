@@ -34,5 +34,3 @@ elif sum(cheater1.get_dice()) > sum(cheater2.get_dice()):
 
 else:
   print("Cheater 2 wins!")
-
-  
