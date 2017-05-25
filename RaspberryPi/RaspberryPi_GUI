@@ -225,6 +225,19 @@ cat ~/.ssh/id_rsa.pub
 
 Whatever it prints out is your SSH Key. Feel free to add that to your Github settings so you can pull.
 
+## test ssh connection
+ssh -T git@github.com
+
+## see if the git repository is using https or ssh
+git remote -v
+
+## remove repo
+git remote rm origin
+
+## clone repo from github
+git clone ssh://git@github.com/username/reponame.git
+
+
 ## To login
 git config --global user.email "your@email"
 git config --global user.name "Your Name"
