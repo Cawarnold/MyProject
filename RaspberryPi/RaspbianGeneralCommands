@@ -17,6 +17,8 @@ shutdown -h 01:22 	#: To shutdown at 1:22 AM.
 startx	#: Opens the GUI (Graphical User Interface).
 
 
+
+
 #### File/Directory Commands
 
 cat example.txt 	#: Displays the contents of the file example.txt.
