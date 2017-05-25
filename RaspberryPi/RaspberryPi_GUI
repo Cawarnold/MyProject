@@ -225,8 +225,9 @@ cat ~/.ssh/id_rsa.pub
 
 Whatever it prints out is your SSH Key. Feel free to add that to your Github settings so you can pull.
 
-## push code
-make a small change, then 'git push'
-terminal will prompt you to enter your login details.
+## To login
+git config --global user.email "your@email"
+git config --global user.name "Your Name"
+
 
 
