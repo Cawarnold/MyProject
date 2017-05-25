@@ -13,7 +13,7 @@ tightvncserver
 
 ## Go to Finder, then cmd-k and enter:
 	# vnc://192.168.2.2:5901
-# pwd: m..
+# pwd: m..a
 
 ## connect to raspberry using local domain
 # ssh pi@raspberrypi.local
@@ -211,5 +211,22 @@ After the update/upgrade process is complete, it’s time to install Avahi–a f
 
 sudo apt-get install avahi-daemon
 
+
+#######################################
+
+Setting up github
+
+## install git to rpi
+sudo apt-get install git
+
+## generate an SSH key
+ssh-keygen -t rsa
+cat ~/.ssh/id_rsa.pub
+
+Whatever it prints out is your SSH Key. Feel free to add that to your Github settings so you can pull.
+
+## push code
+make a small change, then 'git push'
+terminal will prompt you to enter your login details.
 
 
