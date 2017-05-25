@@ -1,0 +1,176 @@
+Github
+
+################################
+################################
+
+Github Everyday workflow
+	git fetch (allows you to see new remote branches)
+-Go to branch you want to work on
+	git pull
+-Make changes
+	git commit -a -m "message details of changes"
+-push commits to remote
+	git push
+
+
+################################
+################################
+
+GitHub workflow:
+## Update master and devel from github:
+(master) git pull origin master
+(master) git push
+(master) git checkout devel
+(devel) git pull origin devel
+
+## Create or change to your working branch.
+(devel) git checkout -b "branch-name"
+
+make your changes
+git add "file-changed.txt"
+git commit -m "commit message"
+git push origin branch-name
+
+then continue development
+
+Design a feature, with criteria for acceptance.
+Test your feature, to see if meets those criteria.
+When it works (or you make good progress), commit your work.
+
+Then either merge/rebase or pull request to get 
+changes into master
+
+## Delete branch
+Then when you're finished with branch, delete it.
+
+Delete Local branch:
+	git branch -d branchname
+
+Delete Remote branch:
+	git push origin --delete branchname
+
+Delte branches on other machines:
+	git fetch --all --prune branchname
+
+################################
+################################
+
+Github merge / rebase to master
+
+#### To merge development to master
+	-- means you lose your branch change history
+
+git checkout master
+git pull origin master
+git merge test
+git push origin master
+
+
+#### Rebase -- if you are working with others
+
+Rebase - means that your commits from your branch will 
+		be posted ontop of the changes in master
+
+git checkout master
+git pull
+git checkout test
+git Pull
+git rebase -i master
+git checkout master
+git merge test
+
+
+#### Pull Request -- if you are working on somebody else's development
+
+Go to git hub and perform a pull request
+
+
+################################
+################################
+
+
+#### Git Reset to Github Version ####
+
+### To hard pull from github origin/master
+
+git reset --hard origin/master
+git push
+
+### To hard push to github origin/master
+
+git push origin master --force
+
+################################
+################################
+
+
+#### Branches:
+
+master -- only for use in cloud9
+devel -- for testing new features in cloud 9
+
+
+
+#### Revert branch to old commit
+	git revert --no-commit 1e6bd23e629df7211c6b91b5338f3fe120c0408d
+	git commit
+
+#### Rename branch as master
+	git branch -m master old-master
+	git branch -m seotweaks master
+	git push -f origin master
+
+#### List all Branches ( first list in local, second list is remote )
+	git branch -a
+
+#### Remove branch
+	git branch -d branchname
+
+	for remote	
+		git push origin --delete yourbranchname
+	for local
+		git branch -d yourbranchname
+		git branch -D yourbranchname
+
+#### Remove untracked files
+	git clean -f
+
+#############################
+
+
+#### Using 'South' to sync DB ####
+
+How does all this work with migrations?
+
+Think I have to make migrations on every computer I am using the db.
+ie. since I hard rest the app on Cloud 9 i think i have to reapply the migration.
+20150708
+
+#############################
+
+
+#### Development Process for MyApp ####
+
+Develop using Cloud9 to release master, 
+Github to store code, 
+Local to develop new features.
+
+## Master: Live version running on Cloud9 "anything in the master branch is always deployable"
+			Can only be updated from devel and only after devel is working on cloud9
+			## When you're ready to push a feature to master
+				git reset --hard origin/devel
+				git push
+
+## Devel: For testing features
+
+## Branch: Feature branch where you can create new stuff.
+				Commit messages are important, especially since Git tracks your changes and 
+				then displays them as commits once they're pushed to the server.
+
+## Pull Requests: You can open a Pull Request at any point during the development process: 
+						when you have little or no code but want to share some screenshots or general ideas, 
+						when you're stuck and need help or advice, 
+						or when you're ready for someone to review your work
+
+## Merging Branch:  If you want to test things before merging in the repository on GitHub, you can perform the merge locally first
+
