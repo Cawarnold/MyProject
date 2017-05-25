@@ -1,0 +1,133 @@
+#### introduction web scraping python ####
+
+Data is the core of predictive modeling, visualization, and analytics. Unfortunately, the needed data is not always readily available to the user, it is most often unstructured. The biggest source of data is the Internet, and with programming, we can extract and process the data found on the Internet for our use – this is called web scraping. Web scraping allows us to extract data from websites and to do what we please with it. In this post, I will show you how to scrape a website with only a few of lines of code in Python. All the code used in this post can be found in my GitHub notebook.
+
+Web scraping with Python
+
+Even though there are popular frameworks and services for scraping (Scrapy, Scrapinghub, etc.), sometimes their learning curve can be a bit steep or they might be an overkill for the task at hand. Learning to do it with simple Python libraries will give you better insight into how these frameworks work if you ever use them down the line. I hope you are sold on the idea, so let’s start!
+
+To scrape a website, we have to somehow communicate over the Internet (HTTP), for which we will use a popular Python library called Requests. When we retrieve the data, we will have to extract it from HTML, for which we will use lxml  (Beautiful Soup is a popular alternative).
+
+import requests
+from lxml import html
+url = 'https://www.datawhatnow.com'
+def get_parsed_page(url):
+ """Return the content of the website on the given url in
+ a parsed lxml format that is easy to query."""
+ 
+ response = requests.get(url)
+ parsed_page = html.fromstring(response.content)
+ return parsed_page
+parsed_page = get_parsed_page(url)
+# Print the website's title
+parsed_page.xpath('//h1/a/text()')  # ['Data, what now?']
+
+
+The lxml library allows us to create a tree structure that is easily queried for information using XPath. Using XPath, we can define the path to the element that contains the information we need. For example, if we want to get the title of the website, we first have to find out in which HTML element it resides. That is easily done by using the inspect function of the browser of your choice.
+
+All the scraping examples in this post will be done on this very website, datawhatnow.com. The title of this website is the text inside an <a> tag, which has a parent <h1> tag. To get the text, we run the query ‘//h1/a/text()’. It reads as “starting from the root, find an <h1> tag, then find its child <a> tag and extract the text inside it”. Using “//” allows us to write shorter queries because we don’t have to specify all the nodes in a path.
+
+Using what we learned so far, we can scrape the titles of the blog posts on this website.
+
+# Print post names
+parsed_page.xpath('//h2/a/text()')
+# Output
+# ['SimHash for question deduplication',
+#  'Feature importance and why it’s important']
+
+
+ Crawling
+
+Web scraping is the act of extracting information from the website. Sometimes the program has to move from one link to another to collect all needed information – this is called crawling. We will find URLs of interest and process them just as before (request and parse).
+
+Let’s try to extract paragraph titles from blog posts on datawhatnow.com. We have to find the links to the posts, request their HTML code and parse it. So far we have only been extracting text from tags – now we have to extract the link from the “href” attribute in the <a> tag. Luckily for us, that’s easy: instead of writing “text()” like we did before, we just write “@attribute_name”, in our case “@href”.
+
+# Getting paragraph titles in blog posts
+post_urls = parsed_page.xpath('//h2//a/@href')
+for post_url in post_urls:
+    print('Post url:', post_url)
+    
+    parsed_post_page = get_parsed_page(post_url)
+    paragraph_titles = parsed_post_page.xpath('//h3/text()')
+    paragraph_titles = map(lambda x: ' \n  ' + x, paragraph_titles)
+    print(''.join(paragraph_titles) + '\n')
+# Output
+# Post url: https://datawhatnow.com/simhash-question-deduplicatoin/
+# 
+#  SimHash 
+#  Features 
+#  Model performance 
+#  Conclusion 
+#  References 
+#  Leave a Reply  
+#  GitHub 
+#  Newsletter 
+#  Recent Posts 
+#  Archives
+#
+# Post url: https://datawhatnow.com/feature-importance/
+# 
+#  Data exploration 
+#  Feature engineering 
+#  Baseline model performance 
+#  Feature importance 
+#  Model performance with feature importance analysis 
+#  Conclusion 
+#  Leave a Reply  
+#  GitHub 
+#  Newsletter 
+#  Recent Posts 
+#  Archives
+Obviously, something is wrong – we extracted the paragraph titles but we also collected other <h3> texts (‘Leave a Reply’, ‘GitHub’, ‘Newsletter’, etc.). Our XPath query was not specific enough. Inspecting the blog post links shows that their parent is a <div> tag with an attribute “class=”entry-content””. We can use this information to write a more specific query (‘//div[@class=”entry-content”]/h3/text()’).
+
+for post_url in post_urls:
+    print('Post url:', post_url)
+    
+    parsed_post_page = get_parsed_page(post_url)
+    paragraph_title_xpath = '//div[@class="entry-content"]/h3/text()'
+    paragraph_titles = parsed_post_page.xpath(paragraph_title_xpath)
+    paragraph_titles = map(lambda x: ' \n  ' + x, paragraph_titles)
+    print(''.join(paragraph_titles) + '\n')
+# Post url: https://datawhatnow.com/simhash-question-deduplicatoin/
+# 
+#  SimHash 
+#  Features 
+#  Model performance 
+#  Conclusion 
+#  References
+#
+# Post url: https://datawhatnow.com/feature-importance/
+#
+#  Data exploration 
+#  Feature engineering 
+#  Baseline model performance 
+#  Feature importance 
+#  Model performance with feature importance analysis 
+#  Conclusion
+Now the paragraph headings are the only ones being printed.
+
+Robots
+
+Web scraping is powerful, but with great power comes great responsibility. When you are scraping somebody’s website, you should be mindful of not sending too many requests. Most websites have a “robots.txt” which shows the rules that your web scraper should obey (which URLs are allowed to be scraped, which ones are not, the rate of requests you can send, etc.). You can check out my robots.txt file, or, for example, the ones from Hacker News or DataTau.
+
+Conclusion
+
+Using Python with lxml and Requests allows us to do web scraping with relative ease, usually requiring only a few lines of code. Using this as a foundation, you can do basic web scraping, and when you feel more comfortable, you can check out other frameworks and libraries. If you do, I would recommend Scrapy as the next step, because it’s relatively simple and flexible, yet pretty powerful.
+
+Happy scraping!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

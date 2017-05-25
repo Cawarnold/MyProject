@@ -1,0 +1,178 @@
+#### Interview questions ####
+
+# Key improvements
+
+## General knowledge
+# People in Finance
+# Types of institutions
+# Key financial points
+
+
+## Programmingc
+# OOP
+# Compile time / runtime
+# Python type system is both strong and dynamic
+# Code Questions - programming questions with algorithmic solutions
+# Language Questions - 
+
+
+## Maths
+# Calculate palendrome
+# Write a function to compute the fibonnacci series
+
+
+######################################
+######################################
+######################################
+
+#######################
+## General Knowledge
+#######################
+
+
+#### People in Finance ####
+
+Central Bank of the UK == Bank of England
+Governor of Bank of England == Mark Carney (since 2012)
+	-- Responsible for setting interest rates.
+	--
+
+Chancellor of the Exchequer == Phillip Hammond (since 2016)
+	-- Most powerful office after the Prime Minister
+	-- Essentially it is the head of the treasury for the govenment.
+"The Chancellor of the Exchequer is a man whose duties make him more or less of a taxing machine. He is entrusted with a certain amount of misery which it is his duty to distribute as fairly as he can"
+	-- Sets the inflation rate which the Bank of England must set interest rates to meet.
+
+
+
+
+
+######################################
+######################################
+######################################
+
+#######################
+## Programming
+#######################
+
+
+#### OOP - Object Oriented Programming ####
+# https://en.wikipedia.org/wiki/Object-oriented_programming
+
+### 4 major principles of OOP ###
+
+## Encapsulation
+
+## Abstraction
+
+## Inheritance
+
+## Polymorphism
+
+
+#######
+
+## Encapsulation
+
+It describes the ability to restrict access to an objects components. 
+Objects which contain data, methods / functions.
+
+'Encapsulation can be used to hide data members and members function'
+'The ability to group similar functions and variables together is called encapsulation'
+
+## Abstraction
+
+It works by establishing a level of complexity on which a person interacts with the system, 
+suppressing the more complex details below the current level
+
+# Control Abstraction (DRY - Don't Repeat Yourself)
+Control abstraction involves the use of subroutines and control flow abstractions. For example an object can abstract away irrelevant complexities.
+
+# Data Abstraction
+Data abstraction allows handling pieces of data in meaningful ways. For example, it is the basic motivation behind the datatype.
+
+For example, a programmer writing code that involves numerical operations may not be interested 
+in the way numbers are represented in the underlying hardware (e.g. whether they're 16 bit or 32 bit integers), 
+and where those details have been suppressed it can be said that they were abstracted away, 
+leaving simply numbers with which the programmer can work.
+
+
+## Inheritance
+
+In object-oriented programming, inheritance is when an object or class is based on another object (prototypal inheritance) or class (class-based inheritance)
+
+# Prototypal Inheritance
+Prototypal Inheritance is the reuse of objects by other objects via a hierarchy.
+
+# Class-based inheritance (class-orientation)
+Class-based inheritance is achieved by defining classes of objects, as opposed to the objects themselves (prototype inheritance).
+
+For example, an Animal object (parent) and a Mammal object (child) have a hierarchy.
+All mammals are animals, not all animals are mammals.
+
+
+## Polymorphism
+
+Polymorphism means 'many forms'. 
+We want to describe an action regardless of the type of objects.
+
+A real world analogy for polymorphism is a button. 
+Everyone knows how to use a button: you simply apply pressure to it. 
+What a button “does,” however, depends on what it is connected to and the context in which it is used — 
+but the result does not affect how it is used. If your boss tells you to press a button, 
+you already have all the information needed to perform the task.
+
+
+######################################
+######################################
+
+#### Python type system is both strong and dynamic ####
+
+type system is strong because everything has a well-defined type that you can check with the type() built-in function
+type system is dynamic since the type of a variable is not explicitly declared, but changes with the content
+
+A variable is actually an address to some stored data. 
+type() goes to the address and assumes this is what you you want to know the type of.
+
+######################################
+######################################
+
+
+#### Compile time / runtime ####
+# http://stackoverflow.com/questions/846103/runtime-vs-compile-time
+
+
+
+
+######################################
+######################################
+
+#### Code Questions ####
+	# http://www.practicepython.org/
+
+# Question: Write a program to reverse a linked list
+
+# Answer: Iterative Method:
+	Iterate trough the linked list. 
+	In loop, change next to prev, prev to current and current to next.
+
+# Answer: Recursive Method:
+   1) Divide the list in two parts - first node and rest of the linked list.
+   2) Call reverse for the rest of the linked list.
+   3) Link rest to first.
+   4) Fix head pointer
+
+
+
+######################################
+######################################
+
+#### Language Questions ####
+
+# Question: When is a virtual destructor necessary?
+
+# Answer: ?
+
+
+
+

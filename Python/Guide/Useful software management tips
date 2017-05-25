@@ -67,3 +67,72 @@ https://www.kaggle.com/wiki/GettingStartedWithPythonForDataScience
 2. Submit the submission file
 
 
+###################
+
+
+Setting up the PATH -- (Evaluated in order: System Variables, User variables)
+
+## Viewing current PATH
+
+	## from cmd
+	PATH
+
+	## from ui
+	# go to system > advanced system settings
+	# go to system properties > advanced > Environment variables.
+	# then edit
+
+
+## Adding new PATH Variables 
+
+	## from cmd (doesn't work properly)
+	Set PATH=%PATH%;(your new path);
+	#eg. Set PATH=%PATH%;C:\Users\U6030064\AppData\Local\Continuum\Anaconda\Scripts
+
+	## from ui
+	# go to Environment variables.
+	# then new variable > paste path of new variable
+
+
+## My PATHs:
+
+	# Anaconda
+	C:\Users\U6030064\AppData\Local\Continuum\Anaconda;C:\Users\U6030064\AppData\Local\Continuum\Anaconda\Scripts;C:\Users\U6030064\AppData\Local\Continuum\Anaconda\Library\bin;
+	
+	# Python
+	C:\Users\U6030064\AppData\Local\Continuum\Anaconda;
+
+	# Bash
+	C:\cygwin64\bin;
++
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
