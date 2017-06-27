@@ -8,7 +8,7 @@
 # Connect to raspberry pi with ethernet, go to terminal:
 ssh pi@192.168.2.2
 
-# To run tightvnsserver run:
+# To run tightvnc run:
 tightvncserver
 
 ## Go to Finder, then cmd-k and enter:
@@ -17,6 +17,14 @@ tightvncserver
 
 ## connect to raspberry using local domain
 # ssh pi@raspberrypi.local
+
+OR
+
+# To run realvnc run:
+install realvnc to raspberry pi
+install realvnc to macbook
+install realvnc to iphone / android
+	enter details: username@hostname , password
 
 
 #############
@@ -115,8 +123,9 @@ tightvncserver
 	# vnc://pi.local:5901
 
 		#CA_20170203: Enter instead vnc://192.168.2.2:5901
+		#CA_20170627: try 192.168.1.107
 
-# and click on ‘Connect’. 
+# and click on ‘Connect’.
 
 # The ‘vnc’ at the start sets the protocol you’ll use to connect to your remote Pi, 
 # which is identified here by its Bonjour (mDNS) name: 
@@ -210,6 +219,23 @@ sudo apt-get upgrade
 After the update/upgrade process is complete, it’s time to install Avahi–a fantastic little open source mDNS implementation. Enter the following command at the prompt:
 
 sudo apt-get install avahi-daemon
+
+Then go to apple remote desktop 
+https://itunes.apple.com/gb/app/apple-remote-desktop/id409907375?mt=12
+
+## connect to RPi using mac:
+	sudo apt-get update && sudo apt-get upgrade
+	sudo apt-get install tightvncserver
+
+## To test the success of the TightVNC Server installation:
+	vncserver	
+
+https://programmaticponderings.com/2012/12/26/installing-tightvnc-on-the-raspberry-pi/
+
+
+
+just hit Command-K to invoke the standard Mac ‘Connect to Server’ dialog.
+
 
 
 #######################################

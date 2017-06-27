@@ -2,6 +2,7 @@
 
 ## http://www.howtogeek.com/118389/how-to-comment-out-and-uncomment-lines-in-a-configuration-file/
 
+sudo apt-get update && sudo apt-get dist-upgrade      #:update rpi
 apt-get Updates 	#: Updates your version of Raspbian.
 apt-get upgrade 	#: Upgrades all of the software packages you have installed.
 apt-get clean       #: Clean up dirctories
@@ -15,6 +16,7 @@ reboot	#: To reboot immediately.
 shutdown -h now 	#: To shutdown immediately.
 shutdown -h 01:22 	#: To shutdown at 1:22 AM.
 startx	#: Opens the GUI (Graphical User Interface).
+sudo cat /etc/wpa_supplicant/wpa_supplicant.conf    #: view wifi configuration
 
 
 
