@@ -28,4 +28,4 @@ fi
 
 ## crontab -e
 #* 7-20 * * * /home/pi/timelapse.sh >/dev/null 2>&1
-
+#* 7-20 * * * /home/pi/Github/MyProject/RaspberryPi/RPi_Trials/BashShootandUploadScript_CA20170701.sh >/dev/null 2>&1
