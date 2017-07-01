@@ -17,6 +17,11 @@ raspivid -o /home/pi/RPi_PicsNVidsvideo.h264 -t 10000
 # delete local video file
 
 # http://olivermarshall.net/how-to-upload-a-file-to-google-drive-from-the-command-line/
+## Failed
+
+####
+# http://kylehase.blogspot.co.uk/2015/10/simple-raspberry-pi-interval-camera.html
+
 
 
 
