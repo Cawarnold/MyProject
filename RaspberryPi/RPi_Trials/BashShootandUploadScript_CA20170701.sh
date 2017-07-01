@@ -10,7 +10,7 @@
 
 
 DATE=$(date +"%Y-%m-%dT%H%M%S")
-raspistill -vf -hf -o /tmp/$DATE.jpg
+raspistill -vf -hf --timeout 10000 --timelapse 1000 -o /tmp/$DATE.jpg
 /home/pi/gdrive upload /tmp/$DATE.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
 if [ $? -eq 0 ]
 then 
