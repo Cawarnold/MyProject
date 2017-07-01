@@ -11,7 +11,7 @@
 
 DATE=$(date +"%Y-%m-%dT%H%M%S")
 raspistill -o /tmp/$DATE.jpg
-/home/pi/gdrive upload -f /tmp/$DATE.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+/home/pi/gdrive upload /tmp/$DATE.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
 if [ $? -eq 0 ]
 then 
   rm /tmp/$DATE.jpg
@@ -19,6 +19,7 @@ else
   mv /tmp/$DATE.jpg /home/pi/Pictures/$DATE.jpg
 fi
 
+/home/pi/gdrive upload -f /home/pi/image.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
 
 ## Automate with crontab
 #Use a time lapse calculator to determine the best shot interval 
@@ -29,3 +30,19 @@ fi
 ## crontab -e
 #* 7-20 * * * /home/pi/timelapse.sh >/dev/null 2>&1
 #* 7-20 * * * /home/pi/Github/MyProject/RaspberryPi/RPi_Trials/BashShootandUploadScript_CA20170701.sh >/dev/null 2>&1
+
+
+
+#### gdrive testing ####
+#Test1
+./gdrive upload -f hello.txt -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+## does not work
+
+#Test2
+./gdrive upload hello.txt -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+## does work. remove the -f
+
+
+
+
+
