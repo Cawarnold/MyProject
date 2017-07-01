@@ -8,9 +8,9 @@
 #so that it can be manually downloaded.
 
 
-
+#### Original Pic Script ####
 DATE=$(date +"%Y-%m-%dT%H%M%S")
-raspistill -vf -hf --timeout 10000 --timelapse 1000 -o /tmp/$DATE.jpg
+raspistill -vf -hf -o /tmp/$DATE.jpg
 /home/pi/gdrive upload /tmp/$DATE.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
 if [ $? -eq 0 ]
 then 
@@ -21,15 +21,32 @@ fi
 
 #/home/pi/gdrive upload -f /home/pi/image.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
 
-## Automate with crontab
+
+#### Vid Script ####
+
+raspivid -t 5000 -o /tmp/VID_$DATE.h264
+/home/pi/gdrive upload /tmp/VID_$DATE.h264 -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+
+
+
+
+
+
+#### crontab ####
 #Use a time lapse calculator to determine the best shot interval 
 #for your desired video keeping in mind that Pi photos are 2.5-3MB each.  
 #I setup my Pi to shoot once a minute from 7:00am until 8:59pm everyday.  
 #Crontab tools are available to help with the syntax.
 
-## crontab -e
+# to access crontab
+# crontab -e 
+
+## every minute between 7am and 8pm
 #* 7-20 * * * /home/pi/timelapse.sh >/dev/null 2>&1
 #* 7-20 * * * /home/pi/Github/MyProject/RaspberryPi/RPi_Trials/BashShootandUploadScript_CA20170701.sh >/dev/null 2>&1
+
+
+
 
 
 
@@ -44,5 +61,15 @@ fi
 
 
 
+
+#### Documentation ####
+# to take pi 
+# https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspistill.md
+
+# to connect to gdrive
+# http://kylehase.blogspot.co.uk/2015/10/simple-raspberry-pi-interval-camera.html
+
+# to create vid
+# https://www.linux.com/learn/give-your-raspberry-pi-night-vision-pinoir-camera
 
 
