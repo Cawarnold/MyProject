@@ -19,7 +19,7 @@ else
   mv /tmp/$DATE.jpg /home/pi/Pictures/$DATE.jpg
 fi
 
-/home/pi/gdrive upload -f /home/pi/image.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+#/home/pi/gdrive upload -f /home/pi/image.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
 
 ## Automate with crontab
 #Use a time lapse calculator to determine the best shot interval 
@@ -35,11 +35,11 @@ fi
 
 #### gdrive testing ####
 #Test1
-./gdrive upload -f hello.txt -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+#./gdrive upload -f hello.txt -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
 ## does not work
 
 #Test2
-./gdrive upload hello.txt -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+#./gdrive upload hello.txt -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
 ## does work. remove the -f
 
 
