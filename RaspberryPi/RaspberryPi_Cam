@@ -19,6 +19,10 @@ raspistill -vf -hf -o cam2.jpg
 # Remember to use -hf and -vf to flip the image if required
 raspivid -o video.h264 -t 10000
 
+#### To play video ####
+omxplayer video.h264
+
+
 
 
 https://www.raspberrypi.org/learning/infrared-bird-box/
