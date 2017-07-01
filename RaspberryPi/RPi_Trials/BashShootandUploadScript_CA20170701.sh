@@ -67,10 +67,15 @@ MP4Box -add /tmp/VID_$DATE.h264 /tmp/VID_$DATE.mp4
 # to take pi 
 # https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspistill.md
 
+#  pi camera docs
+# https://www.raspberrypi.org/documentation/raspbian/applications/camera.md
+
 # to connect to gdrive
 # http://kylehase.blogspot.co.uk/2015/10/simple-raspberry-pi-interval-camera.html
 
 # to create vid
 # https://www.linux.com/learn/give-your-raspberry-pi-night-vision-pinoir-camera
 
+# from h264 to mp4
+# http://raspi.tv/2013/another-way-to-convert-raspberry-pi-camera-h264-output-to-mp4
 
