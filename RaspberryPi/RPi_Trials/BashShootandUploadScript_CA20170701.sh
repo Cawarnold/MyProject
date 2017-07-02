@@ -11,7 +11,7 @@
 #### Original Pic Script ####
 DATE=$(date +"%Y-%m-%dT%H%M%S")
 raspistill -vf -hf -o /tmp/$DATE.jpg
-/home/pi/gdrive upload /tmp/$DATE.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+/home/pi/gdrive upload /tmp/$DATE.jpg -p 0B9eFHCUtj
 if [ $? -eq 0 ]
 then 
   rm /tmp/$DATE.jpg
@@ -19,14 +19,14 @@ else
   mv /tmp/$DATE.jpg /home/pi/Pictures/$DATE.jpg
 fi
 
-#/home/pi/gdrive upload -f /home/pi/image.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+#/home/pi/gdrive upload -f /home/pi/image.jpg -p 0B9eFHCUtj
 
 
 #### Vid Script ####
 
 raspivid -t 5000 -vf -hf -o /tmp/VID_$DATE.h264
 MP4Box -add /tmp/VID_$DATE.h264 /tmp/VID_$DATE.mp4
-/home/pi/gdrive upload /tmp/VID_$DATE.mp4 -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+/home/pi/gdrive upload /tmp/VID_$DATE.mp4 -p 0B9eFHCUtj
 
 
 
@@ -53,11 +53,11 @@ MP4Box -add /tmp/VID_$DATE.h264 /tmp/VID_$DATE.mp4
 
 #### gdrive testing ####
 #Test1
-#./gdrive upload -f hello.txt -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+#./gdrive upload -f hello.txt -p 0B9eFHCUtjP
 ## does not work
 
 #Test2
-#./gdrive upload hello.txt -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+#./gdrive upload hello.txt -p 0B9eFHCUtjP
 ## does work. remove the -f
 
 
