@@ -40,6 +40,10 @@ fi
 
 
 
+
+
+
+
 #### crontab ####
 #Use a time lapse calculator to determine the best shot interval 
 #for your desired video keeping in mind that Pi photos are 2.5-3MB each.  
