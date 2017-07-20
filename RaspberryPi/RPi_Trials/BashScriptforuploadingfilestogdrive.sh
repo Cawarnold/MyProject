@@ -20,4 +20,4 @@ sudo chmod a+x gdrive
 ./gdrive list
 
 # copy the id
-0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+0B9eFHCUtj
