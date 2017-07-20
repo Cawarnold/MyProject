@@ -41,16 +41,6 @@ else
   mv /tmp/$DATE.jpg /home/pi/Pictures/$DATE.jpg
 fi
 
-DATE=$(date +"%Y-%m-%dT%H%M%S")
-raspistill -vf -hf -o /tmp/$DATE.jpg
-/home/pi/gdrive upload /tmp/$DATE.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
-if [ $? -eq 0 ]
-then 
-  rm /tmp/$DATE.jpg
-else 
-  mv /tmp/$DATE.jpg /home/pi/Pictures/$DATE.jpg
-fi
-
 echo ----
 duration=$(( SECONDS - start ))
 
