@@ -24,9 +24,9 @@ fi
 
 #### Vid Script ####
 
-raspivid -t 5000 -vf -hf -o /tmp/VID_$DATE.h264
-MP4Box -add /tmp/VID_$DATE.h264 /tmp/VID_$DATE.mp4
-/home/pi/gdrive upload /tmp/VID_$DATE.mp4 -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+#raspivid -t 5000 -vf -hf -o /tmp/VID_$DATE.h264
+#MP4Box -add /tmp/VID_$DATE.h264 /tmp/VID_$DATE.mp4
+#/home/pi/gdrive upload /tmp/VID_$DATE.mp4 -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
 
 
 
