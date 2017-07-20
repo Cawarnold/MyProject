@@ -24,9 +24,9 @@ fi
 
 #### Vid Script ####
 
-raspivid -t 5000 -vf -hf -o /tmp/VID_$DATE.h264
-MP4Box -add /tmp/VID_$DATE.h264 /tmp/VID_$DATE.mp4
-/home/pi/gdrive upload /tmp/VID_$DATE.mp4 -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+#raspivid -t 5000 -vf -hf -o /tmp/VID_$DATE.h264
+#MP4Box -add /tmp/VID_$DATE.h264 /tmp/VID_$DATE.mp4
+#/home/pi/gdrive upload /tmp/VID_$DATE.mp4 -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
 
 
 
@@ -70,12 +70,25 @@ MP4Box -add /tmp/VID_$DATE.h264 /tmp/VID_$DATE.mp4
 #  pi camera docs
 # https://www.raspberrypi.org/documentation/raspbian/applications/camera.md
 
+#python documentation
+#http://picamera.readthedocs.io/en/release-1.12/index.html
+
 # to connect to gdrive
 # http://kylehase.blogspot.co.uk/2015/10/simple-raspberry-pi-interval-camera.html
+# http://olivermarshall.net/how-to-upload-a-file-to-google-drive-from-the-command-line/
 
 # to create vid
 # https://www.linux.com/learn/give-your-raspberry-pi-night-vision-pinoir-camera
 
 # from h264 to mp4
 # http://raspi.tv/2013/another-way-to-convert-raspberry-pi-camera-h264-output-to-mp4
+
+# gdrive rpi download
+# https://github.com/prasmussen/gdrive
+
+# night vision with ir cut
+# http://www.waveshare.com/wiki/RPi_IR-CUT_Camera
+
+# trying to get night vision
+# https://www.raspberrypi.org/forums/viewtopic.php?f=43&t=186006
 
