@@ -11,7 +11,7 @@
 #### Original Pic Script ####
 DATE=$(date +"%Y-%m-%dT%H%M%S")
 raspistill -vf -hf -o /tmp/$DATE.jpg
-/home/pi/gdrive upload /tmp/$DATE.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+/home/pi/gdrive upload /tmp/$DATE.jpg -p 0B9eFHCUtj
 if [ $? -eq 0 ]
 then 
   rm /tmp/$DATE.jpg
@@ -19,7 +19,7 @@ else
   mv /tmp/$DATE.jpg /home/pi/Pictures/$DATE.jpg
 fi
 
-#/home/pi/gdrive upload -f /home/pi/image.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+#/home/pi/gdrive upload -f /home/pi/image.jpg -p 0B9eFHCUtj
 
 
 #### Vid Script ####
@@ -27,9 +27,6 @@ fi
 #raspivid -t 5000 -vf -hf -o /tmp/VID_$DATE.h264
 #MP4Box -add /tmp/VID_$DATE.h264 /tmp/VID_$DATE.mp4
 #/home/pi/gdrive upload /tmp/VID_$DATE.mp4 -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
-
-
-
 
 
 
@@ -53,11 +50,11 @@ fi
 
 #### gdrive testing ####
 #Test1
-#./gdrive upload -f hello.txt -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+#./gdrive upload -f hello.txt -p 0B9eFHCUtjP
 ## does not work
 
 #Test2
-#./gdrive upload hello.txt -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
+#./gdrive upload hello.txt -p 0B9eFHCUtjP
 ## does work. remove the -f
 
 
@@ -67,10 +64,28 @@ fi
 # to take pi 
 # https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspistill.md
 
+#  pi camera docs
+# https://www.raspberrypi.org/documentation/raspbian/applications/camera.md
+
+#python documentation
+#http://picamera.readthedocs.io/en/release-1.12/index.html
+
 # to connect to gdrive
 # http://kylehase.blogspot.co.uk/2015/10/simple-raspberry-pi-interval-camera.html
+# http://olivermarshall.net/how-to-upload-a-file-to-google-drive-from-the-command-line/
 
 # to create vid
 # https://www.linux.com/learn/give-your-raspberry-pi-night-vision-pinoir-camera
 
+# from h264 to mp4
+# http://raspi.tv/2013/another-way-to-convert-raspberry-pi-camera-h264-output-to-mp4
+
+# gdrive rpi download
+# https://github.com/prasmussen/gdrive
+
+# night vision with ir cut
+# http://www.waveshare.com/wiki/RPi_IR-CUT_Camera
+
+# trying to get night vision
+# https://www.raspberrypi.org/forums/viewtopic.php?f=43&t=186006
 
