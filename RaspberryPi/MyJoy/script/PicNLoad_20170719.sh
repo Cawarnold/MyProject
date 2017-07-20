@@ -13,7 +13,7 @@ start=$SECONDS
 #### Original Pic Script ####
 DATE=$(date +"%Y-%m-%dT%H%M%S")
 raspistill -vf -hf -o /tmp/$DATE.jpg
-/home/pi/gdrive upload /tmp/$DATE.jpg -p 0B9eFHCUtj
+/home/pi/gdrive upload /tmp/$DATE.jpg -p 0B9eFHCUtjPEbWjFJdzNpRW10Tlk
 if [ $? -eq 0 ]
 then 
   rm /tmp/$DATE.jpg
