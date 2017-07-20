@@ -8,6 +8,8 @@
 #so that it can be manually downloaded.
 
 
+start=$SECONDS
+
 #### Original Pic Script ####
 DATE=$(date +"%Y-%m-%dT%H%M%S")
 raspistill -vf -hf -o /tmp/$DATE.jpg
@@ -20,7 +22,10 @@ else
 fi
 
 
+echo ----
+duration=$(( SECONDS - start ))
 
+echo Script took $duration seconds to run
 
 
 # time lapse
@@ -56,6 +61,7 @@ fi
 ## every minute between 7am and 8pm
 #* 7-20 * * * /home/pi/timelapse.sh >/dev/null 2>&1
 #* 7-20 * * * /home/pi/Github/MyProject/RaspberryPi/RPi_Trials/BashShootandUploadScript_CA20170701.sh >/dev/null 2>&1
+#* 7-20 * * * /home/pi/Github/MyProject/RaspberryPi/MyJoy/scripts/PicNLoad_20170719.sh > /home/pi/Github/MyProject/RaspberryPi/MyJoy/scripts/PicNLoad_20170719.log 2>&1
 
 
 

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+#### OLD -- 20170718 replaced by MyJoy folder ####
+
+
 #### Shoot and Upload Script ####
 #The script will take a photo to the temp ramdrive, 
 #upload it to the specified folder 
@@ -52,7 +56,7 @@ fi
 ## every minute between 7am and 8pm
 #* 7-20 * * * /home/pi/timelapse.sh >/dev/null 2>&1
 #* 7-20 * * * /home/pi/Github/MyProject/RaspberryPi/RPi_Trials/BashShootandUploadScript_CA20170701.sh >/dev/null 2>&1
-
+#* 7-20 * * * /home/pi/Github/MyProject/RaspberryPi/MyJoy/scripts/PicNLoad_20170719.sh > /home/pi/Github/MyProject/RaspberryPi/MyJoy/scripts/PicNLoad_20170719.log 2>&1
 
 
 
