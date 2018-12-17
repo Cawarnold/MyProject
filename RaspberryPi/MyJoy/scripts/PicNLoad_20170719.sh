@@ -82,6 +82,8 @@ echo Script took $duration seconds to run
 #* 7-20 * * * /home/pi/Github/MyProject/RaspberryPi/RPi_Trials/BashShootandUploadScript_CA20170701.sh >/dev/null 2>&1
 #* 7-20 * * * /home/pi/Github/MyProject/RaspberryPi/MyJoy/scripts/PicNLoad_20170719.sh > /home/pi/Github/MyProject/RaspberryPi/MyJoy/scripts/PicNLoad_20170719.log 2>&1
 
+## since the change in 2012 - every minute of every day
+#* * * * * /home/pi/Documents/MyJoy/scripts/PicNLoad_20181217.sh > /home/pi/Documents/MyJoy/scripts/PicNLoad_20181217.log 2>&1
 
 
 
